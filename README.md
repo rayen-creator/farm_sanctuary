@@ -38,7 +38,28 @@ This is the official Farm Sanctuary web app documentation <br/>
 </details>
 
 ## 📃 About The Project
-Kadem is an academic project build for student to help them explore professtionnel life finding new oppurtunty as intern or as employee as well the project isn't finish yet and it can evolve even more , we build it using nodejs express for authentification with jwt , springboot as backend and angular as frontend-framework using mysql as database 
+FarmSanctaury is a sustainable farming web application that aims to provide farmers with a platform to adopt sustainable farming practices and increase the overall sustainability of agriculture. The application will offer features such as:
+
+- Advanced authentication: using facial recognition to match the identity of  the user both farmers and client
+
+- Crop selection and planning: AI model to help make decisions for you on what crop to grow and which seed to plant based on soil type, weather conditions and available resources.
+
+- Building a community: blog and forum ,exchange messages , badge system  , best rated article , most active user , stars to each article.
+
+- Farmers' market: offer farmers increased profit over selling to wholesalers, food processors, or large grocery firms. By selling directly to consumers, produce often needs less transport, less handling, less refrigeration and less time in storage.
+
+- Scheduling:  Task Management: A system for creating, managing, and tracking tasks, including assigning tasks to specific team members and setting due dates.
+
+- Calendar View: A visual calendar interface that displays all tasks and activities, allowing farmers to easily see what needs to be done and when.
+
+- Notifications: A system for sending reminders and notifications to farmers, reminding them of upcoming tasks or important deadlines.
+
+- Tips and tricks: Information on sustainable farming techniques and resources for implementing them.
+
+- Data analysis and reporting: Information and resources to measure the impact of sustainable farming practices on the environment, economy, and community.
+
+The goal of the web application is to promote sustainable agriculture, reduce waste and environmental impact, and provide farmers with the tools and resources they need to succeed in their farming operations.
+
 
 
 
