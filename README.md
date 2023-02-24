@@ -6,7 +6,7 @@
  
   
   <p align="center">
-  <img src="https://user-images.githubusercontent.com/57809239/221207130-48888987-0e17-4e94-9000-cc62cbf0fd9c.png" alt="logo" width="33%" height="330px" />
+  <img src="https://user-images.githubusercontent.com/57809239/221207130-48888987-0e17-4e94-9000-cc62cbf0fd9c.png" alt="logo" width="34%" height="330px" />
 
 This is the official Farm Sanctuary web app documentation <br/>
   </p>
