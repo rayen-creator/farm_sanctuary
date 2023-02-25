@@ -81,15 +81,16 @@ The goal of the web application is to promote sustainable agriculture, reduce wa
  <a href="https://angular.io/" title="Angular">
    <img src="https://github.com/get-icon/geticon/raw/master/icons/angular-icon.svg" alt="Angular" width="150" height="150">
   </a>
-
-	
+<a href="https://graphql.org/">
+<img src="https://github.com/devicons/devicon/blob/master/icons/graphql/graphql-plain.svg" alt="graphql" width="150" height="150" />
+</a>
   <a href="https://nodejs.org/en/">
     <img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original-wordmark.svg" title="NodeJS" alt="NodeJS" width="150" height="150"/>
  </a>
   <a href="http://expressjs.com/">
     <img src="https://github.com/devicons/devicon/blob/master/icons/express/express-original-wordmark.svg" title="ExpressJS" alt="ExpressJS" width="150" height="150"/>
     </a>
-      <a href="http://expressjs.com/">
+      <a href="https://www.mongodb.com/">
     <img src="https://github.com/devicons/devicon/blob/master/icons/mongodb/mongodb-original.svg" title="Mongodb" alt="Mongodb" width="150" height="150"/>
     </a>
     
