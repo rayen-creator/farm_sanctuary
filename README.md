@@ -10,5 +10,5 @@ this branch contain frontOffice template it offer some useful UI design all you 
  Download template 
 
 ```bash
-$ git clone --branch https://github.com/rayen-creator/farm_sanctuary
+$ git clone --branch template https://github.com/rayen-creator/farm_sanctuary
 ```
