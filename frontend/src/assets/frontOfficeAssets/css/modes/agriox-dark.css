@@ -1,0 +1,496 @@
+/* dark mode css */
+body {
+	background-color: #334b35;
+	color: #b3c5b5;
+}
+
+.services-details,
+.preloader,
+.main-header--one__top {
+	background-color: #2d442f;
+}
+
+.services-one__bg,
+.services-one--has-top-bg::before,
+.cta-two__inner,
+.features-one__single-title,
+.services-one__single-img,
+.services-one__single-content,
+.testimonials-one__single,
+.blog-one__bg,
+.services-one__single-img-icon,
+.about-two__img-box::before,
+.blog-two::before,
+.cta-one__boxed__inner::before,
+.blog-two__carousel__custom-nav .left-btn,
+.blog-two__carousel__custom-nav .right-btn,
+.blog-two__carousel.owl-theme .owl-nav .owl-next,
+.subscribe-form input[type="email"],
+.blog-two__carousel.owl-theme .owl-nav .owl-prev,
+.blog-one__single:hover .blog-one__single-content:not(.blog-details),
+.main-header--one__top-left .social-link {
+	background-color: #263c28;
+}
+
+.main-header--one__top-right ul li .icon i::before {
+	color: #6d8c54;
+}
+
+.main-menu .main-menu__list>li>a,
+.stricky-header .main-menu__list>li>a,
+.main-header--one__bottom-right .contact-box .text p,
+.main-header--one__top-left .text p,
+.main-header--one__top-right ul li .text p,
+.main-header--one__top-right ul li .text p a,
+.main-header-three__social a,
+.checkout-page__returning,
+.team-details__text p,
+.main-header-three .main-menu .main-menu__list>li>a,
+.main-header--one__top-left .social-link ul li a {
+	color: #b3c5b5;
+}
+
+.logo .dark-logo {
+	display: none;
+}
+
+.logo .light-logo {
+	display: block;
+}
+
+.stricky-header,
+.error-page__search .search-form input[type="text"],
+.faq-one__accordions .accrodion .accrodion-title,
+.main-header--one__bottom {
+	background-color: #334b35;
+}
+
+.main-menu .main-menu__list>li.current>a,
+.main-menu .main-menu__list>li:hover>a,
+.features-one__single-title h3 a,
+.services-one__single-content h3 a,
+.blog-one__single-content h2 a,
+.cta-three__box__item__title,
+.main-header-three .main-header--one__bottom-right .search-cart a,
+.blog-two__carousel__custom-nav .left-btn,
+.blog-two__carousel__custom-nav .right-btn,
+.blog-two__carousel.owl-theme .owl-nav .owl-next,
+.blog-two__carousel.owl-theme .owl-nav .owl-prev,
+.services-details__sidebar-single-services .title h3,
+.subscribe-form input[type="email"],
+.subscribe-form ::placeholder,
+.proceed-to-checkout__cupon input[type=text],
+.proceed-to-checkout__cupon ::placeholder,
+.stricky-header .main-menu__list>li.current>a,
+.shop-one__sidebar__item__title,
+.product-review__item__title,
+.checkout__title,
+.team-details__name,
+.team-details__designation,
+.error-page__search .search-form button,
+.error-page__search .search-form button i,
+.stricky-header .main-menu__list>li:hover>a {
+	color: #fff;
+}
+
+.subscribe-form ::placeholder {
+	opacity: 1;
+}
+
+
+.main-menu .main-menu__list li ul,
+.contact-page__social-link ul li a,
+.faq-one--faq,
+.faq-one::before,
+.error-page,
+.services-details__sidebar-single-services,
+.checkout-page .comment-one__form .field-checkbox label::before,
+.stricky-header .main-menu__list li ul {
+	background-color: #263c28;
+}
+
+.error-page__big-title h2 {
+	text-shadow: 10px 15px 1px rgba(255, 255, 255, .1);
+}
+
+.cta-three__image__caption {
+	color: #263c28;
+}
+
+.main-menu .main-menu__list li ul li+li,
+.stricky-header .main-menu__list li ul li+li {
+	border: none;
+}
+
+.main-menu .main-menu__list li ul li a,
+.contact-one__text,
+.contact-one__form .comment-form__input-box input[type="text"],
+.contact-one__form .comment-form__input-box textarea,
+.contact-one__form .comment-form__input-box input[type="email"],
+.comment-form__input-box input[type="text"],
+.comment-form__input-box input[type="email"],
+.comment-form__input-box ::placeholder,
+.comment-form__input-box textarea,
+.contact-one__form .comment-form__input-box ::placeholder,
+.about-two__progress .count-text,
+.blog-one__single-content .meta-info li a,
+.features-four__text,
+.services-details__sidebar-single-services ul li a,
+.shop-one__price,
+.contact-page__social-link ul li a,
+.faq-one__accordions .accrodion .accrodion-title h4,
+.main-header-three__upper__contact p,
+.product-content p,
+.product-review__item__text,
+.checkout-page .comment-one__form .field-checkbox label,
+.contact-page__contact-info-list ul li .title span,
+.stricky-header .main-menu__list li ul li a {
+	color: #b3c5b5;
+}
+
+.about-one__content-list li .text p,
+.about-one__content-video-box-title h3,
+.contact-one__lists li,
+.about-two__progress-title,
+.meet-farmers-one__single-title h2 a,
+.main-header-three__upper__contact a,
+.about-two__content-box-list-single ul li .text p,
+.features-four__title,
+.shop-one__title,
+.contact-page__contact-info-list ul li .title p,
+.contact-page__contact-info-list ul li .title p a,
+.projects-details__text-box1 h2,
+.product-details__content__social__text,
+.product-content__title,
+.contact-page__contact-info-title h2,
+.projects-details__text-box2 h2,
+.error-page__content h2,
+.error-page__search .search-form ::placeholder,
+.shop-one__product-sorter,
+.comment-one__form select,
+.error-page__search .search-form input[type="text"],
+.projects-details__text-box2-list ul li .text p,
+.contact-page__contact-info-list ul li:hover .icon,
+.main-header--one__bottom-right .contact-box .text a,
+.main-header--one__bottom-right .search-cart a {
+	color: #fff;
+}
+
+.comment-one__form select,
+.shop-one__product-sorter {
+	background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><path fill="rgb(255,255,255)" d="M540.1 776.847l472.32-473.63c15.466-15.518 15.44-40.642-0.080-56.134-15.518-15.48-40.656-15.44-56.134 0.080l-444.208 445.438-444.206-445.454c-15.48-15.518-40.602-15.558-56.122-0.080-7.78 7.766-11.67 17.94-11.67 28.114 0 10.148 3.864 20.282 11.59 28.034l472.308 473.632c7.436 7.474 17.556 11.668 28.1 11.668s20.652-4.206 28.102-11.668z"></path></svg>');
+}
+
+.cta-three__box__item::after,
+.main-header--one__bottom-right .contact-box::before {
+	background-color: #fff;
+	opacity: 0.1;
+}
+
+.services-one,
+.features-one,
+.blog-one,
+.projects-details,
+.contact-page,
+.about-two,
+.meet-farmers-one,
+.about-three,
+.projects-one,
+.news-sidebar,
+.faq-contact-box,
+.blog-two,
+.contact-page__contact-info,
+.blog-two__left,
+.about-one {
+	background-color: #334b35;
+}
+
+.contact-one__form .comment-form__input-box input[type="text"],
+.story-one__shape,
+.story-one__counters-box-single,
+.main-header-three__upper,
+.thm-btn:hover:before,
+.meet-farmers-one__single:hover .meet-farmers-one__single-title,
+.contact-one__form .comment-form__input-box textarea,
+.contact-one__form .comment-form__input-box input[type="email"],
+.shop-one__product-sorter,
+.comment-one__form select,
+.comment-form__input-box textarea,
+.comment-form__input-box input[type="text"],
+.comment-form__input-box input[type="email"],
+.comment-form__input-box ::placeholder,
+.proceed-to-checkout__cupon input[type=text],
+.features-four__inner,
+.contact-page__contact-info-wrapper,
+.projects-details__information,
+.product-details__content__buttons .wishlist-btn,
+.proceed-to-checkout__checkout-btn,
+.about-one__left::before {
+	background-color: #263c28;
+}
+
+.about-four__shape,
+.about-one__bg {
+	opacity: 0.1;
+}
+
+.about-two__author h2 span,
+.features-three__list li p,
+.about-four__text,
+.sidebar__tag-list li a,
+.projects-details__information ul li p a,
+.shop-one__product-count,
+.product-details__content__text p,
+.news-sidebar__left .blog-one__single-content .meta-info li a,
+.news-sidebar__left .blog-one__single:hover .blog-one__single-content .meta-info li a,
+.story-one__counters-box-single .story-one__counters-box-single-text,
+.proceed-to-checkout__list li,
+.checkout__payment__content,
+.checkout__table tbody td,
+.sec-title__tagline {
+	color: #b3c5b5;
+}
+
+.about-two__author h2,
+.about-four__list li,
+.main-menu-three .main-header--one__bottom-right .search-cart a,
+.features-three__list li h3,
+.faq-one__accordions .accrodion.active .accrodion-title h4,
+.faq-one__accordions .accrodion.active .accrodion-title h4::before,
+.story-one__counters-box-single h3,
+.about-three__products-list ul li h3,
+.services-details__sidebar-single-services ul li a:hover,
+.services-details__content-icon,
+.projects-details__information ul li h5,
+.projects-details__pagination ul li .previous p a,
+.projects-details__pagination ul li .next p a,
+.projects-details__pagination ul li .previous p a span::before,
+.projects-details__pagination ul li .next p a span::before,
+.services-details__content-title,
+.services-details__content-text3 .text-box ul li .text p,
+.about-three__products-list ul li h3 a,
+.news-sidebar__agriculture-matters h2 a,
+.news-sidebar__left .blog-one__single-content h2,
+.news-sidebar__left .blog-one__single-content:hover h2,
+.shop-one__sidebar__price .form-group p,
+.shop-one__sidebar__category__list li a,
+.shop-one__sidebar__category__list li::after,
+.sidebar__single .title h2,
+.product-details__content__name,
+.product-details__content__rating__count,
+.product-details__content__quantity__text,
+.cart-table th,
+.checkout__payment__title,
+.cart-table__item__title,
+.product-details__content__quantity .quantity-box .sub,
+.product-details__content__quantity .quantity-box .add,
+.product-details__content__quantity .quantity-box input[type=number],
+.sidebar__latest-posts-list-item .title h4 a,
+.cart-table .quantity-box input[type=number],
+.cart-table .quantity-box .sub,
+.cart-table .quantity-box .add,
+.sec-title__title {
+	color: #fff;
+}
+
+.shop-one__sidebar__category__list li:hover a,
+.about-one__content-title {
+	color: #f1cf69;
+}
+
+.services-one--has-top-bg::before,
+.services-one__bg {
+	background-image: url(../../images/update-20-12-2021/dark/service-bg-1-1.png);
+}
+
+.blog-one__bg {
+	background-image: url(../../images/update-20-12-2021/dark/blog-bg-1-1.png);
+}
+
+.services-one__single:hover {
+	border: none;
+}
+
+.cta-two__shape::before,
+.about-two__img-box__shape::before,
+.faq-one__dark .faq-one__shape::before,
+.about-four__image::before,
+.cta-three__shape-1,
+.about-three__shape::before,
+.company-logos-one--gray,
+.shop-one__sidebar__price .noUi-connect,
+.shop-one__sidebar__price .noUi-handle,
+.services-details__sidebar-single-services ul li a::before,
+.faq-one__dark .faq-one__shape::after,
+.testimonials-one::before {
+	background-color: #2d442f;
+}
+
+.owl-carousel .owl-nav button.owl-next,
+.owl-carousel .owl-nav button.owl-prev {
+	border-color: #fff !important;
+	color: #fff !important;
+	opacity: 0.2;
+}
+
+.owl-carousel .owl-nav button.owl-next:hover,
+.owl-carousel .owl-nav button.owl-prev:hover {
+	opacity: 1;
+}
+
+.contact-one__form,
+.company-logos-one .swiper-slide:hover,
+.blog-one__shape::before,
+.about-two__progress .bar,
+.features-three__list li:hover,
+.faq-one__accordions .accrodion,
+.news-sidebar__agriculture-matters,
+.story-one__counters,
+.faq-one__accordions .accrodion.active .accrodion-title,
+.news-sidebar__blockquote,
+.sidebar__latest-posts,
+.sidebar__categories,
+.sidebar__single,
+.tag-social-link__tag-list ul li a,
+.news-details__pagenation-single,
+.blog-one__single .blog-one__single-content:not(.blog-details),
+.blog-one__single .blog-one__single-content:not(.blog-details) {
+	background-color: #2d442f;
+}
+
+.blog-one__shape::after,
+.sidebar__tag-list li a,
+.checkout__payment,
+.comment-form__btn:hover:before {
+	background-color: #263c28;
+}
+
+.projects-details__pagination,
+.features-four [class*=col-],
+.product-review__item,
+.product-details__content__text,
+.shop-one__sidebar__item:not(.shop-one__sidebar__search),
+.product-details__content__quantity .quantity-box,
+.cart-table .quantity-box,
+.cart-table .quantity-box .sub,
+.checkout__table thead,
+.cart-table .quantity-box .add,
+.checkout__table tbody,
+.company-logos-one {
+	border-color: rgba(255, 255, 255, .1);
+}
+
+.cta-one__right-btn .thm-btn:hover {
+	color: #263c28;
+}
+
+.main-header--one--two .main-header--one__bottom {
+	background-color: transparent;
+}
+
+.cart-table__close::after,
+.cart-table__close::before,
+.main-header--one--two .main-header--one__bottom-right .contact-box::before {
+	background-color: #fff;
+}
+
+.owl-carousel.owl-dot-type1 .owl-dots .owl-dot::before {
+	background-color: var(--agriox-base);
+}
+
+.about-two__bg {
+	opacity: 0.1;
+}
+
+.contact-page__contact-info-list ul li,
+.product-details__content__quantity .quantity-box .sub,
+.product-details__content__quantity .quantity-box .add,
+.cart-table tr,
+.about-two {
+	border-color: rgba(255, 255, 255, .1);
+}
+
+
+.blog-two__carousel__custom-nav .left-btn:hover,
+.blog-two__carousel__custom-nav .right-btn:hover,
+.blog-two__carousel.owl-theme .owl-nav .owl-next:hover,
+.blog-two__carousel.owl-theme .owl-nav .owl-prev:hover {
+	background-color: var(--agriox-base);
+	color: var(--agriox-primary);
+}
+
+.main-header-three {
+	border: none;
+}
+
+.faq-one__accordions--services-details.faq-one__accordions .accrodion.active .accrodion-title,
+.faq-one__accordions--services-details.faq-one__accordions .accrodion .accrodion-title,
+.services-details .faq-one__accordions .accrodion {
+	background-color: #263c28;
+}
+
+.checkout__table thead th,
+.faq-one__accordions--services-details.faq-one__accordions .accrodion .accrodion-title h4 {
+	color: #fff;
+}
+
+.faq-one__accordions .accrodion {
+	border: none;
+}
+
+.news-sidebar__left .blog-one__single .blog-one__single-content:not(.blog-details) {
+	background-color: transparent;
+}
+
+.news-sidebar__left .blog-one__single:hover .blog-one__single-content:not(.blog-details) .meta-info li a {
+	color: #b3c5b5;
+}
+
+
+.shop-one__sidebar__price .noUi-horizontal {
+	background-color: rgba(255, 255, 255, .5);
+}
+
+.sec-separator {
+	background-color: rgba(255, 255, 255, .1);
+}
+
+.comment-one__single,
+.tag-social-link {
+	border-color: rgba(255, 255, 255, .1);
+}
+
+.blog-one__single-content {
+	background-color: transparent;
+}
+
+.tag-social-link__tag-list ul li a,
+.news-details__pagenation-single h2,
+.news-details__pagenation-single h2 a,
+.comment-one__title,
+.proceed-to-checkout__list li span,
+.comment-form__title,
+.comment-one__content-text h3,
+.tag-social-link__tag .title h4,
+.product-details__content__quantity .quantity-box,
+.news-details__left .blog-one__single-content h2 {
+	color: #fff;
+}
+
+.main-header-three .logo .dark-logo {
+	display: none;
+}
+
+.main-header-three .logo .light-logo {
+	display: block;
+}
+
+@media (min-width: 1200px) {
+	.home-showcase__inner {
+		background-color: #263c28;
+	}
+}
+
+.home-showcase__title a {
+	color: #fff !important;
+}
