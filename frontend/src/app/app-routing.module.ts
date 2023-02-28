@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./components/frontoffice/frontoffice.module').then(m => m.FrontofficeModule) }, 
-  { path: 'backoffice', loadChildren: () => import('./components/backoffice/backoffice.module').then(m => m.BackofficeModule) }, 
+  { path: 'admin', loadChildren: () => import('./components/backoffice/backoffice.module').then(m => m.BackofficeModule) }, 
 ];
 
 @NgModule({

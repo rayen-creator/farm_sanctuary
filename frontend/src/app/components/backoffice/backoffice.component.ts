@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-backoffice',
   templateUrl: './backoffice.component.html',
-  styleUrls: ['./backoffice.component.css']
+  styleUrls: ['./backoffice.component.css'],
+  // encapsulation: ViewEncapsulation.ShadowDom
 })
 export class BackofficeComponent implements OnInit {
 
