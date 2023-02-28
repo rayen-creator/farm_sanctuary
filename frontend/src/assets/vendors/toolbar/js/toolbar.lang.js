@@ -1,9 +1,12 @@
 window.onload = function googleTranslateElementInit() {
   new google.translate.TranslateElement(
-    { pageLanguage: 'ES', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
+    {
+      pageLanguage: "ES",
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    },
     "google_translate_element"
   );
-}
+};
 
 function triggerHtmlEvent(element, eventName) {
   var event;
@@ -54,19 +57,19 @@ $(".language-feature button").on("click", function (e) {
   Cookies.set("logo-img", thmLogo, { expires: 365, path: "/" });
   Cookies.set("logo-img-footer", fLogo, {
     expires: 365,
-    path: "/"
+    path: "/",
   });
   Cookies.set("d-logo", dLogo, {
     expires: 365,
-    path: "/"
+    path: "/",
   });
   Cookies.set("favicon", favicon, {
     expires: 365,
-    path: "/"
+    path: "/",
   });
   Cookies.set("error-404", error404, {
     expires: 365,
-    path: "/"
+    path: "/",
   });
 
   location.reload();

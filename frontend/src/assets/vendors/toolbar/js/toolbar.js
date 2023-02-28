@@ -16,8 +16,8 @@
       fullPath: "assets/css/colors/",
       cookie: {
         expires: 999,
-        isManagingLoad: true
-      }
+        isManagingLoad: true,
+      },
     });
   }
 
@@ -25,11 +25,11 @@
     $("#colorMode").styleSwitcher({
       hasPreview: false,
       fullPath: "assets/css/modes/",
-      defaultThemeId: 'jssMode',
+      defaultThemeId: "jssMode",
       cookie: {
         expires: 999,
-        isManagingLoad: true
-      }
+        isManagingLoad: true,
+      },
     });
   }
 
@@ -39,5 +39,4 @@
       $(".style-switcher").toggleClass("active");
     });
   }
-
 })(jQuery);
