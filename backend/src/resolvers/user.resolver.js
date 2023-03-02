@@ -3,12 +3,12 @@ const userService = require('../services/user');
 const userResolver = {
   Query: {
     getUser: async (_, { id }) => await userService.getUser(id),
-    getUsers:  () =>  userService.getUsers(),
+    getUsers: async () => await userService.getUsers(),
   },
   Mutation: {
-    createUser:  (_, args) =>  userService.createUser(args),
-    updateUser:  (_, { id, name, email }) =>  userService.updateUser(id, name, email),
-    deleteUser:  (_, { id }) =>  userService.deleteUser(id),
+    createUser: async (_, args) => await  userService.createUser(args),
+    updateUser:  async (_, { id, name, email }) => await userService.updateUser(id, name, email),
+    deleteUser:  async (_, { id }) =>  await userService.deleteUser(id),
   },
 };
 
