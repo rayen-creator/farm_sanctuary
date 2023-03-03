@@ -1,4 +1,4 @@
-const  User  = require('../models/user');
+const User = require("../models/user");
 
 async function getUser(id) {
   return User.findById(id);
@@ -8,19 +8,32 @@ async function getUsers() {
   return User.find();
 }
 
-
 async function createUser(input) {
-  const user = await User.create(input);
-  return await user.save();
+  const user = new User({
+    username: input.username,
+    email: input.email,
+    password: input.password,
+    isActive: input.isActive,
+    role: input.role,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    isBlocked: false,
+  });
+  return await user.save(user);
 }
 
 async function updateUser(id, input) {
-  const user = await User.findById(id);
-  if (!user) {
-    return null;
-  }
-  await user.update(input);
-  return user;
+  const updatedUser = {
+    username: input.username,
+    password: input.password,
+    email: input.email,
+    isActive: input.isActive,
+    role: input.role,
+    isBlocked: false,
+    updatedAt: new Date(),
+  };
+
+  return await User.findByIdAndUpdate(id, updatedUser, { new: true });
 }
 
 async function deleteUser(id) {
@@ -28,8 +41,7 @@ async function deleteUser(id) {
   if (!user) {
     return null;
   }
-  await user.remove();
-  return user;
+  return await user.remove();
 }
 
 module.exports = {
