@@ -20,7 +20,13 @@ enum Role {
   isActive: Boolean!
   isBlocked: Boolean!
   role: Role!
+   image: Image
   }
+  
+  type Image {
+  url: String!
+  contentType: String!
+}
   
   input UserInput {
   username: String!
@@ -28,8 +34,13 @@ enum Role {
   password: String!
   isActive: Boolean!
   role: Role!
+  image: ImageInput
 }
 
+input ImageInput {
+  url: String!
+  contentType: String!
+}
 
 
   type Query {
@@ -41,6 +52,7 @@ enum Role {
     createUser(input: UserInput!): User!
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
+    toggleBlockUser(id: ID!): User!
   }
 `;
 

@@ -55,6 +55,17 @@ const userResolver = {
         throw new UserInputError(error.message);
       }
     },
+    toggleBlockUser: async (_, { id }) => {
+      try {
+        const user = await userService.toggleBlockUser(id);
+        if (!user) {
+          throw new UserInputError('User not found');
+        }
+        return user;
+      } catch (error) {
+        throw new UserInputError(error.message);
+      }
+    },
   },
 };
 

@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: roles,
   },
+  image: {
+    url: String,
+    contentType: String
+  }
 });
 
 const User = mongoose.model("Users", userSchema);
