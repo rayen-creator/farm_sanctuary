@@ -26,13 +26,13 @@ const userResolver = {
   },
 
   Mutation: {
-    async createUser(_, { input }) {
-      try {
-        return await userService.createUser(input);
-      } catch (error) {
-        throw new UserInputError(error.message);
-      }
-    },
+    // async createUser(_, { input }) {
+    //   try {
+    //     return await userService.createUser(input);
+    //   } catch (error) {
+    //     throw new UserInputError(error.message);
+    //   }
+    // },
     async updateUser(_, { id, input }) {
       try {
         const user = await userService.updateUser(id, input);
