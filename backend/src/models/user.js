@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
-const roles = ["farmer", "client", "admin"];
+const roles = Object.freeze({
+  FARMER: 'FARMER',
+  CLIENT: 'CLIENT',
+  ADMIN: 'ADMIN'
+});
 const userSchema = new mongoose.Schema({
   username: String,
   email: String,

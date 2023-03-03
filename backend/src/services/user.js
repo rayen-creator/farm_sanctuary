@@ -1,35 +1,36 @@
 const  User  = require('../models/user');
 
-const getUser = async (id) => {
-  const user = await User.findById(id);
-  if (!user) throw new Error(`User with ID ${id} not found`);
-  return user;
-};
+async function getUser(id) {
+  return User.findById(id);
+}
 
-const getUsers = async () => {
-  return await User.find();
-};
+async function getUsers() {
+  return User.find();
+}
 
-const createUser =  (args) => {
-  const user=new User({
-    name:args.name,
-    email:args.email
-  })
-  return user.save();
-};
 
-const updateUser = async (id, name, email) => {
-  const user = await getUser(id);
-  user.name = name || user.name;
-  user.email = email || user.email;
+async function createUser(input) {
+  const user = await User.create(input);
   return await user.save();
-};
+}
 
-const deleteUser = async (id) => {
-  const user = await getUser(id);
+async function updateUser(id, input) {
+  const user = await User.findById(id);
+  if (!user) {
+    return null;
+  }
+  await user.update(input);
+  return user;
+}
+
+async function deleteUser(id) {
+  const user = await User.findById(id);
+  if (!user) {
+    return null;
+  }
   await user.remove();
   return user;
-};
+}
 
 module.exports = {
   getUser,
