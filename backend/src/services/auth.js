@@ -21,9 +21,11 @@ async function signin(input) {
   const user = await User.findOne({
     email: input.email,
   });
+
   if (!user) {
     throw new Error("Invalid email or password");
   }
+
   const passwordIsValid = bcrypt.compareSync(input.password, user.password);
 
   if (!passwordIsValid) {

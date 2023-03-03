@@ -15,6 +15,7 @@ async function updateUser(id, input) {
     email: input.email,
     isActive: input.isActive,
     role: input.role,
+    image:input.image,
     isBlocked: false,
     updatedAt: new Date(),
   };
@@ -30,9 +31,21 @@ async function deleteUser(id) {
   return await user.remove();
 }
 
+async function toggleBlockUser(id) {
+  const user = await User.findById(id);
+  if (!user) {
+    throw new Error(`User with ID ${id} not found.`);
+  }
+  user.isBlocked = !user.isBlocked;
+  await user.save();
+  return user;
+}
+
+
 module.exports = {
   getUser,
   getUsers,
   updateUser,
   deleteUser,
+  toggleBlockUser
 };

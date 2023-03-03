@@ -18,6 +18,12 @@ const typeDefs = gql`
     isActive: Boolean!
     isBlocked: Boolean!
     role: Role!
+    image: Image
+  }
+
+  type Image {
+    url: String!
+    contentType: String!
   }
 
   input UserInput {
@@ -26,8 +32,13 @@ const typeDefs = gql`
     password: String!
     isActive: Boolean!
     role: Role!
+    image: ImageInput
   }
 
+  input ImageInput {
+    url: String!
+    contentType: String!
+  }
   input signinInput {
     email: String!
     password: String!
@@ -49,6 +60,7 @@ const typeDefs = gql`
 
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
+    toggleBlockUser(id: ID!): User!
   }
 `;
 
