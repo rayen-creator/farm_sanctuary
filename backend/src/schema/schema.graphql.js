@@ -41,11 +41,35 @@ input ImageInput {
   url: String!
   contentType: String!
 }
-
+type deliveryAgent {
+  id: ID!
+  login: String!
+  password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  longitude: String!
+  latitude: String!
+}
+input deliveryAgentInput {
+    login: String!
+    password: String!
+}
+input UpdateUserInput {
+    id: ID!
+    login: String!
+    password: String!
+  }
+input AgentLocationInput {
+    id: ID!
+    longitude: String!
+    latitude: String!
+}
 
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
+    getdeliveryAgent(id: ID!): deliveryAgent!
+    getdeliveryAgents: [deliveryAgent!]! 
   }
 
   type Mutation {
@@ -53,6 +77,10 @@ input ImageInput {
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
+    createdeliveryAgent(input: deliveryAgentInput!): deliveryAgent!
+    updatedeliveryAgent(input: UpdateUserInput!): deliveryAgent!
+    updateLocation( input: AgentLocationInput!): deliveryAgent!
+    deletedeliveryAgent(id: ID!): deliveryAgent!
   }
 `;
 
