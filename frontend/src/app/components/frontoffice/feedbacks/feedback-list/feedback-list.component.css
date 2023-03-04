@@ -1,97 +1,70 @@
-.users-table {
-    margin: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  thead th {
-    background-color: #34B982;
-    color: #fff;
-    font-weight: bold;
-    text-align: left;
-    padding: 10px;
-  }
-  
-  tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  td {
-    padding: 10px;
-  }
-  
-  tbody tr:hover {
-    background-color: #e6e6e6;
-  }
-  
-  td:nth-child(1) {
-    width: 5%;
-  }
-  
-  td:nth-child(2) {
-    width: 15%;
-  }
-  
-  td:nth-child(3) {
-    width: 10%;
-  }
-  
-  td:nth-child(4) {
-    width: 20%;
-  }
-  
-  td:nth-child(5) {
-    width: 15%;
-  }
-  
-  td:nth-child(6) {
-    width: 15%;
-  }
-  
-  td:nth-child(7) {
-    width: 5%;
-    text-align: center;
-  }
-  
-  td:nth-child(8) {
-    width: 5%;
-    text-align: center;
-  }
-  
-  td:nth-child(9) {
-    width: 10%;
-  }
-  
-  td:nth-child(10) {
-    width: 10%;
-  }
-  
-  img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  .block-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 2px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
+.form-group {
+  margin-bottom: 10px;
+}
 
-  
-  .unblock-btn:hover {
-    background-color: #388e3c;
-  }
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+select option:first-child {
+  color: green;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.rating {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  color: #aaa;
+  text-shadow: 1px 1px #fff;
+}
+
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input:checked ~ label {
+  color: #FFD700;
+  text-shadow: 1px 1px #fff;
+}
+
+.rating label:hover:before,
+.rating label:hover ~ label:before,
+.rating input:checked ~ label:before {
+  content: "\2605";
+  position: absolute;
+}

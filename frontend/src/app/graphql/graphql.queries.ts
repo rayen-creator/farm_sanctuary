@@ -10,6 +10,9 @@ query{
 
     }
     }
-`;
+
+`
+
+;
 
 export {feedbacks}
