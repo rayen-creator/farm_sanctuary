@@ -10,7 +10,7 @@ const typeDefs = require("./src/schema/schema.graphql");
 const mongodbconnection = require("./src/db/index");
 //all resolvers
 const authResolver = require("./src/resolvers/auth.resolver");
-const userResolver=require("./src/resolvers/user.resolver");
+const userResolver = require("./src/resolvers/user.resolver");
 //log for http requests
 app.use(morgan("dev"));
 
@@ -19,14 +19,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
+
 const server = new ApolloServer({
   typeDefs,
-  resolvers: [
-    userResolver,
-    authResolver
-  ],
-  debug: true, // enable debug mode
+  resolvers: [userResolver, authResolver],
+  
 });
+
 async function startApolloServer() {
   await server.start();
   server.applyMiddleware({ app });
