@@ -2,6 +2,7 @@ const User = require("../models/user");
 const { AuthenticationError } = require("apollo-server-express");
 const jsonwebtoken = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const sendEmail = require("./sendEmail");
 
 async function signup(input) {
   const user = new User({
@@ -10,7 +11,7 @@ async function signup(input) {
     password: bcrypt.hashSync(input.password, 8),
     isActive: input.isActive,
     role: input.role,
-    image:input.image,
+    image: input.image,
     createdAt: new Date(),
     updatedAt: new Date(),
     isBlocked: false,
@@ -28,7 +29,6 @@ async function signin(input) {
     // const error = new Error('Invalid email or password');
     // error.extensions = { statusCode: 404 };
     // throw error;
-
   }
 
   const passwordIsValid = bcrypt.compareSync(input.password, user.password);
@@ -51,7 +51,31 @@ async function signin(input) {
   };
 }
 
+async function restpwd(input) {
+  try {
+    // const mail=await sendEmail(input.email, input.subject, input.text);
+    const mail=await sendEmail(input.email, input.subject);
+
+    if(!mail.mailStatus){
+      return ({
+        message:mail.message,
+        mailstatus:mail.mailStatus,
+
+      });
+    }else{
+      return ({
+        message:mail.message,
+        mailstatus:mail.mailStatus,
+
+      });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 module.exports = {
   signin,
   signup,
+  restpwd
 };

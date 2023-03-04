@@ -12,7 +12,8 @@ const authResolver = {
         return await authService.signup(input);
       } catch (error) {
         console.error(err);
-        throw new Error("Failed to create user");      }
+        throw new Error("Failed to create user");
+      }
     },
 
     async signin(_, { input }) {
@@ -21,6 +22,9 @@ const authResolver = {
       } catch (error) {
         throw new UserInputError(error.message);
       }
+    },
+    async resetpwd(_, { input }) {
+      return await authService.restpwd(input);
     },
   },
 };

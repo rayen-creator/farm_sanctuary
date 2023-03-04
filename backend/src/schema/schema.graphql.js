@@ -49,6 +49,14 @@ const typeDefs = gql`
     message: String!
     expiresIn: Int!
   }
+  type ForgetpwdResponse{
+    message:String!
+    mailstatus:Boolean!
+  }
+  input ForgetpwdInput{
+    email: String!
+    subject:String!
+  }
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -57,6 +65,7 @@ const typeDefs = gql`
   type Mutation {
     signup(input: UserInput!): User!
     signin(input: signinInput!): LoginResponse!
+    resetpwd(input:ForgetpwdInput!):ForgetpwdResponse!
 
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
