@@ -10,6 +10,7 @@ async function signup(input) {
     password: bcrypt.hashSync(input.password, 8),
     isActive: input.isActive,
     role: input.role,
+    image:input.image,
     createdAt: new Date(),
     updatedAt: new Date(),
     isBlocked: false,
@@ -24,6 +25,10 @@ async function signin(input) {
 
   if (!user) {
     throw new Error("Invalid email or password");
+    // const error = new Error('Invalid email or password');
+    // error.extensions = { statusCode: 404 };
+    // throw error;
+
   }
 
   const passwordIsValid = bcrypt.compareSync(input.password, user.password);
