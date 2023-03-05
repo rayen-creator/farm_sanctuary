@@ -1,70 +1,45 @@
-.form-group {
-  margin-bottom: 10px;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
 }
 
 label {
-  display: block;
+  margin: 10px 0;
   font-weight: bold;
+  font-size: 18px;
 }
 
-input[type="text"],
-textarea,
-select {
-  width: 100%;
+input[type="text"], textarea {
+  width: 400px;
   padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-top: 5px;
+  margin-bottom: 20px;
 }
 
-select option:first-child {
-  color: green;
+select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  width: 400px;
 }
 
-button[type="submit"] {
-  background-color: #4CAF50;
+button {
+  background-color: #34B982;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-button[type="submit"]:hover {
-  background-color: #45a049;
-}
-
-.rating {
-  display: inline-block;
-  position: relative;
-  vertical-align: middle;
-}
-
-.rating input {
-  display: none;
-}
-
-.rating label {
-  display: inline-block;
-  cursor: pointer;
-  position: relative;
-  width: 20px;
-  height: 20px;
-  color: #aaa;
-  text-shadow: 1px 1px #fff;
-}
-
-.rating label:hover,
-.rating label:hover ~ label,
-.rating input:checked ~ label {
-  color: #FFD700;
-  text-shadow: 1px 1px #fff;
-}
-
-.rating label:hover:before,
-.rating label:hover ~ label:before,
-.rating input:checked ~ label:before {
-  content: "\2605";
-  position: absolute;
+button:hover {
+  background-color: #3e8e41;
 }

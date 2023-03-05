@@ -1,40 +1,36 @@
-<form>
-  <h1>Add a feedback</h1>
-  <br>
-  <div class="form-group">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" required>
-  </div>
-  
-  <div class="form-group">
-    <label for="content">Subject:</label>
-    <textarea id="content" name="content" required></textarea>
-  </div>
+<!DOCTYPE html>
+<html>
+<head>
 
-  <div class="form-group">
-    <label for="content">Content:</label>
-    <textarea id="content" name="content" required></textarea>
-  </div>
-  
-  <div class="form-group">
-    <label for="subject">Category:</label>
+</head>
+<body>
+ 
+	<form>
+    <h1>Add Feedback</h1>
+		<label for="title">Title:</label>
+		<input type="text" id="title" name="title" required>
+
+    <label for="title">Subject:</label>
+		<input type="text" id="title" name="title" required>
+
+    <label for="category">Category:</label>
     <select id="subject" name="subject" required>
-      <option value="">-- Select a Category --</option>
-      <option value="business">TECHNICAL</option>
-      <option value="education">NON_TECHNICAL</option>
+      <option value="">-- Select a subject --</option>
+      <option value="TECHNICAL">TECHNICAL</option>
+      <option value="NON_TECHNICAL">NON_TECHNICAL</option>
     </select>
-  </div>
-  
-  <div class="form-group">
-    <label for="rating">Rating:</label>
-    <div class="rating">
-      <input type="radio" id="star5" name="rating" value="5" required><label for="star5"></label>
-      <input type="radio" id="star4" name="rating" value="4"><label for="star4"></label>
-      <input type="radio" id="star3" name="rating" value="3"><label for="star3"></label>
-      <input type="radio" id="star2" name="rating" value="2"><label for="star2"></label>
-      <input type="radio" id="star1" name="rating" value="1"><label for="star1"></label>
-    </div>
-  </div>
-  
-  <button type="submit">Submit</button>
-</form>
+
+		
+		<label for="content">Content:</label>
+		<textarea id="content" name="content" rows="5" required></textarea>
+		
+		
+		
+		<button type="submit">Submit</button>
+	</form>
+  <div class="popup">
+    <img src="../../../../../assets/images/icon/about-3-arrow-1-1.png">
+    <p>You're Feedback has been successfully submitted , Thanks !</p>
+  </div> 
+</body>
+</html>
