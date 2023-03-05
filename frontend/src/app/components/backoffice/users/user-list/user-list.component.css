@@ -2,7 +2,22 @@
   margin: 20px;
   font-family: Arial, sans-serif;
 }
+.users-table {
+  max-width: 100%; /* Set the maximum width of the container to 100% */
+  overflow-x: auto; /* Add horizontal scrolling for overflowed content */
+}
 
+.users-table table {
+  width: 100%; /* Set the table width to 100% */
+  border-collapse: collapse; /* Combine table borders where they meet */
+}
+
+.users-table th,
+.users-table td {
+  padding: 8px; /* Add padding to table cells */
+  text-align: left; /* Align table cell text to the left */
+  border: 1px solid #ddd; /* Add borders to table cells */
+}
 table {
   border-collapse: collapse;
   width: 100%;
@@ -76,28 +91,36 @@ img {
   object-fit: cover;
   border-radius: 50%;
 }
-.block-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 5px 10px;
+
+.users-table img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+.block-btn i {
+  font-size: 1.5rem;
+  margin-right: 1rem; /* Add 1rem of right margin */
+  color: #ff0000;
+}
+.delete-btn i {
+  font-size: 1.5rem;
+  margin-right: 1rem; /* Add 1rem of right margin */
+  color: #d34905;
+  /* Other icon styling properties */
+}
+.table-title {
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 2px;
-  cursor: pointer;
-  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
-.unblock-btn {
-  background-color: #4CAF50;
-}
-
-.block-btn:hover {
-  background-color: #d32f2f;
-}
-
-.unblock-btn:hover {
-  background-color: #388e3c;
+.table-title h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
 }
