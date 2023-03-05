@@ -1,4 +1,4 @@
-import { FeedbackListComponent } from './feedbacks/feedback-list/feedback-list.component';
+import { FeedbackListComponent } from './feedbacks/feedback-form/feedback-form';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FrontofficeComponent } from './frontoffice.component';

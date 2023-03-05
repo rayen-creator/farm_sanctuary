@@ -5,10 +5,10 @@ import {Apollo, gql} from "apollo-angular";
 import {Feedback} from "../../../../core/models/feedback";
 @Component({
   selector: 'app-feedback-list',
-  templateUrl: './feedback-list.component.html',
-  styleUrls: ['./feedback-list.component.css']
+  templateUrl: './feedback-form.html',
+  styleUrls: ['./feedback-form.css']
 })
-export class FeedbackListComponent implements OnInit {
+export class FeedbackFormComponent implements OnInit {
   feedbackList: Feedback[];
     constructor(private apollo: Apollo) { }
   

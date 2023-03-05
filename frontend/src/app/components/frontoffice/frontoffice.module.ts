@@ -4,7 +4,7 @@ import { FrontofficeRoutingModule } from './frontoffice-routing.module';
 import { FrontofficeComponent } from './frontoffice.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { FeedbackListComponent } from './feedbacks/feedback-list/feedback-list.component';
+import { FeedbackFormComponent } from './feedbacks/feedback-form/feedback-form';
 
 
 
@@ -13,7 +13,7 @@ import { FeedbackListComponent } from './feedbacks/feedback-list/feedback-list.c
     FrontofficeComponent,
     HeaderComponent,
     FooterComponent,
-    FeedbackListComponent
+    FeedbackFormComponent
   
   ],
   imports: [
