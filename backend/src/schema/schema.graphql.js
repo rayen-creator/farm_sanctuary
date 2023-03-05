@@ -10,7 +10,7 @@ enum Role {
 }
 
 
-  type User {
+type User {
   id: ID!
   username: String!
   email: String!
@@ -20,15 +20,15 @@ enum Role {
   isActive: Boolean!
   isBlocked: Boolean!
   role: Role!
-   image: Image
-  }
+  image: Image
+}
   
-  type Image {
+type Image {
   url: String!
   contentType: String!
 }
   
-  input UserInput {
+input UserInput {
   username: String!
   email: String!
   password: String!
@@ -54,6 +54,10 @@ type loginDriverResponse {
   login:String!
   message:String!
 }
+input loginDriverInput {
+    login: String!
+    password: String!
+  }
 input deliveryAgentInput {
     login: String!
     password: String!
@@ -63,35 +67,29 @@ input UpdateUserInput {
     login: String!
     password: String!
   }
-input loginDriverInput {
-    login: String!
-    password: String!
-  }
 input AgentLocationInput {
     id: ID!
     longitude: String!
     latitude: String!
 }
-
-  type Query {
+type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
     getdeliveryAgent(id: ID!): deliveryAgent!
-    getdeliveryAgents: [deliveryAgent!]! 
-  }
+    getdeliveryAgents: [deliveryAgent!]!
+}
 
-  type Mutation {
+type Mutation {
     createUser(input: UserInput!): User!
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
-
-    loginDriver(input: loginDriverInput!):loginDriverResponse!
     createdeliveryAgent(input: deliveryAgentInput!): deliveryAgent!
     updatedeliveryAgent(input: UpdateUserInput!): deliveryAgent!
-    updateLocation(input: AgentLocationInput!): deliveryAgent!
+    updateLocation( input: AgentLocationInput!): deliveryAgent!
     deletedeliveryAgent(id: ID!): deliveryAgent!
-  }
+    loginDriver(input: loginDriverInput!):loginDriverResponse!
+}
 `;
 
 module.exports = typeDefs;

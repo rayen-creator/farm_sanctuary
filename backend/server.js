@@ -7,6 +7,7 @@ require("dotenv").config();
 const typeDefs=require('./src/schema/schema.graphql')
 const mongodbconnection = require("./src/db/index");
 const userResolver = require("./src/resolvers/user.resolver");
+const agentResolver = require("./src/resolvers/deliveryAgent.resolver");
 
 app.use(morgan("dev"));
 
@@ -20,7 +21,8 @@ app.use(bodyParser.json());
 const server = new ApolloServer({
   typeDefs,
   resolvers: [
-    userResolver
+    userResolver,
+    agentResolver
 ],
 });
 async function startApolloServer() {
