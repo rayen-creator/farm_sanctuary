@@ -1,4 +1,29 @@
 const Agent = require("../models/deliveryAgent");
+const bcrypt = require("bcryptjs");
+
+async function loginDriver(input) {
+  const agent = await Agent.findOne({
+    login: input.login,
+  });
+
+  if (!agent) {
+    throw new Error("Invalid email or password");
+  }
+
+  const passwordIsValid = bcrypt.compareSync(input.password, agent.password);
+
+  if (!passwordIsValid) {
+    throw new AuthenticationError("Unauthorized", {
+      accessToken: null,
+      message: "Auth failed ! Invalid Password!",
+    });
+  }
+  return {
+   
+    login: user.login,
+    message: "OK",
+  };
+}
 
 async function getdeliveryAgent(id) {
   return Agent.findById({ _id: id });
@@ -11,7 +36,7 @@ async function getdeliveryAgents() {
 async function createdeliveryAgent(input) {
   const agent = new Agent({
     login: input.login,
-    password: input.password,
+    password: bcrypt.hashSync(input.password, 8),
     createdAt: new Date(),
     updatedAt: new Date(),
   });
@@ -22,7 +47,7 @@ async function updatedeliveryAgent(input) {
   const id = input.id
   const updatedAgent = {
     login: input.login,
-    password: input.password,
+    password: bcrypt.hashSync(input.password, 8),
     updatedAt: new Date(),
   };
 
@@ -57,5 +82,6 @@ module.exports = {
   createdeliveryAgent,
   updatedeliveryAgent,
   deletedeliveryAgent,
-  updateLocation
+  updateLocation,
+  loginDriver
 };

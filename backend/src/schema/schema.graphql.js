@@ -50,12 +50,20 @@ type deliveryAgent {
   longitude: String!
   latitude: String!
 }
+type loginDriverResponse {
+  login:String!
+  message:String!
+}
 input deliveryAgentInput {
     login: String!
     password: String!
 }
 input UpdateUserInput {
     id: ID!
+    login: String!
+    password: String!
+  }
+input loginDriverInput {
     login: String!
     password: String!
   }
@@ -77,9 +85,11 @@ input AgentLocationInput {
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
+
+    loginDriver(input: loginDriverInput!):loginDriverResponse!
     createdeliveryAgent(input: deliveryAgentInput!): deliveryAgent!
     updatedeliveryAgent(input: UpdateUserInput!): deliveryAgent!
-    updateLocation( input: AgentLocationInput!): deliveryAgent!
+    updateLocation(input: AgentLocationInput!): deliveryAgent!
     deletedeliveryAgent(id: ID!): deliveryAgent!
   }
 `;

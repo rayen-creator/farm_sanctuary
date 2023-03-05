@@ -26,6 +26,14 @@ const agentResolver = {
   },
 
   Mutation: {
+    async loginDriver(_, { input }) {
+      try {
+        return await agentService.loginDriver(input);
+      } catch (error) {
+        throw new AgentInputError(error.message);
+      }
+    },
+
     async createdeliveryAgent(_, { input }) {
       try {
         return await agentService.createdeliveryAgent(input);
