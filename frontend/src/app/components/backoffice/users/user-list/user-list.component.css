@@ -36,7 +36,10 @@ tbody tr:nth-child(even) {
 }
 
 td {
-  padding: 10px;
+  max-width: 200px; /* adjust this value to the width of your table cell */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 tbody tr:hover {
@@ -107,7 +110,7 @@ img {
 .delete-btn i {
   font-size: 1.5rem;
   margin-right: 1rem; /* Add 1rem of right margin */
-  color: #d34905;
+  color: #000000;
   /* Other icon styling properties */
 }
 .table-title {
@@ -123,4 +126,34 @@ img {
   letter-spacing: 2px;
   border-bottom: 2px solid #ccc;
   padding-bottom: 10px;
+}
+.pagination {
+  margin-top: 20px;
+}
+
+.pagination .page-item > .page-link {
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.pagination .page-item.active > .page-link {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #fff;
+}
+
+.pagination .page-item.disabled > .page-link {
+  color: #ccc;
+  cursor: not-allowed;
+}
+.pagination-wrapper {
+  text-align: center;
+}
+.ellipsis {
+  max-width: 400px; /* adjust this value to the width of your table cell */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
