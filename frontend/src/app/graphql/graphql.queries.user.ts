@@ -2,6 +2,7 @@ import { gql } from "apollo-angular";
 const users = gql`
 {
 getUsers{
+id,
     username,
     email,
     createdAt,
@@ -17,4 +18,24 @@ getUsers{
     }
 `;
 
-export {users}
+
+
+const toggleBlock = gql`
+  mutation toggleBlockUser($id: ID!){
+    toggleBlockUser(id: $id) {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      isActive
+      isBlocked
+      role
+      image {
+        url
+        contentType
+      }
+    }
+  }
+`;
+export {users, toggleBlock}
