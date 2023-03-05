@@ -38,4 +38,23 @@ const toggleBlock = gql`
     }
   }
 `;
-export {users, toggleBlock}
+
+const deleteUser = gql`
+  mutation deleteUser($id: ID!) {
+    deleteUser(id: $id) {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      isActive
+      isBlocked
+      role
+      image {
+        url
+        contentType
+      }
+    }
+  }
+`;
+export {users, toggleBlock, deleteUser}
