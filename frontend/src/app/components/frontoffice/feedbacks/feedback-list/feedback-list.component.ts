@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import {feedbacks} from "../../../../graphql/graphql.queries";
+import {feedbacks} from "../../../../core/graphql/graphql.queries";
 import {Apollo, gql} from "apollo-angular";
 import {Feedback} from "../../../../core/models/feedback";
 @Component({
