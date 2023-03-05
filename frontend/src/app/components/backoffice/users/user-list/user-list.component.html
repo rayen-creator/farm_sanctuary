@@ -22,14 +22,14 @@
         <tr>
           <td class="ellipsis">{{u.username}}</td>
           <td class="ellipsis">{{u.email}}</td>
-          <td class="ellipsis">{{datePipe.transform(u.createdAt, 'yyyy/MM/dd') }}</td>
-          <td class="ellipsis">{{datePipe.transform(u.updatedAt, 'yyyy/MM/dd') }}</td>
+          <td class="ellipsis">{{datePipe.transform(u.createdAt, 'medium') }}</td>
+          <td class="ellipsis">{{datePipe.transform(u.updatedAt, 'medium') }}</td>
           <td class="ellipsis">{{u.isActive}}</td>
           <td class="ellipsis">{{u.isBlocked}}</td>
           <td class="ellipsis">{{u.role}}</td>
           <td class="ellipsis"><img [src]="u.image.url" alt="User Image"></td>
           <td>
-            <button class="block-btn">
+            <button class="block-btn" (click)="toggleBlockUser(u.id)">
               <i class="fas fa-ban"></i> <!-- Font Awesome block icon -->
             </button>
             <button class="delete-btn">

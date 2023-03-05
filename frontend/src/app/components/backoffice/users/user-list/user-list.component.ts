@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {users} from "../../../../graphql/graphql.queries.user";
+import {toggleBlock, users} from "../../../../graphql/graphql.queries.user";
 import {Apollo, gql} from "apollo-angular";
 import {User} from "../../../../core/models/user";
 import {DatePipe} from "@angular/common";
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -21,22 +21,7 @@ export class UserListComponent implements OnInit {
   constructor(private apollo: Apollo, public datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.apollo
-      .watchQuery({
-        query: users
-      }).valueChanges.subscribe({
-      next: (result: any) => {
-        this.userList = result.data.getUsers as User[];
-        console.log(this.userList)
-        this.totalPages = Math.ceil(this.userList.length / this.pageSize);
-        this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-        this.setPage(1);
-      },
-      error: (err) => {
-        console.log("err :" + err)
-
-      }
-    })
+    this.loadUsers();
   }
 
   setPage(page: number): void {
@@ -59,6 +44,62 @@ export class UserListComponent implements OnInit {
     this.pagedItems = this.visibleUserList.slice(startIndex, endIndex);
   }
 
+  loadUsers() {
+    this.apollo
+      .watchQuery({
+        query: users,
+      })
+      .valueChanges.subscribe({
+      next: (result: any) => {
+        this.userList = result.data.getUsers as User[];
+        console.log(this.userList);
+        this.totalPages = Math.ceil(this.userList.length / this.pageSize);
+        this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+        this.setPage(1);
+      },
+      error: (err) => {
+        console.log("err :" + err);
+      },
+    });
+  }
 
+  toggleBlockUser(id: String) {
+    Swal.fire({
+      title: 'Are you sure you want to block/unblock this user?',
+      text: 'This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, block/unblock',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.apollo
+          .mutate({
+            mutation: toggleBlock,
+            variables: { id },
+          })
+          .subscribe({
+            next: (result: any) => {
+              const updatedUser = result.data.toggleBlockUser as User;
+              this.userList = this.userList.map((user) => {
+                if (user.id === updatedUser.id) {
+                  return updatedUser;
+                }
+                return user;
+              });
+              if (updatedUser.isBlocked) {
+                Swal.fire('Blocked', 'User has been blocked successfully.', 'success');
+              } else {
+                Swal.fire('Unblocked', 'User has been unblocked successfully.', 'success');
+              }
+            },
+            error: (err) => {
+              console.log('err :' + err);
+            },
+          });
+      }
+    });
+  }
 
 }
