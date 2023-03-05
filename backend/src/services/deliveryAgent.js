@@ -1,9 +1,12 @@
 const Agent = require("../models/deliveryAgent");
 const bcrypt = require("bcryptjs");
-//const { AuthenticationError } = require("apollo-server-express");
+
 
 async function loginDriver(input) {
-  const agent = await Agent.findOne({ login: input.login});
+  const agent = await Agent.findOne({
+    login: input.login,
+  });
+
   if (!agent) {
     throw new Error("Invalid email or password");
   }
@@ -11,11 +14,14 @@ async function loginDriver(input) {
   const passwordIsValid = bcrypt.compareSync(input.password, agent.password);
 
   if (!passwordIsValid) {
-    throw new Error("Unauthorized,Auth failed ! Invalid Password!");
+    throw new AuthenticationError("Unauthorized", {
+      message: "Auth failed ! Invalid Password!",
+    });
   }
   return {
+
     login: agent.login,
-    message: "OK"
+    message: "OK",
   };
 }
 async function getdeliveryAgent(id) {
