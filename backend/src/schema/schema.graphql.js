@@ -10,6 +10,39 @@ enum Role {
 }
 
 
+  enum Category {
+    TECHNICAL
+    NON_TECHNICAL
+  }
+  enum Rating {
+    GOOD
+    AVERAGE
+    BAD
+  }
+
+  type Feedback {
+    id: ID!
+    title: String!
+    subject: String!
+    content: String!
+    category:Category!
+    rating:Rating!
+  }
+
+
+  input FeedbackInput {
+    title: String!
+    subject: String!
+    content: String!
+    rating: Rating!
+    category: Category!
+  }
+  
+
+  
+
+  
+  
   type User {
   id: ID!
   username: String!
@@ -46,6 +79,9 @@ input ImageInput {
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
+    
+    getFeedback(id: ID!): Feedback!
+    getFeedbacks: [Feedback!]!
   }
 
   type Mutation {
@@ -53,6 +89,10 @@ input ImageInput {
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
+
+    createFeedback(input: FeedbackInput!): Feedback!
+    updateFeedback(id: ID!, input: FeedbackInput!): Feedback!
+    deleteFeedback(id: ID!): Feedback!
   }
 `;
 

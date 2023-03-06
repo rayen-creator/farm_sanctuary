@@ -4,17 +4,21 @@ import { BackofficeRoutingModule } from './backoffice-routing.module';
 import { BackofficeComponent } from './backoffice.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { ClockComponent } from './shared/clock/clock.component';
+import { FeedbackListComponent } from './Feedbacks/feedback-list/feedback-list.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     BackofficeComponent,
     SidebarComponent,
-    ClockComponent    
+    ClockComponent,
+    FeedbackListComponent
   ],
   imports: [
     CommonModule,
-    BackofficeRoutingModule
+    BackofficeRoutingModule,
+    FormsModule
   ]
 })
 export class BackofficeModule { }
