@@ -13,15 +13,20 @@ import Swal from 'sweetalert2'
 export class UserListComponent implements OnInit {
   userList: User[];
   pagedItems: User[];
+  filteredItems: User[] = [];
   pageSize = 5;
   currentPage = 1;
   totalPages: number;
   pages: number[];
   visibleUserList: User[];
+
+  searchText = '';
   constructor(private apollo: Apollo, public datePipe: DatePipe) { }
 
   ngOnInit(): void {
+
     this.loadUsers();
+
   }
 
   setPage(page: number): void {
@@ -42,6 +47,7 @@ export class UserListComponent implements OnInit {
     }
 
     this.pagedItems = this.visibleUserList.slice(startIndex, endIndex);
+    this.filteredItems = this.pagedItems;
   }
 
   loadUsers() {
@@ -78,12 +84,16 @@ export class UserListComponent implements OnInit {
           .mutate({
             mutation: toggleBlock,
             variables: { id },
+            refetchQueries: [{
+          query: users
+        }]
           })
           .subscribe({
             next: (result: any) => {
               const updatedUser = result.data.toggleBlockUser as User;
               this.userList = this.userList.map((user) => {
                 if (user.id === updatedUser.id) {
+                  console.log(this.visibleUserList);
                   return updatedUser;
                 }
                 return user;
@@ -93,6 +103,7 @@ export class UserListComponent implements OnInit {
               } else {
                 Swal.fire('Unblocked', 'User has been unblocked successfully.', 'success');
               }
+
             },
             error: (err) => {
               console.log('err :' + err);
@@ -101,7 +112,9 @@ export class UserListComponent implements OnInit {
       }
     });
   }
-  deleteUser(id: String) {
+
+
+  deleteUser(id: String,index:number) {
     Swal.fire({
       title: 'Are you sure you want to delete this user?',
       text: 'This action cannot be undone.',
@@ -116,14 +129,16 @@ export class UserListComponent implements OnInit {
           .mutate({
             mutation: deleteUser,
             variables: { id },
+            refetchQueries: [{
+              query: users
+            }]
           })
           .subscribe({
             next: (result: any) => {
               const deletedUser = result.data.deleteUser as User;
-              this.userList = this.userList.filter((user) => user.id !== deletedUser.id);
-              this.visibleUserList = this.visibleUserList.filter((user) => user.id !== deletedUser.id);
 
-              // Update total pages based on filtered user list
+
+              // Update total pages based on new visibleUserList length
               this.totalPages = Math.ceil(this.visibleUserList.length / this.pageSize);
               this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
 
@@ -132,7 +147,7 @@ export class UserListComponent implements OnInit {
                 this.currentPage = this.totalPages;
               }
 
-              // Update paged items based on new current page and filtered user list
+              // Update filteredItems to display new visibleUserList
               const startIndex = (this.currentPage - 1) * this.pageSize;
               let endIndex = startIndex + this.pageSize;
 
@@ -141,9 +156,14 @@ export class UserListComponent implements OnInit {
                 endIndex = this.visibleUserList.length;
               }
 
-              this.pagedItems = this.visibleUserList.slice(startIndex, endIndex);
+              this.filteredItems = this.visibleUserList.slice(startIndex, endIndex);
 
               Swal.fire('Deleted', 'User has been deleted successfully.', 'success');
+
+
+
+              // Remove deleted user from filteredItems array
+              // this.filteredItems = this.filteredItems.filter((user) => user.id !== deletedUser.id);
             },
             error: (err) => {
               console.log('err :' + err);
@@ -153,4 +173,16 @@ export class UserListComponent implements OnInit {
     });
   }
 
+
+
+  onSearch(): void {
+    const query = this.searchText.trim().toLowerCase();
+    if (query) {
+      this.filteredItems = this.visibleUserList.filter(user =>
+        user.username.toLowerCase().includes(query) || user.email.toLowerCase().includes(query)
+      );
+    } else {
+      this.filteredItems = this.pagedItems;
+    }
+  }
 }
