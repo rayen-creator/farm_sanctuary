@@ -5,7 +5,7 @@ import { BackofficeComponent } from './backoffice.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { ClockComponent } from './shared/clock/clock.component';
 import { DeliveryAgentComponent } from './delivery-agent/delivery-agent.component';
-
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import { DeliveryAgentComponent } from './delivery-agent/delivery-agent.componen
   ],
   imports: [
     CommonModule,
-    BackofficeRoutingModule
+    BackofficeRoutingModule,
+    FormsModule,
   ]
 })
 export class BackofficeModule { }

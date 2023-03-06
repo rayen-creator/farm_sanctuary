@@ -1,14 +1,57 @@
 import { gql } from "apollo-angular";
-const deliveryAgents  = gql`
-{
+const Agents  = gql`
+{ 
 getdeliveryAgents{
+    id,
     login,
+    phone,
+    email,
     longitude,
     latitude,
     createdAt,
-    updatedAt
+    updatedAt,
+    image {
+         url
+      contentType
+    }
     }
     }
 `;
-
-export {deliveryAgents}
+const getdeliveryAgent  = gql`
+  query getdeliveryAgent($id: ID!) 
+{ 
+  getdeliveryAgent(id: $id) {
+    id,
+    login,
+    phone,
+    email,
+    longitude,
+    latitude,
+    createdAt,
+    updatedAt,
+    image {
+         url
+      contentType
+    }
+    }
+    }
+`;
+const deletedeliveryAgent = gql`
+  mutation deletedeliveryAgent($id: ID!) {
+    deletedeliveryAgent(id: $id) {
+      id
+     login
+     phone,
+     email,
+     longitude,
+     latitude,
+     createdAt,
+     updatedAt,
+      image {
+        url
+        contentType
+      }
+    }
+  }
+`;
+export {Agents,deletedeliveryAgent}

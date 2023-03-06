@@ -36,6 +36,9 @@ async function createdeliveryAgent(input) {
   const agent = new Agent({
     login: input.login,
     password: bcrypt.hashSync(input.password, 8),
+    email: input.email,
+    phone: input.phone,
+    image: input.image,
     createdAt: new Date(),
     updatedAt: new Date(),
   });
@@ -47,6 +50,9 @@ async function updatedeliveryAgent(input) {
   const updatedAgent = {
     login: input.login,
     password: bcrypt.hashSync(input.password, 8),
+    email: input.email,
+    phone: input.phone,
+    image: input.image,
     updatedAt: new Date(),
   };
 

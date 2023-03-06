@@ -2,26 +2,22 @@ const mongoose = require("mongoose");
 
 const deliveryAgentSchema = new mongoose.Schema(
   {
-    login: {
-      type: String,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    longitude: {
-      type: String,
+    login: String,
+    email: String,
+    password: String,
+    phone: Number,
+    longitude: String,
+    latitude: String,
+    image: {
+      url: String,
+      contentType: String
+    }
     
-    },
-    latitude: {
-      type: String,
     
-    },
 
   },
   { timestamps: true }
 );
-const User = mongoose.model("deliveryAgents", deliveryAgentSchema);
+const Agent = mongoose.model("deliveryAgents", deliveryAgentSchema);
 
-module.exports = User;
+module.exports = Agent;

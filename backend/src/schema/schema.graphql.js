@@ -44,7 +44,10 @@ input ImageInput {
 type deliveryAgent {
   id: ID!
   login: String!
+  email: String!
   password: String!
+  phone: Int!
+  image: Image
   createdAt: DateTime!
   updatedAt: DateTime!
   longitude: String!
@@ -61,12 +64,10 @@ input loginDriverInput {
 input deliveryAgentInput {
     login: String!
     password: String!
+    email: String!
+    phone: Int!
+    image: ImageInput!
 }
-input UpdateUserInput {
-    id: ID!
-    login: String!
-    password: String!
-  }
 input AgentLocationInput {
     id: ID!
     longitude: String!
@@ -85,7 +86,7 @@ type Mutation {
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
     createdeliveryAgent(input: deliveryAgentInput!): deliveryAgent!
-    updatedeliveryAgent(input: UpdateUserInput!): deliveryAgent!
+    updatedeliveryAgent(input: deliveryAgentInput!): deliveryAgent!
     updateLocation( input: AgentLocationInput!): deliveryAgent!
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!):loginDriverResponse!
