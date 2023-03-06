@@ -9,19 +9,19 @@ import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 
 const routes: Routes = [
-  { path: '', component: FrontofficeComponent , children :[
-    {path : '',redirectTo:'home',pathMatch:'full'},
-    {path: 'home', component: HomeComponent},
-    {path: 'login', component: LoginComponent},
-    {path:'register', component:RegisterComponent},
-    {path:'forgetpassword', component:ResetpwdComponent},
-    {path:'resetpassword', component:UpdatepwdComponent},
+  {
+    path: '', component: FrontofficeComponent, children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'forgetpassword', component: ResetpwdComponent },
+      { path: 'resetpassword', component: UpdatepwdComponent },
 
-    {path:'**',component:NotfoundComponent}
-  ]
+    ]
 
-},
- 
+  },
+
 ];
 
 @NgModule({
