@@ -2,12 +2,18 @@ const User = require("../models/user");
 const { AuthenticationError } = require("apollo-server-express");
 const jsonwebtoken = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const sendEmail = require("./sendEmail");
+
+const fs = require("fs");
+const { promisify } = require("util");
+const readFile = promisify(fs.readFile);
+
+const sendEmail = require("./utils/sendEmail");
 
 async function signup(input) {
   const user = new User({
     username: input.username,
     email: input.email,
+    phone: input.phone,
     password: bcrypt.hashSync(input.password, 8),
     isActive: input.isActive,
     role: input.role,
@@ -53,22 +59,20 @@ async function signin(input) {
 
 async function restpwd(input) {
   try {
+    const html = await readFile("src/view/restpwd/index.html", "utf8");
     // const mail=await sendEmail(input.email, input.subject, input.text);
-    const mail=await sendEmail(input.email, input.subject);
+    const mail = await sendEmail(input.email, input.subject, html);
 
-    if(!mail.mailStatus){
-      return ({
-        message:mail.message,
-        mailstatus:mail.mailStatus,
-
-      });
-    }else{
-      return ({
-        message:mail.message,
-        mailstatus:mail.mailStatus,
-
-      });
+    if (!mail.mailStatus) {
+      return {
+        message: mail.message,
+        mailstatus: mail.mailStatus,
+      };
     }
+    return {
+      message: mail.message,
+      mailstatus: mail.mailStatus,
+    };
   } catch (error) {
     throw new Error(error);
   }
@@ -77,5 +81,5 @@ async function restpwd(input) {
 module.exports = {
   signin,
   signup,
-  restpwd
+  restpwd,
 };

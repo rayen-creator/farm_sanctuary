@@ -1,16 +1,13 @@
 const nodemailer = require("nodemailer");
 const inlineBase64 = require("nodemailer-plugin-inline-base64");
-const fs = require("fs");
-const { promisify } = require("util");
-const readFile = promisify(fs.readFile);
+// const fs = require("fs");
+// const { promisify } = require("util");
+// const readFile = promisify(fs.readFile);
 
-const sendEmail = async (email, subject) => {
+const sendEmail = async (email, subject,html) => {
   try {
     const transporter = nodemailer.createTransport({
-      // host: process.env.HOST,
       service: process.env.SERVICE,
-      // port: 587,
-      // secure: true,
       auth: {
         user: process.env.USER,
         pass: process.env.PASS,
@@ -19,14 +16,12 @@ const sendEmail = async (email, subject) => {
     // Add the inlineBase64 plugin to the transport object
     transporter.use("compile", inlineBase64());
 
-
     await transporter.sendMail({
       from: process.env.USER,
       to: email,
       subject: subject,
       // text: text,
-      html: await readFile("src/view/restpwd/index.html", "utf8"),
-  
+      html: html,
     });
 
     return {
