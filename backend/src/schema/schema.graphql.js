@@ -12,6 +12,7 @@ const typeDefs = gql`
     id: ID!
     username: String!
     email: String!
+    phone:Int!
     password: String!
     createdAt: DateTime!
     updatedAt: DateTime!
@@ -29,6 +30,7 @@ const typeDefs = gql`
   input UserInput {
     username: String!
     email: String!
+    phone:Int!
     password: String!
     isActive: Boolean!
     role: Role!
