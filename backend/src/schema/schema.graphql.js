@@ -14,7 +14,7 @@ enum Role {
   id: ID!
   username: String!
   email: String!
-  phone: Number!
+  phone: Int!
   password: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -32,6 +32,7 @@ enum Role {
   input UserInput {
   username: String!
   email: String!
+  phone: Int!
   password: String!
   isActive: Boolean!
   role: Role!

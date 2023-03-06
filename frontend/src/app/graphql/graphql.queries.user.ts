@@ -5,6 +5,7 @@ getUsers{
 id,
     username,
     email,
+    phone,
     createdAt,
     updatedAt,
     isActive,
