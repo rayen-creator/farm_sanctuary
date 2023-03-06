@@ -11,6 +11,7 @@
     <tr>
       <th>Username</th>
       <th>Email</th>
+      <th>Phone</th>
       <th>Created At</th>
       <th>Updated At</th>
       <th>Active</th>
@@ -26,6 +27,7 @@
         <tr>
           <td class="ellipsis">{{u.username}}</td>
           <td class="ellipsis">{{u.email}}</td>
+          <td class="ellipsis">{{u.phone}}</td>
           <td class="ellipsis">{{datePipe.transform(u.createdAt, 'medium') }}</td>
           <td class="ellipsis">{{datePipe.transform(u.updatedAt, 'medium') }}</td>
           <td class="ellipsis">{{u.isActive}}</td>

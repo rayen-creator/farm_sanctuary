@@ -3,6 +3,7 @@ import { roles } from "./role";
 export type User = {
     'id': String;
     'username': String
+  'phone': Number
     'email': String
     'password': String
     'isActive': Boolean
