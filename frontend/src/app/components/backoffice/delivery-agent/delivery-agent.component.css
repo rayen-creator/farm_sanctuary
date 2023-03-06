@@ -347,42 +347,23 @@ h3,
     background-color: #f8f9fe;
 }
 
-.table-dark,
-.table-dark > th,
-.table-dark > td {
-    background-color: #c1c2c3;
-}
 
-.table .thead-dark th {
-    color: #f8f9fe;
-    border-color: #1f3a68;
-    background-color: #172b4d;
-}
 
 .table .thead-light th {
     font-size: 0.9rem;
-    color: #8898aa;
+    color: #6d8c54;
     border-color: #e9ecef;
     background-color: #f6f9fc;
 }
 
-.table-dark {
-    color: #f8f9fe;
-    background-color: #172b4d;
-}
 
-.table-dark th,
-.table-dark td,
-.table-dark thead th {
-    border-color: #1f3a68;
-}
+
+
 
 .table-responsive {
-    display: block;
-    overflow-x: auto;
+    
     width: 100%;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border-collapse: collapse;
 }
 
 .btn {
@@ -406,6 +387,11 @@ h3,
 @media screen and (prefers-reduced-motion: reduce) {
     .btn {
         transition: none;
+    }
+}
+@media screen and (max-width: 600px) {
+    th, td {
+      font-size: 12px;
     }
 }
 
@@ -612,8 +598,8 @@ a.btn.disabled {
 .page-item.active .page-link {
     z-index: 1;
     color: #fff;
-    border-color: #5e72e4;
-    background-color: #5e72e4;
+    border-color: #6d8c54;
+    background-color: #6d8c54 ;
 }
 
 .page-item.disabled .page-link {
@@ -629,7 +615,6 @@ a.btn.disabled {
     font-weight: 600;
     line-height: 1;
     display: inline-block;
-    padding: 1rem;
     text-align: center;
     vertical-align: baseline;
     white-space: nowrap;
@@ -834,7 +819,7 @@ a.btn.disabled {
 
 .bg-success {
     background-color: #2dce89 !important;
-    padding: 1rem;
+    padding: 4.rem;
 }
 
 a.bg-success:hover,
@@ -845,7 +830,7 @@ button.bg-success:focus {
 }
 
 .bg-info {
-    background-color: #0d9bb4 !important;
+    background-color: #6d8c54 !important;
     padding: 0.3rem;
 }
 
@@ -853,7 +838,7 @@ a.bg-info:hover,
 a.bg-info:focus,
 button.bg-info:hover,
 button.bg-info:focus {
-    background-color: #0da5c0 !important;
+    background-color: #6d8c54 !important;
 }
 
 .bg-warning {
@@ -1055,11 +1040,15 @@ a.text-white:focus {
     }
 
     .table {
+        
         border-collapse: collapse !important;
     }
 
     .table td,
   .table th {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
         background-color: #fff !important;
     }
 
@@ -1455,13 +1444,10 @@ a.btn-icon-only {
     vertical-align: middle;
 }
 
-.table .thead-dark th {
-    color: #4d7bca;
-    background-color: #1c345d;
-}
+
 
 .table .thead-light th {
-    color: #8898aa;
+    color: #6d8c54;
     background-color: #f6f9fc;
 }
 

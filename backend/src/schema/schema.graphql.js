@@ -50,8 +50,8 @@ type deliveryAgent {
   image: Image
   createdAt: DateTime!
   updatedAt: DateTime!
-  longitude: String!
-  latitude: String!
+  longitude: String
+  latitude: String
 }
 type loginDriverResponse {
   login:String!

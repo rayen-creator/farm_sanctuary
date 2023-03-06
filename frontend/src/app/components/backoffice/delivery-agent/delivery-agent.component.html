@@ -14,11 +14,11 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Other Information</th>
-                    <th scope="col">Action</th>
+                    <th style="align-self: center;" scope="col">Name</th>
+                    <th style="align-self: center;" scope="col">Email</th>
+                    <th style="align-self: center;" scope="col">Phone</th>
+                    <th style="align-self: center;" scope="col">Other Information</th>
+                    <th  scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -53,12 +53,12 @@
                     
                       <td class="text-right">
                         <div class="dropdown">
-                          <a  class="btn bg-gradient-primary dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
-                            <i class="fas fa-ellipsis-v"></i>
+                          <a  style="color: #6d8c54;" class="btn bg-gradient-primary dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
+                            <i style="color: #6d8c54;" class="fas fa-ellipsis-v"></i>
                           </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                             <a class="dropdown-item" >Edit</a>
-                            <a class="dropdown-item" >Delete</a>
+                            <a class="dropdown-item"  (click)="deletedeliveryAgent(u.id)" >Delete</a>
                             
                           </div>
                         </div>
@@ -70,7 +70,7 @@
             </div>
             <div class="card-footer py-4">
               <nav aria-label="...">
-                <ul class="pagination justify-content-end mb-0">
+                <ul class="pagination justify-content-center mb-0">
                   <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">
                       <i class="fas fa-angle-left"></i>

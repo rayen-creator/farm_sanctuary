@@ -39,7 +39,7 @@ loadUsers() {
 
 deletedeliveryAgent(id: String) {
   Swal.fire({
-    title: 'Are you sure you want to delete this user?',
+    title: 'Are you sure you want to delete this Agent?',
     text: 'This action cannot be undone.',
     icon: 'warning',
     showCancelButton: true,
@@ -56,9 +56,9 @@ deletedeliveryAgent(id: String) {
         .subscribe({
           next: (result: any) => {
             const deletedAgent = result.data.deleteUser as Agent;
-            this.agentList = this.agentList.filter((user) => user.id !== deletedAgent.id);
+            this.agentList = this.agentList.filter((agent) => agent.id != deletedAgent.id);
            
-            Swal.fire('Deleted', 'User has been deleted successfully.', 'success');
+            Swal.fire('Deleted', 'Agent has been deleted successfully.', 'success');
           },
           error: (err) => {
             console.log('err :' + err);
