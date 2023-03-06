@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="264cd3b8-2e09-451b-b98b-1b61238c84a1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/components/frontoffice/users/user-profile/user-profile.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/components/frontoffice/users/user-profile/user-profile.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/components/frontoffice/users/user-profile/user-profile.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/backoffice/users/user-list/user-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/backoffice/users/user-list/user-list.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/backoffice/users/user-list/user-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/backoffice/users/user-list/user-list.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/schema/schema.graphql.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/schema/schema.graphql.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/frontoffice/frontoffice-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/frontoffice/frontoffice-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/frontoffice/frontoffice.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/frontoffice/frontoffice.module.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,23 +40,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\gayth\\OneDrive\\Bureau\\FarmSanctuary\\farm_sanctuary\\frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "ts.external.directory.path": "C:\\Users\\gayth\\OneDrive\\Bureau\\FarmSanctuary\\farm_sanctuary\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\gayth\OneDrive\Bureau\FarmSanctuary\farm_sanctuary\frontend\src\app\components\backoffice" />
@@ -158,7 +164,7 @@
       <option name="presentableId" value="Default" />
       <updated>1678021727432</updated>
       <workItem from="1678021729333" duration="8083000" />
-      <workItem from="1678110903047" duration="1211000" />
+      <workItem from="1678110903047" duration="7731000" />
     </task>
     <servers />
   </component>
@@ -175,5 +181,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

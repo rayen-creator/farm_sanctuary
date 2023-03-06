@@ -14,6 +14,7 @@ enum Role {
   id: ID!
   username: String!
   email: String!
+  phone: Number!
   password: String!
   createdAt: DateTime!
   updatedAt: DateTime!
