@@ -4,7 +4,7 @@ const inlineBase64 = require("nodemailer-plugin-inline-base64");
 // const { promisify } = require("util");
 // const readFile = promisify(fs.readFile);
 
-const sendEmail = async (email, subject,html) => {
+const sendEmail = async (mailOptions) => {
   try {
     const transporter = nodemailer.createTransport({
       service: process.env.SERVICE,
@@ -16,13 +16,7 @@ const sendEmail = async (email, subject,html) => {
     // Add the inlineBase64 plugin to the transport object
     transporter.use("compile", inlineBase64());
 
-    await transporter.sendMail({
-      from: process.env.USER,
-      to: email,
-      subject: subject,
-      // text: text,
-      html: html,
-    });
+    await transporter.sendMail(mailOptions);
 
     return {
       message: "email sent sucessfully !",

@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const fs = require("fs");
 const { promisify } = require("util");
 const readFile = promisify(fs.readFile);
+const handlebars = require("handlebars");
 
 const sendEmail = require("./utils/sendEmail");
 
@@ -58,10 +59,43 @@ async function signin(input) {
 }
 
 async function restpwd(input) {
+  const user = await User.findOne({ email: input.email });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+ 
+  const readHTMLFile = (path) => {
+    return new Promise((resolve, reject) => {
+      readFile(path, "utf8", (err, html) => {
+        if (err) {
+          reject(err);
+        } else {
+          const template = handlebars.compile(html);
+          const resetToken = jsonwebtoken.sign(
+            { id: user.email },
+            process.env.RESET_SECRET,
+            { expiresIn: process.env.RESET_EXPIRE }
+          );
+          console.log(resetToken);
+          const replacements = {
+            link: `http://localhost:4200/resetpassword/${resetToken}`,
+          };
+          const htmlToSend = template(replacements);
+          const mailOptions = {
+            from: process.env.USER,
+            to: input.email,
+            subject: input.subject,
+            html: htmlToSend,
+          };
+          resolve(sendEmail(mailOptions));
+        }
+      });
+    });
+  };
+
   try {
-    const html = await readFile("src/view/restpwd/index.html", "utf8");
-    // const mail=await sendEmail(input.email, input.subject, input.text);
-    const mail = await sendEmail(input.email, input.subject, html);
+    const mail = await readHTMLFile("src/view/restpwd/index.html");
 
     if (!mail.mailStatus) {
       return {
