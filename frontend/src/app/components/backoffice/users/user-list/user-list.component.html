@@ -2,6 +2,10 @@
   <div class="table-title">
     <h2>Users</h2>
   </div>
+
+  <div class="search">
+    <input type="text" [(ngModel)]="searchText" (keyup)="onSearch()">
+  </div>
   <table>
     <thead>
     <tr>
@@ -17,7 +21,7 @@
     </tr>
     </thead>
     <tbody>
-    <ng-container *ngFor="let u of pagedItems">
+    <ng-container *ngFor="let u of filteredItems ; let i = index;">
       <ng-container *ngIf="u.role !== 'ADMIN'">
         <tr>
           <td class="ellipsis">{{u.username}}</td>
@@ -32,7 +36,7 @@
             <button class="block-btn" (click)="toggleBlockUser(u.id)">
               <i class="fas fa-ban"></i> <!-- Font Awesome block icon -->
             </button>
-            <button class="delete-btn" (click)="deleteUser(u.id)">
+            <button class="delete-btn" (click)="deleteUser(u.id, i)">
               <i class="fas fa-trash-alt"></i> <!-- Font Awesome delete icon -->
             </button>
           </td>
