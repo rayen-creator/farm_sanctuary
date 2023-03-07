@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', component: FrontofficeComponent , children :[
     {path : '',redirectTo:'home',pathMatch:'full'},
     {path: 'home', component: HomeComponent},
-      {path: 'profile', component: UserProfileComponent}
+      {path: 'profile/:id', component: UserProfileComponent}
   ]
 
 },

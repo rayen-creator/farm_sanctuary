@@ -5,6 +5,7 @@ import { FrontofficeComponent } from './frontoffice.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -14,11 +15,12 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
     HeaderComponent,
     FooterComponent,
     UserProfileComponent
-  
+
   ],
   imports: [
     CommonModule,
-    FrontofficeRoutingModule
+    FrontofficeRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class FrontofficeModule { }
