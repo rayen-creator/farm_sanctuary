@@ -1,68 +1,129 @@
-<div class="users-table">
-  <div class="table-title">
-    <h2>Users</h2>
-  </div>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
-  <div class="search">
-    <input type="text" [(ngModel)]="searchText" (keyup)="onSearch()">
-  </div>
-  <table>
-    <thead>
-    <tr>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>Created At</th>
-      <th>Updated At</th>
-      <th>Active</th>
-      <th>Blocked</th>
-      <th>Role</th>
-      <th>Image</th>
-      <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <ng-container *ngFor="let u of filteredItems ; let i = index;">
-      <ng-container *ngIf="u.role !== 'ADMIN'">
-        <tr>
-          <td class="ellipsis">{{u.username}}</td>
-          <td class="ellipsis">{{u.email}}</td>
-          <td class="ellipsis">{{u.phone}}</td>
-          <td class="ellipsis">{{datePipe.transform(u.createdAt, 'medium') }}</td>
-          <td class="ellipsis">{{datePipe.transform(u.updatedAt, 'medium') }}</td>
-          <td class="ellipsis">{{u.isActive}}</td>
-          <td class="ellipsis">{{u.isBlocked}}</td>
-          <td class="ellipsis">{{u.role}}</td>
-          <td class="ellipsis"><img [src]="u.image.url" alt="User Image"></td>
-          <td>
-            <button class="block-btn" (click)="toggleBlockUser(u.id)">
-              <i class="fas fa-ban"></i> <!-- Font Awesome block icon -->
-            </button>
-            <button class="delete-btn" (click)="deleteUser(u.id, i)">
-              <i class="fas fa-trash-alt"></i> <!-- Font Awesome delete icon -->
-            </button>
-          </td>
-        </tr>
-      </ng-container>
-    </ng-container>
-    </tbody>
-  </table>
+<body>
+<div class="main-content" >
+  <div class="container ">
+    <!-- Table -->
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <h3 class="mb-0">Users</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+              <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Updated At</th>
+                <th scope="col">Active</th>
+                <th scope="col">Blocked</th>
+                <th scope="col">Role</th>
+                <th scope="col">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <ng-container *ngFor="let u of filteredItems ; let i = index">
+                <tr>
+                  <th scope="row">
+                    <div class="media align-items-center">
+                      <a href="#" class="avatar rounded-circle mr-3">
+                        <img alt="Image placeholder"  [src]="u.image.url">
+                      </a>
 
+                    </div>
+                  </th>
+                  <td>
+                    <span class="mb-0 text-sm">{{u.username}}</span>
+
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">{{u.email}}</span>
+
+                  </td>
+                  <td>
+                        <span class="badge ">
+
+                          <i class="bg-info rounded-pill">{{u.phone}}</i>
+                        </span>
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">Created At:</span>
+                    <p class="mb-0 text-sm">{{datePipe.transform(u.createdAt, 'medium') }}</p>
+
+                  </td>
+                  <td>
+
+                    <span class="mb-0 text-sm" >Updated At:</span>
+                    <p class="mb-0 text-sm">{{datePipe.transform(u.updatedAt, 'medium') }}</p>
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">{{u.isActive}}</span>
+
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">{{u.role}}</span>
+
+                  </td>
+                  <td *ngIf="u.isBlocked == true">
+                      <span class="badge badge-dot mr-4">
+                        <i class="bg-warning"></i><span class="mb-0 text-sm" style="color: #0b0b0b">Blocked</span>
+                      </span>
+                  </td>
+                  <td *ngIf="u.isBlocked == false">
+                      <span class="badge badge-dot mr-4">
+                        <i class="bg-success"></i> <span class="mb-0 text-sm" style="color: #0b0b0b">Active</span>
+                      </span>
+                  </td>
+                  <td class="text-right">
+                    <div class="dropdown">
+                      <a  class="btn bg-gradient-primary dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                        <a class="dropdown-item" (click)="deleteUser(u.id, i)" >Delete</a>
+                        <a class="dropdown-item" (click)="toggleBlockUser(u.id)" >Block</a>
+
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer py-4">
+            <nav aria-label="...">
+              <ul class="pagination justify-content-end mb-0">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="setPage(currentPage - 1)">
+                    <i class="fas fa-angle-left"></i>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+                  <a class="page-link" (click)="setPage(page)">{{page}}</a>
+                </li>
+
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="setPage(currentPage + 1)">
+                    <i class="fas fa-angle-right"></i>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
 </div>
-<div class="pagination d-flex justify-content-center">
-  <ul class="pagination">
-    <li class="page-item" [class.disabled]="currentPage === 1">
-      <a class="page-link" (click)="setPage(currentPage - 1)" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
-      <a class="page-link" (click)="setPage(page)">{{page}}</a>
-    </li>
-    <li class="page-item" [class.disabled]="currentPage === totalPages">
-      <a class="page-link" (click)="setPage(currentPage + 1)" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</div>
+
+</body>
