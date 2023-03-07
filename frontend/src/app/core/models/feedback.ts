@@ -1,7 +1,7 @@
 import { rating } from './rating'
 import { category } from './category'
 
-export class Feedback{
+export type Feedback = {
     'title': String
     'subject': String
     'content': String

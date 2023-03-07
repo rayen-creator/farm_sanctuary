@@ -13,6 +13,7 @@
 			<th>Content</th>
             <th>Rating</th>
             <th>Category</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<!-- Table Header -->
@@ -20,12 +21,12 @@
 	<!-- Statique until i figure out node -->
 	<tbody>
 
-		<tr>
-			<td>Create pretty table design</td>
-			<td>100%</td>
-			<td>Yes</td>
-            <td>100%</td>
-			<td>Yes</td>
+		<tr *ngFor="let f of feedbackList">
+			<td>{{f.title}}</td>
+			<td>{{f.subject}}</td>
+			<td>{{f.content}}</td>
+            <td>{{f.rating}}</td>
+			<td>{{f.category}}</td>
 
 		<tr class="even">
 			<td>Take the dog for a walk</td>
