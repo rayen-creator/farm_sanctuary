@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="264cd3b8-2e09-451b-b98b-1b61238c84a1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/schema/schema.graphql.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/schema/schema.graphql.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/services/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/services/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/backoffice/users/user-list/user-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/backoffice/users/user-list/user-list.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/models/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/models/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/graphql/graphql.queries.user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/graphql/graphql.queries.user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/frontoffice/users/user-profile/user-profile.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/frontoffice/users/user-profile/user-profile.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/frontoffice/users/user-profile/user-profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/frontoffice/users/user-profile/user-profile.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +159,7 @@
       <option name="presentableId" value="Default" />
       <updated>1678021727432</updated>
       <workItem from="1678021729333" duration="8083000" />
-      <workItem from="1678110903047" duration="9177000" />
+      <workItem from="1678110903047" duration="13002000" />
     </task>
     <servers />
   </component>
