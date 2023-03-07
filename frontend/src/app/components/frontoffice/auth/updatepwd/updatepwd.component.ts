@@ -1,4 +1,4 @@
-import { DecodedToken } from './../../../../core/models/decodedToken';
+import { DecodedToken } from '../../../../core/graphql/decodedToken';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
