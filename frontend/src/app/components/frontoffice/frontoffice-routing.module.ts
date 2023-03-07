@@ -7,6 +7,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
+import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
 
 const routes: Routes = [
   {
@@ -14,12 +15,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
+      { path: 'signup/:accountType', component: RegisterComponent },
+      { path: 'signup', component: RegistermainpageComponent },
+
       { path: 'forgetpassword', component: ResetpwdComponent },
-      { path: 'resetpassword', component: UpdatepwdComponent },
-
+      { path: 'resetpassword/:token', component: UpdatepwdComponent },
     ]
-
   },
 
 ];

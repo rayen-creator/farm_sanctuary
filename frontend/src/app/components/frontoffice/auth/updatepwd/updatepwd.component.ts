@@ -1,4 +1,8 @@
+import { DecodedToken } from './../../../../core/models/decodedToken';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-updatepwd',
@@ -7,9 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdatepwdComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:ActivatedRoute) { }
 
   ngOnInit(): void {
+    const resetpwdToken=this.router.snapshot.params['token'];
+    // const decoded = jwt_decode(resetpwdToken);
+    const decoded: DecodedToken = jwt_decode(resetpwdToken) as DecodedToken;
+
+    console.log("user : "+decoded.id);
+    console.log("expdate : "+decoded.exp);
+
   }
 
 }

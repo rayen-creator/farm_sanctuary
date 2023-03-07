@@ -9,6 +9,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
+import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -21,12 +23,14 @@ import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
     LoginComponent,
     RegisterComponent,
     ResetpwdComponent,
-    UpdatepwdComponent
+    UpdatepwdComponent,
+    RegistermainpageComponent
   
   ],
   imports: [
     CommonModule,
-    FrontofficeRoutingModule
+    FrontofficeRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class FrontofficeModule { }
