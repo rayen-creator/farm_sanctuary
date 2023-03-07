@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body" style="margin: 30px;">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img [src]="agent.image.url" alt="Admin" class="rounded-circle p-1 bg-primary" style="color: #6d8c54;" width="125">
+                            <div class="mt-3">
+                                <h4>{{agent.fullName}}</h4>
+                                <p class="text-secondary mb-1">{{agent.login}}</p>
+                                <p class="text-muted font-size-sm">{{agent.email}}</p>
+                                <div class="mt-2">
+                                    <button style="margin: 10px;" class="btn btn-outline-primary" >
+                                      <i class="fa fa-fw fa-camera"></i>
+                                      <span>Change Photo</span>
+                                    </button>
+                                   
+                                  </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body" style="margin: 30.6px;">
+                        <form [formGroup]="AgentForm" (ngSubmit)="onSubmit()">
+
+                            <div class="form-group row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Full Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input  name="fullname" formControlName="fullname" id="fullname" type="text" [(ngModel)]="agent.fullName"  class="form-control" >
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3 " style="margin-top: 20px;">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Login</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input  name="login" formControlName="login" id="login" type="text" [(ngModel)]="agent.login"  class="form-control" >
+                                </div>
+                            </div>
+                            <div class="form-group  row mb-3"style="margin-top: 20px;">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input  name="email" formControlName="email" id="email" type="text"[(ngModel)]="agent.email"   class="form-control" >
+                                </div>
+                            </div>
+                            <div class="form-group  row mb-3" style="margin-top: 20px;">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input   name="phone" formControlName="phone" id="phone" type="text" class="form-control"[(ngModel)]="agent.phone"  >
+                                </div>
+                            </div>
+                        
+                            
+                            
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="button" class="btn   px-4"   type="submit" style="background-color: #6d8c54; color: aliceblue;" value="Save Changes">
+                                    <button routerLink="/admin/delvery" style="margin: 19.5px;" class="btn btn-outline-primary">Return</button>
+                                </div>
+                            </div>
+                        
+                    </form>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
