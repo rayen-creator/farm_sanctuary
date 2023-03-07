@@ -1,11 +1,12 @@
 export type Agent = {
-    'id': String;
-    'login': String
-    'password': String
-    'email': String
+    'id': string;
+    'login': string
+    'password': string
+    'fullName': string
+    'email': string
     'phone': Number
-    'longitude': String
-    'latitude': String
+    'longitude': string
+    'latitude': string
     'createdAt': Date
     'updatedAt': Date
     'image': {

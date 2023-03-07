@@ -5,6 +5,7 @@ const deliveryAgentSchema = new mongoose.Schema(
     login: String,
     email: String,
     password: String,
+    fullName: String,
     phone: Number,
     longitude: String,
     latitude: String,

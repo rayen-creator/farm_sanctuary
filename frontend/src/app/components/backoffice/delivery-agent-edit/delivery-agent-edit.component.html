@@ -33,7 +33,7 @@
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input  name="fullname" formControlName="fullname" id="fullname" type="text" [(ngModel)]="agent.fullName"  class="form-control" >
+                                    <input  name="fullname" formControlName="fullname" id="fullname" type="text"   class="form-control" >
                                 </div>
                             </div>
                             <div class="form-group row mb-3 " style="margin-top: 20px;">
@@ -41,7 +41,7 @@
                                     <h6 class="mb-0">Login</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input  name="login" formControlName="login" id="login" type="text" [(ngModel)]="agent.login"  class="form-control" >
+                                    <input  name="login" formControlName="login" id="login" type="text"  class="form-control" >
                                 </div>
                             </div>
                             <div class="form-group  row mb-3"style="margin-top: 20px;">
@@ -49,7 +49,7 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input  name="email" formControlName="email" id="email" type="text"[(ngModel)]="agent.email"   class="form-control" >
+                                    <input  name="email" formControlName="email" id="email" type="text"   class="form-control" >
                                 </div>
                             </div>
                             <div class="form-group  row mb-3" style="margin-top: 20px;">
@@ -57,8 +57,25 @@
                                     <h6 class="mb-0">Phone</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input   name="phone" formControlName="phone" id="phone" type="text" class="form-control"[(ngModel)]="agent.phone"  >
+                                    <input   name="phone" formControlName="phone" id="phone" type="text" class="form-control">
                                 </div>
+                            </div>
+                            <div class="form-group  row mb-3" style="margin-top: 20px;">
+                                <div class="col-sm-3">
+                                    
+                                    <h6 class="mb-0">Change Password</h6>
+                                </div>
+                                
+                                  
+                                  
+                                <div class="col-sm-9 text-secondary">
+                                    <h6  for="password" style="margin-top: 20px;color: #6d8c54;" class="mb-0">New Password</h6>
+                                    <input   name="password" formControlName="password" id="password" type="password" class="form-control" placeholder="•••••••••" >
+                                    <h6 for="confirmpassword" style="margin-top: 20px;color: #6d8c54;" class="mb-0">Confirm Password</h6>
+                                    <input   name="confirmpassword" formControlName="confirmpassword" id="confirmpassword" type="password" class="form-control"  placeholder="•••••••••">   
+                                </div>
+                                
+                                
                             </div>
                         
                             

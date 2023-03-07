@@ -44,6 +44,7 @@ input ImageInput {
 type deliveryAgent {
   id: ID!
   login: String!
+  fullName: String!
   email: String!
   password: String!
   phone: Int!
@@ -64,6 +65,7 @@ input loginDriverInput {
 input deliveryAgentInput {
     login: String!
     password: String!
+    fullName: String!
     email: String!
     phone: Int!
     image: ImageInput!

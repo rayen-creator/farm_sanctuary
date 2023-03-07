@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {updatedeliveryAgent, getdeliveryAgent} from "../../../../app/graphql/graphql.queries.agent";
 import {Apollo, gql} from "apollo-angular";
 import {Agent} from "../../../../app/core/models/deliveryAgent";
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators,AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 @Component({
@@ -14,6 +14,7 @@ export class DeliveryAgentEditComponent implements OnInit {
   agent : Agent;
   AgentForm: FormGroup;
   pattern="^[ a-zA-Z0-9][a-zA-Z0-9 ]*$";
+  action: string;
   constructor(  private currentRoute: ActivatedRoute,
      private router: Router,private apollo: Apollo
     ) { }
@@ -44,6 +45,7 @@ export class DeliveryAgentEditComponent implements OnInit {
     let email =""
     let phone =null
     let login = ""
+    let password = ""
    
      const e = this.agent
       fullname = e.fullName
@@ -52,18 +54,33 @@ export class DeliveryAgentEditComponent implements OnInit {
       login = e.login
       console.log(e)
     this.AgentForm = new FormGroup({
-      'login': new FormControl(login,Validators.required,),
+      'login': new FormControl(login,[Validators.required,Validators.pattern(this.pattern)]),
       'phone': new FormControl(phone, Validators.required),
       'email': new FormControl(email, Validators.required),
       'fullname': new FormControl(fullname, Validators.required),
-      })
+      'password': new FormControl(password, [Validators.required, Validators.min(3) ]),
+      'confirmpassword':new FormControl (password, [Validators.required,Validators.min(3)])
+      });
+      let hide = true;
+     
+      
   }
+ /// passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    //const password =this.AgentForm.value.password
+//    const confirmPassword = this.AgentForm.value.confirmpassword
+
+  //  if (password.value !== confirmPassword.value) {
+    //  return { 'passwordMismatch': true };
+//    }
+
+  //  return null;
+  //}
 
 
   onSubmit() {
     console.log(this.AgentForm )
     let id= this.currentRoute.snapshot.params['id'];
-    let newAgznt =this.AgentForm
+    let newAgznt =this.AgentForm.value
       this.apollo
       .mutate({
         mutation: updatedeliveryAgent,
