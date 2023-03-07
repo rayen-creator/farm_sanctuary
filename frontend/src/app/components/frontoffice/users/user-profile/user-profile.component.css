@@ -6,11 +6,21 @@ html, body {
   height: 100%;
 
 }
+.row1 {
+  display: block;
+  margin-bottom: 25px; /* SIMPLY SET THIS PROPERTY AS MUCH AS YOU WANT. This changes the space below box1 */
+  text-align: justify;
+}
+.row2 {
+  display: block;
+  margin-top: 50px; /* SIMPLY SET THIS PROPERTY AS MUCH AS YOU WANT. This changes the space below box1 */
+  text-align: justify;
+}
 
 .user-card-full {
   height: 100%;
   overflow: hidden;
-  line-height: 200px;
+  line-height: 100px;
 }
 .padding {
   padding: 2rem !important
@@ -66,7 +76,7 @@ h6 {
 }
 
 .card .card-block p {
-  line-height: 25px;
+  line-height: 50px;
 }
 
 @media only screen and (min-width: 1400px){
