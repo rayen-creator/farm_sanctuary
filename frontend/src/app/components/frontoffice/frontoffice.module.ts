@@ -12,6 +12,7 @@ import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -27,7 +28,7 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
     UpdatepwdComponent,
     RegistermainpageComponent
     UserProfileComponent
-  
+
   ],
   imports: [
     CommonModule,

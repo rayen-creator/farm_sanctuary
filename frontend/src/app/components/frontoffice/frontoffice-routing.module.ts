@@ -17,7 +17,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'signup/:accountType', component: RegisterComponent },
       { path: 'signup', component: RegistermainpageComponent },
-      {path: 'profile', component: UserProfileComponent}
+      {path: 'profile/:id', component: UserProfileComponent}
 
       { path: 'forgetpassword', component: ResetpwdComponent },
       { path: 'resetpassword/:token', component: UpdatepwdComponent },

@@ -1,56 +1,72 @@
-<div class="page-content page-container" id="page-content">
-  <div class="padding">
-
-      <div class="col-xl-12 col-md-12 col-md-12">
-        <div class="card user-card-full">
-          <div class="row m-l-0 m-r-0">
-            <div class="col-sm-3 bg-c-lite-green user-profile">
-              <div class="card-block text-center text-white">
-                <div class="m-b-25">
-                  <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
-                </div>
-                <h6 class="f-w-600">Hembo Tingor</h6>
-                <p>Web Designer</p>
-                <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-              </div>
-            </div>
-            <div class="col-sm-9">
-              <div class="card-block">
-                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                <div class="row">
-                  <div class="col-sm-6 row1">
-                    <p class="m-b-10 f-w-600">username</p>
-                    <h6 class="text-muted f-w-400">ghaith</h6>
-                  </div>
-                  <div class="col-sm-6 row1">
-                    <p class="m-b-10 f-w-600">Email</p>
-                    <h6 class="text-muted f-w-400">rntng@gmail.com</h6>
-                  </div>
-                  <div class="col-sm-6 row1">
-                    <p class="m-b-10 f-w-600">Phone</p>
-                    <h6 class="text-muted f-w-400">98979989898</h6>
-                  </div>
-                  <div class="col-sm-6 row1">
-                  </div>
-                  <div class="col-sm-6 row2">
-                    <p class="m-b-10 f-w-600"><a href="">Change Password</a></p>
-                  </div>
-                  <div class="col-sm-6 row2">
-                    <p class="m-b-10 f-w-600"><a href="">Change Email</a></p>
-                  </div>
+<div class="container">
+  <div class="main-body">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body" style="margin: 30px;">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img [src]="user.image.url" alt="Admin" class="rounded-circle p-1 bg-primary" style="color: #6d8c54;" width="125">
+              <div class="mt-3">
+                <h4>{{user.username}}</h4>
+                <p class="text-secondary mb-1">{{user.phone}}</p>
+                <p class="text-muted font-size-sm">{{user.email}}</p>
+                <div class="mt-2">
+                  <button style="margin: 10px;" class="btn btn-outline-primary" >
+                    <i class="fa fa-fw fa-camera"></i>
+                    <span>Change Photo</span>
+                  </button>
 
                 </div>
 
-                <ul class="social-link list-unstyled m-t-40 m-b-10">
-                  <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
-                  <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
-                  <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-                </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body" style="margin: 30.6px;">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+              <div class="form-group row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Username</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input  name="username" formControlName="username" id="username" type="text" [(ngModel)]="user.username"  class="form-control" >
+                </div>
+              </div>
+              <div class="form-group row mb-3 " style="margin-top: 20px;">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Phone</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input  name="phone" formControlName="phone" id="phone" type="text" [(ngModel)]="user.phone"  class="form-control" >
+                </div>
+              </div>
+              <div class="form-group row mb-3" style="margin-top: 20px;">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input  name="email" formControlName="email" id="email" type="text" [(ngModel)]="user.email"   class="form-control" >
+                </div>
+              </div>
+
+
+
+              <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9 text-secondary">
+                  <input  class="btn   px-4"   type="submit" style="background-color: #6d8c54; color: aliceblue;" value="Save Changes">
+                  <button routerLink="/admin/delvery" style="margin: 19.5px;" class="btn btn-outline-primary">Return</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
-
