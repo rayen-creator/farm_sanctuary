@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FrontofficeRoutingModule } from './frontoffice-routing.module';
@@ -18,7 +19,8 @@ import { FeedbackFormComponent } from './feedbacks/feedback-form/feedback-form';
   ],
   imports: [
     CommonModule,
-    FrontofficeRoutingModule
+    FrontofficeRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class FrontofficeModule { }

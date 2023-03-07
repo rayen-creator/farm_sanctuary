@@ -1,5 +1,7 @@
 import { gql } from "apollo-angular";
-const feedbacks = gql`
+const feedbacks = gql
+`
+
 query{
     getFeedbacks{
     title,
