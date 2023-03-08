@@ -183,37 +183,38 @@ fieldset {
 }
 
 .rating {
-  display: inline-block;
-  position: relative;
-  vertical-align: middle;
-  
+  display: flex;
+  flex-direction: row-reverse; /* change the direction of the labels */
+  justify-content: center; /* align the labels to the left */
+  height: 25px;
+  font-size: 25px;
 }
 
 .rating input {
-  display: none;
+  display: none; /* hide the radio inputs */
 }
 
 .rating label {
   display: inline-block;
-  background-color: lightgreen;
   cursor: pointer;
-  position: relative;
-  width: 20px;
-  height: 20px;
-  color: #aaa;
-  text-shadow: 1px 1px #fff;
+  color: #ddd;
+  margin-right: 5px; /* add some spacing between the labels */
 }
 
-.rating label:hover,
-.rating label:hover ~ label,
-.rating input:checked ~ label {
+.rating label:before {
+  content: '\2605'; /* add a star symbol */
+}
+
+.rating input:checked ~ label,
+.rating input:checked ~ label ~ label {
+  color: #f70;
+}
+
+.rating:hover input:not(:checked) ~ label {
+  color: #ddd;
+}
+
+.rating:hover input:not(:checked) ~ label:hover,
+.rating:hover input:not(:checked) ~ label:hover ~ label {
   color: green;
-  text-shadow: 1px 1px grey;
-}
-
-.rating label:hover:before,
-.rating label:hover ~ label:before,
-.rating input:checked ~ label:before {
-  content: "\2605";
-  position: absolute;
 }

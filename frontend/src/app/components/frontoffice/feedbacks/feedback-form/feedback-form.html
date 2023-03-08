@@ -60,7 +60,7 @@
             <fieldset *ngIf="step == 3">
                 <h2 class="fs-title">Content Details</h2>
                 <textarea rows="5" cols="5" formControlName="content"  placeholder="type the content of the feedback"></textarea>
-                <div *ngIf="category_step && ContentDetails.controls.content.errors">
+                <div *ngIf="content_step && ContentDetails.controls.content.errors">
                     <div *ngIf="content.content.errors?.['required']">Content is required</div>
                 </div>
                 
