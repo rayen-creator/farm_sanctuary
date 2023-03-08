@@ -8,6 +8,11 @@ const typeDefs = gql`
     ADMIN
   }
 
+  enum Gender{
+    MALE
+    FEMALE
+  }
+
   type User {
     id: ID!
     username: String!
@@ -18,6 +23,7 @@ const typeDefs = gql`
     updatedAt: DateTime!
     isActive: Boolean!
     isBlocked: Boolean!
+    gender:Gender!
     role: Role!
     image: Image
   }
@@ -33,6 +39,7 @@ const typeDefs = gql`
     phone:Int!
     password: String!
     isActive: Boolean!
+    gender:Gender!
     role: Role!
     image: ImageInput
   }
@@ -59,13 +66,19 @@ const typeDefs = gql`
     email: String!
     subject:String!
   }
+  type SignupResponse{
+    message: String!
+    emailExists: Boolean!
+    usernameExists: Boolean!
+  }
+
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
   }
 
   type Mutation {
-    signup(input: UserInput!): User!
+    signup(input: UserInput!): SignupResponse!
     signin(input: signinInput!): LoginResponse!
     resetpwd(input:ForgetpwdInput!):ForgetpwdResponse!
 
