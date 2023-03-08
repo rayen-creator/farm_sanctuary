@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 const roles = Object.freeze({
-  FARMER: 'FARMER',
-  CLIENT: 'CLIENT',
-  ADMIN: 'ADMIN'
+  FARMER: "FARMER",
+  CLIENT: "CLIENT",
+  ADMIN: "ADMIN",
 });
 const userSchema = new mongoose.Schema({
   username: String,
   email: String,
   password: String,
+  phone: Number,
   createdAt: Date,
   updatedAt: Date,
   isActive: Boolean,
@@ -18,8 +19,8 @@ const userSchema = new mongoose.Schema({
   },
   image: {
     url: String,
-    contentType: String
-  }
+    contentType: String,
+  },
 });
 
 const User = mongoose.model("Users", userSchema);

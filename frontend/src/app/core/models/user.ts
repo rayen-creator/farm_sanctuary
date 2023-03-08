@@ -5,6 +5,7 @@ export class User{
     username: String
     email: String
     password: String
+    phone: Number
     isActive: Boolean
     role: roles
 }
