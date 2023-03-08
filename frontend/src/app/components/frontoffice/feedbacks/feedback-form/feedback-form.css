@@ -186,6 +186,7 @@ fieldset {
   display: inline-block;
   position: relative;
   vertical-align: middle;
+  
 }
 
 .rating input {
@@ -194,6 +195,7 @@ fieldset {
 
 .rating label {
   display: inline-block;
+  background-color: lightgreen;
   cursor: pointer;
   position: relative;
   width: 20px;
@@ -205,8 +207,8 @@ fieldset {
 .rating label:hover,
 .rating label:hover ~ label,
 .rating input:checked ~ label {
-  color: #FFD700;
-  text-shadow: 1px 1px #fff;
+  color: green;
+  text-shadow: 1px 1px grey;
 }
 
 .rating label:hover:before,

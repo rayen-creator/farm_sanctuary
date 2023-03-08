@@ -82,6 +82,10 @@ export class FeedbackFormComponent implements OnInit {
     } 
   
     onSubmit() {
+      if(this.step==3){
+        this.content_step = true;
+        if (this.ContentDetails.invalid) { return }
+      }
       Swal.fire({
         title: 'Are you sure you want to add this feedback?',
         text: 'This action cannot be undone.',

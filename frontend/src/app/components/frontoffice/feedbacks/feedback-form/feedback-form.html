@@ -10,12 +10,12 @@
                 <li [ngClass]="step==3 ? 'active' : 'inactive'">content</li>
             </ul>
             <!-- fieldsets -->
-
+        
             <fieldset  *ngIf="step == 1" >
                 <h2 class="fs-title">Give your feedback</h2>
-                <input type="text" formControlName="title"  [ngClass]="{ 'is-invalid': title_step && Title.subject.errors }" placeholder="Title" class="form-control"/>
-                <div *ngIf="title_step && TitleAndSubjectDetails.controls.name.errors">
-                    <div *ngIf="Title.name.errors?.['required']">Title is required</div>
+                <input type="text" formControlName="title"  [ngClass]="{ 'is-invalid': title_step && Title.subject.errors }" placeholder="Title" >
+                <div *ngIf="title_step && TitleAndSubjectDetails.controls.title.errors">
+                    <div *ngIf="Title.title.errors?.['required']">Title is required</div>
                 </div>
                 <input type="text" formControlName="subject" name="subject" placeholder="Subject"/>
                 <div *ngIf="title_step && TitleAndSubjectDetails.controls.subject.errors">
@@ -61,7 +61,7 @@
                 <h2 class="fs-title">Content Details</h2>
                 <textarea rows="5" cols="5" formControlName="content"  placeholder="type the content of the feedback"></textarea>
                 <div *ngIf="category_step && ContentDetails.controls.content.errors">
-                    <div *ngIf="category.content.errors?.['required']">Content is required</div>
+                    <div *ngIf="content.content.errors?.['required']">Content is required</div>
                 </div>
                 
                 <input (click)="previous()" type="button" name="previous" class="previous action-button-previous" value="Previous"/>
@@ -69,6 +69,9 @@
             </fieldset>
         </form>
 
-    </div>
-</div>
-</div>
+    
+
+</div></div></div>
+
+
+
