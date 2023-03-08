@@ -11,8 +11,8 @@ const authResolver = {
       try {
         return await authService.signup(input);
       } catch (error) {
-        console.error(err);
-        throw new Error("Failed to create user");
+        console.log(error);
+        throw new Error(error);
       }
     },
 

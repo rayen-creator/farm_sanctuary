@@ -11,6 +11,24 @@ const handlebars = require("handlebars");
 const sendEmail = require("./utils/sendEmail");
 
 async function signup(input) {
+  //verify duplicated username
+  const findusername = await User.findOne({ username: input.username });
+  if (findusername) {
+    return {
+      message: "Failed! Username is already in use!",
+      usernameExists: true,
+      emailExists: false,
+    };
+  }
+    //verify duplicated email
+  const findemail = await User.findOne({ email: input.email });
+  if (findemail) {
+    return {
+      message: "Failed! Email is already in use!",
+      emailExists: true,
+      usernameExists: false,
+    };
+  }
   const user = new User({
     username: input.username,
     email: input.email,
@@ -18,12 +36,18 @@ async function signup(input) {
     password: bcrypt.hashSync(input.password, 8),
     isActive: input.isActive,
     role: input.role,
+    gender: input.gender,
     image: input.image,
     createdAt: new Date(),
     updatedAt: new Date(),
     isBlocked: false,
   });
-  return await user.save(user);
+  await user.save(user);
+  return {
+    message: "User created !",
+    emailExists: false,
+    usernameExists: false,
+  };
 }
 
 async function signin(input) {
@@ -64,7 +88,7 @@ async function restpwd(input) {
   if (!user) {
     throw new Error("User not found");
   }
- 
+
   const readHTMLFile = (path) => {
     return new Promise((resolve, reject) => {
       readFile(path, "utf8", (err, html) => {
