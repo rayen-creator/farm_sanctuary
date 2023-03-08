@@ -1,10 +1,18 @@
 import { roles } from "./role";
 
-export class User{
-    id: number;
-    username: String
-    email: String
-    password: String
-    isActive: Boolean
-    role: roles
+export type User = {
+    'id': String;
+    'username': String
+  'phone': Number
+    'email': String
+    'password': String
+    'isActive': Boolean
+  'createdAt': Date
+  'updatedAt': Date
+  'isBlocked': Boolean
+    'role': roles
+  'image': {
+    'url': string;
+    'contentType': string;
+  };
 }

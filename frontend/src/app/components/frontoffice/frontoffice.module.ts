@@ -4,6 +4,8 @@ import { FrontofficeRoutingModule } from './frontoffice-routing.module';
 import { FrontofficeComponent } from './frontoffice.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -11,12 +13,15 @@ import { FooterComponent } from './shared/footer/footer.component';
   declarations: [
     FrontofficeComponent,
     HeaderComponent,
-    FooterComponent
-  
+    FooterComponent,
+    UserProfileComponent
+
   ],
   imports: [
     CommonModule,
-    FrontofficeRoutingModule
+    FrontofficeRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class FrontofficeModule { }
