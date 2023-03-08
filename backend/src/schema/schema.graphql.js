@@ -68,7 +68,16 @@ input deliveryAgentInput {
     fullName: String!
     email: String!
     phone: Int!
-    image: ImageInput!
+    image: ImageInput
+   
+}
+input AgentInput {
+    login: String!
+    password: String!
+    fullName: String!
+    email: String!
+    phone: Int!
+    
 }
 input AgentLocationInput {
     id: ID!
@@ -87,8 +96,11 @@ type Mutation {
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
+
     createdeliveryAgent(input: deliveryAgentInput!): deliveryAgent!
-    updatedeliveryAgent(input: deliveryAgentInput!): deliveryAgent!
+
+    updatedeliveryAgent(id: ID! ,input:AgentInput!): deliveryAgent!
+
     updateLocation( input: AgentLocationInput!): deliveryAgent!
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!):loginDriverResponse!

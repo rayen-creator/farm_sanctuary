@@ -46,17 +46,17 @@ async function createdeliveryAgent(input) {
   return await agent.save(agent);
 }
 
-async function updatedeliveryAgent(input) {
-  const id = input.id
-  const updatedAgent = {
+async function updatedeliveryAgent(id,input) {
+  
+  const updatedAgent = ({
     login: input.login,
     password: bcrypt.hashSync(input.password, 8),
     email: input.email,
     fullName: input.fullName,
     phone: input.phone,
-    image: input.image,
-    updatedAt: new Date(),
-  };
+    // image: input.image,
+   // updatedAt: new Date(),
+  });
 
   return await Agent.findByIdAndUpdate({ _id: id }, updatedAgent, { new: true });
 }

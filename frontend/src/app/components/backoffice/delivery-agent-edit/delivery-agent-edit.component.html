@@ -5,11 +5,11 @@
                 <div class="card">
                     <div class="card-body" style="margin: 30px;">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img [src]="agent.image.url" alt="Admin" class="rounded-circle p-1 bg-primary" style="color: #6d8c54;" width="125">
+                            <img [src]="agent?.image?.url" alt="Admin" class="rounded-circle p-1 bg-primary" style="color: #6d8c54;" width="125">
                             <div class="mt-3">
-                                <h4>{{agent.fullName}}</h4>
-                                <p class="text-secondary mb-1">{{agent.login}}</p>
-                                <p class="text-muted font-size-sm">{{agent.email}}</p>
+                                <h4>{{agent?.fullName}}</h4>
+                                <p class="text-secondary mb-1">{{agent?.login}}</p>
+                                <p class="text-muted font-size-sm">{{agent?.email}}</p>
                                 <div class="mt-2">
                                     <button style="margin: 10px;" class="btn btn-outline-primary" >
                                       <i class="fa fa-fw fa-camera"></i>
@@ -26,14 +26,14 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body" style="margin: 30.6px;">
-                        <form [formGroup]="AgentForm" (ngSubmit)="onSubmit()">
+                        <form [formGroup]="AgentForm" (ngSubmit)="onSubmit()" *ngIf="AgentForm">
 
                             <div class="form-group row mb-3">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input  name="fullname" formControlName="fullname" id="fullname" type="text"   class="form-control" >
+                                    <input  name="fullName" formControlName="fullName" id="fullName" type="text"   class="form-control" >
                                 </div>
                             </div>
                             <div class="form-group row mb-3 " style="margin-top: 20px;">
@@ -62,7 +62,6 @@
                             </div>
                             <div class="form-group  row mb-3" style="margin-top: 20px;">
                                 <div class="col-sm-3">
-                                    
                                     <h6 class="mb-0">Change Password</h6>
                                 </div>
                                 

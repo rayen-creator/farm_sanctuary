@@ -61,33 +61,14 @@ const deletedeliveryAgent = gql`
   }
 `;
 const updatedeliveryAgent = gql`
-  mutation updatedeliveryAgent(
-     $login: String, 
-     $password: String,
-     $phone: Int,
-     $fullName: String,
-     $email: String,
-     $image: String) {
-    updatedeliveryAgent(deliveryAgentInput: { 
-     login:$login , 
-     password:$password, 
-     phone:$phone ,
-     fullName:$fullName ,
-     email:$email ,
-     image:$image }) {
-      id
-     login
-     phone,
-     fullName,
-     email,
-     longitude,
-     latitude,
-     createdAt,
-     updatedAt,
-      image {
-        url
-        contentType
-      }
+  mutation updatedeliveryAgent($id:ID!,$input:AgentInput!) {
+    updatedeliveryAgent(id:$id,input:$input) {
+      login,
+    password,
+    fullName,
+    email,
+    phone,
+    
     }
   }
   `;

@@ -43,9 +43,9 @@ const agentResolver = {
       }
     },
 
-    async updatedeliveryAgent(_, { input }) {
+    async updatedeliveryAgent(_, {id, input }) {
       try {
-        const agent = await agentService.updatedeliveryAgent(input);
+        const agent = await agentService.updatedeliveryAgent(id,input);
         if (!agent) {
           throw new AgentInputError('User not found');
         }

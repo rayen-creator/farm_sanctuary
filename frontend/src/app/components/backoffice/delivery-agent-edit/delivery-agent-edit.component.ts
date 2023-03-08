@@ -41,14 +41,14 @@ export class DeliveryAgentEditComponent implements OnInit {
    
   private initForm() {
     
-    let fullname = ""
+    let fullName = ""
     let email =""
     let phone =null
     let login = ""
     let password = ""
    
      const e = this.agent
-      fullname = e.fullName
+     fullName = e.fullName
       email = e.email
       phone = e.phone
       login = e.login
@@ -57,7 +57,7 @@ export class DeliveryAgentEditComponent implements OnInit {
       'login': new FormControl(login,[Validators.required,Validators.pattern(this.pattern)]),
       'phone': new FormControl(phone, Validators.required),
       'email': new FormControl(email, Validators.required),
-      'fullname': new FormControl(fullname, Validators.required),
+      'fullName': new FormControl(fullName, Validators.required),
       'password': new FormControl(password, [Validators.required, Validators.min(3) ]),
       'confirmpassword':new FormControl (password, [Validators.required,Validators.min(3)])
       });
@@ -78,28 +78,48 @@ export class DeliveryAgentEditComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.AgentForm )
-    let id= this.currentRoute.snapshot.params['id'];
-    let newAgznt =this.AgentForm.value
-      this.apollo
-      .mutate({
-        mutation: updatedeliveryAgent,
-        variables: {id ,newAgznt },
-      })
-      .subscribe({
-        next: (result: any) => {
-          const updatedeliveryAgent = result.data.updatedeliveryAgent as Agent;
+    Swal.fire({
+      title: 'Are you sure you want to update your profile?',
+      text: 'This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, update',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let newagent = this.AgentForm.value;
+        const input = {
+          login: newagent.login,
+          password: newagent.password,
+          fullName: newagent.fullName,
+          email: newagent.email,
+          phone: newagent.phone,
+          //image :this.agent.image
           
-          Swal.fire('Updated', 'Agent has been Updated successfully.', 'success');
-          this.router.navigate(['/admin/delvery'])
-        },
-        error: (err) => {
-          console.log('err :' + err);
-        },
-      });
-   
-}
-  
+        };
+        console.log(this.AgentForm)
+        let id = this.currentRoute.snapshot.params['id'];
+
+        this.apollo
+          .mutate({
+            mutation: updatedeliveryAgent,
+            variables: {id, input: input},
+          })
+          .subscribe({
+            next: (result: any) => {
+             // const updatedUser = result.data.updateUser as Agent;
+
+              Swal.fire('Updated', 'Agent has been updated successfully.', 'success');
+
+            },
+            error: (err) => {
+              console.log('err :' + err);
+            },
+          });
+      }
+    });
+  }
   
 
 }
