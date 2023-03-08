@@ -20,9 +20,9 @@
                 <th scope="col">Phone</th>
                 <th scope="col">Created At</th>
                 <th scope="col">Updated At</th>
-                <th scope="col">Active</th>
-                <th scope="col">Blocked</th>
+                <th scope="col">Status</th>
                 <th scope="col">Role</th>
+                <th scope="col">Blocked</th>
                 <th scope="col">Action</th>
               </tr>
               </thead>
@@ -61,9 +61,15 @@
                     <span class="mb-0 text-sm" >Updated At:</span>
                     <p class="mb-0 text-sm">{{datePipe.transform(u.updatedAt, 'medium') }}</p>
                   </td>
-                  <td>
-                    <span class="mb-0 text-sm">{{u.isActive}}</span>
-
+                  <td *ngIf="u.isActive == false">
+                      <span class="badge badge-dot mr-4">
+                        <i class="bg-warning"></i><span class="mb-0 text-sm" style="color: #0b0b0b">Offline</span>
+                      </span>
+                  </td>
+                  <td *ngIf="u.isActive == true">
+                      <span class="badge badge-dot mr-4">
+                        <i class="bg-success"></i> <span class="mb-0 text-sm" style="color: #0b0b0b">Online</span>
+                      </span>
                   </td>
                   <td>
                     <span class="mb-0 text-sm">{{u.role}}</span>

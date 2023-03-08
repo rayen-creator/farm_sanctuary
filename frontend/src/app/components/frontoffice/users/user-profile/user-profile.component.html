@@ -12,10 +12,12 @@
                 <p *ngIf="user?.role == 'CLIENT'"  style="color: orangered">{{user?.role}}</p>
                 <p class="text-muted font-size-sm">{{user?.email}}</p>
                 <div class="mt-2">
-                  <button style="margin: 10px;" class="btn btn-outline-primary" >
+                  <button style="margin: 10px;" class="btn btn-outline-primary" (click)="fileInput.click()">
                     <i class="fa fa-fw fa-camera"></i>
                     <span>Change Photo</span>
                   </button>
+                  <input type="file" #fileInput style="display:none" (change)="handleFileInput($event)">
+
 
                 </div>
 
