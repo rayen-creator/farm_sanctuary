@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {updatedeliveryAgent, getdeliveryAgent} from "../../../../app/graphql/graphql.queries.agent";
+import {updatedeliveryAgent, getdeliveryAgent} from "../../../core/graphql/graphql.queries.agent";
 import {Apollo, gql} from "apollo-angular";
 import {Agent} from "../../../../app/core/models/deliveryAgent";
 import { FormControl, FormGroup, Validators,AbstractControl } from '@angular/forms';
