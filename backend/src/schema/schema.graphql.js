@@ -1,47 +1,76 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 const typeDefs = gql`
+  scalar DateTime
 
-scalar DateTime
+  enum Role {
+    FARMER
+    CLIENT
+    ADMIN
+  }
 
-enum Role {
-  FARMER
-  CLIENT
-  ADMIN
-}
-
+  enum Gender{
+    MALE
+    FEMALE
+  }
 
   type User {
-  id: ID!
-  username: String!
-  email: String!
-  password: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  isActive: Boolean!
-  isBlocked: Boolean!
-  role: Role!
-   image: Image
+    id: ID!
+    username: String!
+    email: String!
+    phone:Int!
+    password: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    isActive: Boolean!
+    isBlocked: Boolean!
+    gender:Gender!
+    role: Role!
+    image: Image
   }
-  
+
   type Image {
-  url: String!
-  contentType: String!
-}
-  
+    url: String!
+    contentType: String!
+  }
+
   input UserInput {
-  username: String!
-  email: String!
-  password: String!
-  isActive: Boolean!
-  role: Role!
-  image: ImageInput
-}
+    username: String!
+    email: String!
+    phone:Int!
+    password: String!
+    isActive: Boolean!
+    gender:Gender!
+    role: Role!
+    image: ImageInput
+  }
 
-input ImageInput {
-  url: String!
-  contentType: String!
-}
-
+  input ImageInput {
+    url: String!
+    contentType: String!
+  }
+  input signinInput {
+    email: String!
+    password: String!
+  }
+  type LoginResponse {
+    accessToken: String!
+    username: String!
+    message: String!
+    expiresIn: Int!
+  }
+  type ForgetpwdResponse{
+    message:String!
+    mailstatus:Boolean!
+  }
+  input ForgetpwdInput{
+    email: String!
+    subject:String!
+  }
+  type SignupResponse{
+    message: String!
+    emailExists: Boolean!
+    usernameExists: Boolean!
+  }
 
   type Query {
     getUser(id: ID!): User!
@@ -49,7 +78,10 @@ input ImageInput {
   }
 
   type Mutation {
-    createUser(input: UserInput!): User!
+    signup(input: UserInput!): SignupResponse!
+    signin(input: signinInput!): LoginResponse!
+    resetpwd(input:ForgetpwdInput!):ForgetpwdResponse!
+
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
