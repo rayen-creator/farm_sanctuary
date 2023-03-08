@@ -81,24 +81,13 @@ const deleteUser = gql`
 `;
 
 const updateUser = gql`
-  mutation updateUser($id: ID!) {
-   updateUser(id:$id, input: {
-    username: "johndoe222222",
-    email: "johndoe22222@example.com",
-    password: "password22212rrrr3",
-    isActive: true,
-    role: ADMIN,
-     image: {
-      url: "https://cdn-icons-png.flaticorgergergrgergergergergen.com/512/219/219986.png",
-      contentType: "image/png"
-    }
-  }) {
-    id
-    username
-    email
-    isActive
-    role
+  mutation updateUser($id:ID!,$input: UserInput!) {
+  updateUser(id: $id,input: $input) {
+  id
+   username
+   phone
+   email
   }
 }
 `;
-export {users, toggleBlock, deleteUser, user}
+export {users, toggleBlock, deleteUser, user, updateUser}
