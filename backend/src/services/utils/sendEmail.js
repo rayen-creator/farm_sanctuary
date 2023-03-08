@@ -1,8 +1,5 @@
 const nodemailer = require("nodemailer");
 const inlineBase64 = require("nodemailer-plugin-inline-base64");
-// const fs = require("fs");
-// const { promisify } = require("util");
-// const readFile = promisify(fs.readFile);
 
 const sendEmail = async (mailOptions) => {
   try {

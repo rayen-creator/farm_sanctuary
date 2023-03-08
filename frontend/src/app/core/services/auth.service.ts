@@ -108,6 +108,7 @@ export class AuthService {
     this.authStatusListener.next(false);
     this.router.navigate(['/login']);
   }
+  
   private setAuthTimer(duration: number) {
     console.log('Set Timer :', duration);
 
