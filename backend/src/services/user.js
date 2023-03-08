@@ -8,11 +8,28 @@ async function getUsers() {
   return User.find();
 }
 
+async function createUser(input) {
+  const user = new User({
+    username: input.username,
+    email: input.email,
+    phone:input.phone,
+    password: input.password,
+    isActive: input.isActive,
+    role: input.role,
+    image:input.image,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    isBlocked: false,
+  });
+  return await user.save(user);
+}
+
 async function updateUser(id, input) {
   const updatedUser = {
     username: input.username,
     password: input.password,
     email: input.email,
+    phone:input.phone,
     isActive: input.isActive,
     role: input.role,
     image:input.image,
