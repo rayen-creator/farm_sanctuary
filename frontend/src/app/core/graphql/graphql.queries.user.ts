@@ -10,6 +10,7 @@ id,
     updatedAt,
     isActive,
     isBlocked,
+  gender,
     role,
      image {
          url
@@ -31,6 +32,7 @@ query getUser($id: ID!)
     createdAt,
     updatedAt,
     isActive,
+    gender,
     isBlocked,
     role,
      image {
@@ -86,6 +88,7 @@ const updateUser = gql`
   id
    username
    phone
+    gender
    email
   }
 }

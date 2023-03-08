@@ -1,4 +1,5 @@
 import { roles } from "./role";
+import {genders} from "./gender";
 
 export type User = {
     'id': String;
@@ -10,6 +11,7 @@ export type User = {
   'createdAt': Date
   'updatedAt': Date
   'isBlocked': Boolean
+  'gender': genders
     'role': roles
   'image': {
     'url': string;

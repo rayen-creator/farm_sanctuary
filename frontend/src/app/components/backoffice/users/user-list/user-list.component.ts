@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {toggleBlock, users, deleteUser} from "../../../../core/graphql/graphql.queries.user";
-import {Apollo, gql} from "apollo-angular";
+import {Apollo} from "apollo-angular";
 import {User} from "../../../../core/models/user";
 import {DatePipe} from "@angular/common";
 import Swal from 'sweetalert2'
@@ -85,8 +85,8 @@ export class UserListComponent implements OnInit {
             mutation: toggleBlock,
             variables: { id },
             refetchQueries: [{
-          query: users
-        }]
+              query: users
+            }]
           })
           .subscribe({
             next: (result: any) => {

@@ -8,6 +8,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
+import {UserProfileComponent} from "./users/user-profile/user-profile.component";
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'signup/:accountType', component: RegisterComponent },
       { path: 'signup', component: RegistermainpageComponent },
-      {path: 'profile/:id', component: UserProfileComponent}
+      {path: 'profile/:id', component: UserProfileComponent},
 
       { path: 'forgetpassword', component: ResetpwdComponent },
       { path: 'resetpassword/:token', component: UpdatepwdComponent },

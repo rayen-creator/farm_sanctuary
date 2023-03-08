@@ -18,6 +18,7 @@ async function updateUser(id, input) {
     phone:input.phone,
     isActive: input.isActive,
     role: input.role,
+    gender: input.gender,
     image:input.image,
     isBlocked: false,
     updatedAt: new Date(),
