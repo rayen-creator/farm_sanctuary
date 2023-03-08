@@ -2,7 +2,7 @@
   text-align: center;
   position: relative;
   margin-top: 30px;
-  color: red;
+  color: green;
 }
 #msform fieldset {
   background: white;
@@ -180,4 +180,38 @@ fieldset {
          to {
              margin-left: 0%;width: 100%;
          }
+}
+
+.rating {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  color: #aaa;
+  text-shadow: 1px 1px #fff;
+}
+
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input:checked ~ label {
+  color: #FFD700;
+  text-shadow: 1px 1px #fff;
+}
+
+.rating label:hover:before,
+.rating label:hover ~ label:before,
+.rating input:checked ~ label:before {
+  content: "\2605";
+  position: absolute;
 }

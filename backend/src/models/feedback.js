@@ -1,24 +1,17 @@
 const mongoose = require("mongoose");
 const category = Object.freeze({
   TECHNICAL: 'TECHNICAL',
-  NON_TECHNICAL: 'NON_TECHNICAL'
+  NON_TECHNICAL: 'NON_TECHNICAL',
+  FUNCTIONAL: 'FUNCTIONAL'
   
 });
-const rating = Object.freeze({
-    GOOD: 'GOOD',
-    AVERAGE: 'AVERAGE',
-    BAD:'BAD'
-    
-  });
+
 
 const feedbackSchema = new mongoose.Schema({
     title: String,
     subject: String,
     content: String,
-    rating: {
-        type:String,
-        enum:rating,
-    },
+    rating: Number,
     category: {
       type: String,
       enum: category,

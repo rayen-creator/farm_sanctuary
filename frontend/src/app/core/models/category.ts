@@ -1,4 +1,5 @@
 export enum category {
     'TECHNICAL',
-    'NON_TECHNICAL'
+    'NON_TECHNICAL',
+    'FUNCTIONAL'
 }

@@ -1,4 +1,6 @@
 import { gql } from "apollo-angular";
+
+
 const feedbacks = gql
 `
 
@@ -13,8 +15,22 @@ query{
     }
     }
 
+`;
+
+const createFeedback = gql `
+    mutation createFeedback($input: FeedbackInput!){
+    createFeedback(input:$input){
+        title
+        subject
+        content
+        rating
+        category
+
+
+    }
+}
 `
 
 ;
 
-export {feedbacks}
+export {feedbacks , createFeedback}

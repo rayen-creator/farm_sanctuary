@@ -13,12 +13,9 @@ enum Role {
   enum Category {
     TECHNICAL
     NON_TECHNICAL
+    FUNCTIONAL
   }
-  enum Rating {
-    GOOD
-    AVERAGE
-    BAD
-  }
+ 
 
   type Feedback {
     id: ID!
@@ -26,7 +23,7 @@ enum Role {
     subject: String!
     content: String!
     category:Category!
-    rating:Rating!
+    rating:Int!
   }
 
 
@@ -34,7 +31,7 @@ enum Role {
     title: String!
     subject: String!
     content: String!
-    rating: Rating!
+    rating: Int!
     category: Category!
   }
   

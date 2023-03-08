@@ -1,9 +1,11 @@
 
 import { Component, OnInit } from '@angular/core';
-import {feedbacks} from "../../../../core/graphql/graphql.queries";
+import {createFeedback, feedbacks} from "../../../../core/graphql/graphql.queries";
 import {Apollo, gql} from "apollo-angular";
 import {Feedback} from "../../../../core/models/feedback";
+import Swal from 'sweetalert2'
 import { FormControl,FormGroup,Validators,FormBuilder } from '@angular/forms';
+import { ActivatedRoute , Params , Router } from '@angular/router';
 
 @Component({
   selector: 'app-feedback-list',
@@ -13,7 +15,6 @@ import { FormControl,FormGroup,Validators,FormBuilder } from '@angular/forms';
 export class FeedbackFormComponent implements OnInit {
 
     title = 'FeedBack-code';
- 
 
     TitleAndSubjectDetails!: FormGroup;
     RatingAndCategoryDetails!: FormGroup;
@@ -24,7 +25,7 @@ export class FeedbackFormComponent implements OnInit {
     step = 1;
   
   feedbackList: Feedback[];
-    constructor(private apollo: Apollo ,private formBuilder: FormBuilder ) {
+    constructor(private apollo: Apollo ,private formBuilder: FormBuilder, private currentRoute: ActivatedRoute  ) {
     
      }
   
@@ -78,15 +79,55 @@ export class FeedbackFormComponent implements OnInit {
         this.category_step = false;
       }
      
-    }
+    } 
   
-    submit(){
-      
-      if(this.step==3){
-        this.content_step = true;
-        if (this.ContentDetails.invalid) { return }
-        alert("Well done!!")
-      }
+    onSubmit() {
+      Swal.fire({
+        title: 'Are you sure you want to add this feedback?',
+        text: 'This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, add',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let titleFeedback = this.TitleAndSubjectDetails.value;
+          let categoryFeedback = this.RatingAndCategoryDetails.value;
+          let contentFeedback = this.ContentDetails.value;
+
+          console.log(this.TitleAndSubjectDetails)
+          console.log(this.RatingAndCategoryDetails)
+          console.log(this.ContentDetails)
+          const input = {
+            title: titleFeedback.title,
+            subject: titleFeedback.subject,
+            category: categoryFeedback.category,
+            rating: parseInt(categoryFeedback.rating),
+            content: contentFeedback.content,
+            
+          };
+         
+
+  
+          this.apollo
+            .mutate({
+              mutation: createFeedback,
+              variables: {input: input},
+            })
+            .subscribe({
+              next: (result: any) => {
+                const createFeedback = result.data.updateUser as Feedback;
+  
+                Swal.fire('Created', 'Feedback has been created successfully.', 'success');
+  
+              },
+              error: (err) => {
+                console.log('err :' + err);
+              },
+            });
+        }
+      });
     }
   }
 
