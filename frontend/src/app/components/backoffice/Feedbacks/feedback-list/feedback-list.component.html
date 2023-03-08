@@ -1,45 +1,112 @@
-<h1  style="text-align: center;">                              Feedbacks</h1>
 
 
-<table cellspacing='0' style > <!-- cellspacing='0' is important, must stay -->
-
-	<!-- Table Header -->
-	<thead>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-		<tr>
-			<th>Title</th>
-			<th>Subject</th>
-			<th>Content</th>
-            <th>Rating</th>
-            <th>Category</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<!-- Table Header -->
+<body>
+  <div class="main-content" >
+    <div class="container ">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h3 class="mb-0"> (  {{feedbackList.length}} ) Feedbacks</h3>
+            
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th style="align-self: center;" scope="col">   <i style="color: #6d8c54;" class="fas fa-sort"></i>  Title</th>
+                    <th style="align-self: center;" scope="col">Subject</th>
+                    <th style="align-self: center;" scope="col">Content</th>
+                    <th style="align-self: center;" scope="col">Rating</th>
+                    <th style="align-self: center;" scope="col">Category</th>
+                    <th  scope="col">Action</th>
+                  </tr>
+                </thead>
 
-	<!-- Statique until i figure out node -->
-	<tbody>
+                <tbody>
+					<ng-container *ngFor="let f of filteredItems ">
+						<tr>
+ 
+                      <td>
+                        <span class="mb-0 text-sm">{{f.title}}</span>
+                       
+                      </td>
+                      <td>
+                        <span class="mb-0 text-sm">{{f.subject}}</span>
+                       
+                      </td>
+                      
+                      <td>
+                        <span class="badge" *ngIf="f.rating.toString() == 'AVERAGE'" style="color: rgb(255, 140, 0);">{{f.rating}}
+                        </span> 
+                        <span class="badge" *ngIf="f.rating.toString() == 'GOOD'" style="color: rgb(34, 255, 0);">{{f.rating}}
+                        </span> 
+                        <span class="badge" *ngIf="f.rating.toString() == 'BAD'" style="color: rgb(255, 0, 0);">{{f.rating}}
+                        </span> 
+                       
+                      </td> 
+                      <td>
+						<span class="mb-0 text-sm">{{f.content}}</span>  
 
-		<tr *ngFor="let f of feedbackList">
-			<td>{{f.title}}</td>
-			<td>{{f.subject}}</td>
-			<td>{{f.content}}</td>
-            <td>{{f.rating}}</td>
-			<td>{{f.category}}</td>
+                      </td>
+					  
+                
+                      <td>
+                        <span class="badge ">
 
-		<tr class="even">
-			<td>Take the dog for a walk</td>
-			<td>100%</td>
-			<td>Yes</td>
-            <td>100%</td>
-			<td>Yes</td>
-		</tr><!-- Darker Table Row -->
+                          <i class="bg-info rounded-pill"> {{f.category}}</i>
+                        </span>
+                  </td>
+                    
+                      <td class="text-right">
+                        <div class="dropdown">
+                          <a  style="color: #6d8c54;" class="btn bg-gradient-primary dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
+                            <i style="color: #6d8c54;" class="fas fa-ellipsis-v"></i> 
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                            <a class="dropdown-item" >Delete</a>
+                            
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+          <div class="card-footer py-4">
+            <nav aria-label="...">
+              <ul class="pagination justify-content-end mb-0">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="setPage(currentPage - 1)">
+                    <i class="fas fa-angle-left"></i>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+                  <a class="page-link" (click)="setPage(page)">{{page}}</a>
+                </li>
 
-	
-        
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="setPage(currentPage + 1)">
+                    <i class="fas fa-angle-right"></i>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          </div>
+        </div>
+      </div>
+     
+      
+    </div>
+  </div>
 
-	</tbody>
-	<!-- Table Body -->
-
-</table>
+</body>
