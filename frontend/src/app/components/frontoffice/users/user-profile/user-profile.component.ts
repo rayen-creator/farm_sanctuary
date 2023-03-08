@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import {User} from "../../../../core/models/user";
-import { user } from 'src/app/graphql/graphql.queries.user';
+import {updateUser, user} from 'src/app/graphql/graphql.queries.user';
 
 @Component({
   selector: 'app-user-profile',
@@ -55,37 +55,56 @@ export class UserProfileComponent implements OnInit {
 
     console.log(e)
     this.userForm = new FormGroup({
-
-      'phone': new FormControl(phone, Validators.required),
-      'email': new FormControl(email, Validators.required),
       'username': new FormControl(username, Validators.required),
+      'phone': new FormControl(phone, Validators.required),
+      'email': new FormControl(email, Validators.required)
+
     })
   }
 
 
   onSubmit() {
-    // console.log(this.AgentForm )
-    // let id= this.currentRoute.snapshot.params['id'];
-    // let newAgznt =this.AgentForm
-    // this.apollo
-    //   .mutate({
-    //     mutation: updatedeliveryAgent,
-    //     variables: {id ,newAgznt },
-    //   })
-    //   .subscribe({
-    //     next: (result: any) => {
-    //       const updatedeliveryAgent = result.data.updatedeliveryAgent as Agent;
-    //
-    //       Swal.fire('Updated', 'Agent has been Updated successfully.', 'success');
-    //       this.router.navigate(['/admin/delvery'])
-    //     },
-    //     error: (err) => {
-    //       console.log('err :' + err);
-    //     },
-    //   });
+    Swal.fire({
+      title: 'Are you sure you want to update your profile?',
+      text: 'This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, update',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let newUser = this.userForm.value;
+        const input = {
+          username: newUser.username,
+          email: newUser.email,
+          phone: newUser.phone,
+          password: this.user.password,
+          isActive: this.user.isActive,
+          role: this.user.role
+        };
+        console.log(this.userForm)
+        let id = this.currentRoute.snapshot.params['id'];
 
+        this.apollo
+          .mutate({
+            mutation: updateUser,
+            variables: {id, input: input},
+          })
+          .subscribe({
+            next: (result: any) => {
+              const updatedUser = result.data.updateUser as User;
+
+              Swal.fire('Updated', 'User has been updated successfully.', 'success');
+
+            },
+            error: (err) => {
+              console.log('err :' + err);
+            },
+          });
+      }
+    });
   }
-
 
 
 }
