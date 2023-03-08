@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import {User} from "../../../../core/models/user";
-import {updateUser, user} from 'src/app/graphql/graphql.queries.user';
+import {updateUser, user} from 'src/app/core/graphql/graphql.queries.user';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,6 +17,8 @@ export class UserProfileComponent implements OnInit {
   user : User;
   userForm: FormGroup;
   pattern="^[ a-zA-Z0-9][a-zA-Z0-9 ]*$";
+
+  selectedFile: File;
   constructor(  private currentRoute: ActivatedRoute,
                 private router: Router,private apollo: Apollo
   ) { }
@@ -60,6 +62,15 @@ export class UserProfileComponent implements OnInit {
       'email': new FormControl(email, Validators.required)
 
     })
+  }
+
+  handleFileInput(event: Event) {
+    // @ts-ignore
+    const file = (event.target as HTMLInputElement).files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+console.log(file)
+    // call your service method to update user image
   }
 
 

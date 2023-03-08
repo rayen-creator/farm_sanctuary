@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {toggleBlock, users, deleteUser} from "../../../../graphql/graphql.queries.user";
+import {toggleBlock, users, deleteUser} from "../../../../core/graphql/graphql.queries.user";
 import {Apollo, gql} from "apollo-angular";
 import {User} from "../../../../core/models/user";
 import {DatePipe} from "@angular/common";
