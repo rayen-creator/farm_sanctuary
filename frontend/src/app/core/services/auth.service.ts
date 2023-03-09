@@ -1,10 +1,15 @@
-import { LoginResponse } from './../graphql/loginResponse';
+import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
+import { sendmailResponse } from './../graphql/graphqlResponse/sendmailResponse';
+import { checkresettoken, sendmail } from '../graphql/queries/auth.queries';
+import { LoginResponse } from '../graphql/graphqlResponse/loginResponse';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from "apollo-angular";
 import { Subject } from 'rxjs';
-import { login } from "../graphql/auth.queries"
+import { login, resetpwd } from "../graphql/queries/auth.queries"
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { checkresettokenResponse } from '../graphql/graphqlResponse/checktokenResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +19,7 @@ export class AuthService {
   public username: string;
   public usernameExists: boolean;
   public emailExists: boolean;
+
   private tokenTimer: any;
 
   // Assure l'envoie d'un paramètre aux autres components
@@ -22,7 +28,9 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   private isUserAuthenticated = false;
 
-  constructor(private appolo: Apollo,private router:Router) { }
+  constructor(private appolo: Apollo,
+    private router: Router,
+    private toastr: ToastrService) { }
 
 
   getToken() {
@@ -40,7 +48,89 @@ export class AuthService {
   isUserAuth() {
     return this.isUserAuthenticated;
   }
-  
+
+//check if the link is valid
+  isresettokenValid(email: string, resettoken: string) {
+
+    const input = {
+      token: resettoken,
+      email: email
+    }
+    this.appolo.mutate({
+      mutation: checkresettoken,
+      variables: {
+        input: input
+      }
+    }).subscribe({
+      next: (res) => {
+        const checkresettokenResponse = res.data as checkresettokenResponse;
+        if(!checkresettokenResponse.checkresettoken.valid){
+          this.router.navigate(['/error']);
+        }
+      },
+      error: (error) => {
+        this.router.navigate(['/error']);
+        throw error;
+      }
+    })
+
+
+  }
+
+  //send email with link to resetpwd
+  sendmail(email: String) {
+    const input = {
+      email: email,
+    };
+    return this.appolo.mutate({
+      mutation: sendmail,
+      variables: {
+        input: input
+      }
+    }).subscribe({
+      next: (res) => {
+        const sendmailResponse = res.data as sendmailResponse;
+        if (sendmailResponse.sendmail.mailstatus) {
+          this.toastr.success('Mail sent !', 'Notification', {
+            progressBar: true
+          });
+
+
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 4000);
+        }
+      },
+      error: (error) => {
+        throw error;
+      }
+    });
+  }
+
+  //update pwd 
+  resetpwd(email: String, password: String) {
+    const input = {
+      email: email,
+      password: password,
+    };
+    return this.appolo.mutate({
+      mutation: resetpwd,
+      variables: {
+        input: input
+      }
+    }).subscribe({
+      next: (res) => {
+        this.toastr.success('Password updated !', 'Notification', {
+          progressBar: true
+        });
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        throw error;
+      }
+    });
+  }
+
   login(user: User) {
     const input = {
       email: user.email,
@@ -54,14 +144,14 @@ export class AuthService {
       }
     }).subscribe({
       next: (res) => {
-        const loginresponse=res.data as LoginResponse;
+        const loginresponse = res.data as LoginResponse;
 
-        console.log("accessToken "+loginresponse.signin.accessToken);
-        console.log("username "+loginresponse.signin.username);
+        console.log("accessToken " + loginresponse.signin.accessToken);
+        console.log("username " + loginresponse.signin.username);
 
         const token = loginresponse.signin.accessToken;
         const username = loginresponse.signin.username;
-      
+
         if (token) {
           const expireInDuration = loginresponse.signin.expiresIn;
           this.isUserAuthenticated = true;
@@ -108,7 +198,7 @@ export class AuthService {
     this.authStatusListener.next(false);
     this.router.navigate(['/login']);
   }
-  
+
   private setAuthTimer(duration: number) {
     console.log('Set Timer :', duration);
 
