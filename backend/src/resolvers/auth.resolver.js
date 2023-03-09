@@ -23,9 +23,24 @@ const authResolver = {
         throw new UserInputError(error.message);
       }
     },
-    async resetpwd(_, { input }) {
-      return await authService.restpwd(input);
+    async sendmail(_, { input }) {
+      return await authService.sendTokenlink(input);
     },
+    async resetpwd(_, { input }) {
+      try {
+        return await authService.updatepwd(input);
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    async checkresettoken(_,{input}){
+      try {
+        return await authService.checkresettoken(input);
+      } catch (error) {
+        console.log(error);
+        throw new Error(error);
+      }
+    }
   },
 };
 

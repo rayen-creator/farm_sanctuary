@@ -42,6 +42,8 @@ const userSchema = new mongoose.Schema({
     url: String,
     contentType: String,
   },
+  resetpwdToken:String,
+  // resetpwdExpirToken:Date
 });
 
 const User = mongoose.model("Users", userSchema);

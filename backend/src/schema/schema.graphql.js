@@ -61,10 +61,10 @@ const typeDefs = gql`
   type ForgetpwdResponse{
     message:String!
     mailstatus:Boolean!
+    
   }
   input ForgetpwdInput{
     email: String!
-    subject:String!
   }
   type SignupResponse{
     message: String!
@@ -72,6 +72,28 @@ const typeDefs = gql`
     usernameExists: Boolean!
   }
 
+
+  type UpdatepwdResponse{
+    message: String!
+    updateStatus:Boolean!
+    userFound:Boolean!
+  }
+
+  input resetpwd{
+    email: String!
+    password:String!
+    token:String!
+  }
+
+ 
+  input checkresettoken{
+    token:String!
+    email:String!
+  }
+  type checkresettokenResponse{
+    valid: Boolean!
+    message:String!
+  }
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -80,7 +102,9 @@ const typeDefs = gql`
   type Mutation {
     signup(input: UserInput!): SignupResponse!
     signin(input: signinInput!): LoginResponse!
-    resetpwd(input:ForgetpwdInput!):ForgetpwdResponse!
+    sendmail(input:ForgetpwdInput!):ForgetpwdResponse!
+    resetpwd(input:resetpwd!):UpdatepwdResponse!
+    checkresettoken(input:checkresettoken!):checkresettokenResponse!
 
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!

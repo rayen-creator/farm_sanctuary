@@ -20,7 +20,7 @@ async function signup(input) {
       emailExists: false,
     };
   }
-    //verify duplicated email
+  //verify duplicated email
   const findemail = await User.findOne({ email: input.email });
   if (findemail) {
     return {
@@ -82,12 +82,24 @@ async function signin(input) {
   };
 }
 
-async function restpwd(input) {
+async function sendTokenlink(input) {
   const user = await User.findOne({ email: input.email });
 
   if (!user) {
     throw new Error("User not found");
   }
+
+  const payload = {
+    user_email: user.email,
+  };
+  const options = {
+    expiresIn: "1h",
+  };
+  const resetToken = jsonwebtoken.sign(
+    payload,
+    process.env.RESET_SECRET,
+    options
+  );
 
   const readHTMLFile = (path) => {
     return new Promise((resolve, reject) => {
@@ -96,20 +108,16 @@ async function restpwd(input) {
           reject(err);
         } else {
           const template = handlebars.compile(html);
-          const resetToken = jsonwebtoken.sign(
-            { id: user.email },
-            process.env.RESET_SECRET,
-            { expiresIn: process.env.RESET_EXPIRE }
-          );
-          console.log(resetToken);
+
           const replacements = {
             link: `http://localhost:4200/resetpassword/${resetToken}`,
           };
           const htmlToSend = template(replacements);
+          const subject = "Password recovery ";
           const mailOptions = {
             from: process.env.USER,
             to: input.email,
-            subject: input.subject,
+            subject: subject,
             html: htmlToSend,
           };
           resolve(sendEmail(mailOptions));
@@ -127,6 +135,10 @@ async function restpwd(input) {
         mailstatus: mail.mailStatus,
       };
     }
+    const addtoken = await User.updateOne(
+      { email: input.email },
+      { resetpwdToken: resetToken }
+    );
     return {
       message: mail.message,
       mailstatus: mail.mailStatus,
@@ -136,8 +148,85 @@ async function restpwd(input) {
   }
 }
 
+async function checkresettoken(input) {
+  const user = await User.findOne({
+    email: input.email,
+    resetpwdToken: input.token,
+  });
+
+  if (!user) {
+    return {
+      valid: false,
+      message: "Invalid reset Token!",
+    };
+  }
+
+  if (input.token == user.resetpwdToken) {
+    const decodedToken = jsonwebtoken.verify(
+      input.token,
+      process.env.RESET_SECRET
+    );
+    // Check if the reset token has expired
+    const resetTime = new Date(decodedToken.iat * 1000);
+    console.log("resetTime", resetTime);
+    const expirationTime = new Date(resetTime.getTime() + 60 * 60 * 1000); // 1h expiration
+    const currentTime = new Date();
+    if (currentTime > expirationTime) {
+      //delete reset token
+      await User.updateOne(
+        { email: input.email },
+        { $unset: { resetpwdToken: 1 } }
+      );
+      return {
+        valid: false,
+        message: "reset token expired !",
+      };
+    }
+    return {
+      valid: true,
+      message: "reset token checked !",
+    };
+  }
+}
+
+async function updatepwd(input) {
+  const user = await User.findOne({ email: input.email });
+  if (!user) {
+    return {
+      message: "User not found",
+      updateStatus: false,
+      userFound: false,
+    };
+  }
+  //update pwd
+  const update = await User.updateOne(
+    { email: user.email },
+    { password: bcrypt.hashSync(input.password, 8) }
+  );
+
+  if (!update) {
+    return {
+      message: "Failed to update password",
+      updateStatus: false,
+      userFound: true,
+    };
+  }
+  //delete reset token
+  await User.updateOne(
+    { email: input.email },
+    { $unset: { resetpwdToken: 1 } }
+  );
+  return {
+    message: "Password updated successfully",
+    updateStatus: true,
+    userFound: true,
+  };
+}
+
 module.exports = {
   signin,
   signup,
-  restpwd,
+  sendTokenlink,
+  updatepwd,
+  checkresettoken,
 };
