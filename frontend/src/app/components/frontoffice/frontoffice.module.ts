@@ -11,6 +11,7 @@ import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
 
 
 
@@ -24,7 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RegisterComponent,
     ResetpwdComponent,
     UpdatepwdComponent,
-    RegistermainpageComponent
+    RegistermainpageComponent,
+    ErrorresetpwdComponent
   
   ],
   imports: [

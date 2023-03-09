@@ -8,6 +8,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
+import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
 
       { path: 'forgetpassword', component: ResetpwdComponent },
       { path: 'resetpassword/:token', component: UpdatepwdComponent },
+      {path:'error',component:ErrorresetpwdComponent}
     ]
   },
 
