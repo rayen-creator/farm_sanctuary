@@ -5,6 +5,7 @@ import {User} from "../../../../core/models/user";
 import {Customvalidator} from "../../../../core/utils/custom-validator";
 import {ActivatedRoute} from "@angular/router";
 import {SignupResponse} from "../../../../core/graphql/signupResponse";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-register',
@@ -61,7 +62,7 @@ export class RegisterComponent implements OnInit {
           this.emailExist  = registerReponse.signup.emailExists;
 
           if (!this.usernameExist && !this.emailExist) {
-
+            Swal.fire('Created', 'Account created successfully.', 'success');
             if (newUser.email != "" && newUser.password != "") {
               this.authservice.login(newUser)
 

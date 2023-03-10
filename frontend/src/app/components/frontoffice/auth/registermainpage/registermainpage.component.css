@@ -1,88 +1,166 @@
-.container1 {
-    position: relative;
-    width: 50%;
-  }
-
-  .image {
-    opacity: 1;
-    display: block;
-    width: auto;
-    height: auto;
-    max-width: 200%;
-    max-height: 500px;
-    transition: 0.5s ease;
-    backface-visibility: hidden;
-
-  }
-
-  .middle {
-    transition: 0.5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    text-align: center;
-  }
-
-  .container1:hover .image {
-    opacity: 0.3;
-  }
-
-  .container1:hover .middle {
-    opacity: 1;
-  }
-
-  .text {
-    /* background-color: #6d8c54; */
-    color: gray;
-    font-size: 16px;
-    padding: 10px 30px;
-  }
-.my-btn {
-  font-size: 1.2rem;
-  color: #fff;
-  border-radius: 20px;
-  margin-top: 1rem;
-  background-color: #8bc34a;
-  border-color: #8bc34a;
-}
-
-.my-btn:hover {
-  background-color: #689f38;
-  border-color: #689f38;
-}
 body {
-  background-color: #f1f1f1;
-  background-image: url("https://www.transparenttextures.com/patterns/axiom-pattern.png");
-  padding-bottom: 100px;
-  padding-top: 100px;
+  font-family: Arial, sans-serif;
+  background-color: #E0E0E0;
+
+}
+
+.green-side {
+  background-color: #E0E0E0;
+
+  min-height: 100vh;
+}
+
+.gray-side {
+  background-color: #E0E0E0;
+  min-height: 100vh;
 }
 
 .card {
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease-in-out;
+  border: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  max-width: 400px;
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  transform: translateY(-5px);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.card h2 {
-  font-size: 2rem;
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
+}
+
+.card-title {
   font-weight: bold;
-  color: #4c4c4c;
-  margin-bottom: 1rem;
+  margin-top: 20px;
 }
 
-.card p {
-  font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 2rem;
-  line-height: 1.5;
+.card-text {
+  margin-bottom: 20px;
 }
 
+.my-btn {
+  border-radius: 20px;
+  padding: 10px 50px;
+  margin-top: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.my-btn:hover {
+  opacity: 0.8;
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.lead {
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 767px) {
+  .card-img-top {
+    height: 200px;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  .my-btn {
+    padding: 10px 30px;
+  }
+}
+
+@media (max-width: 575px) {
+  .card-img-top {
+    height: 150px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .lead {
+    font-size: 0.875rem;
+  }
+
+  .my-btn {
+    padding: 8px 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .card-img-top {
+    height: 120px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .lead {
+    font-size: 0.8rem;
+  }
+
+  .my-btn {
+    padding: 6px 16px;
+  }
+}
+
+/* Custom styles for specific elements */
+
+/* Add a gradient overlay to the card images */
+.card-img-top::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.7));
+}
+
+/* Style the signup links */
+.signup-link {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+}
+
+.signup-link:hover {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Add a border radius to the card body */
+.card-body {
+  border-radius: 10px;
+}
+
+/* Center the content vertically in the cards */
+.d-flex {
+  align-items: center;
+}
+
+/* Add a subtle box shadow to the cards on hover */
+.card:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Center the cards horizontally */
+.card-columns {
+  justify-content: center;
+}
