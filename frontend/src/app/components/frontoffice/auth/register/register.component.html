@@ -4,13 +4,13 @@
             <div class="card border-1 mt-4">
                 <div class="card-body p-0">
                     <div class="row no-gutters">
-                       
+
 
                         <div class="col-lg-6 d-none d-lg-inline-block">
                             <div class="account-block rounded-right">
                                 <div class="overlay rounded-right"></div>
                                 <div class="account-testimonial">
-                                    <h4 class="text-white mb-4">No account? Sign up</h4>
+                                    <h4 class="text-white mb-4">already have an account? <a routerLink="../../login">Sign in</a></h4>
                                     <p class="lead text-white">
                                         Registration takes less than a minute but gives you many features.</p>
                                     <!-- <p>- Admin User</p> -->
@@ -24,29 +24,67 @@
                                 </div>
 
                                 <!-- <h6 class="h5 mb-0">No account? Sign up</h6>
-                                
+
 
                                 <p class="text-muted mt-2 mb-5">
                                     Registration takes less than a minute but gives you many features.</p> -->
 
-                                <form>
+                                <form [formGroup]="registerForm" (ngSubmit)="register()" *ngIf="registerForm">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Username</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1">
+                                        <label for="username">Username</label>
+                                        <input name="username" formControlName="username" id="username" type="text" class="form-control" >
                                     </div>
+                                  <span class="text-danger" *ngIf="!registerForm.get('username')?.valid && registerForm.get('username')?.touched">
+                                    <span  *ngIf="registerForm.get('username')?.errors?.['required']">this field is required !</span >
+                                    <span  *ngIf="registerForm.get('username')?.errors?.['minlength']">minlength = 3 !</span >
+                                    <span  *ngIf="registerForm.get('username')?.errors?.['pattern']">symbols are not allowed !</span >
+                                  </span>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1">
+                                        <label for="email">Email address</label>
+                                        <input  name="email" formControlName="email" id="email" type="text" class="form-control">
                                     </div>
+                                  <span class="text-danger" *ngIf="!registerForm.get('email')?.valid && registerForm.get('email')?.touched">
+                                    <span  *ngIf="registerForm.get('email')?.errors?.['required']">this field is required !</span >
+                                    <span  *ngIf="registerForm.get('email')?.errors?.['email']">enter a valid email !</span >
+                                  </span>
+                                  <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input  name="phone" formControlName="phone" id="phone" type="number" class="form-control">
+                                  </div>
+                                  <span class="text-danger" *ngIf="!registerForm.get('phone')?.valid && registerForm.get('phone')?.touched">
+                                    <span  *ngIf="registerForm.get('phone')?.errors?.['required']">this field is required !</span >
+                                    <span  *ngIf="registerForm.get('phone')?.errors?.['pattern']">phone should have 8 digits </span >
+                                  </span>
+                                  <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select name="gender" formControlName="gender" id="gender" class="form-control">
+                                      <option value="MALE">Male</option>
+                                      <option value="FEMALE">Female</option>
+                                    </select>
+                                  </div>
+                                  <span class="text-danger" *ngIf="!registerForm.get('gender')?.valid && registerForm.get('gender')?.touched">
+                                    <span  *ngIf="registerForm.get('gender')?.errors?.['required']">this field is required !</span >
+                                  </span>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                        <label for="password">Password</label>
+                                        <input name="password" formControlName="password" id="password" type="password" class="form-control">
                                     </div>
-                                    <div class="form-group mb-5">
-                                        <label for="exampleInputPassword1">Confirm password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                  <span class="text-danger" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                                    <span  *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long ! </span >
+                                    <span  *ngIf="registerForm.get('password')?.errors?.['maxlength']">Password cannot be more than 20 characters long !</span >
+                                    <span  *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span >
+                                  </span>
+                                  <div class="form-group mb-5">
+                                        <label for="confirmPassword">Confirm password</label>
+                                        <input  name="confirmPassword" formControlName="confirmPassword" id="confirmPassword" type="password" class="form-control">
+                                    <span class="text-danger" *ngIf="!registerForm.get('confirmPassword')?.valid && registerForm.get('confirmPassword')?.touched">
+                                    <span  *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">this field is required !</span >
+                                    <span  *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']">password does not match !</span >
+                                  </span>
                                     </div>
-                                    <button type="submit" class="btn btn-theme forgot-link d-flex justify-content-start">Sign up</button>
+                                  <span *ngIf="emailExist" class="help-block">Email already used !</span>
+                                  <span *ngIf="usernameExist" class="help-block">Username already used !</span>
+                                    <button type="submit" class="btn btn-theme forgot-link d-flex justify-content-start" [disabled]="registerForm?.invalid">Sign up</button>
                                 </form>
                             </div>
                         </div>

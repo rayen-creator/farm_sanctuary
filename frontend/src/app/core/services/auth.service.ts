@@ -1,10 +1,13 @@
-import { LoginResponse } from './../graphql/loginResponse';
+import { LoginResponse } from '../graphql/loginResponse';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from "apollo-angular";
 import { Subject } from 'rxjs';
-import { login } from "../graphql/auth.queries"
+import {login, signup} from "../graphql/auth.queries"
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+
+import {Customvalidator} from "../utils/custom-validator";
+import {SignupResponse} from "../graphql/signupResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +20,7 @@ export class AuthService {
   private tokenTimer: any;
 
   // Assure l'envoie d'un paramètre aux autres components
-  //Un Subject est à la fois un observable ET un observateur. 
+  //Un Subject est à la fois un observable ET un observateur.
   //On peut donc subscribe dessus, mais également lui envoyer des valeurs :
   private authStatusListener = new Subject<boolean>();
   private isUserAuthenticated = false;
@@ -40,7 +43,7 @@ export class AuthService {
   isUserAuth() {
     return this.isUserAuthenticated;
   }
-  
+
   login(user: User) {
     const input = {
       email: user.email,
@@ -61,7 +64,7 @@ export class AuthService {
 
         const token = loginresponse.signin.accessToken;
         const username = loginresponse.signin.username;
-      
+
         if (token) {
           const expireInDuration = loginresponse.signin.expiresIn;
           this.isUserAuthenticated = true;
@@ -78,6 +81,25 @@ export class AuthService {
 
       }
     });
+  }
+
+  register(user: User) {
+    const input = {
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+      password: user.password,
+      isActive: false,
+      gender: user.gender,
+      role: user.role
+    };
+
+    return this.appolo.mutate({
+      mutation: signup,
+      variables: {
+        input: input
+      }
+    })
   }
 
   autoAuthUser() {
@@ -108,7 +130,7 @@ export class AuthService {
     this.authStatusListener.next(false);
     this.router.navigate(['/login']);
   }
-  
+
   private setAuthTimer(duration: number) {
     console.log('Set Timer :', duration);
 
