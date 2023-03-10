@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-body" style="margin: 30px;">
             <div class="d-flex flex-column align-items-center text-center">
-              <img [src]="user?.image?.url" alt="Admin" class="rounded-circle p-1 bg-primary" style="color: #6d8c54;" width="125">
+              <img [src]="user?.image?.url" alt="Admin"  style="color: #6d8c54;" width="125" *ngIf="user.image">
               <div class="mt-3">
                 <h4>{{user?.username}}</h4>
                 <p *ngIf="user?.role == 'FARMER'"  style="color: limegreen">{{user?.role}}</p>
@@ -53,6 +53,17 @@
                 </div>
                 <div class="col-sm-9 text-secondary">
                   <input  name="email" formControlName="email" id="email" type="text" class="form-control" >
+                </div>
+              </div>
+              <div class="form-group row mb-3" style="margin-top: 20px;">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Gender</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                <select name="gender" formControlName="gender" id="gender" class="form-control">
+                  <option value="MALE">Male</option>
+                  <option value="FEMALE">Female</option>
+                </select>
                 </div>
               </div>
 

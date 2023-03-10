@@ -91,7 +91,8 @@ export class AuthService {
       password: user.password,
       isActive: false,
       gender: user.gender,
-      role: user.role
+      role: user.role,
+
     };
 
     return this.appolo.mutate({

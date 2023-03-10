@@ -50,6 +50,7 @@ export class RegisterComponent implements OnInit {
   register() {
     let newUser = this.registerForm.value;
     newUser.role = this.accountType
+
     if (newUser.username != "" && newUser.email != "" && newUser.password != "" && newUser.phone != "" && newUser.gender != "") {
       this.authservice.register(newUser).subscribe({
         next: (res) => {
