@@ -12,6 +12,7 @@
     max-height: 500px;
     transition: 0.5s ease;
     backface-visibility: hidden;
+
   }
 
   .middle {
@@ -39,3 +40,49 @@
     font-size: 16px;
     padding: 10px 30px;
   }
+.my-btn {
+  font-size: 1.2rem;
+  color: #fff;
+  border-radius: 20px;
+  margin-top: 1rem;
+  background-color: #8bc34a;
+  border-color: #8bc34a;
+}
+
+.my-btn:hover {
+  background-color: #689f38;
+  border-color: #689f38;
+}
+body {
+  background-color: #f1f1f1;
+  background-image: url("https://www.transparenttextures.com/patterns/axiom-pattern.png");
+  padding-bottom: 100px;
+  padding-top: 100px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.card h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4c4c4c;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
