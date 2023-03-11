@@ -83,7 +83,7 @@ async function signin(input) {
 }
 
  async function sendOTPVerificationEmail(input)  {
-    try {
+
   
       // Generate a 4-digit OTP
       const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
@@ -100,10 +100,55 @@ async function signin(input) {
         code : hashedOTP, 
         expiresAt: expiresAt,
     
-      }}) 
+      }})  
+      
+      
+      // await deleteOTPVerificationRecord(input.email);
+      // verifying if time is updated rayen delete this line after
+      console.log(user); 
+
+      // a method that will automatically update the field expiresAt and set it to null after an hour for extra security
+      // The link to the html template 
+
+
+      const readHTMLFile = (path) => {
+        return new Promise((resolve, reject) => {
+          readFile(path, "utf8", (err, html) => {
+            if (err) {
+              reject(err);
+            } else {
+              const template = handlebars.compile(html);
+              
+              console.log(hashedOTP);
+              const replacements = {
+                otp: `${otp}`,
+              };
+              const htmlToSend = template(replacements);
+              const mailOptions = {
+                from: process.env.USER,
+                to: input.email,
+                subject: "Code for 2 factor authentification",
+                html: htmlToSend,
+              };
+              resolve(sendEmail(mailOptions));
+            }
+          });
+        });
+      };
+      try {
+      const mail = await readHTMLFile("src/view/two_fa/index.html");
+
+      if (!mail.mailStatus) {
+        return{
+          message: "error has occured"
+      } } 
       return {
-        message: "sudcnsidchnshd"
-      }
+        message:"mail sent"
+      };
+      
+    } catch (error) {
+      throw new Error(error);
+    }
   
 
 
@@ -119,10 +164,7 @@ async function signin(input) {
       // awaitsendEmail(mailOptions);
   
       
-    } catch (error) {
-      console.log(error);
-      throw new Error("Failed to send email.");
-    }
+    
   };  
 
 async function restpwd(input) {
@@ -178,13 +220,53 @@ async function restpwd(input) {
     throw new Error(error);
   }
 
-
   
  
+} 
+
+async function verifyOTP(input) {
+  const user = await User.findOne({ email: input.email });
+  const now = Date.now();
+
+  // Check if user exists
+  if (!user) {
+return {message:"user does not exist"}  }
+
+
+  // Check if OTP exists and is not expired 
+
+  if (
+    !user.two_FactAuth ||
+    !user.two_FactAuth.code ||
+    now > user.two_FactAuth.expiresAt
+  ) {
+    return {message:"OTP expired or not found" };
+  }
+
+  // Compare hashed OTP with input OTP
+
+  const match = await bcrypt.compare(input.otp, user.two_FactAuth.code);
+console.log(input.otp)
+console.log(user.two_FactAuth.code)
+
+  if (match) {
+    // OTP is valid
+    // Clear OTP code and expiration time
+    await User.updateOne(
+      { email: input.email },
+      { $unset: { two_FactAuth: 1 } }
+    );
+    return { message: "OTP verified" };
+  } else {
+    // OTP is invalid
+    return {message: "Invalid OTP"};
+  }
 }
+
 module.exports = {
   signin,
   signup,
   restpwd,
-  sendOTPVerificationEmail
+  sendOTPVerificationEmail,
+  verifyOTP
 };

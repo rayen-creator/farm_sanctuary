@@ -42,6 +42,13 @@ const typeDefs = gql`
     gender:Gender!
     role: Role!
     image: ImageInput
+
+
+  }
+  input twoFactorAuthUserInput { 
+    code : String!
+    expiresAt: DateTime!
+
   }
 
   input ImageInput {
@@ -85,6 +92,15 @@ const typeDefs = gql`
   }
 
 
+  input verifyOTPInput{
+    email: String!
+    otp:String!
+  }
+  type verifyOTPResponse{
+    message:String!
+  }
+
+
 
 
 
@@ -111,7 +127,7 @@ const typeDefs = gql`
     resetpwd(input:ForgetpwdInput!):ForgetpwdResponse!
     sendOTPVerificationEmail(input:twoFactorAuthInput!):twoFactorAuthResponse!
 
-
+    verifyOTP(input:verifyOTPInput!):twoFactorAuthResponse!
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!

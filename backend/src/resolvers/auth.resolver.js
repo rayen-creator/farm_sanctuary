@@ -38,7 +38,16 @@ const authResolver = {
       return await authService.sendOTPVerificationEmail(input);
 
 
-    }, 
+    },  
+    async verifyOTP (_, {input}) {
+
+      try {
+        return await authService.verifyOTP(input);
+      } catch (error) {
+        console.log("moshkla");
+        throw new Error(error);
+      }
+    }
   },
 };
 
