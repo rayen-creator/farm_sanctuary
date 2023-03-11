@@ -11,6 +11,9 @@ const mongodbconnection = require("./src/db/index");
 //all resolvers
 const authResolver = require("./src/resolvers/auth.resolver");
 const userResolver = require("./src/resolvers/user.resolver");
+
+const cors = require("cors");
+
 //log for http requests
 app.use(morgan("dev"));
 
@@ -19,11 +22,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
+app.use(
+  cors({
+    origin: "http://localhost:4200",
+  })
+);
 
 const server = new ApolloServer({
   typeDefs,
   resolvers: [userResolver, authResolver],
-  
 });
 
 async function startApolloServer() {
