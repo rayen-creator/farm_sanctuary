@@ -5,5 +5,8 @@ export interface LoginResponse {
         username: string;
         message: string;
         expiresIn: number;
+        userfound:boolean;
+        passwordIsValid:boolean;
+        blocked:boolean;
     }
 }
