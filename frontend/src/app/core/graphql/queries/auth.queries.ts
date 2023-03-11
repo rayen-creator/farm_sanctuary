@@ -7,6 +7,9 @@ mutation signin($input: signinInput!) {
     username
     message
     expiresIn
+    userfound
+    passwordIsValid
+    blocked
   }
 }
 `;
