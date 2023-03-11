@@ -4,7 +4,7 @@ import { checkresettoken, sendmail } from '../graphql/queries/auth.queries';
 import { LoginResponse } from '../graphql/graphqlResponse/loginResponse';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from "apollo-angular";
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { login, resetpwd } from "../graphql/queries/auth.queries"
 import { User } from '../models/user';
 import { Router } from '@angular/router';
@@ -15,7 +15,6 @@ import { checkresettokenResponse } from '../graphql/graphqlResponse/checktokenRe
   providedIn: 'root'
 })
 export class AuthService {
-  public token: string;
   public username: string;
   public usernameExists: boolean;
   public emailExists: boolean;
@@ -28,10 +27,87 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   private isUserAuthenticated = false;
 
+  public token: string;
+
   constructor(private appolo: Apollo,
     private router: Router,
     private toastr: ToastrService) { }
 
+  login(user: User) {
+    const input = {
+      email: user.email,
+      password: user.password
+    };
+
+    return this.appolo.mutate({
+      mutation: login,
+      variables: {
+        input: input
+      }
+    }).subscribe({
+      next: (res) => {
+        //get the response 
+        const loginresponse = res.data as LoginResponse;
+
+        // console.log("accessToken " + loginresponse.signin.accessToken);
+        // console.log("username " + loginresponse.signin.username);
+        console.log("&&&&&&&&&&&&&&&&&" + this.isUserAuthenticated);
+        const token = loginresponse.signin.accessToken;
+        const username = loginresponse.signin.username;
+        const IspassowrdValid = loginresponse.signin.passwordIsValid;
+        const blockedByAdmin = loginresponse.signin.blocked;
+        const userfound = loginresponse.signin.userfound;
+
+        this.token = token;
+
+
+        if (!userfound) {
+          console.log("userfound should be false " + !userfound);
+
+          this.toastr.error('User not found', 'Error', {
+            progressBar: true,
+            closeButton: true,
+          });
+          return;
+        }
+        if (!IspassowrdValid) {
+          console.log("isvalidpwd should be false " + !IspassowrdValid);
+          this.toastr.error('password invalid please try again ', 'Error', {
+            progressBar: true,
+            closeButton: true,
+
+          });
+          return;
+
+        }
+        if (blockedByAdmin) {
+          this.toastr.error('you have been banned by the administrator of the app', 'Ops !', {
+            progressBar: true,
+            closeButton: true,
+          })
+          return;
+        }
+
+
+        if (token) {
+          const expireInDuration = loginresponse.signin.expiresIn;
+          this.isUserAuthenticated = true;
+
+          // console.log("token :", this.token);
+          this.authStatusListener.next(true);
+          const now = new Date();
+          const expirationDate = new Date(now.getTime() + expireInDuration * 1000);
+          this.saveAuthData(token, username, expirationDate);
+          this.toastr.success('Welcome back to your account', 'Logged In')
+          this.router.navigate(['/home']);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    });
+  }
 
   getToken() {
     return this.token;
@@ -49,7 +125,7 @@ export class AuthService {
     return this.isUserAuthenticated;
   }
 
-//check if the link is valid
+  //check if the link is valid
   isresettokenValid(email: string, resettoken: string) {
 
     const input = {
@@ -64,7 +140,7 @@ export class AuthService {
     }).subscribe({
       next: (res) => {
         const checkresettokenResponse = res.data as checkresettokenResponse;
-        if(!checkresettokenResponse.checkresettoken.valid){
+        if (!checkresettokenResponse.checkresettoken.valid) {
           this.router.navigate(['/error']);
         }
       },
@@ -131,44 +207,7 @@ export class AuthService {
     });
   }
 
-  login(user: User) {
-    const input = {
-      email: user.email,
-      password: user.password
-    };
 
-    return this.appolo.mutate({
-      mutation: login,
-      variables: {
-        input: input
-      }
-    }).subscribe({
-      next: (res) => {
-        const loginresponse = res.data as LoginResponse;
-
-        console.log("accessToken " + loginresponse.signin.accessToken);
-        console.log("username " + loginresponse.signin.username);
-
-        const token = loginresponse.signin.accessToken;
-        const username = loginresponse.signin.username;
-
-        if (token) {
-          const expireInDuration = loginresponse.signin.expiresIn;
-          this.isUserAuthenticated = true;
-          this.authStatusListener.next(true);
-          const now = new Date();
-          const expirationDate = new Date(now.getTime() + expireInDuration * 1000);
-          this.saveAuthData(token, username, expirationDate);
-          // this.toastr.success('Welcome back to your account', 'Logged In')
-          this.router.navigate(['/home']);
-        }
-      },
-      error: (err) => {
-        console.log(err);
-
-      }
-    });
-  }
 
   autoAuthUser() {
     const token = localStorage.getItem('token');
@@ -183,10 +222,9 @@ export class AuthService {
     console.log("expiresIn", expiresIn);
 
     if (expiresIn) {
-      this.token = token;
+      this.token = token; 
       this.isUserAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
-      this.router.navigate(['/home']);
       this.authStatusListener.next(true);
     }
 
