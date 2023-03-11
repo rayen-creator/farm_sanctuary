@@ -16,6 +16,9 @@ const authResolver = {
       }
     },
 
+
+    
+
     async signin(_, { input }) {
       try {
         return await authService.signin(input);
@@ -25,7 +28,17 @@ const authResolver = {
     },
     async resetpwd(_, { input }) {
       return await authService.restpwd(input);
+
+
     },
+
+
+
+    async sendOTPVerificationEmail(_, { input }) {
+      return await authService.sendOTPVerificationEmail(input);
+
+
+    }, 
   },
 };
 

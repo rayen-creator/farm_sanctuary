@@ -66,6 +66,34 @@ const typeDefs = gql`
     email: String!
     subject:String!
   }
+
+
+
+
+
+
+
+
+
+
+
+  input twoFactorAuthInput{
+    email: String!
+  }
+  type twoFactorAuthResponse{
+    message:String!
+  }
+
+
+
+
+
+
+
+
+  
+
+  
   type SignupResponse{
     message: String!
     emailExists: Boolean!
@@ -81,6 +109,8 @@ const typeDefs = gql`
     signup(input: UserInput!): SignupResponse!
     signin(input: signinInput!): LoginResponse!
     resetpwd(input:ForgetpwdInput!):ForgetpwdResponse!
+    sendOTPVerificationEmail(input:twoFactorAuthInput!):twoFactorAuthResponse!
+
 
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
@@ -89,3 +119,7 @@ const typeDefs = gql`
 `;
 
 module.exports = typeDefs;
+
+
+// 
+//  type Mutation => twoFactorAuthentification(input:twoFactorAuthInput!):twoFactorAuthResponse!

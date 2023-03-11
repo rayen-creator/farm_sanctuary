@@ -11,6 +11,7 @@ import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TwoFactorauthComponent } from './auth/two-factorauth/two-factorauth.component';
 
 
 
@@ -24,7 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RegisterComponent,
     ResetpwdComponent,
     UpdatepwdComponent,
-    RegistermainpageComponent
+    RegistermainpageComponent,
+    TwoFactorauthComponent
   
   ],
   imports: [

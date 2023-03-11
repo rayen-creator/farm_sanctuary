@@ -82,6 +82,49 @@ async function signin(input) {
   };
 }
 
+ async function sendOTPVerificationEmail(input)  {
+    try {
+  
+      // Generate a 4-digit OTP
+      const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+  
+      // Hash the OTP
+      const saltRounds = 10;
+      const hashedOTP = await bcrypt.hash(otp, saltRounds);
+ 
+  
+      // Save the OTP verification record
+      const now = Date.now();
+      const expiresAt = now + 3600000; // Expires in 1 hour
+      const user=await User.updateOne({email:input.email} , {  two_FactAuth : { 
+        code : hashedOTP, 
+        expiresAt: expiresAt,
+    
+      }}) 
+      return {
+        message: "sudcnsidchnshd"
+      }
+  
+
+
+
+      //Send the verification email
+      // const mailOptions = {
+      //   from: process.env.USER,
+      //   to: input.email,
+      //   subject: "Verify Your Email",
+      //   html: `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the 2 factor verification </p> 
+      //   <p>this expires in 1 hour</p>`,
+      // };
+      // awaitsendEmail(mailOptions);
+  
+      
+    } catch (error) {
+      console.log(error);
+      throw new Error("Failed to send email.");
+    }
+  };  
+
 async function restpwd(input) {
   const user = await User.findOne({ email: input.email });
 
@@ -134,10 +177,14 @@ async function restpwd(input) {
   } catch (error) {
     throw new Error(error);
   }
-}
 
+
+  
+ 
+}
 module.exports = {
   signin,
   signup,
   restpwd,
+  sendOTPVerificationEmail
 };
