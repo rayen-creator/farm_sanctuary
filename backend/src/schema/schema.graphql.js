@@ -57,6 +57,9 @@ const typeDefs = gql`
     username: String!
     message: String!
     expiresIn: Int!
+    userfound:Boolean!
+    passwordIsValid:Boolean!
+    blocked:Boolean!
   }
   type ForgetpwdResponse{
     message:String!

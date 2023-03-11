@@ -20,7 +20,7 @@ const authResolver = {
       try {
         return await authService.signin(input);
       } catch (error) {
-        throw new UserInputError(error.message);
+        throw new Error(error.message);
       }
     },
     async sendmail(_, { input }) {

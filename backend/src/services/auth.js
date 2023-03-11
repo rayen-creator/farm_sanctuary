@@ -9,6 +9,8 @@ const readFile = promisify(fs.readFile);
 const handlebars = require("handlebars");
 
 const sendEmail = require("./utils/sendEmail");
+const cron = require('node-cron');
+
 
 async function signup(input) {
   //verify duplicated username
@@ -56,20 +58,36 @@ async function signin(input) {
   });
 
   if (!user) {
-    throw new Error("Invalid email or password");
-    // const error = new Error('Invalid email or password');
-    // error.extensions = { statusCode: 404 };
-    // throw error;
+    return {
+      accessToken: "",
+      username: "",
+      message: "User not found",
+      expiresIn: 0,
+      userfound: false,
+      passwordIsValid: false,
+      blocked: false,
+    };
   }
 
   const passwordIsValid = bcrypt.compareSync(input.password, user.password);
 
   if (!passwordIsValid) {
-    throw new AuthenticationError("Unauthorized", {
-      accessToken: null,
+  
+    return {
+      accessToken: "",
+      username: "",
       message: "Auth failed ! Invalid Password!",
-    });
+      expiresIn: 0,
+      userfound: true,
+      passwordIsValid: false,
+      blocked: false,
+
+    };
   }
+
+  //get user back online
+  
+
   const token = jsonwebtoken.sign({ id: user.email }, process.env.SECRET, {
     expiresIn: process.env.JWT_EXPIRE_IN,
   });
@@ -79,6 +97,10 @@ async function signin(input) {
     username: user.username,
     message: "OK",
     expiresIn: process.env.JWT_EXPIRE_IN,
+    userfound: true,
+    passwordIsValid: true,
+    blocked: user.isBlocked,
+
   };
 }
 
