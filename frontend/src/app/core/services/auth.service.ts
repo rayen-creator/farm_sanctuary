@@ -1,3 +1,4 @@
+import { roles } from './../models/role';
 import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
 import { sendmailResponse } from './../graphql/graphqlResponse/sendmailResponse';
 import { checkresettoken, sendmail } from '../graphql/queries/auth.queries';
@@ -28,10 +29,12 @@ export class AuthService {
   private isUserAuthenticated = false;
 
   public token: string;
+  public role: string;
 
   constructor(private appolo: Apollo,
     private router: Router,
     private toastr: ToastrService) { }
+
 
   login(user: User) {
     const input = {
@@ -57,9 +60,10 @@ export class AuthService {
         const IspassowrdValid = loginresponse.signin.passwordIsValid;
         const blockedByAdmin = loginresponse.signin.blocked;
         const userfound = loginresponse.signin.userfound;
+        const role = loginresponse.signin.role;
 
         this.token = token;
-
+        // this.role=role;
 
         if (!userfound) {
           console.log("userfound should be false " + !userfound);
@@ -90,14 +94,14 @@ export class AuthService {
 
 
         if (token) {
+
           const expireInDuration = loginresponse.signin.expiresIn;
           this.isUserAuthenticated = true;
 
-          // console.log("token :", this.token);
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expireInDuration * 1000);
-          this.saveAuthData(token, username, expirationDate);
+          this.saveAuthData(token, username, expirationDate, role);
           this.toastr.success('Welcome back to your account', 'Logged In')
           this.router.navigate(['/home']);
         }
@@ -113,6 +117,9 @@ export class AuthService {
     return this.token;
   }
 
+  getRole() {
+    return this.role;
+  }
   getUsername() {
     return localStorage.getItem('username')
   }
@@ -212,17 +219,29 @@ export class AuthService {
   autoAuthUser() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
-
+    const role = localStorage.getItem('role');
+    const username = localStorage.getItem('username');
     if (!token || !expirationDate) {
       return;
     }
     const now = new Date();
     const expiresIn = new Date(expirationDate).getTime() - now.getTime();
+    const currentDate = new Date();
+    console.log('expirationDate', expirationDate);
 
-    console.log("expiresIn", expiresIn);
-
+    if (currentDate > new Date(expirationDate)) {
+      this.logout();
+      this.toastr.info('session expired', 'logging out', {
+        progressBar: true,
+      })
+    }
     if (expiresIn) {
-      this.token = token; 
+      this.token = token;
+      username ? this.username = username : this.username = '';
+      role ? this.role = role : this.role = '';
+
+      // this.role=this.getRole();
+      // console.log("role", this.role)
       this.isUserAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
@@ -249,12 +268,16 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('role');
     localStorage.clear()
   }
 
-  private saveAuthData(token: string, username: string, expirationDate: Date) {
+  private saveAuthData(token: string, username: string, expirationDate: Date, role: roles) {
     localStorage.setItem('token', token);
     localStorage.setItem('username', username);
     localStorage.setItem('expiration', expirationDate.toISOString());
+    localStorage.setItem('role', role);
+
+
   }
 }
