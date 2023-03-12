@@ -1,5 +1,4 @@
 const User = require("../models/user");
-const { AuthenticationError } = require("apollo-server-express");
 const jsonwebtoken = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
