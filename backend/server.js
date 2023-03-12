@@ -5,14 +5,13 @@ const { ApolloServer, gql } = require("apollo-server-express");
 const morgan = require("morgan");
 require("dotenv").config();
 const typeDefs = require("./src/schema/schema.graphql");
-
+const cors = require("cors");
 //mongodbconnection
 const mongodbconnection = require("./src/db/index");
 //all resolvers
 const authResolver = require("./src/resolvers/auth.resolver");
 const userResolver = require("./src/resolvers/user.resolver");
-
-const cors = require("cors");
+const verifyToken = require("./src/middleware/authJwt");
 
 //log for http requests
 app.use(morgan("dev"));
@@ -28,9 +27,13 @@ app.use(
   })
 );
 
+// Add the middleware function to the middleware stack
+// app.use(verifyToken());
+
 const server = new ApolloServer({
   typeDefs,
   resolvers: [userResolver, authResolver],
+ 
 });
 
 async function startApolloServer() {
