@@ -40,7 +40,19 @@
 *::after {
     box-sizing: border-box;
 }
-
+.btn-outline-primary{
+    color: #6d8c54!important;
+    border-color: #6d8c54!important;
+  
+}
+.btn-outline-primary:hover {
+  background-color: #9db18c7e;
+}
+.bg-primary{
+    background-color:  #6d8c54 !important;
+    color: #6d8c54!important;
+    
+}
 @-ms-viewport {
     width: device-width;
 }

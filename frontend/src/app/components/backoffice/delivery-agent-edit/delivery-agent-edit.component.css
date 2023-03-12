@@ -3,6 +3,13 @@ body{
     margin-top:20px;
     
 }
+.field-icon {
+    float: right;
+    left: -15px;
+    margin-top: -28px;
+    position: relative;
+    z-index: 2;
+  }
 .card {
     position: relative;
     display: flex;
@@ -20,6 +27,9 @@ body{
 .me-2 {
     margin-right: .5rem!important;
 }
+[hidden] {
+    display: none !important;
+  }
 .btn-outline-primary{
     color: #6d8c54!important;
     border-color: #6d8c54!important;

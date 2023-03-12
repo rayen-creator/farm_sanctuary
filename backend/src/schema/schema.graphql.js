@@ -69,14 +69,8 @@ input loginDriverInput {
     login: String!
     password: String!
   }
-input deliveryAgentInput {
-    login: String!
-    password: String!
-    fullName: String!
-    email: String!
-    phone: Int!
-    image: ImageInput
-     input signinInput {
+
+  input signinInput {
     email: String!
     password: String!
   }
@@ -99,7 +93,11 @@ input deliveryAgentInput {
     emailExists: Boolean!
     usernameExists: Boolean!
   }
-}
+  type DriverResponse{
+    message: String!
+    login: String!
+  }
+
 input AgentInput {
     login: String!
     password: String!
@@ -108,6 +106,7 @@ input AgentInput {
     phone: Int!
     
 }
+
 input AgentLocationInput {
     id: ID!
     longitude: String!
@@ -129,7 +128,7 @@ type Query {
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
 
-    createdeliveryAgent(input: deliveryAgentInput!): deliveryAgent!
+    createdeliveryAgent(input: AgentInput!): DriverResponse!
 
     updatedeliveryAgent(id: ID! ,input:AgentInput!): deliveryAgent!
 

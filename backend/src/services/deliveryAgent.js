@@ -33,17 +33,44 @@ async function getdeliveryAgents() {
 }
 
 async function createdeliveryAgent(input) {
+   //verify duplicated username
+   const findlogin = await Agent.findOne({ login: input.login });
+   if (findlogin) {
+     return {
+       message: "Failed! login is already in use!",
+       agentloginExists: true,
+       emailExists: false,
+     };
+   }
+     //verify duplicated email
+   const findemail = await Agent.findOne({ email: input.email });
+   if (findemail) {
+     return {
+       message: "Failed! Email is already in use!",
+       emailExists: true,
+       usernameExists: false,
+     };
+   }
+   const defaultImage = {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png',
+    contentType: 'image/png'
+  };
+  const image = input.image || defaultImage;
   const agent = new Agent({
     login: input.login,
     password: bcrypt.hashSync(input.password, 8),
     email: input.email,
     fullName: input.fullName,
     phone: input.phone,
-    image: input.image,
+    image: image,
     createdAt: new Date(),
     updatedAt: new Date(),
   });
-  return await agent.save(agent);
+  await agent.save(agent);
+  return {
+    message: 'Agent saved successfully',
+    
+  };
 }
 
 async function updatedeliveryAgent(id,input) {

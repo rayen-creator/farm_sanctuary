@@ -72,4 +72,13 @@ const updatedeliveryAgent = gql`
     }
   }
   `;
-export {getdeliveryAgent,Agents,deletedeliveryAgent,updatedeliveryAgent}
+  const createdeliveryAgent = gql`
+  mutation createdeliveryAgent($input:AgentInput!) {
+    createdeliveryAgent(input:$input) {
+      message
+    
+    
+    }
+  }
+  `;
+export {createdeliveryAgent,getdeliveryAgent,Agents,deletedeliveryAgent,updatedeliveryAgent}

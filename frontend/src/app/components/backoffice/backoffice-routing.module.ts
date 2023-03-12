@@ -7,7 +7,8 @@ const routes: Routes = [
   {
     path: '', component: BackofficeComponent, children: [
       {path:'delvery', component: DeliveryAgentComponent},
-      {path:'delveryEdit/:id', component: DeliveryAgentEditComponent}
+      {path:'delveryEdit/:id', component: DeliveryAgentEditComponent},
+      {path:'delveryAdd', component: DeliveryAgentEditComponent}
 
     ]
   }
