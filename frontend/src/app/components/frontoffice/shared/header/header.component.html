@@ -188,19 +188,33 @@
                 ><span class="icon-shopping-cart"></span
               ></a>
             </div>
-            <div class="contact-box">
-             
+            <div class="contact-box" *ngIf="userIsAuthenticated">         
                 <img
                   src="assets/images/auth_img/client.jpg"
                   alt="Avatar"
                   class="avatar"
-                />
-              
+                />  
               <div class="text">
                 <a href="#"><h6>{{ username }}</h6></a>
-                <p>666 888 0000</p>
-              </div>
+                <p>{{role}}</p>
+              </div>&nbsp;&nbsp;
+              <button class="btn btn-danger" (click)="loggingout()">Sign out</button>
+
             </div>
+            <div class="contact-box" *ngIf="!userIsAuthenticated">         
+              <!-- <img
+                src="assets/images/auth_img/client.jpg"
+                alt="Avatar"
+                class="avatar"
+              />  
+            <div class="text">
+              <a href="#"><h6>{{ username }}</h6></a>
+              <p>{{role}}</p> -->
+            <!-- </div>&nbsp;&nbsp; -->
+            <button class="btn btn-success" routerLink="login">Sign in</button>
+
+          </div>
+            
           </div>
         </div>
       </div>
