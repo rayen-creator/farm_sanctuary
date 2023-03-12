@@ -60,6 +60,7 @@ const typeDefs = gql`
     userfound:Boolean!
     passwordIsValid:Boolean!
     blocked:Boolean!
+    role:Role
   }
   type ForgetpwdResponse{
     message:String!

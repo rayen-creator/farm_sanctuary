@@ -66,6 +66,7 @@ async function signin(input) {
       userfound: false,
       passwordIsValid: false,
       blocked: false,
+      role:null
     };
   }
 
@@ -81,6 +82,7 @@ async function signin(input) {
       userfound: true,
       passwordIsValid: false,
       blocked: false,
+      role:null
 
     };
   }
@@ -100,6 +102,7 @@ async function signin(input) {
     userfound: true,
     passwordIsValid: true,
     blocked: user.isBlocked,
+    role:user.role
 
   };
 }
