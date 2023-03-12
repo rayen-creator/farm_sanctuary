@@ -10,6 +10,7 @@ mutation signin($input: signinInput!) {
     userfound
     passwordIsValid
     blocked
+    role
   }
 }
 `;
