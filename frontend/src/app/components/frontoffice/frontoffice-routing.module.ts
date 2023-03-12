@@ -10,6 +10,7 @@ import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
 import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
 
+
 const routes: Routes = [
   {
     path: '', component: FrontofficeComponent, children: [
@@ -19,7 +20,7 @@ const routes: Routes = [
       { path: 'signup/:accountType', component: RegisterComponent },
       { path: 'signup', component: RegistermainpageComponent },
 
-      { path: 'forgetpassword', component: ResetpwdComponent },
+      { path: 'forgetpassword', component: ResetpwdComponent  },
       { path: 'resetpassword/:token', component: UpdatepwdComponent },
       {path:'error',component:ErrorresetpwdComponent}
     ]
