@@ -1,0 +1,30 @@
+.cards .card {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+
+}
+
+.number {
+    font-size: 35px;
+    font-weight: 500;
+    color: #299B63;
+}
+
+.card-name {
+    color: #888;
+    font-weight: 600;
+}
+
+.cards {
+    width: 100%;
+    padding: 35px 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+}

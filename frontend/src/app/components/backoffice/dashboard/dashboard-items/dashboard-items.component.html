@@ -1,128 +1,93 @@
 <h2>Admin Dashboard</h2>
-<div class="row">
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Total Users</h5>
-        <p class="card-text">{{userList.length}}</p>
+<div class="cards">
+  <div class="card">
+      <div class="card-content">
+          <div class="number">{{numberOfClients}}</div>
+          <div class="card-name">clients</div>
       </div>
-    </div>
-  </div>
-  
-</div>
-<div class="row">
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Total Farmers</h5>
-        <p class="card-text">{{numberOfarmers}}</p>
+      <div class="icon-box">
+          <i class="fas fa-user-graduate"></i>
       </div>
-    </div>
   </div>
-  
-</div>
-<div class="row">
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Total Admins</h5>
-        <p class="card-text">{{numberOfAdmins}}</p>
+  <div class="card">
+      <div class="card-content">
+          <div class="number">{{numberOfarmers}}</div>
+          <div class="card-name">Farmers</div>
       </div>
-    </div>
-  </div>
-  
-</div>
-<div class="row">
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Total Clients</h5>
-        <p class="card-text">{{numberOfClients}}</p>
+      <div class="icon-box">
+        <i class="fa fa-person-digging"></i>
       </div>
-    </div>
   </div>
-  
-</div>
-
- <div class="row">
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Total Of Female Clients</h5>
-        <p class="card-text">{{numberOfFemalClients}}</p>
+  <div class="card">
+      <div class="card-content">
+          <div class="number">{{numberOfAdmins}}</div>
+          <div class="card-name">admins</div>
       </div>
-    </div>
-  </div>
-  
-</div> 
-
- <div class="row">
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Total Clients</h5>
-        <p class="card-text">{{numberOfMaleClients}}</p>
+      <div class="icon-box">
+          <i class="fa fa-user-shield"></i>
+     
       </div>
-    </div>
   </div>
-  
-</div>
-
-<div class="row">
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Total Clients</h5>
-        <p class="card-text">{{numberOfFemaleFarmers}}</p>
+  <div class="card">
+      <div class="card-content">
+          <div class="number">{{userList.length}}</div>
+          <div class="card-name">Total users</div>
       </div>
+      <div class="icon-box">
+        <i class="fa fa-users"></i>
+   
     </div>
-  </div>
-  
-</div>
-<div class="row">
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Total Clients</h5>
-        <p class="card-text">{{numberOfMaleFarmers}}</p>
-      </div>
+        
     </div>
-  </div>
-  
-</div>
-<div class="row">
-  <div class="col">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Total of Active Users</h5>
-        <p class="card-text">{{numberOfActiveUsers}}</p>
+        <p class="number">{{numberOfActiveUsers}}</p>
       </div>
     </div>
-  </div>
-  
-</div>
-<div class="row">
-  <div class="col">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Total of Non Active Users</h5>
-        <p class="card-text">{{numberOfNonActiveUsers}}</p>
+        <p class="number">{{numberOfNonActiveUsers}}</p>
       </div>
     </div>
+
+    
+</div>
+
+
+<div id="charts">
+  <div style="display: inline-block; margin-right: 100px;">
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [labels]="chartOptions.labels"
+      [title]="chartOptions.title"
+      [responsive]="chartOptions.responsive"
+    ></apx-chart>
   </div>
-  
+
+  <div style="display: inline-block; margin-left: 100px;">
+    <apx-chart
+      [series]="ChartOptions.series"
+      [chart]="ChartOptions.chart"
+      [labels]="ChartOptions.labels"
+      [title]="ChartOptions.title"
+      [responsive]="ChartOptions.responsive"
+    ></apx-chart>
+  </div>
 </div>
 
 
-<div *ngFor="let userCount of userCountsByDate">
-  <p>{{ userCount.date }}: {{ userCount.count }}</p>
-</div>
 
-<!-- <div style="text-align:center">
+
+<div style="text-align:center">
   <apx-chart
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [xaxis]="chartOptions.xaxis"
-    [title]="chartOptions.title"
+    [series]="chartOptionss.series"
+    [chart]="chartOptionss.chart"
+    [xaxis]="chartOptionss.xaxis"
+    [title]="chartOptionss.title"
   ></apx-chart>
-</div> -->
+</div>
+
+
