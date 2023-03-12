@@ -8,8 +8,7 @@ const readFile = promisify(fs.readFile);
 const handlebars = require("handlebars");
 
 const sendEmail = require("./utils/sendEmail");
-const cron = require('node-cron');
-
+const cron = require("node-cron");
 
 async function signup(input) {
   //verify duplicated username
@@ -65,14 +64,13 @@ async function signin(input) {
       userfound: false,
       passwordIsValid: false,
       blocked: false,
-      role:null
+      role: null,
     };
   }
 
   const passwordIsValid = bcrypt.compareSync(input.password, user.password);
 
   if (!passwordIsValid) {
-  
     return {
       accessToken: "",
       username: "",
@@ -81,13 +79,11 @@ async function signin(input) {
       userfound: true,
       passwordIsValid: false,
       blocked: false,
-      role:null
-
+      role: null,
     };
   }
 
   //get user back online
-  
 
   const token = jsonwebtoken.sign({ id: user.email }, process.env.SECRET, {
     expiresIn: process.env.JWT_EXPIRE_IN,
@@ -101,8 +97,7 @@ async function signin(input) {
     userfound: true,
     passwordIsValid: true,
     blocked: user.isBlocked,
-    role:user.role
-
+    role: user.role,
   };
 }
 
@@ -185,32 +180,44 @@ async function checkresettoken(input) {
     };
   }
 
-  if (input.token == user.resetpwdToken) {
-    const decodedToken = jsonwebtoken.verify(
-      input.token,
-      process.env.RESET_SECRET
-    );
-    // Check if the reset token has expired
-    const resetTime = new Date(decodedToken.iat * 1000);
-    console.log("resetTime", resetTime);
-    const expirationTime = new Date(resetTime.getTime() + 60 * 60 * 1000); // 1h expiration
-    const currentTime = new Date();
-    if (currentTime > expirationTime) {
-      //delete reset token
-      await User.updateOne(
-        { email: input.email },
-        { $unset: { resetpwdToken: 1 } }
-      );
-      return {
-        valid: false,
-        message: "reset token expired !",
-      };
-    }
+  if(!user.resetpwdToken){
     return {
-      valid: true,
-      message: "reset token checked !",
+      valid: false,
+      message: "Invalid reset Token!",
     };
   }
+
+  jsonwebtoken.verify(
+    input.token,
+    process.env.RESET_SECRET,
+    async (err, decodedToken) => {
+      // Check if the reset token has expired
+      console.log("error",err);
+      if (err){
+        // const resetTime = new Date(decodedToken.iat * 1000);
+        // console.log("resetTime", resetTime);
+        // const expirationTime = new Date(resetTime.getTime() + 60 * 60 * 1000); // 1h expiration
+        // const currentTime = new Date();
+        // if (currentTime > expirationTime) {
+          //delete reset token
+          await User.updateOne(
+            { email: input.email },
+            { $unset: { resetpwdToken: 1 } }
+          );
+          return {
+            valid: false,
+            message: "reset token expired !",
+          };
+        
+      }
+      
+    }
+  );
+
+  return {
+    valid: true,
+    message: "reset token checked !",
+  };
 }
 
 async function updatepwd(input) {
