@@ -8,6 +8,8 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import { AdminDashboardComponent } from './dashboard/dashboard-items/dashboard-items.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { AdminDashboardComponent } from './dashboard/dashboard-items/dashboard-i
     CommonModule,
     BackofficeRoutingModule,
     FormsModule,
+    NgApexchartsModule
+    
   ]
 })
 export class BackofficeModule { }

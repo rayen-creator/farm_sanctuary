@@ -31,10 +31,10 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/boxicons/css/boxicons.min.css",
+              "node_modules/boxicons/css/boxicons.min.css"
 
             ],
-            "scripts": []
+            "scripts": [  "node_modules/apexcharts/dist/apexcharts.min.js" ]
           },
           "configurations": {
             "production": {
