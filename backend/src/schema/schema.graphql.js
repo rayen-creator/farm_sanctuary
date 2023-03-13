@@ -97,6 +97,8 @@ const typeDefs = gql`
   }
   type twoFactorAuthResponse{
     message:String!
+    statusCode:Boolean!
+
   }
 
 
@@ -106,6 +108,7 @@ const typeDefs = gql`
   }
   type verifyOTPResponse{
     message:String!
+    statusCode:Boolean!
   }
 
 

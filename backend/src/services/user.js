@@ -8,13 +8,17 @@ async function getUsers() {
   return User.find();
 }
 
+
+
 async function updateUser(id, input) {
   const updatedUser = {
     username: input.username,
     password: input.password,
     email: input.email,
+    phone:input.phone,
     isActive: input.isActive,
     role: input.role,
+    gender: input.gender,
     image:input.image,
     isBlocked: false,
     updatedAt: new Date(),

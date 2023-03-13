@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { login, SEND_OTP_MUTATION, VERIFY_OTP_MUTATION } from "../graphql/auth.queries"
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { SendOTPMutationResponse, VerifyOTPResponse } from '../graphql/twoFactorAuthResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -142,14 +143,17 @@ export class AuthService {
         variables: { email, otp },
       })
       .subscribe(
-        ({ data }) => {
+        {next:(rest)=> {
+          const response = rest.data as VerifyOTPResponse;
+          console.log(response);
+  
           
-          console.log('success', data);
         },
-        (error) => {
-          console.log('error', error);
+        error: (err) => {
+          console.log(err); 
+  
         }
-      );
+      });
   }
 
   sendOTP(email:string): void {
@@ -161,9 +165,8 @@ export class AuthService {
       })
         .subscribe(
         {next:(rest)=> {
-          const response = rest.data as string;
-          console.log("message "+response);
-  
+          const response = rest.data as SendOTPMutationResponse;
+          console.log(response) ; 
           
         },
         error: (err) => {

@@ -10,7 +10,9 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
-import { ReactiveFormsModule } from '@angular/forms';
+
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TwoFactorauthComponent } from './auth/two-factorauth/two-factorauth.component';
 
 
@@ -26,13 +28,15 @@ import { TwoFactorauthComponent } from './auth/two-factorauth/two-factorauth.com
     ResetpwdComponent,
     UpdatepwdComponent,
     RegistermainpageComponent,
+    UserProfileComponent,
     TwoFactorauthComponent
-  
+
   ],
   imports: [
     CommonModule,
     FrontofficeRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class FrontofficeModule { }
