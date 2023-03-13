@@ -13,6 +13,10 @@ import { RegistermainpageComponent } from './auth/registermainpage/registermainp
 
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { TwoFactorauthComponent } from './auth/two-factorauth/two-factorauth.component';
+import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -27,7 +31,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     ResetpwdComponent,
     UpdatepwdComponent,
     RegistermainpageComponent,
-    UserProfileComponent
+    ErrorresetpwdComponent,
+    UserProfileComponent,
+    TwoFactorauthComponent
 
   ],
   imports: [
