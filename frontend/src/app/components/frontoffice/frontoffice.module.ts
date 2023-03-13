@@ -10,9 +10,6 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
-
-import { UserProfileComponent } from './users/user-profile/user-profile.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TwoFactorauthComponent } from './auth/two-factorauth/two-factorauth.component';
 import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
