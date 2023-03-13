@@ -42,6 +42,11 @@ const userSchema = new mongoose.Schema({
     url: String,
     contentType: String,
   },
+  two_FactAuth : { 
+    code : String, 
+    expiresAt: Date,
+
+  }
 });
 
 const User = mongoose.model("Users", userSchema);

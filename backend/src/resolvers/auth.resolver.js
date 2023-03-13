@@ -16,6 +16,9 @@ const authResolver = {
       }
     },
 
+
+    
+
     async signin(_, { input }) {
       try {
         return await authService.signin(input);
@@ -25,7 +28,26 @@ const authResolver = {
     },
     async resetpwd(_, { input }) {
       return await authService.restpwd(input);
+
+
     },
+
+
+
+    async sendOTPVerificationEmail(_, { input }) {
+      return await authService.sendOTPVerificationEmail(input);
+
+
+    },  
+    async verifyOTP (_, {input}) {
+
+      try {
+        return await authService.verifyOTP(input);
+      } catch (error) {
+        console.log("moshkla");
+        throw new Error(error);
+      }
+    }
   },
 };
 

@@ -26,19 +26,15 @@
     "apollo-client": "^2.6.10",
     "boxicons": "^2.1.4",
     "jwt-decode": "^3.1.2",
-    "graphql": "^16.6.0",
+    "graphql": "^16",
     "graphql-tag": "^2.12.6",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.7.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4",
-    "@apollo/client": "^3.0.0",
-    "graphql": "^16"
+    "@apollo/client": "^3.0.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.10",
-    "@angular/cli": "^14.2.10",
-    "@angular/compiler-cli": "^14.2.12",
     "@angular-devkit/build-angular": "^14.2.10",
     "@angular/cli": "^14.2.10",
     "@angular/compiler-cli": "^14.2.12",
