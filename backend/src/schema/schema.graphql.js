@@ -97,7 +97,7 @@ const typeDefs = gql`
 
 
   input twoFactorAuthInput{
-    email: String!
+    username: String!
   }
   type twoFactorAuthResponse{
     message:String!
@@ -107,7 +107,7 @@ const typeDefs = gql`
 
 
   input verifyOTPInput{
-    email: String!
+    username: String!
     otp:String!
   }
   type verifyOTPResponse{
@@ -121,7 +121,7 @@ const typeDefs = gql`
 
 
   input twoFactorAuthInput{
-    email: String!
+    username: String!
   }
   type twoFactorAuthResponse{
     message:String!

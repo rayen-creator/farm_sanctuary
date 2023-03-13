@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./two-factorauth.component.css']
 })
 export class TwoFactorauthComponent implements OnInit {
-  email:string="nour.makdouli@gmail.com";
+  username:string="nour";
   verifyOTPForm = new FormGroup({
     firstNumber: new FormControl('', Validators.required),
     secondNumber: new FormControl('', Validators.required),
@@ -30,7 +30,7 @@ onSubmit(){
   const { firstNumber, secondNumber, thirdNumber, fourthNumber } = this.verifyOTPForm.value;
   this.verificationCode = `${firstNumber}${secondNumber}${thirdNumber}${fourthNumber}`;
   console.log('Verification code:', this.verificationCode); 
-  this.authservice.verifyOTP(this.email,this.verificationCode);
+  this.authservice.verifyOTP(this.username,this.verificationCode);
   
 }
 }

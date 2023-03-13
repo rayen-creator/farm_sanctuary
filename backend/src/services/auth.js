@@ -108,6 +108,11 @@ async function signin(input) {
 }
 
 async function sendOTPVerificationEmail(input) {
+
+  // find email with username 
+    const finduser = await User.findOne({ username: input.username }); 
+
+
   // Generate a 4-digit OTP
   const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
 
@@ -119,7 +124,7 @@ async function sendOTPVerificationEmail(input) {
   const now = Date.now();
   const expiresAt = now + 3600000; // Expires in 1 hour
   const user = await User.updateOne(
-    { email: input.email },
+    { email: finduser.email },
     {
       two_FactAuth: {
         code: hashedOTP,
@@ -133,7 +138,7 @@ async function sendOTPVerificationEmail(input) {
   const task = schedule.scheduleJob(new Date(expiresAt), async () => {
     try {
       const result = await User.updateOne(
-        { email: input.email },
+        { email: finduser.email },
         { $unset: { two_FactAuth: 1 } }
       );
       console.log("the field two_FactorAuth is done"+result);
@@ -160,7 +165,7 @@ async function sendOTPVerificationEmail(input) {
           const htmlToSend = template(replacements);
           const mailOptions = {
             from: process.env.USER,
-            to: input.email,
+            to: finduser.email,
             subject: "Code for 2 factor authentification",
             html: htmlToSend,
           };
@@ -351,7 +356,7 @@ async function updatepwd(input) {
 }
 
 async function verifyOTP(input) {
-  const user = await User.findOne({ email: input.email });
+  const user = await User.findOne({ username: input.username });
   const now = Date.now();
 
   // Check if user exists
@@ -379,7 +384,7 @@ async function verifyOTP(input) {
     // OTP is valid
     // Clear OTP code and expiration time
     await User.updateOne(
-      { email: input.email },
+      { email: user.email},
       { $unset: { two_FactAuth: 1 } }
     );
     return { message: "OTP verified", statusCode: true };
