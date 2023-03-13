@@ -1,6 +1,6 @@
 import { Apollo } from 'apollo-angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { users } from 'src/app/core/graphql/graphql.queries.user';
+import { users } from 'src/app/core/graphql/queries/graphql.queries.user';
 import { User } from 'src/app/core/models/user';
 import { roles } from 'src/app/core/models/role';
 import { genders } from 'src/app/core/models/gender';
@@ -13,7 +13,7 @@ import {
   ApexTitleSubtitle,
   ApexOptions,
 } from 'ng-apexcharts';
-import { UserCount } from 'src/app/core/graphql/userCount';
+import { UserCount } from 'src/app/core/graphql/queries/userCount';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;

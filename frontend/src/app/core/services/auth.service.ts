@@ -1,8 +1,8 @@
-import { LoginResponse } from './../graphql/loginResponse';
+import { LoginResponse } from './../graphql/graphqlResponse/loginResponse';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from "apollo-angular";
 import { Subject } from 'rxjs';
-import { login } from "../graphql/auth.queries"
+import { login } from "../graphql/queries/auth.queries"
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 
