@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: 'signup', component: RegistermainpageComponent },
       {path: 'profile/:id', component: UserProfileComponent},
 
-      { path: 'forgetpassword', component: ResetpwdComponent },
+      { path: 'forgetpassword', component: ResetpwdComponent  },
       { path: 'resetpassword/:token', component: UpdatepwdComponent },
       //verify the display of the template then it will be deleted
       { path: 'twofactorauth', component: TwoFactorauthComponent },

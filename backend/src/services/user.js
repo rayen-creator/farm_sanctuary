@@ -20,6 +20,7 @@ async function updateUser(id, input) {
     role: input.role,
     gender: input.gender,
     image:input.image,
+    two_FactAuth_Option:input.two_FactAuth_Option,
     isBlocked: false,
     updatedAt: new Date(),
   };

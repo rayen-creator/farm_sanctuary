@@ -72,14 +72,18 @@ const typeDefs = gql`
     username: String!
     message: String!
     expiresIn: Int!
+    userfound:Boolean!
+    passwordIsValid:Boolean!
+    blocked:Boolean!
+    role:Role
   }
   type ForgetpwdResponse{
     message:String!
     mailstatus:Boolean!
+    
   }
   input ForgetpwdInput{
     email: String!
-    subject:String!
   }
 
 
@@ -116,17 +120,42 @@ const typeDefs = gql`
 
 
 
+  input twoFactorAuthInput{
+    email: String!
+  }
+  type twoFactorAuthResponse{
+    message:String!
+    statusCode:Boolean!
 
-
-  
-
-  
+  }
   type SignupResponse{
     message: String!
     emailExists: Boolean!
     usernameExists: Boolean!
   }
 
+
+  type UpdatepwdResponse{
+    message: String!
+    updateStatus:Boolean!
+    userFound:Boolean!
+  }
+
+  input resetpwd{
+    email: String!
+    password:String!
+    token:String!
+  }
+
+ 
+  input checkresettoken{
+    token:String!
+    email:String!
+  }
+  type checkresettokenResponse{
+    valid: Boolean!
+    message:String!
+  }
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -135,8 +164,10 @@ const typeDefs = gql`
   type Mutation {
     signup(input: UserInput!): SignupResponse!
     signin(input: signinInput!): LoginResponse!
-    resetpwd(input:ForgetpwdInput!):ForgetpwdResponse!
+    sendmail(input:ForgetpwdInput!):ForgetpwdResponse!
     sendOTPVerificationEmail(input:twoFactorAuthInput!):twoFactorAuthResponse!
+    resetpwd(input:resetpwd!):UpdatepwdResponse!
+    checkresettoken(input:checkresettoken!):checkresettokenResponse!
 
     verifyOTP(input:verifyOTPInput!):twoFactorAuthResponse!
     updateUser(id: ID!, input: UserInput!): User!

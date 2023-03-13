@@ -1,3 +1,4 @@
+import { roles } from './../../models/role';
 export interface LoginResponse {
 
     signin: {
@@ -5,5 +6,9 @@ export interface LoginResponse {
         username: string;
         message: string;
         expiresIn: number;
+        userfound:boolean;
+        passwordIsValid:boolean;
+        blocked:boolean;
+        role:roles
     }
 }

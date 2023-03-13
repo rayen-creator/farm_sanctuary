@@ -1,5 +1,4 @@
 const User = require("../models/user");
-const { AuthenticationError } = require("apollo-server-express");
 const jsonwebtoken = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const schedule = require("node-schedule");
@@ -10,6 +9,7 @@ const readFile = promisify(fs.readFile);
 const handlebars = require("handlebars");
 
 const sendEmail = require("./utils/sendEmail");
+const cron = require("node-cron");
 
 async function signup(input) {
   //verify duplicated username
@@ -21,7 +21,7 @@ async function signup(input) {
       emailExists: false,
     };
   }
-  //verify duplicated email
+    //verify duplicated email
   const findemail = await User.findOne({ email: input.email });
   if (findemail) {
     return {
@@ -30,6 +30,11 @@ async function signup(input) {
       usernameExists: false,
     };
   }
+  const defaultImage = {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png',
+    contentType: 'image/png'
+  };
+  const image = input.image || defaultImage;
   const user = new User({
     username: input.username,
     email: input.email,
@@ -38,7 +43,7 @@ async function signup(input) {
     isActive: input.isActive,
     role: input.role,
     gender: input.gender,
-    image: input.image,
+    image,
     createdAt: new Date(),
     updatedAt: new Date(),
     isBlocked: false,
@@ -57,20 +62,35 @@ async function signin(input) {
   });
 
   if (!user) {
-    throw new Error("Invalid email or password");
-    // const error = new Error('Invalid email or password');
-    // error.extensions = { statusCode: 404 };
-    // throw error;
+    return {
+      accessToken: "",
+      username: "",
+      message: "User not found",
+      expiresIn: 0,
+      userfound: false,
+      passwordIsValid: false,
+      blocked: false,
+      role: null,
+    };
   }
 
   const passwordIsValid = bcrypt.compareSync(input.password, user.password);
 
   if (!passwordIsValid) {
-    throw new AuthenticationError("Unauthorized", {
-      accessToken: null,
+    return {
+      accessToken: "",
+      username: "",
       message: "Auth failed ! Invalid Password!",
-    });
+      expiresIn: 0,
+      userfound: true,
+      passwordIsValid: false,
+      blocked: false,
+      role: null,
+    };
   }
+
+  //get user back online
+
   const token = jsonwebtoken.sign({ id: user.email }, process.env.SECRET, {
     expiresIn: process.env.JWT_EXPIRE_IN,
   });
@@ -80,6 +100,10 @@ async function signin(input) {
     username: user.username,
     message: "OK",
     expiresIn: process.env.JWT_EXPIRE_IN,
+    userfound: true,
+    passwordIsValid: true,
+    blocked: user.isBlocked,
+    role: user.role,
   };
 }
 
@@ -173,12 +197,24 @@ async function sendOTPVerificationEmail(input) {
   // awaitsendEmail(mailOptions);
 }
 
-async function restpwd(input) {
+async function sendTokenlink(input) {
   const user = await User.findOne({ email: input.email });
 
   if (!user) {
     throw new Error("User not found");
   }
+
+  const payload = {
+    user_email: user.email,
+  };
+  const options = {
+    expiresIn: "1h",
+  };
+  const resetToken = jsonwebtoken.sign(
+    payload,
+    process.env.RESET_SECRET,
+    options
+  );
 
   const readHTMLFile = (path) => {
     return new Promise((resolve, reject) => {
@@ -187,20 +223,16 @@ async function restpwd(input) {
           reject(err);
         } else {
           const template = handlebars.compile(html);
-          const resetToken = jsonwebtoken.sign(
-            { id: user.email },
-            process.env.RESET_SECRET,
-            { expiresIn: process.env.RESET_EXPIRE }
-          );
-          console.log(resetToken);
+
           const replacements = {
             link: `http://localhost:4200/resetpassword/${resetToken}`,
           };
           const htmlToSend = template(replacements);
+          const subject = "Password recovery ";
           const mailOptions = {
             from: process.env.USER,
             to: input.email,
-            subject: input.subject,
+            subject: subject,
             html: htmlToSend,
           };
           resolve(sendEmail(mailOptions));
@@ -218,6 +250,10 @@ async function restpwd(input) {
         mailstatus: mail.mailStatus,
       };
     }
+    const addtoken = await User.updateOne(
+      { email: input.email },
+      { resetpwdToken: resetToken }
+    );
     return {
       message: mail.message,
       mailstatus: mail.mailStatus,
@@ -225,6 +261,93 @@ async function restpwd(input) {
   } catch (error) {
     throw new Error(error);
   }
+}
+
+async function checkresettoken(input) {
+  const user = await User.findOne({
+    email: input.email,
+    resetpwdToken: input.token,
+  });
+
+  if (!user) {
+    return {
+      valid: false,
+      message: "Invalid reset Token!",
+    };
+  }
+
+  if(!user.resetpwdToken){
+    return {
+      valid: false,
+      message: "Invalid reset Token!",
+    };
+  }
+
+  jsonwebtoken.verify(
+    input.token,
+    process.env.RESET_SECRET,
+    async (err, decodedToken) => {
+      // Check if the reset token has expired
+      console.log("error",err);
+      if (err){
+        // const resetTime = new Date(decodedToken.iat * 1000);
+        // console.log("resetTime", resetTime);
+        // const expirationTime = new Date(resetTime.getTime() + 60 * 60 * 1000); // 1h expiration
+        // const currentTime = new Date();
+        // if (currentTime > expirationTime) {
+          //delete reset token
+          await User.updateOne(
+            { email: input.email },
+            { $unset: { resetpwdToken: 1 } }
+          );
+          return {
+            valid: false,
+            message: "reset token expired !",
+          };
+        
+      }
+      
+    }
+  );
+
+  return {
+    valid: true,
+    message: "reset token checked !",
+  };
+}
+
+async function updatepwd(input) {
+  const user = await User.findOne({ email: input.email });
+  if (!user) {
+    return {
+      message: "User not found",
+      updateStatus: false,
+      userFound: false,
+    };
+  }
+  //update pwd
+  const update = await User.updateOne(
+    { email: user.email },
+    { password: bcrypt.hashSync(input.password, 8) }
+  );
+
+  if (!update) {
+    return {
+      message: "Failed to update password",
+      updateStatus: false,
+      userFound: true,
+    };
+  }
+  //delete reset token
+  await User.updateOne(
+    { email: input.email },
+    { $unset: { resetpwdToken: 1 } }
+  );
+  return {
+    message: "Password updated successfully",
+    updateStatus: true,
+    userFound: true,
+  };
 }
 
 async function verifyOTP(input) {
@@ -272,7 +395,9 @@ async function verifyOTP(input) {
 module.exports = {
   signin,
   signup,
-  restpwd,
+  sendTokenlink,
+  updatepwd,
+  checkresettoken,
   sendOTPVerificationEmail,
   verifyOTP,
 };

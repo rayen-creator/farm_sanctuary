@@ -1,0 +1,84 @@
+<h2>Admin Dashboard</h2>
+<div class="cards">
+  <div class="card">
+      <div class="card-content">
+          <div class="number">{{numberOfClients}}</div>
+          <div class="card-name">clients</div>
+      </div>
+      <div class="icon-box">
+          <i class="fas fa-user"></i>
+      </div>
+  </div>
+  <div class="card">
+      <div class="card-content">
+          <div class="number">{{numberOfarmers}}</div>
+          <div class="card-name">Farmers</div>
+      </div>
+      <div class="icon-box">
+        <i class="fa fa-user"></i>
+      </div>
+  </div>
+  
+  <div class="card">
+      <div class="card-content">
+          <div class="number">{{userList.length}}</div>
+          <div class="card-name">Total users</div>
+      </div>
+      <div class="icon-box">
+        <i class="fa fa-users"></i>
+   
+    </div>
+        
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total of Active Users</h5>
+        <p class="number">{{numberOfActiveUsers}}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total of Non Active Users</h5>
+        <p class="number">{{numberOfNonActiveUsers}}</p>
+      </div>
+    </div>
+
+    
+</div>
+
+
+<div id="charts">
+  <div style="display: inline-block; margin-right: 100px;">
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [labels]="chartOptions.labels"
+      [title]="chartOptions.title"
+      [responsive]="chartOptions.responsive"
+    ></apx-chart>
+  </div>
+  <div style="display:inline-block ; margin-left: 100px ;margin-right:150px ; font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight: bold;color: green;">SOME STATISTICS</div>
+  <div style="display: inline-block; margin-left: 100px;margin-bottom: 100px;">
+    <apx-chart
+      [series]="ChartOptions.series"
+      [chart]="ChartOptions.chart"
+      [labels]="ChartOptions.labels"
+      [title]="ChartOptions.title"
+      [responsive]="ChartOptions.responsive"
+    ></apx-chart>
+  </div>
+</div>
+
+
+
+
+<div style="text-align:center">
+  <apx-chart
+    [series]="chartOptionss.series"
+    [chart]="chartOptionss.chart"
+    [xaxis]="chartOptionss.xaxis"
+    [title]="chartOptionss.title"
+  ></apx-chart>
+</div>
+
+
