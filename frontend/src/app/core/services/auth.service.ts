@@ -1,5 +1,4 @@
 import { roles } from './../models/role';
-import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
 import { sendmailResponse } from './../graphql/graphqlResponse/sendmailResponse';
 import { checkresettoken, sendmail } from '../graphql/queries/auth.queries';
 import { LoginResponse } from '../graphql/graphqlResponse/loginResponse';
@@ -18,12 +17,11 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { checkresettokenResponse } from '../graphql/graphqlResponse/checktokenResponse';
 import {
+
   SendOTPMutationResponse,
   VerifyOTPResponse,
 } from '../graphql/graphqlResponse/twoFactorAuthResponse';
 
-import { Customvalidator } from '../utils/custom-validator';
-import { SignupResponse } from '../graphql/graphqlResponse/signupResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +47,7 @@ export class AuthService {
     private appolo: Apollo,
     private router: Router,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   login(user: User) {
     const input = {
@@ -71,7 +69,7 @@ export class AuthService {
 
           // console.log("accessToken " + loginresponse.signin.accessToken);
           // console.log("username " + loginresponse.signin.username);
-          console.log('&&&&&&&&&&&&&&&&&' + this.isUserAuthenticated);
+          // console.log('&&&&&&&&&&&&&&&&&' + this.isUserAuthenticated);
           const token = loginresponse.signin.accessToken;
           const username = loginresponse.signin.username;
           const IspassowrdValid = loginresponse.signin.passwordIsValid;
@@ -337,7 +335,10 @@ export class AuthService {
       .subscribe({
         next: (rest) => {
           const response = rest.data as VerifyOTPResponse;
-          const statusCode = response.VerifyOTP.statusCode;
+          const statusCode = response.verifyOTP.statusCode;
+          console.log('response', response);
+
+          console.log('statuscode', statusCode);
           if (statusCode) {
             this.toastr.success(
               'Two factor authentification complete welcomeback !',
@@ -370,7 +371,7 @@ export class AuthService {
       .subscribe({
         next: (rest) => {
           const response = rest.data as SendOTPMutationResponse;
-          const statusCode = response.SendOTPMutationOTP.statusCode;
+          const statusCode = response.sendOTPVerificationEmail.statusCode;
 
           if (statusCode) {
             this.toastr.success(
