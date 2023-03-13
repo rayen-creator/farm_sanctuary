@@ -1,13 +1,13 @@
-import { LoginResponse } from '../graphql/loginResponse';
+import { LoginResponse } from '../graphql/graphqlResponse/loginResponse';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from "apollo-angular";
 import { Subject } from 'rxjs';
-import {login, signup} from "../graphql/auth.queries"
+import {login, signup} from "../graphql/queries/auth.queries"
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 
 import {Customvalidator} from "../utils/custom-validator";
-import {SignupResponse} from "../graphql/signupResponse";
+import {SignupResponse} from "../graphql/graphqlResponse/signupResponse";
 
 @Injectable({
   providedIn: 'root'

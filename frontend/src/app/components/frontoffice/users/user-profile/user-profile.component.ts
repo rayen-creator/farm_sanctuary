@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import {User} from "../../../../core/models/user";
-import {updateUser, user} from 'src/app/core/graphql/graphql.queries.user';
+import {updateUser, user} from 'src/app/core/graphql/queries/graphql.queries.user';
 
 @Component({
   selector: 'app-user-profile',
