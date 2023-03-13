@@ -6,7 +6,7 @@ import { LoginResponse } from '../graphql/graphqlResponse/loginResponse';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from "apollo-angular";
 import { BehaviorSubject, Subject } from 'rxjs';
-import {login, resetpwd, SEND_OTP_MUTATION, VERIFY_OTP_MUTATION, signup} from "../graphql/queries/queries/auth.queries"
+import {login, resetpwd, SEND_OTP_MUTATION, VERIFY_OTP_MUTATION, signup} from "../graphql/queries/auth.queries"
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -41,21 +41,7 @@ export class AuthService {
     private toastr: ToastrService) { }
 
 
-  getToken() {
-    return this.token;
-  }
-
-  getUsername() {
-    return localStorage.getItem('username')
-  }
-
-  getAuthStatusListener() {
-    return this.authStatusListener.asObservable();
-  }
-
-  isUserAuth() {
-    return this.isUserAuthenticated;
-  }
+  
 
   login(user: User) {
     const input = {

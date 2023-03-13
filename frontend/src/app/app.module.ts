@@ -8,8 +8,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/helpers/auth.interceptor';
-import { GraphQLModule } from './graphql.module';
-import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -34,9 +32,6 @@ import { HttpClientModule } from '@angular/common/http';
         provide:HTTP_INTERCEPTORS,
         useClass:AuthInterceptor,
         multi:true
-    GraphQLModule,
-    HttpClientModule,
-
       }]
   ],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { AuthService } from 'src/app/core/services/auth.service';
-import { DecodedToken } from '../../../../core/graphql/graphqlResponse/graphqlResponse/decodedToken';
+import { DecodedToken } from '../../../../core/graphql/graphqlResponse/decodedToken';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 

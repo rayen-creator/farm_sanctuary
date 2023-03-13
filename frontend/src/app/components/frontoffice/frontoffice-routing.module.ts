@@ -9,8 +9,6 @@ import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
 import { TwoFactorauthComponent } from './auth/two-factorauth/two-factorauth.component';
-import { UserProfileComponent } from './users/user-profile/user-profile.component';
-
 import {UserProfileComponent} from "./users/user-profile/user-profile.component";
 
 const routes: Routes = [
