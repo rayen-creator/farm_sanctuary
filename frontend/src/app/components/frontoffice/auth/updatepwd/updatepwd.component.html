@@ -11,17 +11,40 @@
                             </p>
                         </div> 
                         <div class="m-sm-4">
-                            <form>
-                                <div class="form-group">
+                            <form [formGroup]="resetpwdForm" (ngSubmit)="resetpwd(resetpwdForm.value)">
+                                <div class="form-group" >
                                     <label>Password</label>
-                                    <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password">
+                                    <input class="form-control form-control-lg" type="password" formControlName="password" [ngClass]="Valid('password',resetpwdForm)" name="password" placeholder="Enter your password">
+                                </div>
+                                <div *ngIf="resetpwdForm.controls['password'].invalid && (resetpwdForm.controls['password'].dirty || resetpwdForm.controls['password'].touched)">
+                                    <div *ngIf="resetpwdForm.controls['password'].hasError('required')" class="text-danger">
+                                        *password is required .
+                                    </div>
+                                    <div *ngIf="resetpwdForm.controls['password'].hasError('minlength')" class="text-danger">
+                                        *password must be at least 8 characters .
+                                    </div>
+                                    <div *ngIf="resetpwdForm.controls['password'].hasError('hasNumber')" class="text-danger">
+                                        *password must contain at least one number .
+                                    </div>
+                                    <div *ngIf="resetpwdForm.controls['password'].hasError('hasCapitalCase') || resetpwdForm.controls['password'].hasError('hasSmallCase')" class="text-danger">
+                                        *password must contain at least one Uppercase letter and one lowercase letter .
+                                    </div>
+                                    <div *ngIf="resetpwdForm.controls['password'].hasError('hasSpecialCharacters') " class="text-danger">
+                                        *password must contain Special Characters .
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Confirm Password</label>
-                                    <input class="form-control form-control-lg" type="password" name="confirmpwd" placeholder="Retype your password">
+                                    <input class="form-control form-control-lg" type="password" name="confirmpassword" formControlName="confirmpassword" [ngClass]="Valid('confirmpassword',resetpwdForm)" placeholder="Retype your password">
                                 </div>
+                                <div *ngIf="resetpwdForm.controls['confirmpassword'].invalid && (resetpwdForm.controls['confirmpassword'].dirty || resetpwdForm.controls['confirmpassword'].touched)">
+                                    <div *ngIf="resetpwdForm.controls['confirmpassword'].hasError('required')" class="text-danger">
+                                        *password is required .
+                                    </div>
+                                    </div>
+                              
                                 <div class="text-center mt-3">
-                                    <a href="index.html" class="btn btn-lg btn-primary">Reset password</a>
+                                    <button class="btn btn-lg btn-primary">Reset password</button>
                                     <!-- <button type="submit" class="btn btn-lg btn-primary">Reset password</button> -->
                                 </div>
                             </form>
