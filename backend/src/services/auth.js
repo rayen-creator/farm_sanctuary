@@ -129,6 +129,18 @@ async function sendOTPVerificationEmail(input) {
   );
 
   console.log(user);
+  // scheduler to delete the the two_FactAuth field after an hour has passed 
+  const task = schedule.scheduleJob(new Date(expiresAt), async () => {
+    try {
+      const result = await User.updateOne(
+        { email: input.email },
+        { $unset: { two_FactAuth: 1 } }
+      );
+      console.log("the field two_FactorAuth is done"+result);
+    } catch (error) {
+      console.error(error);
+    }
+  });
 
   // a method that will automatically update the field expiresAt and set it to null after an hour for extra security
   // The link to the html template
