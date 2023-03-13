@@ -6,12 +6,15 @@ import { LoginResponse } from '../graphql/graphqlResponse/loginResponse';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from "apollo-angular";
 import { BehaviorSubject, Subject } from 'rxjs';
-import { login, resetpwd, SEND_OTP_MUTATION, VERIFY_OTP_MUTATION } from "../graphql/queries/auth.queries"
+import {login, resetpwd, SEND_OTP_MUTATION, VERIFY_OTP_MUTATION, signup} from "../graphql/queries/queries/auth.queries"
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { checkresettokenResponse } from '../graphql/graphqlResponse/checktokenResponse';
 import { SendOTPMutationResponse, VerifyOTPResponse } from '../graphql/graphqlResponse/twoFactorAuthResponse';
+
+import {Customvalidator} from "../utils/custom-validator";
+import {SignupResponse} from "../graphql/graphqlResponse/signupResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +27,7 @@ export class AuthService {
   private tokenTimer: any;
 
   // Assure l'envoie d'un paramètre aux autres components
-  //Un Subject est à la fois un observable ET un observateur. 
+  //Un Subject est à la fois un observable ET un observateur.
   //On peut donc subscribe dessus, mais également lui envoyer des valeurs :
   private authStatusListener = new Subject<boolean>();
   private isUserAuthenticated = false;
@@ -37,6 +40,22 @@ export class AuthService {
     private router: Router,
     private toastr: ToastrService) { }
 
+
+  getToken() {
+    return this.token;
+  }
+
+  getUsername() {
+    return localStorage.getItem('username')
+  }
+
+  getAuthStatusListener() {
+    return this.authStatusListener.asObservable();
+  }
+
+  isUserAuth() {
+    return this.isUserAuthenticated;
+  }
 
   login(user: User) {
     const input = {
@@ -113,6 +132,26 @@ export class AuthService {
 
       }
     });
+  }
+
+  register(user: User) {
+    const input = {
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+      password: user.password,
+      isActive: false,
+      gender: user.gender,
+      role: user.role,
+
+    };
+
+    return this.appolo.mutate({
+      mutation: signup,
+      variables: {
+        input: input
+      }
+    })
   }
 
   getToken() {

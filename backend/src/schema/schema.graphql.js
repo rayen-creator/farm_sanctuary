@@ -18,8 +18,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     phone:Int!
-    phone: Int!
-  password: String!
+    password: String!
     createdAt: DateTime!
     updatedAt: DateTime!
     isActive: Boolean!
@@ -46,8 +45,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     phone:Int!
-    phone: Int!
-  password: String!
+    password: String!
     isActive: Boolean!
     gender:Gender!
     role: Role!

@@ -30,6 +30,11 @@ async function signup(input) {
       usernameExists: false,
     };
   }
+  const defaultImage = {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png',
+    contentType: 'image/png'
+  };
+  const image = input.image || defaultImage;
   const user = new User({
     username: input.username,
     email: input.email,
@@ -38,7 +43,7 @@ async function signup(input) {
     isActive: input.isActive,
     role: input.role,
     gender: input.gender,
-    image: input.image,
+    image,
     createdAt: new Date(),
     updatedAt: new Date(),
     isBlocked: false,

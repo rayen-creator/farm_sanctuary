@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import {User} from "../../../../core/models/user";
-import {updateUser, user} from 'src/app/core/graphql/graphql.queries.user';
+import {updateUser, user} from 'src/app/core/graphql/queries/graphql.queries.user';
 
 @Component({
   selector: 'app-user-profile',
@@ -32,7 +32,7 @@ export class UserProfileComponent implements OnInit {
       }).valueChanges.subscribe({
       next: (result: any) => {
         this.user = result.data.getUser as User;
-        console.log(this.user,id)
+        console.log(result.data.getUser)
         this.initForm()
       },
       error: (err) => {
@@ -48,18 +48,21 @@ export class UserProfileComponent implements OnInit {
     let username: String = ""
     let email: String =""
     let phone =null
+    let gender = ""
 
 
     const e = this.user
     username = e.username
     email = e.email
     phone = e.phone
+    gender = e.gender
 
     console.log(e)
     this.userForm = new FormGroup({
       'username': new FormControl(username, Validators.required),
       'phone': new FormControl(phone, Validators.required),
-      'email': new FormControl(email, Validators.required)
+      'email': new FormControl(email, Validators.required),
+      'gender': new FormControl (gender, Validators.required)
 
     })
   }
@@ -92,7 +95,7 @@ console.log(file)
           phone: newUser.phone,
           password: this.user.password,
           isActive: this.user.isActive,
-          gender: this.user.gender,
+          gender: newUser.gender,
           role: this.user.role,
 
         };
