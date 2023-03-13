@@ -26,6 +26,14 @@ const typeDefs = gql`
     gender:Gender!
     role: Role!
     image: Image
+    two_FactAuth : Two_FactAuth
+
+  
+  }
+  type Two_FactAuth  { 
+    code : String! 
+    expiresAt: DateTime!
+
   }
 
   type Image {
@@ -137,5 +145,4 @@ const typeDefs = gql`
 module.exports = typeDefs;
 
 
-// 
-//  type Mutation => twoFactorAuthentification(input:twoFactorAuthInput!):twoFactorAuthResponse!
+

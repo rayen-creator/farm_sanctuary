@@ -242,6 +242,7 @@ return {message:"user does not exist"}  }
   ) {
     return {message:"OTP expired or not found" };
   }
+  
 
   // Compare hashed OTP with input OTP
 
@@ -252,11 +253,15 @@ console.log(user.two_FactAuth.code)
   if (match) {
     // OTP is valid
     // Clear OTP code and expiration time
-    await User.updateOne(
-      { email: input.email },
-      { $unset: { two_FactAuth: 1 } }
-    );
+     await User.updateOne(
+       { email: input.email },
+       { $unset: { two_FactAuth: 1 } }
+     ); 
     return { message: "OTP verified" };
+      // 2FA record has expired, delete it
+      // user.two_FactAuth = undefined;
+       // await user.save();
+    
   } else {
     // OTP is invalid
     return {message: "Invalid OTP"};
