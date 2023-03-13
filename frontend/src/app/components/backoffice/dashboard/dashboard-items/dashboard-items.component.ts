@@ -115,7 +115,7 @@ export class AdminDashboardComponent implements OnInit {
             type: "bar"
           },
           title: {
-            text: "My Chart Title",
+            text: "The number of users Created by Month",
             style: {
               fontSize: "20px",
               fontWeight: "bold",
@@ -211,9 +211,18 @@ export class AdminDashboardComponent implements OnInit {
               type: "pie"
             },
             title: {
-              text: "Nomber of Client by gender"
+              text: "Nomber of Client by gender",
+              style: {
+                fontSize: "20px",
+                fontWeight: "bold",
+                color: "green",
+                fontFamily: "Arial, sans-serif",
+              
+                // Add any other styles you want to apply to the title here
+              
+            }
             },
-            labels: ["male", "female"],
+            labels: ["male clients", "female clients"],
             responsive: [
               {
                 breakpoint: 480,
@@ -235,7 +244,16 @@ export class AdminDashboardComponent implements OnInit {
               type: "pie"
             },
             title: {
-              text: "Nomber of Farmer by gender"
+              text: "Nomber of Farmer by gender",
+              style: {
+                fontSize: "20px",
+                fontWeight: "bold",
+                color: "green",
+                fontFamily: "Arial, sans-serif",
+              
+                // Add any other styles you want to apply to the title here
+              
+            }
             },
             labels: ["male farmer", "female farmer"],
             responsive: [
