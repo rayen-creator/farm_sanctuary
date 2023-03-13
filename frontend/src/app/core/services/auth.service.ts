@@ -1,11 +1,11 @@
-import { LoginResponse } from './../graphql/loginResponse';
+import { LoginResponse } from '../graphql/graphqlResponse/loginResponse';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from "apollo-angular";
 import { Subject } from 'rxjs';
-import { login, SEND_OTP_MUTATION, VERIFY_OTP_MUTATION } from "../graphql/auth.queries"
+import { login, SEND_OTP_MUTATION, VERIFY_OTP_MUTATION } from "../graphql/queries/auth.queries"
 import { User } from '../models/user';
 import { Router } from '@angular/router';
-import { SendOTPMutationResponse, VerifyOTPResponse } from '../graphql/twoFactorAuthResponse';
+import { SendOTPMutationResponse, VerifyOTPResponse } from '../graphql/graphqlResponse/twoFactorAuthResponse';
 
 @Injectable({
   providedIn: 'root'
