@@ -92,7 +92,9 @@ console.log(file)
           phone: newUser.phone,
           password: this.user.password,
           isActive: this.user.isActive,
-          role: this.user.role
+          gender: this.user.gender,
+          role: this.user.role,
+
         };
         console.log(this.userForm)
         let id = this.currentRoute.snapshot.params['id'];

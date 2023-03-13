@@ -8,21 +8,7 @@ async function getUsers() {
   return User.find();
 }
 
-async function createUser(input) {
-  const user = new User({
-    username: input.username,
-    email: input.email,
-    phone:input.phone,
-    password: input.password,
-    isActive: input.isActive,
-    role: input.role,
-    image:input.image,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    isBlocked: false,
-  });
-  return await user.save(user);
-}
+
 
 async function updateUser(id, input) {
   const updatedUser = {
@@ -32,7 +18,9 @@ async function updateUser(id, input) {
     phone:input.phone,
     isActive: input.isActive,
     role: input.role,
+    gender: input.gender,
     image:input.image,
+    two_FactAuth_Option:input.two_FactAuth_Option,
     isBlocked: false,
     updatedAt: new Date(),
   };
@@ -62,7 +50,6 @@ async function toggleBlockUser(id) {
 module.exports = {
   getUser,
   getUsers,
-  createUser,
   updateUser,
   deleteUser,
   toggleBlockUser
