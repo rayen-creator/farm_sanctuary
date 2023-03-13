@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -7,9 +7,9 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-  username: string | null;
-  role:string | null;
+export class HeaderComponent implements OnInit, OnDestroy ,OnChanges {
+  username: string ;
+  role:string ;
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
   constructor(private auth: AuthService) { }
@@ -28,8 +28,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
     this.username = this.auth.getUsername();
     this.role=this.auth.getRole();
-
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.username = this.auth.getUsername();
+    this.role=this.auth.getRole();
+  }
+
 
 
   ngOnDestroy(): void {

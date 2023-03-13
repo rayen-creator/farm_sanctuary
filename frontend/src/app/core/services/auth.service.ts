@@ -121,7 +121,7 @@ export class AuthService {
     return this.role;
   }
   getUsername() {
-    return localStorage.getItem('username')
+    return this.username;
   }
 
   getAuthStatusListener() {
@@ -221,6 +221,7 @@ export class AuthService {
     const expirationDate = localStorage.getItem('expiration');
     const role = localStorage.getItem('role');
     const username = localStorage.getItem('username');
+
     if (!token || !expirationDate) {
       return;
     }
