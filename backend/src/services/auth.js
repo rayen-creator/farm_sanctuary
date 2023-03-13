@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const jsonwebtoken = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const schedule = require("node-schedule");
 
 const fs = require("fs");
 const { promisify } = require("util");
@@ -20,7 +21,7 @@ async function signup(input) {
       emailExists: false,
     };
   }
-  //verify duplicated email
+    //verify duplicated email
   const findemail = await User.findOne({ email: input.email });
   if (findemail) {
     return {
@@ -99,6 +100,84 @@ async function signin(input) {
     blocked: user.isBlocked,
     role: user.role,
   };
+}
+
+async function sendOTPVerificationEmail(input) {
+  // Generate a 4-digit OTP
+  const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+
+  // Hash the OTP
+  const saltRounds = 10;
+  const hashedOTP = await bcrypt.hash(otp, saltRounds);
+
+  // Save the OTP verification record
+  const now = Date.now();
+  const expiresAt = now + 3600000; // Expires in 1 hour
+  const user = await User.updateOne(
+    { email: input.email },
+    {
+      two_FactAuth: {
+        code: hashedOTP,
+        expiresAt: expiresAt,
+      },
+    }
+  );
+
+  console.log(user);
+
+  // a method that will automatically update the field expiresAt and set it to null after an hour for extra security
+  // The link to the html template
+
+  const readHTMLFile = (path) => {
+    return new Promise((resolve, reject) => {
+      readFile(path, "utf8", (err, html) => {
+        if (err) {
+          reject(err);
+        } else {
+          const template = handlebars.compile(html);
+
+          console.log(hashedOTP);
+          const replacements = {
+            otp: `${otp}`,
+          };
+          const htmlToSend = template(replacements);
+          const mailOptions = {
+            from: process.env.USER,
+            to: input.email,
+            subject: "Code for 2 factor authentification",
+            html: htmlToSend,
+          };
+          resolve(sendEmail(mailOptions));
+        }
+      });
+    });
+  };
+  try {
+    const mail = await readHTMLFile("src/view/two_fa/index.html");
+
+    if (!mail.mailStatus) {
+      return {
+        message: "error has occured",
+        statusCode: false,
+      };
+    }
+    return {
+      message: "mail sent",
+      statusCode: true,
+    };
+  } catch (error) {
+    throw new Error(error);
+  }
+
+  //Send the verification email
+  // const mailOptions = {
+  //   from: process.env.USER,
+  //   to: input.email,
+  //   subject: "Verify Your Email",
+  //   html: `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the 2 factor verification </p>
+  //   <p>this expires in 1 hour</p>`,
+  // };
+  // awaitsendEmail(mailOptions);
 }
 
 async function sendTokenlink(input) {
@@ -254,10 +333,54 @@ async function updatepwd(input) {
   };
 }
 
+async function verifyOTP(input) {
+  const user = await User.findOne({ email: input.email });
+  const now = Date.now();
+
+  // Check if user exists
+  if (!user) {
+    return { message: "user does not exist", statusCode: false };
+  }
+
+  // Check if OTP exists and is not expired
+
+  if (
+    !user.two_FactAuth ||
+    !user.two_FactAuth.code ||
+    now > user.two_FactAuth.expiresAt
+  ) {
+    return { message: "OTP expired or not found", statusCode: false };
+  }
+
+  // Compare hashed OTP with input OTP
+
+  const match = await bcrypt.compareSync(input.otp, user.two_FactAuth.code);
+  console.log(input.otp);
+  console.log(user.two_FactAuth.code);
+  console.log("match0", match);
+  if (match) {
+    // OTP is valid
+    // Clear OTP code and expiration time
+    await User.updateOne(
+      { email: input.email },
+      { $unset: { two_FactAuth: 1 } }
+    );
+    return { message: "OTP verified", statusCode: true };
+    // 2FA record has expired, delete it
+    // user.two_FactAuth = undefined;
+    // await user.save();
+  } else {
+    // OTP is invalid
+    return { message: "Invalid OTP", statusCode: false };
+  }
+}
+
 module.exports = {
   signin,
   signup,
   sendTokenlink,
   updatepwd,
   checkresettoken,
+  sendOTPVerificationEmail,
+  verifyOTP,
 };

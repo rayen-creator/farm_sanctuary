@@ -6,11 +6,12 @@ import { LoginResponse } from '../graphql/graphqlResponse/loginResponse';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from "apollo-angular";
 import { BehaviorSubject, Subject } from 'rxjs';
-import { login, resetpwd } from "../graphql/queries/auth.queries"
+import { login, resetpwd, SEND_OTP_MUTATION, VERIFY_OTP_MUTATION } from "../graphql/queries/auth.queries"
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { checkresettokenResponse } from '../graphql/graphqlResponse/checktokenResponse';
+import { SendOTPMutationResponse, VerifyOTPResponse } from '../graphql/graphqlResponse/twoFactorAuthResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,7 @@ export class AuthService {
   //On peut donc subscribe dessus, mais également lui envoyer des valeurs :
   private authStatusListener = new Subject<boolean>();
   private isUserAuthenticated = false;
+  responseMessage: any;
 
   public token: string;
   public role: string;
@@ -281,4 +283,48 @@ export class AuthService {
 
 
   }
-}
+  
+
+
+  verifyOTP(email:string,otp:string) {
+
+  
+    this.appolo
+      .mutate({
+        mutation: VERIFY_OTP_MUTATION,
+        variables: { email, otp },
+      })
+      .subscribe(
+        {next:(rest)=> {
+          const response = rest.data as VerifyOTPResponse;
+          console.log(response);
+  
+          
+        },
+        error: (err) => {
+          console.log(err); 
+  
+        }
+      });
+  }
+
+  sendOTP(email:string): void {
+    this.appolo
+      .mutate({
+        mutation: SEND_OTP_MUTATION,
+        variables: { email},
+        
+      })
+        .subscribe(
+        {next:(rest)=> {
+          const response = rest.data as SendOTPMutationResponse;
+          console.log(response) ; 
+          
+        },
+        error: (err) => {
+          console.log(err); 
+  
+        }
+      });
+    } 
+  }

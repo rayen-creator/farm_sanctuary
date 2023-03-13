@@ -47,6 +47,12 @@ const userSchema = new mongoose.Schema({
     lastAttempt: Date,
     backonlineat: Date,
   },
+  two_FactAuth_Option: Boolean,
+  two_FactAuth : { 
+    code : String, 
+    expiresAt: Date,
+
+  }
 });
 
 const User = mongoose.model("Users", userSchema);

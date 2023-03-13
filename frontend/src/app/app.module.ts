@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GraphQLModule } from './graphql.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { GraphQLModule } from './graphql.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './core/services/auth.service';
@@ -17,8 +17,8 @@ import { AuthInterceptor } from './core/helpers/auth.interceptor';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    GraphQLModule,
     HttpClientModule,
+    GraphQLModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 3500,
@@ -32,7 +32,7 @@ import { AuthInterceptor } from './core/helpers/auth.interceptor';
         provide:HTTP_INTERCEPTORS,
         useClass:AuthInterceptor,
         multi:true
-        
+
       }]
   ],
   bootstrap: [AppComponent]
