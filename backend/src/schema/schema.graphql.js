@@ -76,6 +76,7 @@ const typeDefs = gql`
     passwordIsValid:Boolean!
     blocked:Boolean!
     role:Role
+    two_FactAuth_Option: Boolean
   }
   type ForgetpwdResponse{
     message:String!
