@@ -10,6 +10,9 @@ import {BrowserModule} from "@angular/platform-browser";
 import { AdminDashboardComponent } from './dashboard/dashboard-items/dashboard-items.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
+import { DeliveryAgentComponent } from './delivery-agent/delivery-agent.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DeliveryAgentEditComponent } from './delivery-agent-edit/delivery-agent-edit.component';
 
 
 @NgModule({
@@ -18,14 +21,17 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     SidebarComponent,
     ClockComponent,
     UserListComponent,
-    AdminDashboardComponent
+    DeliveryAgentComponent,
+    AdminDashboardComponent,
+    DeliveryAgentEditComponent
   ],
   imports: [
     CommonModule,
     BackofficeRoutingModule,
     FormsModule,
-    NgApexchartsModule
-    
+    NgApexchartsModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class BackofficeModule { }
