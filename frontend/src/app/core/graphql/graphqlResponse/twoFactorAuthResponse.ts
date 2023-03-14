@@ -1,6 +1,6 @@
 export interface VerifyOTPResponse {
 
-    VerifyOTP: {
+    verifyOTP: {
         message: string; 
         statusCode:boolean;
      
@@ -8,7 +8,7 @@ export interface VerifyOTPResponse {
 }
 export interface SendOTPMutationResponse {
 
-    SendOTPMutationOTP: {
+    sendOTPVerificationEmail: {
         message: string; 
         statusCode:boolean;
      

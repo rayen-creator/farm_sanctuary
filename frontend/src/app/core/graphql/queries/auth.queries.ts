@@ -54,8 +54,8 @@ mutation resetpwd($input: signinInput!) {
 `;
 
 export const VERIFY_OTP_MUTATION = gql`
-  mutation VerifyOTP($email: String!, $otp: String!) {
-    verifyOTP(input: { email: $email, otp: $otp }) {
+  mutation VerifyOTP($input:verifyOTPInput!) {
+    verifyOTP(input: $input) {
       message  
       statusCode
       
@@ -64,8 +64,8 @@ export const VERIFY_OTP_MUTATION = gql`
 `; 
 
 export const SEND_OTP_MUTATION = gql`
-  mutation SendOTPMutation($email: String!) {
-    sendOTPVerificationEmail(input: { email: $email }) {
+  mutation SendOTPMutation($input: twoFactorAuthInput!) {
+    sendOTPVerificationEmail(input: $input) {
       message 
       statusCode
     }
