@@ -17,7 +17,7 @@
           <p>
             Please enter the code in the field below.
           </p>
-          <form [formGroup]="verifyOTPForm" (ngSubmit)="onSubmit(verifyOTPForm.value)" >
+          <form [formGroup]="verifyOTPForm"  >
  
           <div class="row mt-4 pt-2">
             <div class="col">
@@ -57,16 +57,16 @@
           <!-- <div *ngIf="!verifyOTPForm.value">
             please submit your code to continue
           </div> -->
-          <button type="submit" class="btn btn-purple btn-lg w-100 hover-lift-light mt-4">
+          <button type="submit" class="btn btn-purple btn-lg w-100 hover-lift-light mt-4" (click)="onSubmit(verifyOTPForm.value)">
             Verify my account
           </button>
           </form>
         </div>
       <p class="text-center text-muted mt-4">
         Didn't receive it?
-        <button  class="text-decoration-none ms-2" >
+        <a  class="text-decoration-none ms-2" (click)="resendMail()">
           Resend code
-        </button>
+        </a>
       </p>
     </div>
   </div> 

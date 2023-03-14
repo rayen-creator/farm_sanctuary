@@ -57,4 +57,8 @@ export class TwoFAComponent implements OnInit {
 
     }
   }
+
+  resendMail(){
+    this.authservice.sendOTP(this.username);
+  }
 }
