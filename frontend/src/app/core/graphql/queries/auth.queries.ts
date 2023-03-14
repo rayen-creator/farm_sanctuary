@@ -11,6 +11,7 @@ mutation signin($input: signinInput!) {
     passwordIsValid
     blocked
     role
+    two_FactAuth_Option
   }
 }
 `;
