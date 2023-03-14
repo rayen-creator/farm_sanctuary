@@ -18,11 +18,11 @@
 
 .card-name {
     color: #888;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .cards {
-    width: 100%;
+    width: auto;
     padding: 35px 20px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
