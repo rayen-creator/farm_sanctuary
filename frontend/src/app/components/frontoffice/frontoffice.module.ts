@@ -14,6 +14,7 @@ import { TwoFactorauthComponent } from './auth/two-factorauth/two-factorauth.com
 import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
 
 
 
@@ -37,7 +38,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     CommonModule,
     FrontofficeRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    GoogleSigninButtonModule
   ]
 })
 export class FrontofficeModule { }

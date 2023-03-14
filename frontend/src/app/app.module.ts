@@ -8,8 +8,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/helpers/auth.interceptor';
-
-
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider
+} from '@abacritt/angularx-social-login';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +22,7 @@ import { AuthInterceptor } from './core/helpers/auth.interceptor';
     HttpClientModule,
     GraphQLModule,
     BrowserAnimationsModule,
+    SocialLoginModule,
     ToastrModule.forRoot({
       timeOut: 3500,
       positionClass: 'toast-bottom-right',
@@ -28,6 +31,23 @@ import { AuthInterceptor } from './core/helpers/auth.interceptor';
   ],
   providers: [
       AuthService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '119324273419-p3il1j14maolrt15p6ms28h4v59s0fb0.apps.googleusercontent.com'
+            )
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    },
       [{
         provide:HTTP_INTERCEPTORS,
         useClass:AuthInterceptor,

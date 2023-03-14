@@ -8,11 +8,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./components/frontoffice/frontoffice.module').then(m => m.FrontofficeModule),
-    
+
   },
   {
     path: 'admin', loadChildren: () => import('./components/backoffice/backoffice.module').then(m => m.BackofficeModule),
-    canActivate: [AuthGuard], data: { roles: [roles.ADMIN] }
+    // canActivate: [AuthGuard], data: { roles: [roles.ADMIN] }
   },
   { path: '**', component: NotfoundComponent }
 
