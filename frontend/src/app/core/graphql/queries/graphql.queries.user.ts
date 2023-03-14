@@ -2,7 +2,7 @@ import { gql } from "apollo-angular";
 const users = gql`
 {
 getUsers{
-id,
+    id,
     username,
     email,
     phone,
@@ -10,12 +10,13 @@ id,
     updatedAt,
     isActive,
     isBlocked,
-  gender,
+     gender,
     role,
      image {
          url
       contentType
-    }
+    },
+    two_FactAuth_Option
     }
     }
 `;
@@ -38,7 +39,8 @@ query getUser($id: ID!)
      image {
          url
       contentType
-    }
+    },
+    two_FactAuth_Option
     }
     }
 `;
@@ -93,4 +95,4 @@ const updateUser = gql`
   }
 }
 `;
-export {users, toggleBlock, deleteUser, user, updateUser}
+export { users, toggleBlock, deleteUser, user, updateUser }

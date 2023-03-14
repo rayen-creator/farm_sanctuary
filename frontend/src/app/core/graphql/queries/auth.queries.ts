@@ -45,7 +45,7 @@ mutation checkresettoken($input: checkresettoken!) {
 `;
 
 export const resetpwd = gql`
-mutation resetpwd($input: signinInput!) {
+mutation resetpwd($input: resetpwd!) {
   resetpwd(input: $input) {
     message
     updateStatus
