@@ -80,6 +80,7 @@ export class AuthService {
           const blockedByAdmin = loginresponse.signin.blocked;
           const userfound = loginresponse.signin.userfound;
           const role = loginresponse.signin.role;
+          const two_FactAuth_Option=loginresponse.signin.two_FactAuth_Option;
 
           this.token = token;
           // this.role=role;
@@ -127,8 +128,15 @@ export class AuthService {
               now.getTime() + expireInDuration * 1000
             );
             this.saveAuthData(token, username, expirationDate, role);
-            this.toastr.success('Welcome back to your account', 'Logged In');
-            this.router.navigate(['/home']);
+            if (two_FactAuth_Option){
+              this.sendOTP(username);
+              this.router.navigate(['/twofactorauth']);
+
+            }else{
+              this.toastr.success('Welcome back to your account', 'Logged In');
+              this.router.navigate(['/home']);
+            }
+           
           }
         },
         error: (err) => {
@@ -351,6 +359,8 @@ export class AuthService {
               'Two factor authentification complete welcomeback !',
               'success'
             );
+            this.router.navigate(['/home']);
+
           } else {
             this.toastr.error(
               'verification code incorrect or expired !',
@@ -388,6 +398,7 @@ export class AuthService {
                 progressBar: true,
               }
             );
+
           } else {
             this.toastr.error(
               'Something is wrong please verify your email address',
