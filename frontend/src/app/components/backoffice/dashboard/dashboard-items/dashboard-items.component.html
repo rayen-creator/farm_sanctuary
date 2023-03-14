@@ -21,7 +21,7 @@
 
   <div class="card">
     <div class="card-content">
-      <div class="number">{{ userList.length }}</div>
+      <div class="number">{{ countAllUsers() }}</div>
       <div class="card-name">Total users</div>
     </div>
     <div class="icon-box">
@@ -30,7 +30,7 @@
   </div>
   <div class="card">
     <div class="card-content">
-      <div class="number">{{ numberOfActiveUsers }}</div>
+      <div class="number">{{ getAllActiveUser() }}</div>
       <div class="card-name">Total of Active Users</div>
       <div class="icon-box">
         <i class="fa fa-plug"></i>

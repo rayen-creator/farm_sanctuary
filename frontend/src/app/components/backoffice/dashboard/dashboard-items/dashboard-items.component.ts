@@ -31,9 +31,9 @@ export class AdminDashboardComponent implements OnInit {
   userCountsByDate: UserCount[];
 
   @ViewChild('chart') chart: ChartComponent;
-  public chartOptions: Partial<ChartOptions> |any;
-  public chartOptionss: Partial<ChartOptions> |any;
-  public ChartOptions: Partial<ChartOptions> |any;
+  public chartOptions: Partial<ChartOptions> | any;
+  public chartOptionss: Partial<ChartOptions> | any;
+  public ChartOptions: Partial<ChartOptions> | any;
 
 
   adminList: User[] = [];
@@ -48,29 +48,34 @@ export class AdminDashboardComponent implements OnInit {
   numberOfActiveUsers: Number;
   numberOfNonActiveUsers: Number;
 
- 
-  
+
+
   date: string;
   count: number;
 
-  
-  
-  constructor(private apollo: Apollo) {
-   
-}
 
-  
+
+  constructor(private apollo: Apollo) {
+
+  }
+
+
 
   ngOnInit(): void {
-    
+
     this.UsersCount();
     this.UsersCountByCategory();
     this.UserCountByDate();
-
-
-   
-
     console.log(this.numberOfFemaleFarmers)
+  }
+
+  countAllUsers() {
+    return this.userList.filter(user => user.role != roles.ADMIN).length;
+  }
+  getAllActiveUser(){
+    return this.userList.filter(user =>
+      user.role != roles.ADMIN && user.isActive
+    ).length;
   }
 
   UserCountByDate() {
@@ -84,25 +89,25 @@ export class AdminDashboardComponent implements OnInit {
           const month = user.createdAt.split('T')[0].substring(0, 7);
           userCountsByMonth[month] = (userCountsByMonth[month] || 0) + 1;
 
-        const userCountsByDateArray = [];
-        for (const date in userCountsByMonth) {
-          if (userCountsByMonth.hasOwnProperty(date)) {
-            userCountsByDateArray.push({ date, count: userCountsByMonth[date] });
+          const userCountsByDateArray = [];
+          for (const date in userCountsByMonth) {
+            if (userCountsByMonth.hasOwnProperty(date)) {
+              userCountsByDateArray.push({ date, count: userCountsByMonth[date] });
+            }
           }
-        }
-        userCountsByDateArray.sort(
-          (a, b) => new Date(a.date + "-01").getMonth() - new Date(b.date + "-01").getMonth()
+          userCountsByDateArray.sort(
+            (a, b) => new Date(a.date + "-01").getMonth() - new Date(b.date + "-01").getMonth()
           );
-          
-        this.userCountsByDate = userCountsByDateArray;
+
+          this.userCountsByDate = userCountsByDateArray;
 
         }
-        
 
-     
+
+
         const counts = this.userCountsByDate.map(item => item.count);
         const dates = this.userCountsByDate.map(item => item.date);
-          this.chartOptionss = {
+        this.chartOptionss = {
           series: [
             {
               name: "number of users created by date",
@@ -111,7 +116,7 @@ export class AdminDashboardComponent implements OnInit {
             }
           ],
           chart: {
-            height: 350,      
+            height: 350,
             type: "bar"
           },
           title: {
@@ -121,15 +126,16 @@ export class AdminDashboardComponent implements OnInit {
               fontWeight: "bold",
               color: "green",
               fontFamily: "Arial, sans-serif",
-            
+
               // Add any other styles you want to apply to the title here
-            
-          }},
+
+            }
+          },
           xaxis: {
-            typ:'datetime',
+            typ: 'datetime',
             categories: dates
           }
-      
+
         };
       });
   }
@@ -142,6 +148,7 @@ export class AdminDashboardComponent implements OnInit {
       .valueChanges.subscribe({
         next: (result: any) => {
           this.userList = result.data.getUsers as User[];
+
           console.log(this.userList);
         },
         error: (err) => {
@@ -188,14 +195,16 @@ export class AdminDashboardComponent implements OnInit {
           this.adminList = result.data.getUsers.filter(
             (user: User) => user.isActive === true
           );
-          this.numberOfActiveUsers = this.adminList.length;
-            console.log(this.numberOfActiveUsers)
+          // this.numberOfActiveUsers = this.userList.filter(user =>
+          //   user.role != roles.ADMIN && user.isActive
+          // ).length;
+          // console.log(this.numberOfActiveUsers)
 
           this.adminList = result.data.getUsers.filter(
             (user: User) => user.isActive === false
           );
           this.numberOfNonActiveUsers = this.adminList.length;
-         
+
 
           this.adminList = result.data.getUsers.filter(
             (user: User) => user.role === roles.CLIENT
@@ -203,7 +212,7 @@ export class AdminDashboardComponent implements OnInit {
           this.numberOfClients = this.adminList.length;
 
 
-          
+
           this.chartOptions = {
             series: [this.numberOfMaleClients, this.numberOfFemalClients],
             chart: {
@@ -217,10 +226,10 @@ export class AdminDashboardComponent implements OnInit {
                 fontWeight: "bold",
                 color: "green",
                 fontFamily: "Arial, sans-serif",
-              
+
                 // Add any other styles you want to apply to the title here
-              
-            }
+
+              }
             },
             labels: ["male clients", "female clients"],
             responsive: [
@@ -250,10 +259,10 @@ export class AdminDashboardComponent implements OnInit {
                 fontWeight: "bold",
                 color: "green",
                 fontFamily: "Arial, sans-serif",
-              
+
                 // Add any other styles you want to apply to the title here
-              
-            }
+
+              }
             },
             labels: ["male farmer", "female farmer"],
             responsive: [
