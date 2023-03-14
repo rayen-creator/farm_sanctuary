@@ -21,7 +21,7 @@ async function signup(input) {
       emailExists: false,
     };
   }
-    //verify duplicated email
+  //verify duplicated email
   const findemail = await User.findOne({ email: input.email });
   if (findemail) {
     return {
@@ -31,8 +31,8 @@ async function signup(input) {
     };
   }
   const defaultImage = {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png',
-    contentType: 'image/png'
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png",
+    contentType: "image/png",
   };
   const image = input.image || defaultImage;
   const user = new User({
@@ -47,6 +47,7 @@ async function signup(input) {
     createdAt: new Date(),
     updatedAt: new Date(),
     isBlocked: false,
+    two_FactAuth_Option:false
   });
   await user.save(user);
   return {
@@ -91,27 +92,40 @@ async function signin(input) {
 
   //get user back online
 
-  const token = jsonwebtoken.sign({ id: user.email }, process.env.SECRET, {
+  const token = jsonwebtoken.sign({ id: user.id }, process.env.SECRET, {
     expiresIn: process.env.JWT_EXPIRE_IN,
   });
 
-  return {
-    accessToken: token,
-    username: user.username,
-    message: "OK",
-    expiresIn: process.env.JWT_EXPIRE_IN,
-    userfound: true,
-    passwordIsValid: true,
-    blocked: user.isBlocked,
-    role: user.role,
-  };
+  if (user.two_FactAuth_Option) {
+    return {
+      accessToken: token,
+      username: user.username,
+      message: "OK",
+      expiresIn: process.env.JWT_EXPIRE_IN,
+      userfound: true,
+      passwordIsValid: true,
+      blocked: user.isBlocked,
+      role: user.role,
+      two_FactAuth_Option: user.two_FactAuth_Option,
+    };
+  } else {
+    return {
+      accessToken: token,
+      username: user.username,
+      message: "OK",
+      expiresIn: process.env.JWT_EXPIRE_IN,
+      userfound: true,
+      passwordIsValid: true,
+      blocked: user.isBlocked,
+      role: user.role,
+      two_FactAuth_Option: false,
+    };
+  }
 }
 
 async function sendOTPVerificationEmail(input) {
-
-  // find email with username 
-    const finduser = await User.findOne({ username: input.username }); 
-
+  // find email with username
+  const finduser = await User.findOne({ username: input.username });
 
   // Generate a 4-digit OTP
   const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
@@ -134,14 +148,14 @@ async function sendOTPVerificationEmail(input) {
   );
 
   console.log(user);
-  // scheduler to delete the the two_FactAuth field after an hour has passed 
+  // scheduler to delete the the two_FactAuth field after an hour has passed
   const task = schedule.scheduleJob(new Date(expiresAt), async () => {
     try {
       const result = await User.updateOne(
         { email: finduser.email },
         { $unset: { two_FactAuth: 1 } }
       );
-      console.log("the field two_FactorAuth is done"+result);
+      console.log("the field two_FactorAuth is done" + result);
     } catch (error) {
       console.error(error);
     }
@@ -281,7 +295,7 @@ async function checkresettoken(input) {
     };
   }
 
-  if(!user.resetpwdToken){
+  if (!user.resetpwdToken) {
     return {
       valid: false,
       message: "Invalid reset Token!",
@@ -293,25 +307,23 @@ async function checkresettoken(input) {
     process.env.RESET_SECRET,
     async (err, decodedToken) => {
       // Check if the reset token has expired
-      console.log("error",err);
-      if (err){
+      console.log("error", err);
+      if (err) {
         // const resetTime = new Date(decodedToken.iat * 1000);
         // console.log("resetTime", resetTime);
         // const expirationTime = new Date(resetTime.getTime() + 60 * 60 * 1000); // 1h expiration
         // const currentTime = new Date();
         // if (currentTime > expirationTime) {
-          //delete reset token
-          await User.updateOne(
-            { email: input.email },
-            { $unset: { resetpwdToken: 1 } }
-          );
-          return {
-            valid: false,
-            message: "reset token expired !",
-          };
-        
+        //delete reset token
+        await User.updateOne(
+          { email: input.email },
+          { $unset: { resetpwdToken: 1 } }
+        );
+        return {
+          valid: false,
+          message: "reset token expired !",
+        };
       }
-      
     }
   );
 
@@ -331,9 +343,13 @@ async function updatepwd(input) {
     };
   }
   //update pwd
+  const updatepwd={
+    password: bcrypt.hashSync(input.password, 8),
+    updatedAt:new Date(),
+  }
   const update = await User.updateOne(
     { email: user.email },
-    { password: bcrypt.hashSync(input.password, 8) }
+    updatepwd
   );
 
   if (!update) {
@@ -371,6 +387,11 @@ async function verifyOTP(input) {
     !user.two_FactAuth.code ||
     now > user.two_FactAuth.expiresAt
   ) {
+       // Clear OTP code and expiration time
+       await User.updateOne(
+        { email: user.email },
+        { $unset: { two_FactAuth: 1 } }
+      );
     return { message: "OTP expired or not found", statusCode: false };
   }
 
@@ -384,7 +405,7 @@ async function verifyOTP(input) {
     // OTP is valid
     // Clear OTP code and expiration time
     await User.updateOne(
-      { email: user.email},
+      { email: user.email },
       { $unset: { two_FactAuth: 1 } }
     );
     return { message: "OTP verified", statusCode: true };

@@ -26,9 +26,7 @@ const typeDefs = gql`
     gender:Gender!
     role: Role!
     image: Image
-    two_FactAuth : Two_FactAuth
-
-  
+    two_FactAuth_Option:Boolean!  
   }
   type Two_FactAuth  { 
     code : String! 
@@ -50,7 +48,7 @@ const typeDefs = gql`
     gender:Gender!
     role: Role!
     image: ImageInput
-
+    two_FactAuth_Option: Boolean
 
   }
   input twoFactorAuthUserInput { 
@@ -76,6 +74,7 @@ const typeDefs = gql`
     passwordIsValid:Boolean!
     blocked:Boolean!
     role:Role
+    two_FactAuth_Option: Boolean
   }
   type ForgetpwdResponse{
     message:String!

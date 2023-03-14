@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import {Apollo, gql} from "apollo-angular";
+import { Apollo, gql } from "apollo-angular";
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import Swal from 'sweetalert2'
-import {User} from "../../../../core/models/user";
-import {updateUser, user} from 'src/app/core/graphql/queries/graphql.queries.user';
+import { User } from "../../../../core/models/user";
+import { updateUser, user } from 'src/app/core/graphql/queries/graphql.queries.user';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,56 +14,57 @@ import {updateUser, user} from 'src/app/core/graphql/queries/graphql.queries.use
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  user : User;
+  user: User;
   userForm: FormGroup;
-  pattern="^[ a-zA-Z0-9][a-zA-Z0-9 ]*$";
-
+  pattern = "^[ a-zA-Z0-9][a-zA-Z0-9 ]*$";
+  // TWO_FA :boolean;
   selectedFile: File;
-  constructor(  private currentRoute: ActivatedRoute,
-                private router: Router,private apollo: Apollo
+  constructor(private currentRoute: ActivatedRoute,
+    private router: Router, private apollo: Apollo
   ) { }
 
   ngOnInit(): void {
-    let id= this.currentRoute.snapshot.params['id'];
+    let id = this.currentRoute.snapshot.params['id'];
     this.apollo
       .watchQuery({
         query: user,
         variables: { id },
       }).valueChanges.subscribe({
-      next: (result: any) => {
-        this.user = result.data.getUser as User;
-        console.log(result.data.getUser)
-        this.initForm()
-      },
-      error: (err) => {
-        console.log("err :" + err);
-        console.log(this.user);
-      },
-    });
+        next: (result: any) => {
+          this.user = result.data.getUser as User;
+          console.log(result.data.getUser)
+          this.initForm()
+        },
+        error: (err) => {
+          console.log("err :" + err);
+          console.log(this.user);
+        },
+      });
 
   }
 
   private initForm() {
 
     let username: String = ""
-    let email: String =""
-    let phone =null
+    let email: String = ""
+    let phone = null
     let gender = ""
-
+    let two_FactAuth_Option;
 
     const e = this.user
     username = e.username
     email = e.email
     phone = e.phone
     gender = e.gender
+    two_FactAuth_Option = e.two_FactAuth_Option
 
     console.log(e)
     this.userForm = new FormGroup({
       'username': new FormControl(username, Validators.required),
       'phone': new FormControl(phone, Validators.required),
       'email': new FormControl(email, Validators.required),
-      'gender': new FormControl (gender, Validators.required)
-
+      'gender': new FormControl(gender, Validators.required),
+      'two_FactAuth_Option': new FormControl(two_FactAuth_Option, Validators.required)
     })
   }
 
@@ -72,7 +73,7 @@ export class UserProfileComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
     const formData = new FormData();
     formData.append('image', file);
-console.log(file)
+    console.log(file)
     // call your service method to update user image
   }
 
@@ -97,15 +98,15 @@ console.log(file)
           isActive: this.user.isActive,
           gender: newUser.gender,
           role: this.user.role,
-
+          two_FactAuth_Option:newUser.two_FactAuth_Option
         };
-        console.log(this.userForm)
+        console.log("after edit",this.userForm)
         let id = this.currentRoute.snapshot.params['id'];
 
         this.apollo
           .mutate({
             mutation: updateUser,
-            variables: {id, input: input},
+            variables: { id, input: input },
           })
           .subscribe({
             next: (result: any) => {

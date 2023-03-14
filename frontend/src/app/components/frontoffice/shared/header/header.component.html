@@ -195,7 +195,7 @@
                   class="avatar"
                 />  
               <div class="text">
-                <a href="#"><h6>{{ username }}</h6></a>
+                <a routerLink="profile/{{userId}}" ><h6>{{ username }}</h6></a>
                 <p>{{role}}</p>
               </div>&nbsp;&nbsp;
               <button class="btn btn-danger" (click)="loggingout()">Sign out</button>

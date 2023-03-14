@@ -27,7 +27,7 @@ import {
   providedIn: 'root',
 })
 export class AuthService {
-  public username: string;
+  // public username: string;
   public usernameExists: boolean;
   public emailExists: boolean;
 
@@ -38,8 +38,12 @@ export class AuthService {
   //On peut donc subscribe dessus, mais également lui envoyer des valeurs :
   private authStatusListener = new Subject<boolean>();
   private isUserAuthenticated = false;
-  responseMessage: any;
 
+  private usernameSubject = new BehaviorSubject<string>('');
+  private roleSubject=new BehaviorSubject<string>('');
+  // public username = this.usernameSubject.asObservable();
+
+  responseMessage: any;
   public token: string;
   public role: string;
 
@@ -76,6 +80,7 @@ export class AuthService {
           const blockedByAdmin = loginresponse.signin.blocked;
           const userfound = loginresponse.signin.userfound;
           const role = loginresponse.signin.role;
+          const two_FactAuth_Option=loginresponse.signin.two_FactAuth_Option;
 
           this.token = token;
           // this.role=role;
@@ -112,6 +117,10 @@ export class AuthService {
           if (token) {
             const expireInDuration = loginresponse.signin.expiresIn;
             this.isUserAuthenticated = true;
+            //behaviour subject username
+            this.usernameSubject.next(username);
+            //behaviour subject role
+            this.roleSubject.next(role);
 
             this.authStatusListener.next(true);
             const now = new Date();
@@ -119,8 +128,15 @@ export class AuthService {
               now.getTime() + expireInDuration * 1000
             );
             this.saveAuthData(token, username, expirationDate, role);
-            this.toastr.success('Welcome back to your account', 'Logged In');
-            this.router.navigate(['/home']);
+            if (two_FactAuth_Option){
+              this.sendOTP(username);
+              this.router.navigate(['/twofactorauth']);
+
+            }else{
+              this.toastr.success('Welcome back to your account', 'Logged In');
+              this.router.navigate(['/home']);
+            }
+           
           }
         },
         error: (err) => {
@@ -153,10 +169,10 @@ export class AuthService {
   }
 
   getRole() {
-    return this.role;
+    return this.roleSubject.asObservable();
   }
   getUsername() {
-    return this.username;
+    return this.usernameSubject.asObservable();
   }
 
   getAuthStatusListener() {
@@ -173,6 +189,7 @@ export class AuthService {
       token: resettoken,
       email: email,
     };
+    console.log("email",input.email)
     this.appolo
       .mutate({
         mutation: checkresettoken,
@@ -226,10 +243,11 @@ export class AuthService {
   }
 
   //update pwd
-  resetpwd(email: String, password: String) {
+  resetpwd(email: String, password: String,token:string) {
     const input = {
       email: email,
       password: password,
+      token: token
     };
     return this.appolo
       .mutate({
@@ -273,13 +291,12 @@ export class AuthService {
     }
     if (expiresIn) {
       this.token = token;
-      username ? (this.username = username) : (this.username = '');
-      role ? (this.role = role) : (this.role = '');
-
-      // this.role=this.getRole();
-      // console.log("role", this.role)
+     
       this.isUserAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
+      this.usernameSubject.next(username ?? '');
+      this.roleSubject.next(role ?? '');
+
       this.authStatusListener.next(true);
     }
   }
@@ -344,6 +361,8 @@ export class AuthService {
               'Two factor authentification complete welcomeback !',
               'success'
             );
+            this.router.navigate(['/home']);
+
           } else {
             this.toastr.error(
               'verification code incorrect or expired !',
@@ -381,6 +400,7 @@ export class AuthService {
                 progressBar: true,
               }
             );
+
           } else {
             this.toastr.error(
               'Something is wrong please verify your email address',

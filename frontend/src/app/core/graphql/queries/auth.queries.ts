@@ -11,6 +11,7 @@ mutation signin($input: signinInput!) {
     passwordIsValid
     blocked
     role
+    two_FactAuth_Option
   }
 }
 `;
@@ -44,7 +45,7 @@ mutation checkresettoken($input: checkresettoken!) {
 `;
 
 export const resetpwd = gql`
-mutation resetpwd($input: signinInput!) {
+mutation resetpwd($input: resetpwd!) {
   resetpwd(input: $input) {
     message
     updateStatus

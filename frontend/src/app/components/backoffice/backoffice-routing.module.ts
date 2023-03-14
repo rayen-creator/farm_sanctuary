@@ -7,6 +7,7 @@ import {UserListComponent} from "./users/user-list/user-list.component";
 const routes: Routes = [
   {
     path: '', component: BackofficeComponent, children: [
+      {path :'' , redirectTo : 'dashboard' , pathMatch :'full'},
       {path:'users', component: UserListComponent},
       {path:'dashboard',component:AdminDashboardComponent}
     ]

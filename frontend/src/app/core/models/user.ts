@@ -17,4 +17,5 @@ export type User = {
     url: string;
     contentType: string;
   };
+  two_FactAuth_Option:boolean;
 };

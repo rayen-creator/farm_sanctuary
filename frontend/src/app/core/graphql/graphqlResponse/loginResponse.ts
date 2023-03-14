@@ -9,6 +9,7 @@ export interface LoginResponse {
         userfound:boolean;
         passwordIsValid:boolean;
         blocked:boolean;
-        role:roles
+        role:roles;
+        two_FactAuth_Option: boolean,
     }
 }
