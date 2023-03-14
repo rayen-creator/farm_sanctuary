@@ -1,11 +1,11 @@
-import { AbstractControl } from '@angular/forms';
-
-import { Customvalidator } from './../../../core/utils/custom-validator';
+import { DriverResponse } from './../../../core/graphql/graphqlResponse/driverloginResponse';
+import { updateDriverResponse } from './../../../core/graphql/graphqlResponse/updatedriverResponse';
+import {Customvalidator} from "../../../core/utils/custom-validator"
 import { Agent } from './../../../core/models/deliveryAgent';
 import { Component, OnInit } from '@angular/core';
-import {updatedeliveryAgent, createdeliveryAgent,getdeliveryAgent} from "../../../core/graphql/graphql.queries.agent";
+import {Agents ,infomail,updatedeliveryAgent, createdeliveryAgent,getdeliveryAgent} from "../../../core/graphql/graphql.queries.agent";
 import {Apollo, gql} from "apollo-angular";
-import { FormControl,FormGroup,Validators } from '@angular/forms';
+import { FormBuilder,FormControl,FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import Swal from 'sweetalert2'
@@ -25,8 +25,11 @@ export class DeliveryAgentEditComponent implements OnInit {
   action: string;
   id: number;
   mode:string;
+  loginExist: Boolean 
+  emailExist: Boolean
   constructor(  private currentRoute: ActivatedRoute,
-     private router: Router,private apollo: Apollo
+     private router: Router,private apollo: Apollo,
+     private formBuilder: FormBuilder
     ) { }
 
   ngOnInit(): void {
@@ -61,21 +64,30 @@ export class DeliveryAgentEditComponent implements OnInit {
     
   }
   private add() {
-    this.AgentForm = new FormGroup({
-      login: new FormControl("",[Validators.required,Validators.pattern(this.pattern),Validators.minLength(6)]),
-      phone: new FormControl(null,[Validators.required, Validators.pattern(/^\d{8}$/)]),
-      email: new FormControl("" , [Validators.required, Validators.email]),
-      fullName: new FormControl("", [Validators.required,Validators.pattern(this.pattern2)]),
-      password: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
-      confirmpassword:new FormControl ("", [Validators.required ])
-    },
-    this.passwordsShouldMatch
-  );     
+    this.AgentForm = this.formBuilder.group({
+      login:[ "",[Validators.required,Validators.pattern(this.pattern),Validators.minLength(6)]],
+      phone: [null,[Validators.required, Validators.pattern(/^\d{8}$/)]],
+      email: ["" , [Validators.required, Validators.email]],
+      fullName:[ "", [Validators.required,Validators.pattern(this.pattern2)]],
+      password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      confirmpassword:["", [Validators.required, Validators.pattern(this.AgentForm?.get('password')?.value)]]
+    }, 
+     {
+      validator: this.matchPassword.bind(this)
+     } 
+      )
   }
+  
  
-   passwordsShouldMatch(fGroup: AbstractControl) {
-    return this.AgentForm?.get('password')?.value === this.AgentForm?.get('confirmpassword')?.value
-      ? null : {'mismatch': true};
+  matchPassword(formGroup: FormGroup) {
+    const passwordControl = formGroup.get('password');
+    const confirmPasswordControl = formGroup.get('confirmpassword');
+
+    if (passwordControl?.value !== confirmPasswordControl?.value) {
+      confirmPasswordControl?.setErrors({ 'passwordMismatch': true });
+    } else {
+      confirmPasswordControl?.setErrors(null);
+    }
   }
   private update() {
     
@@ -92,27 +104,34 @@ export class DeliveryAgentEditComponent implements OnInit {
       login = e.login
       password=e.password
       console.log(e)
-    this.AgentForm = new FormGroup({
-      'login': new FormControl(login,[Validators.required,Validators.pattern(this.pattern),Validators.minLength(6)]),
-      'phone': new FormControl(phone, [Validators.required, Validators.pattern(/^\d{8}$/)]),
-      'email': new FormControl(email, [Validators.required, Validators.email]),
-      'fullName': new FormControl(fullName, [Validators.required,Validators.pattern(this.pattern2)]),
-      'password': new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
-      'confirmpassword':new FormControl ("", [Validators.required,Validators.min(3)])
-      } ,
-      this.passwordsShouldMatch
-      );
+      this.AgentForm = this.formBuilder.group({
+        login:[ login,[Validators.required,Validators.pattern(this.pattern),Validators.minLength(6)]],
+        phone: [phone,[Validators.required, Validators.pattern(/^\d{8}$/)]],
+        email: [email , [Validators.required, Validators.email]],
+        fullName:[ fullName, [Validators.required,Validators.pattern(this.pattern2)]],
+        password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+        confirmpassword:["", [Validators.required, Validators.pattern(this.AgentForm?.get('password')?.value)]]
+      }, 
+       {
+        validator: this.matchPassword.bind(this)
+       } 
+        )
+    }
+    
      
       
      
       
-  }
+  
 
 
 
   onSubmit() {
+    let newagent = this.AgentForm.value;
+    
     if(this.action == 'Update')
     {
+
       Swal.fire({
         title: 'Are you sure you want to update your profile?',
         text: 'This action cannot be undone.',
@@ -123,7 +142,6 @@ export class DeliveryAgentEditComponent implements OnInit {
         confirmButtonText: 'Yes, update',
       }).then((result) => {
         if (result.isConfirmed) {
-          let newagent = this.AgentForm.value;
           console.log(newagent);
           const input = {
             login: newagent.login,
@@ -141,22 +159,51 @@ export class DeliveryAgentEditComponent implements OnInit {
             .mutate({
               mutation: updatedeliveryAgent,
               variables: {id, input: input},
+              refetchQueries: [{
+                query: Agents
+              }]
             })
             .subscribe({
               next: (result: any) => {
                // const updatedUser = result.data.updateUser as Agent;
-  
+               const registerReponse=result.data as  updateDriverResponse;
+               console.log(registerReponse.updatedeliveryAgent.emailExists);
+               console.log(registerReponse.updatedeliveryAgent.loginExists);
+               this.loginExist = registerReponse.updatedeliveryAgent.loginExists;
+               this.emailExist  = registerReponse.updatedeliveryAgent.emailExists;
+               if (!this.loginExist && !this.emailExist){
                 Swal.fire('Updated', 'Agent has been updated successfully.', 'success');
-                this.router.navigate(['admin/delvery'])
+                this.router.navigate(['admin/delvery'])}
+                this.apollo
+                .mutate({
+                  mutation: infomail,
+                  variables: { input: input},
+                  
+                })
+                .subscribe({
+                  next: (result: any) => {
+                  // const updatedUser = result.data.updateUser as Agent
+                  //this.router.navigate(['admin/delvery'])
+          //setTimeout(()=>{
+            //window.location.reload();
+         // }, 2000);
+                  },
+                  error: (err) => {
+                    console.log('err :' + err);
+                  },
+                });
+    
               },
               error: (err) => {
                 console.log('err :' + err);
               },
             });
+           
         }
       });
+      
     }else{
-      let newagent = this.AgentForm.value;
+      
       const input = {
         login: newagent.login,
         password: newagent.password,
@@ -170,21 +217,48 @@ export class DeliveryAgentEditComponent implements OnInit {
       .mutate({
         mutation: createdeliveryAgent,
         variables: { input: input},
+        refetchQueries: [{
+          query: Agents
+        }]
       })
       .subscribe({
         next: (result: any) => {
          // const updatedUser = result.data.updateUser as Agent;
+         const registerReponse=result.data as  DriverResponse;
+         console.log(registerReponse.createdeliveryAgent.emailExists);
+         console.log(registerReponse.createdeliveryAgent.loginExists);
+         this.loginExist = registerReponse.createdeliveryAgent.loginExists;
+         this.emailExist  = registerReponse.createdeliveryAgent.emailExists;
+         if (!this.loginExist && !this.emailExist)
+          {Swal.fire('Add', 'Agent has been added successfully.', 'success');
+          }
 
-          Swal.fire('Add', 'Agent has been added successfully.', 'success');
-          this.router.navigate(['admin/delvery'])
-          setTimeout(()=>{
-            window.location.reload();
-          }, 2000);
+         this.apollo
+         .mutate({
+           mutation: infomail,
+           variables: { input: input},
+           
+         })
+         .subscribe({
+           next: (result: any) => {
+            // const updatedUser = result.data.updateUser as Agent
+            this.router.navigate(['admin/delvery'])
+          //setTimeout(()=>{
+            //window.location.reload();
+         // }, 2000);
+           },
+           error: (err) => {
+             console.log('err :' + err);
+           },
+         });
         },
         error: (err) => {
           console.log('err :' + err);
         },
       });
+      
+
+      
 
     }
     

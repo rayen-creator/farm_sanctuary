@@ -42,6 +42,18 @@ const agentResolver = {
         throw new AgentInputError(error.message);
       }
     },
+   
+    async infomail (_, {input}) {
+      try {
+        return await agentService.infomail(input);
+      } catch (error) {
+        
+        throw new Error(error);
+      }
+    },
+  
+
+
 
     async updatedeliveryAgent(_, {id, input }) {
       try {

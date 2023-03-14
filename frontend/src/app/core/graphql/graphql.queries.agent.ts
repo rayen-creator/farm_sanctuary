@@ -41,6 +41,7 @@ const getdeliveryAgent  = gql`
     }
     }
 `;
+
 const deletedeliveryAgent = gql`
   mutation deletedeliveryAgent($id: ID!) {
     deletedeliveryAgent(id: $id) {
@@ -63,11 +64,10 @@ const deletedeliveryAgent = gql`
 const updatedeliveryAgent = gql`
   mutation updatedeliveryAgent($id:ID!,$input:AgentInput!) {
     updatedeliveryAgent(id:$id,input:$input) {
-      login,
-    password,
-    fullName,
-    email,
-    phone,
+       message 
+      emailExists
+      loginExists
+    
     
     }
   }
@@ -75,10 +75,20 @@ const updatedeliveryAgent = gql`
   const createdeliveryAgent = gql`
   mutation createdeliveryAgent($input:AgentInput!) {
     createdeliveryAgent(input:$input) {
-      message
+      message 
+      emailExists
+      loginExists
     
     
     }
   }
   `;
-export {createdeliveryAgent,getdeliveryAgent,Agents,deletedeliveryAgent,updatedeliveryAgent}
+  const infomail = gql`
+  mutation infomail($input: AgentInput!) {
+    infomail(input: $input) {
+      message
+      
+    }
+  }
+  `;
+export {infomail ,createdeliveryAgent,getdeliveryAgent,Agents,deletedeliveryAgent,updatedeliveryAgent}

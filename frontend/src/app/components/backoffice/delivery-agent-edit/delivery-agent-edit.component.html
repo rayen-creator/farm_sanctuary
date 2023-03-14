@@ -45,7 +45,7 @@
                                 
                                 
                             </div>
-                            <div class="form-group row mb-3 " style="margin-top: 20px;">
+                            <div class="form-group row mb-3 " [ngClass]="{'has-error': loginExist}" style="margin-top: 20px;">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Login</h6>
                                 </div>
@@ -56,12 +56,12 @@
                                         <div *ngIf="AgentForm.get('login')?.errors?.['required']"  >this field is required !</div>
                                         <div *ngIf="AgentForm.get('login')?.errors?.['pattern']" >Symbols are not allowed!</div>
                                         <div *ngIf="AgentForm.get('login')?.errors?.['minlength']"  >Minimum length is 6!</div>
-    
+                                        <div *ngIf="loginExist">Username already used!</div>
                                     </div>
                                 </div>
                                 
                             </div>
-                            <div class="form-group  row mb-3"style="margin-top: 20px;">
+                            <div class="form-group  row mb-3" [ngClass]="{'has-error': emailExist}" style="margin-top: 20px;">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Email</h6>
                                 </div>
@@ -70,7 +70,9 @@
                                     <div class="alert alert-danger" *ngIf="!AgentForm.get('email')?.valid && AgentForm.get('email')?.touched">
                                         <div *ngIf="AgentForm.get('email')?.errors?.['required']"  >this field is required !</div>
                                         <div *ngIf="AgentForm.get('email')?.errors?.['email']"  >Enter a valid email !</div>
-                                    </div>
+                                    
+                                        <div *ngIf="emailExist" >Email already used!</div>
+                                     </div>
                                 </div>
         
                                 
@@ -112,9 +114,7 @@
 
                                             <div class=" alert alert-danger"  *ngIf="!AgentForm.get('confirmpassword')?.valid && AgentForm.get('confirmpassword')?.touched">
                                                 <div *ngIf="AgentForm.get('confirmpassword')?.errors?.['required']"  >this field is required !</div>
-                                                <div *ngIf="AgentForm.get('confirmpassword')?.errors?.['passwordsShouldMatch']"  >this field is required !</div>
-                                    
-                                          
+                                                <div *ngIf="AgentForm.get('confirmpassword')?.errors?.['passwordMismatch']"  >password doesnt match</div>
        
                                             </div>
                                                
@@ -125,13 +125,14 @@
                             </div>
                                 
                            
-                        
+                            <span  *ngIf="emailExist" style="color: red;" class="error-msg2">Email already used!</span>
+                            <span *ngIf="loginExist" style="color: red;" class="error-msg2">Login already used!</span>
                             
                             
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="button" class="btn   px-4"  type="submit"  style="background-color: #6d8c54; color: aliceblue;" value="Save ">
+                                    <input type="button" class="btn   px-4"  type="submit"  style="background-color: #6d8c54; color: aliceblue;" value="Save " [disabled]="AgentForm?.invalid">
                                     <button routerLink="/admin/delvery" style="margin: 19.5px;" class="btn btn-outline-primary">Return</button>
                                 </div>
                             </div>

@@ -84,6 +84,10 @@ input loginDriverInput {
     message:String!
     mailstatus:Boolean!
   }
+  type acilResponse{
+    message:String!
+    
+  }
   input ForgetpwdInput{
     email: String!
     subject:String!
@@ -95,7 +99,8 @@ input loginDriverInput {
   }
   type DriverResponse{
     message: String!
-    login: String!
+    emailExists: Boolean!
+    loginExists: Boolean!
   }
 
 input AgentInput {
@@ -104,7 +109,6 @@ input AgentInput {
     fullName: String!
     email: String!
     phone: Int!
-    
 }
 
 input AgentLocationInput {
@@ -128,9 +132,10 @@ type Query {
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
 
-    createdeliveryAgent(input: AgentInput!): DriverResponse!
+    infomail(input: AgentInput!):acilResponse
 
-    updatedeliveryAgent(id: ID! ,input:AgentInput!): deliveryAgent!
+    createdeliveryAgent(input: AgentInput!): DriverResponse!
+    updatedeliveryAgent(id: ID! ,input:AgentInput!): DriverResponse!
 
     updateLocation( input: AgentLocationInput!): deliveryAgent!
     deletedeliveryAgent(id: ID!): deliveryAgent!

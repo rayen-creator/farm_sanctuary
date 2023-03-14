@@ -12,12 +12,50 @@ import Swal from 'sweetalert2'
 })
 export class DeliveryAgentComponent implements OnInit {
  agentList: Agent[];
- 
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
   constructor(private apollo: Apollo, public datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.loadUsers();
 }
+
+get totalPages(): number {
+  return Math.ceil(this.agentList.length / this.itemsPerPage);
+}
+
+get startIndex(): number {
+  return (this.currentPage - 1) * this.itemsPerPage;
+}
+
+get endIndex(): number {
+  return this.startIndex + this.itemsPerPage ;
+}
+
+get isLastPage(): boolean {
+  return this.currentPage === this.totalPages;
+}
+
+get isFirstPage(): boolean {
+  return this.currentPage === 1;
+}
+
+paginate(page: number) {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+  }
+}
+
+get getPageRange() {
+  const start = Math.max(1, this.currentPage - 2);
+  const end = Math.min(this.totalPages, this.currentPage + 2);
+  const range = [];
+  for (let i = start; i <= end; i++) {
+    range.push(i);
+  }
+  return range;
+}
+
 
 
 loadUsers() {
@@ -52,12 +90,15 @@ deletedeliveryAgent(id: String) {
         .mutate({
           mutation: deletedeliveryAgent,
           variables: { id },
+          refetchQueries: [{
+            query: Agents
+          }]
         })
         .subscribe({
           next: (result: any) => {
             const deletedAgent = result.data.deleteUser as Agent;
             this.agentList = this.agentList.filter((agent) => agent.id != deletedAgent.id);
-           
+            
             Swal.fire('Deleted', 'Agent has been deleted successfully.', 'success');
           },
           error: (err) => {

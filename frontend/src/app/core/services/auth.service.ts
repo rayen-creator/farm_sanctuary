@@ -1,4 +1,4 @@
-import { LoginResponse } from './../graphql/loginResponse';
+import { LoginResponse } from '../graphql/graphqlResponse/loginResponse';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from "apollo-angular";
 import { Subject } from 'rxjs';
