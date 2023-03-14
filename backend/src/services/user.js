@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 async function getUser(id) {
   return User.findById(id);
@@ -8,18 +9,23 @@ async function getUsers() {
   return User.find();
 }
 
+
+
 async function updateUser(id, input) {
   const updatedUser = {
     username: input.username,
-    password: input.password,
+    password: bcrypt.hashSync(input.password, 8),
     email: input.email,
+    phone:input.phone,
     isActive: input.isActive,
     role: input.role,
+    gender: input.gender,
     image:input.image,
+    two_FactAuth_Option: input.two_FactAuth_Option,
     isBlocked: false,
     updatedAt: new Date(),
   };
-
+console.log(input.two_FactAuth_Option)
   return await User.findByIdAndUpdate(id, updatedUser, { new: true });
 }
 

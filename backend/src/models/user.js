@@ -14,15 +14,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    index: true // Create a unique index on the email attribute
-
+    index: true, // Create a unique index on the email attribute
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    index: true // Create a unique index on the email attribute
-
+    index: true, // Create a unique index on the email attribute
   },
   password: String,
   phone: Number,
@@ -42,6 +40,19 @@ const userSchema = new mongoose.Schema({
     url: String,
     contentType: String,
   },
+  resetpwdToken: String,
+  loginfailedAttempt: {
+    count: Number,
+    blocked:Boolean,
+    lastAttempt: Date,
+    backonlineat: Date,
+  },
+  two_FactAuth_Option: Boolean,
+  two_FactAuth : { 
+    code : String, 
+    expiresAt: Date,
+
+  }
 });
 
 const User = mongoose.model("Users", userSchema);

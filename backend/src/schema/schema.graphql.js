@@ -26,6 +26,12 @@ const typeDefs = gql`
     gender:Gender!
     role: Role!
     image: Image
+    two_FactAuth_Option:Boolean!  
+  }
+  type Two_FactAuth  { 
+    code : String! 
+    expiresAt: DateTime!
+
   }
 
   type Image {
@@ -42,6 +48,13 @@ const typeDefs = gql`
     gender:Gender!
     role: Role!
     image: ImageInput
+    two_FactAuth_Option: Boolean
+
+  }
+  input twoFactorAuthUserInput { 
+    code : String!
+    expiresAt: DateTime!
+
   }
 
   input ImageInput {
@@ -79,6 +92,11 @@ input loginDriverInput {
     username: String!
     message: String!
     expiresIn: Int!
+    userfound:Boolean!
+    passwordIsValid:Boolean!
+    blocked:Boolean!
+    role:Role
+    two_FactAuth_Option: Boolean
   }
   type ForgetpwdResponse{
     message:String!
@@ -90,7 +108,49 @@ input loginDriverInput {
   }
   input ForgetpwdInput{
     email: String!
-    subject:String!
+  }
+
+
+
+
+
+
+
+
+
+
+
+  input twoFactorAuthInput{
+    username: String!
+  }
+  type twoFactorAuthResponse{
+    message:String!
+    statusCode:Boolean!
+
+  }
+
+
+  input verifyOTPInput{
+    username: String!
+    otp:String!
+  }
+  type verifyOTPResponse{
+    message:String!
+    statusCode:Boolean!
+  }
+
+
+
+
+
+
+  input twoFactorAuthInput{
+    username: String!
+  }
+  type twoFactorAuthResponse{
+    message:String!
+    statusCode:Boolean!
+
   }
   type SignupResponse{
     message: String!
@@ -111,6 +171,28 @@ input AgentInput {
     phone: Int!
 }
 
+
+  type UpdatepwdResponse{
+    message: String!
+    updateStatus:Boolean!
+    userFound:Boolean!
+  }
+
+  input resetpwd{
+    email: String!
+    password:String!
+    token:String!
+  }
+
+ 
+  input checkresettoken{
+    token:String!
+    email:String!
+  }
+  type checkresettokenResponse{
+    valid: Boolean!
+    message:String!
+  }
 input AgentLocationInput {
     id: ID!
     longitude: String!
@@ -126,8 +208,12 @@ type Query {
   type Mutation {
     signup(input: UserInput!): SignupResponse!
     signin(input: signinInput!): LoginResponse!
-    resetpwd(input:ForgetpwdInput!):ForgetpwdResponse!
+    sendmail(input:ForgetpwdInput!):ForgetpwdResponse!
+    sendOTPVerificationEmail(input:twoFactorAuthInput!):twoFactorAuthResponse!
+    resetpwd(input:resetpwd!):UpdatepwdResponse!
+    checkresettoken(input:checkresettoken!):checkresettokenResponse!
 
+    verifyOTP(input:verifyOTPInput!):twoFactorAuthResponse!
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
@@ -144,3 +230,6 @@ type Query {
 `;
 
 module.exports = typeDefs;
+
+
+

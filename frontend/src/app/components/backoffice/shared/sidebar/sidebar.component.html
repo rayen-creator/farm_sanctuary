@@ -1,28 +1,34 @@
 <div class="sidebar">
     <div class="">
-      <a routerLink="" >  
+      <a routerLink="" >
         <img
         src="assets/Logo FarmSanctuary (1).png"
         alt="logo"
         class="img-fluid"/>
       </a>
-      
+
     </div>
     <ul class="nav-links">
       <li>
-        <a href="#" class="active">
+        <a routerLink="dashboard" routerLinkActive='active'>
           <i class='bx bxs-dashboard'></i>
           <span class="links_name">Dashboard</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a routerLink="users" routerLinkActive='active'>
+          <i class='bx bxs-dashboard'></i>
+          <span class="links_name">users</span>
+        </a>
+      </li>
+      <li>
+        <a  routerLinkActive='active'>
             <i class='bx bx-message-dots'></i>
             <span class="links_name">Feedback list</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a routerLink="delvery" routerLinkActive='active'>
             <i class="bx bx-user"></i>
             <span class="links_name">Driver management</span>
         </a>
@@ -34,7 +40,7 @@
         </a>
       </li>
       <li class="log_out">
-        <a href="#">
+        <a (click)="log_out()">
           <i class="bx bx-log-out"></i>
           <span class="links_name">Log out</span>
         </a>

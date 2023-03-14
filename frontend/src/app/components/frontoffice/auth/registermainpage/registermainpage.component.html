@@ -1,36 +1,38 @@
-<div class="container mt-5 mb-5">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Farming App Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container-fluid">
   <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="container1 p-4">
-          <img
-            src="assets/images/auth_img/clientMain.jpg"
-            alt="Avatar"
-            class="image"
-          />
-          <div class="middle">
-            <div class="text">Signup as client</div>
-          </div>
+    <div class="col-md-6 d-flex justify-content-center align-items-center green-side">
+      <div class="card text-center">
+        <img src="assets/farmer.jpg" alt="Farmer" class="card-img-top">
+        <div class="card-body">
+          <h2 class="card-title">Join us as a Farmer</h2>
+          <p class="card-text">Are you a farmer looking to sell your produce directly to customers? Sign up as a farmer and start selling today.</p>
+          <a routerLink="FARMER" class="btn btn-lg btn-success my-btn">Sign Up as a Farmer</a>
         </div>
-       
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="container1 p-4">
-          <img
-            src="assets/images/auth_img/FarmerMain.jpg"
-            alt="Avatar"
-            class="image"
-          />
-          <div class="middle">
-            <div class="text">Signup as farmer</div>
-          </div>
+    <div class="col-md-6 d-flex justify-content-center align-items-center gray-side">
+      <div class="card text-center">
+        <img src="assets/client.jpg" alt="Client" class="card-img-top">
+        <div class="card-body">
+          <h2 class="card-title">Join us as a Client</h2>
+          <p class="card-text">Looking to purchase fresh produce from local farmers? Sign up as a client and enjoy a variety of farm-fresh products.</p>
+          <a routerLink="CLIENT" class="btn btn-lg btn-secondary my-btn">Sign Up as a Client</a>
         </div>
-       
       </div>
     </div>
-    <div class="col-md-2"></div>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

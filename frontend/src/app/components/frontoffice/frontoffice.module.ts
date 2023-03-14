@@ -10,7 +10,10 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { UiSwitchModule } from 'ngx-toggle-switch';
 
 
 
@@ -24,13 +27,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     RegisterComponent,
     ResetpwdComponent,
     UpdatepwdComponent,
-    RegistermainpageComponent
-  
+    RegistermainpageComponent,
+    ErrorresetpwdComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,
     FrontofficeRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    UiSwitchModule
   ]
 })
 export class FrontofficeModule { }

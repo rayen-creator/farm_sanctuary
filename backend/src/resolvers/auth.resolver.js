@@ -20,11 +20,38 @@ const authResolver = {
       try {
         return await authService.signin(input);
       } catch (error) {
-        throw new UserInputError(error.message);
+        throw new Error(error.message);
       }
     },
+    async sendmail(_, { input }) {
+      return await authService.sendTokenlink(input);
+    },
     async resetpwd(_, { input }) {
-      return await authService.restpwd(input);
+      try {
+        return await authService.updatepwd(input);
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    async checkresettoken(_, { input }) {
+      try {
+        return await authService.checkresettoken(input);
+      } catch (error) {
+        console.log(error);
+        throw new Error(error);
+      }
+    },
+
+    async sendOTPVerificationEmail(_, { input }) {
+      return await authService.sendOTPVerificationEmail(input);
+    },
+    async verifyOTP(_, { input }) {
+      try {
+        return await authService.verifyOTP(input);
+      } catch (error) {
+        console.log("moshkla");
+        throw new Error(error);
+      }
     },
   },
 };
