@@ -5642,6 +5642,11 @@ ngx-toastr@15.2.2:
   dependencies:
     tslib "^2.3.0"
 
+ngx-toggle-switch@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/ngx-toggle-switch/-/ngx-toggle-switch-2.0.5.tgz#ed9de38b4f52763612f1d00be55df73370e7d020"
+  integrity sha512-2hrVr8S7JLdrg8XeaI/0GHGocRCDZCQ6u+GFjyhqMzCyTF8aOu3gzs0/tVPjME/xlG1lelnNKeTSdSg/dVleUA==
+
 nice-napi@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nice-napi/-/nice-napi-1.0.2.tgz#dc0ab5a1eac20ce548802fc5686eaa6bc654927b"

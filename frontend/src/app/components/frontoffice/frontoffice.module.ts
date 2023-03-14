@@ -13,6 +13,7 @@ import { RegistermainpageComponent } from './auth/registermainpage/registermainp
 import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { UiSwitchModule } from 'ngx-toggle-switch';
 
 
 
@@ -34,7 +35,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     CommonModule,
     FrontofficeRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    UiSwitchModule
   ]
 })
 export class FrontofficeModule { }

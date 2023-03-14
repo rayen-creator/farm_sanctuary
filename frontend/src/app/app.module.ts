@@ -10,6 +10,7 @@ import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/helpers/auth.interceptor';
 import { TwoFAComponent } from './components/two-fa/two-fa.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }), // ToastrModule added
+    
   ],
   providers: [
       AuthService,
