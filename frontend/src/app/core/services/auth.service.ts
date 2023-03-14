@@ -27,7 +27,7 @@ import {
   providedIn: 'root',
 })
 export class AuthService {
-  public username: string;
+  // public username: string;
   public usernameExists: boolean;
   public emailExists: boolean;
 
@@ -38,8 +38,12 @@ export class AuthService {
   //On peut donc subscribe dessus, mais également lui envoyer des valeurs :
   private authStatusListener = new Subject<boolean>();
   private isUserAuthenticated = false;
-  responseMessage: any;
 
+  private usernameSubject = new BehaviorSubject<string>('');
+  private roleSubject=new BehaviorSubject<string>('');
+  // public username = this.usernameSubject.asObservable();
+
+  responseMessage: any;
   public token: string;
   public role: string;
 
@@ -112,6 +116,10 @@ export class AuthService {
           if (token) {
             const expireInDuration = loginresponse.signin.expiresIn;
             this.isUserAuthenticated = true;
+            //behaviour subject username
+            this.usernameSubject.next(username);
+            //behaviour subject role
+            this.roleSubject.next(role);
 
             this.authStatusListener.next(true);
             const now = new Date();
@@ -153,10 +161,10 @@ export class AuthService {
   }
 
   getRole() {
-    return this.role;
+    return this.roleSubject.asObservable();
   }
   getUsername() {
-    return this.username;
+    return this.usernameSubject.asObservable();
   }
 
   getAuthStatusListener() {
@@ -273,13 +281,12 @@ export class AuthService {
     }
     if (expiresIn) {
       this.token = token;
-      username ? (this.username = username) : (this.username = '');
-      role ? (this.role = role) : (this.role = '');
-
-      // this.role=this.getRole();
-      // console.log("role", this.role)
+     
       this.isUserAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
+      this.usernameSubject.next(username ?? '');
+      this.roleSubject.next(role ?? '');
+
       this.authStatusListener.next(true);
     }
   }

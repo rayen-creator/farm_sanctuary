@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -15,7 +16,8 @@ export class TwoFactorauthComponent implements OnInit {
   username: string;
   verifyOTPForm: FormGroup
   verificationCode: string = '';
-
+  usernameSubs :Subscription;
+  
   constructor(private authservice: AuthService, private formBuilder: FormBuilder,private toaster:ToastrService) { }
 
   ngOnInit(): void {
@@ -25,7 +27,12 @@ export class TwoFactorauthComponent implements OnInit {
       thirdNumber: ['', Validators.required],
       fourthNumber: ['', Validators.required]
     });
-    this.username = this.authservice.getUsername();
+    // this.username = this.authservice.getUsername();
+    this.usernameSubs=this.authservice.getUsername().subscribe({
+      next :(username)=>{
+        this.username=username;
+      }
+    })
   }
 
   Valid(controlname: any, verifyOTPForm: any) {

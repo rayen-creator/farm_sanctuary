@@ -7,11 +7,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy ,OnChanges {
+export class HeaderComponent implements OnInit, OnDestroy  {
   username: string ;
   role:string ;
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
+  private usernameSubs : Subscription;
+  private roleSubs :Subscription;
   constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
@@ -26,19 +28,37 @@ export class HeaderComponent implements OnInit, OnDestroy ,OnChanges {
       }
     }
     );
-    this.username = this.auth.getUsername();
-    this.role=this.auth.getRole();
+    this.usernameSubs=this.auth.getUsername().subscribe({
+      next :(username)=>{
+        this.username=username;
+      },
+      error :()=>{
+        this.username="";
+      }
+    });
+
+    this.roleSubs=this.auth.getRole().subscribe({
+      next :(role)=>{
+        this.role=role;
+      },
+      error :()=>{
+        this.role=""
+      }
+    })
+    console.log("username",this.username);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.username = this.auth.getUsername();
-    this.role=this.auth.getRole();
-  }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   this.username = this.auth.getUsername();
+  //   this.role=this.auth.getRole();
+  // }
 
 
 
   ngOnDestroy(): void {
     this.authListenerSubs.unsubscribe();
+    this.usernameSubs.unsubscribe();
+    this.roleSubs.unsubscribe();
   }
   loggingout() {
     this.auth.logout();

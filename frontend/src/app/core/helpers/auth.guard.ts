@@ -29,13 +29,13 @@ export class AuthGuard implements CanActivate {
     }
 
     // If the user does not have the required role, redirect to the home page
-    if (userRole === roles.ADMIN) {
-      this.router.navigate(['/admin']);
-    } else if (userRole === roles.FARMER) {
-      this.router.navigate(['/home']);
-    } else {
-      this.router.navigate(['/home']);
-    }
+    // if (userRole === roles.ADMIN) {
+    //   this.router.navigate(['/admin']);
+    // } else if (userRole === roles.FARMER) {
+    //   this.router.navigate(['/home']);
+    // } else {
+    //   this.router.navigate(['/home']);
+    // }
     return true;
 
 
