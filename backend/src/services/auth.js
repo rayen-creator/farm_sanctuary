@@ -387,6 +387,11 @@ async function verifyOTP(input) {
     !user.two_FactAuth.code ||
     now > user.two_FactAuth.expiresAt
   ) {
+       // Clear OTP code and expiration time
+       await User.updateOne(
+        { email: user.email },
+        { $unset: { two_FactAuth: 1 } }
+      );
     return { message: "OTP expired or not found", statusCode: false };
   }
 
