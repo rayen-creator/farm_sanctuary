@@ -47,6 +47,7 @@ async function signup(input) {
     createdAt: new Date(),
     updatedAt: new Date(),
     isBlocked: false,
+    two_FactAuth_Option:false
   });
   await user.save(user);
   return {
@@ -91,7 +92,7 @@ async function signin(input) {
 
   //get user back online
 
-  const token = jsonwebtoken.sign({ id: user.email }, process.env.SECRET, {
+  const token = jsonwebtoken.sign({ id: user.id }, process.env.SECRET, {
     expiresIn: process.env.JWT_EXPIRE_IN,
   });
 
@@ -342,9 +343,13 @@ async function updatepwd(input) {
     };
   }
   //update pwd
+  const updatepwd={
+    password: bcrypt.hashSync(input.password, 8),
+    updatedAt:new Date(),
+  }
   const update = await User.updateOne(
     { email: user.email },
-    { password: bcrypt.hashSync(input.password, 8) }
+    updatepwd
   );
 
   if (!update) {
