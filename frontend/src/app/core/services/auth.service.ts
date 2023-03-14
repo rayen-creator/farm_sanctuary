@@ -189,6 +189,7 @@ export class AuthService {
       token: resettoken,
       email: email,
     };
+    console.log("email",input.email)
     this.appolo
       .mutate({
         mutation: checkresettoken,
@@ -242,10 +243,11 @@ export class AuthService {
   }
 
   //update pwd
-  resetpwd(email: String, password: String) {
+  resetpwd(email: String, password: String,token:string) {
     const input = {
       email: email,
       password: password,
+      token: token
     };
     return this.appolo
       .mutate({
