@@ -188,20 +188,22 @@
                 ><span class="icon-shopping-cart"></span
               ></a>
             </div>
-            <div class="contact-box" *ngIf="userIsAuthenticated">         
-                <img
-                  src="assets/images/auth_img/client.jpg"
-                  alt="Avatar"
-                  class="avatar"
-                />  
+            <div class="contact-box" *ngIf="userIsAuthenticated">
+              <img
+                src="assets/images/auth_img/client.jpg"
+                alt="Avatar"
+                class="avatar"
+              />
               <div class="text">
-                <a routerLink="profile/{{userId}}" ><h6>{{ username }}</h6></a>
-                <p>{{role}}</p>
-              </div>&nbsp;&nbsp;
-              <button class="btn btn-danger" (click)="loggingout()">Sign out</button>
-
+                <h6>{{ username }}</h6>
+                <a routerLink="profile/{{ userId }}"><p>Settings</p></a>
+              </div>
+              &nbsp;&nbsp;
+              <button class="btn btn-danger" (click)="loggingout()">
+                Sign out
+              </button>
             </div>
-            <div class="contact-box" *ngIf="!userIsAuthenticated">         
+            <div class="contact-box" *ngIf="!userIsAuthenticated">
               <!-- <img
                 src="assets/images/auth_img/client.jpg"
                 alt="Avatar"
@@ -210,11 +212,11 @@
             <div class="text">
               <a href="#"><h6>{{ username }}</h6></a>
               <p>{{role}}</p> -->
-            <!-- </div>&nbsp;&nbsp; -->
-            <button class="btn btn-success" routerLink="login">Sign in</button>
-
-          </div>
-            
+              <!-- </div>&nbsp;&nbsp; -->
+              <button class="btn btn-success" routerLink="login">
+                Sign in
+              </button>
+            </div>
           </div>
         </div>
       </div>

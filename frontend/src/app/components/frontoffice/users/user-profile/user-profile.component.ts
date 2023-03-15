@@ -100,7 +100,7 @@ export class UserProfileComponent implements OnInit {
           role: this.user.role,
           two_FactAuth_Option:newUser.two_FactAuth_Option
         };
-        console.log("after edit",this.userForm)
+        console.log("after edit",input)
         let id = this.currentRoute.snapshot.params['id'];
 
         this.apollo
