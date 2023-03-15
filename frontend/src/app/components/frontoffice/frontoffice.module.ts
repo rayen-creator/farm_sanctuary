@@ -14,6 +14,7 @@ import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.compo
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UiSwitchModule } from 'ngx-toggle-switch';
+import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
 
 
 
@@ -36,7 +37,8 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
     FrontofficeRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    UiSwitchModule
+    UiSwitchModule,
+    GoogleSigninButtonModule
   ]
 })
 export class FrontofficeModule { }

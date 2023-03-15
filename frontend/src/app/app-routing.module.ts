@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'admin', loadChildren: () => import('./components/backoffice/backoffice.module').then(m => m.BackofficeModule),
-    canActivate: [AuthGuard], data: { roles: [roles.ADMIN] }
+    // canActivate: [AuthGuard], data: { roles: [roles.ADMIN] }
   },
   { path: 'twofactorauth', component: TwoFAComponent },
 

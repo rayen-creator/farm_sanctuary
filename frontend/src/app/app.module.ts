@@ -11,8 +11,10 @@ import { AuthInterceptor } from './core/helpers/auth.interceptor';
 import { TwoFAComponent } from './components/two-fa/two-fa.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UiSwitchModule } from 'ngx-toggle-switch';
-
-
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider
+} from '@abacritt/angularx-social-login';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +27,7 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
     HttpClientModule,
     GraphQLModule,
     BrowserAnimationsModule,
+    SocialLoginModule,
     ToastrModule.forRoot({
       timeOut: 3500,
       positionClass: 'toast-bottom-right',
@@ -34,6 +37,23 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
   ],
   providers: [
       AuthService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '119324273419-p3il1j14maolrt15p6ms28h4v59s0fb0.apps.googleusercontent.com'
+            )
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    },
       [{
         provide:HTTP_INTERCEPTORS,
         useClass:AuthInterceptor,
