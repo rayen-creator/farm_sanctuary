@@ -40,12 +40,12 @@ export class AuthService {
   private isUserAuthenticated = false;
 
   private usernameSubject = new BehaviorSubject<string>('');
-  private roleSubject=new BehaviorSubject<string>('');
+  // private roleSubject=new BehaviorSubject<string>('');
   // public username = this.usernameSubject.asObservable();
 
   responseMessage: any;
   public token: string;
-  public role: string;
+  public role: roles;
 
   constructor(
     private appolo: Apollo,
@@ -120,8 +120,8 @@ export class AuthService {
             //behaviour subject username
             this.usernameSubject.next(username);
             //behaviour subject role
-            this.roleSubject.next(role);
-
+            // this.roleSubject.next(role);
+            this.role=role ;
             this.authStatusListener.next(true);
             const now = new Date();
             const expirationDate = new Date(
@@ -169,7 +169,7 @@ export class AuthService {
   }
 
   getRole() {
-    return this.roleSubject.asObservable();
+    return this.role;
   }
   getUsername() {
     return this.usernameSubject.asObservable();
@@ -295,8 +295,8 @@ export class AuthService {
       this.isUserAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.usernameSubject.next(username ?? '');
-      this.roleSubject.next(role ?? '');
-
+      // this.roleSubject.next(role ?? '');
+      this.role=role as roles;
       this.authStatusListener.next(true);
     }
   }

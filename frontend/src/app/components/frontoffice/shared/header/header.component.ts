@@ -42,14 +42,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.roleSubs = this.auth.getRole().subscribe({
-      next: (role) => {
-        this.role = role;
-      },
-      error: () => {
-        this.role = ""
-      }
-    })
+    // this.roleSubs = this.auth.getRole().subscribe({
+    //   next: (role) => {
+    //     this.role = role;
+    //   },
+    //   error: () => {
+    //     this.role = ""
+    //   }
+    // })
 
     this.token=this.auth.getToken();
     this.decodedToken = jwt_decode(this.token) as DecodedToken;
@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.authListenerSubs.unsubscribe();
     this.usernameSubs.unsubscribe();
-    this.roleSubs.unsubscribe();
+    // this.roleSubs.unsubscribe();
   }
   loggingout() {
     this.auth.logout();

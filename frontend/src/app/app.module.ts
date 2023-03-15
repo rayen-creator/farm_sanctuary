@@ -10,17 +10,14 @@ import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/helpers/auth.interceptor';
 import { TwoFAComponent } from './components/two-fa/two-fa.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UiSwitchModule } from 'ngx-toggle-switch';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import {
-  GoogleLoginProvider
-} from '@abacritt/angularx-social-login';
+import {GoogleLoginProvider} from '@abacritt/angularx-social-login';
 @NgModule({
   declarations: [
     AppComponent,
     TwoFAComponent,
   ],
-  imports: [
+  imports: [ 
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -33,10 +30,10 @@ import {
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }), // ToastrModule added
-    
+
   ],
   providers: [
-      AuthService,
+    AuthService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -54,11 +51,11 @@ import {
         }
       } as SocialAuthServiceConfig,
     },
-      [{
-        provide:HTTP_INTERCEPTORS,
-        useClass:AuthInterceptor,
-        multi:true
-      }]
+    [{
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }]
   ],
   bootstrap: [AppComponent]
 })
