@@ -48,25 +48,14 @@ export class AdminDashboardComponent implements OnInit {
   numberOfActiveUsers: Number;
   numberOfNonActiveUsers: Number;
 
-
-
   date: string;
   count: number;
-
-
-
-  constructor(private apollo: Apollo) {
-
-  }
-
-
+  constructor(private apollo: Apollo) {}
 
   ngOnInit(): void {
-
     this.UsersCount();
     this.UsersCountByCategory();
     this.UserCountByDate();
-    console.log(this.numberOfFemaleFarmers)
   }
 
   countAllUsers() {
@@ -76,6 +65,18 @@ export class AdminDashboardComponent implements OnInit {
     return this.userList.filter(user =>
       user.role != roles.ADMIN && user.isActive
     ).length;
+  }
+
+  getAllnumberOfarmers(){
+    return this.userList.filter((user)=>user.role==roles.FARMER).length;
+  }
+  getAllnumberOfClients(){
+    return this.userList.filter((user)=>user.role==roles.CLIENT).length;
+  }
+
+  getAllnumberOfNonActiveUsers(){
+    return this.userList.filter((user)=>user.role!=roles.ADMIN && user.isActive==false).length;
+
   }
 
   UserCountByDate() {
