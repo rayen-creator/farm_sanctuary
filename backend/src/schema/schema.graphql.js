@@ -26,9 +26,7 @@ const typeDefs = gql`
     gender:Gender!
     role: Role!
     image: Image
-    two_FactAuth : Two_FactAuth
-
-  
+    two_FactAuth_Option:Boolean!  
   }
   type Two_FactAuth  { 
     code : String! 
@@ -50,7 +48,7 @@ const typeDefs = gql`
     gender:Gender!
     role: Role!
     image: ImageInput
-
+    two_FactAuth_Option: Boolean
 
   }
   input twoFactorAuthUserInput { 
@@ -63,6 +61,28 @@ const typeDefs = gql`
     url: String!
     contentType: String!
   }
+type deliveryAgent {
+  id: ID!
+  login: String!
+  fullName: String!
+  email: String!
+  password: String!
+  phone: Int!
+  image: Image
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  longitude: String
+  latitude: String
+}
+type loginDriverResponse {
+  login:String!
+  message:String!
+}
+input loginDriverInput {
+    login: String!
+    password: String!
+  }
+
   input signinInput {
     email: String!
     password: String!
@@ -76,10 +96,14 @@ const typeDefs = gql`
     passwordIsValid:Boolean!
     blocked:Boolean!
     role:Role
+    two_FactAuth_Option: Boolean
   }
   type ForgetpwdResponse{
     message:String!
     mailstatus:Boolean!
+  }
+  type acilResponse{
+    message:String!
     
   }
   input ForgetpwdInput{
@@ -97,7 +121,7 @@ const typeDefs = gql`
 
 
   input twoFactorAuthInput{
-    email: String!
+    username: String!
   }
   type twoFactorAuthResponse{
     message:String!
@@ -107,7 +131,7 @@ const typeDefs = gql`
 
 
   input verifyOTPInput{
-    email: String!
+    username: String!
     otp:String!
   }
   type verifyOTPResponse{
@@ -121,7 +145,7 @@ const typeDefs = gql`
 
 
   input twoFactorAuthInput{
-    email: String!
+    username: String!
   }
   type twoFactorAuthResponse{
     message:String!
@@ -133,6 +157,19 @@ const typeDefs = gql`
     emailExists: Boolean!
     usernameExists: Boolean!
   }
+  type DriverResponse{
+    message: String!
+    emailExists: Boolean!
+    loginExists: Boolean!
+  }
+
+input AgentInput {
+    login: String!
+    password: String!
+    fullName: String!
+    email: String!
+    phone: Int!
+}
 
 
   type UpdatepwdResponse{
@@ -156,10 +193,17 @@ const typeDefs = gql`
     valid: Boolean!
     message:String!
   }
-  type Query {
+input AgentLocationInput {
+    id: ID!
+    longitude: String!
+    latitude: String!
+}
+type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
-  }
+    getdeliveryAgent(id: ID!): deliveryAgent!
+    getdeliveryAgents: [deliveryAgent!]!
+}
 
   type Mutation {
     signup(input: UserInput!): SignupResponse!
@@ -173,7 +217,16 @@ const typeDefs = gql`
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
-  }
+
+    infomail(input: AgentInput!):acilResponse
+
+    createdeliveryAgent(input: AgentInput!): DriverResponse!
+    updatedeliveryAgent(id: ID! ,input:AgentInput!): DriverResponse!
+
+    updateLocation( input: AgentLocationInput!): deliveryAgent!
+    deletedeliveryAgent(id: ID!): deliveryAgent!
+    loginDriver(input: loginDriverInput!):loginDriverResponse!
+}
 `;
 
 module.exports = typeDefs;

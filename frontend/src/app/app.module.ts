@@ -8,6 +8,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/helpers/auth.interceptor';
+import { TwoFAComponent } from './components/two-fa/two-fa.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import {
   GoogleLoginProvider
@@ -15,10 +18,12 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
+    TwoFAComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     HttpClientModule,
     GraphQLModule,
     BrowserAnimationsModule,
@@ -28,6 +33,7 @@ import {
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }), // ToastrModule added
+    
   ],
   providers: [
       AuthService,

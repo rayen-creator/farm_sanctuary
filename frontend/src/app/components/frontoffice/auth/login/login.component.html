@@ -31,9 +31,16 @@
                                         <label for="exampleInputPassword1">Password</label>
                                         <input type="password" class="form-control"  formControlName="password" [ngClass]="Valid('password',loginform)" id="exampleInputPassword1">
                                     </div>
-                                    <button type="submit" class="btn btn-theme forgot-link d-flex justify-content-start">Login</button>
-                                    <a routerLink="/forgetpassword" class="forgot-link d-flex justify-content-end text-primary">Forgot password?</a>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-theme forgot-link">Login</button> 
 
+                                        </div>
+                                        <div class="col">
+                                            <a routerLink="/forgetpassword" class="forgot-link text-primary">Forgot password?</a>
+
+                                        </div>
+                                    </div>
                                 </form>
                               <br>
                               <asl-google-signin-button *ngIf="!user" type="standard" shape="circle" ></asl-google-signin-button>

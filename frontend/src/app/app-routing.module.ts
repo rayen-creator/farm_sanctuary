@@ -1,3 +1,4 @@
+import { TwoFAComponent } from './components/two-fa/two-fa.component';
 import { roles } from './core/models/role';
 import { NotfoundComponent } from './components/frontoffice/shared/notfound/notfound.component';
 import { NgModule } from '@angular/core';
@@ -14,6 +15,8 @@ const routes: Routes = [
     path: 'admin', loadChildren: () => import('./components/backoffice/backoffice.module').then(m => m.BackofficeModule),
     // canActivate: [AuthGuard], data: { roles: [roles.ADMIN] }
   },
+  { path: 'twofactorauth', component: TwoFAComponent },
+
   { path: '**', component: NotfoundComponent }
 
 ];

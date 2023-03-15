@@ -8,8 +8,8 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
-import { TwoFactorauthComponent } from './auth/two-factorauth/two-factorauth.component';
 import {UserProfileComponent} from "./users/user-profile/user-profile.component";
+import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
 
 const routes: Routes = [
   {
@@ -20,13 +20,9 @@ const routes: Routes = [
       { path: 'signup/:accountType', component: RegisterComponent },
       { path: 'signup', component: RegistermainpageComponent },
       {path: 'profile/:id', component: UserProfileComponent},
-
       { path: 'forgetpassword', component: ResetpwdComponent  },
       { path: 'resetpassword/:token', component: UpdatepwdComponent },
-      //verify the display of the template then it will be deleted
-      { path: 'twofactorauth', component: TwoFactorauthComponent },
-
-     // { path: 'twofactorauth/:token', component: TwoFactorauthComponent },
+      { path: 'error', component: ErrorresetpwdComponent },
 
     ]
   },

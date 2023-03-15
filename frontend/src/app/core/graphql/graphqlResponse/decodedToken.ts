@@ -1,5 +1,5 @@
 export interface DecodedToken {
-  user_email: string;
+  id: string;
   expiresIn: number;
     // Add any other properties here
   }

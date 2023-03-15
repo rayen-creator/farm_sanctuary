@@ -10,10 +10,10 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ResetpwdComponent } from './auth/resetpwd/resetpwd.component';
 import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
-import { TwoFactorauthComponent } from './auth/two-factorauth/two-factorauth.component';
 import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { UiSwitchModule } from 'ngx-toggle-switch';
 import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
 
 
@@ -30,15 +30,14 @@ import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
     UpdatepwdComponent,
     RegistermainpageComponent,
     ErrorresetpwdComponent,
-    UserProfileComponent,
-    TwoFactorauthComponent
-
+    UserProfileComponent
   ],
   imports: [
     CommonModule,
     FrontofficeRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    UiSwitchModule,
     GoogleSigninButtonModule
   ]
 })

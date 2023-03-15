@@ -7,6 +7,12 @@ import { ClockComponent } from './shared/clock/clock.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
+import { AdminDashboardComponent } from './dashboard/dashboard-items/dashboard-items.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
+import { DeliveryAgentComponent } from './delivery-agent/delivery-agent.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DeliveryAgentEditComponent } from './delivery-agent-edit/delivery-agent-edit.component';
 
 
 @NgModule({
@@ -14,12 +20,18 @@ import {BrowserModule} from "@angular/platform-browser";
     BackofficeComponent,
     SidebarComponent,
     ClockComponent,
-    UserListComponent
+    UserListComponent,
+    DeliveryAgentComponent,
+    AdminDashboardComponent,
+    DeliveryAgentEditComponent
   ],
   imports: [
     CommonModule,
     BackofficeRoutingModule,
     FormsModule,
+    NgApexchartsModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class BackofficeModule { }
