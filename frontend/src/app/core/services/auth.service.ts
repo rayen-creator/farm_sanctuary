@@ -128,6 +128,10 @@ export class AuthService {
               now.getTime() + expireInDuration * 1000
             );
             this.saveAuthData(token, username, expirationDate, role);
+            if(this.role==roles.ADMIN){
+              this.router.navigate(['/admin']);
+              return;
+            }
             if (two_FactAuth_Option){
               this.sendOTP(username);
               this.router.navigate(['/twofactorauth']);
@@ -291,13 +295,15 @@ export class AuthService {
     }
     if (expiresIn) {
       this.token = token;
-     
       this.isUserAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.usernameSubject.next(username ?? '');
       // this.roleSubject.next(role ?? '');
       this.role=role as roles;
       this.authStatusListener.next(true);
+      if(this.role==roles.ADMIN){
+        this.router.navigate(['/admin']);
+      }
     }
   }
 

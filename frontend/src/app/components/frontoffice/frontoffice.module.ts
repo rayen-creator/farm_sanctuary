@@ -15,7 +15,10 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UiSwitchModule } from 'ngx-toggle-switch';
 import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
+import { ContactComponent } from './shared/contact/contact.component';
+import { AboutComponent } from './shared/about/about.component';
 
+import {Ng2TelInputModule} from 'ng2-tel-input';
 
 
 @NgModule({
@@ -30,7 +33,9 @@ import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
     UpdatepwdComponent,
     RegistermainpageComponent,
     ErrorresetpwdComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ContactComponent,
+    AboutComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +43,8 @@ import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
     ReactiveFormsModule,
     FormsModule,
     UiSwitchModule,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
+    Ng2TelInputModule
   ]
 })
 export class FrontofficeModule { }
