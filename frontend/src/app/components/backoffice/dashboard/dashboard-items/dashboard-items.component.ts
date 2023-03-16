@@ -191,11 +191,7 @@ export class AdminDashboardComponent implements OnInit {
           this.adminList = result.data.getUsers.filter(
             (user: User) => user.isActive === true
           );
-          // this.numberOfActiveUsers = this.userList.filter(user =>
-          //   user.role != roles.ADMIN && user.isActive
-          // ).length;
-          // console.log(this.numberOfActiveUsers)
-
+         
           this.adminList = result.data.getUsers.filter(
             (user: User) => user.isActive === false
           );
