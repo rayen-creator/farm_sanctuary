@@ -28,31 +28,7 @@ export class AuthGuard implements CanActivate {
     }
     this.router.navigate(['/login']);
     return false;
-    // if (route.data['roles'] && route.data['roles'].indexOf(userRole) === 1) {
-    //   // role not authorised so redirect to home page
-    //   this.router.navigate(['/home']);
-    //   return false;
-    // }
-    // if (!userRole) {
-    //   this.router.navigate(['/login']);
-    //   return false;
-    // }
-    // // Check if the user has the required role
-    // if (route.data['roles'].includes(userRole)) {
-    //   return true;
-    // }
-
-    // // If the user does not have the required role, redirect to the home page
-    // if (userRole === roles.ADMIN) {
-    //   this.router.navigate(['/admin']);
-    // } else if (userRole === roles.FARMER) {
-    //   this.router.navigate(['/home']);
-    // } else {
-    //   this.router.navigate(['/home']);
-    // }
-    // return true;
-
-
+   
   }
 
 }

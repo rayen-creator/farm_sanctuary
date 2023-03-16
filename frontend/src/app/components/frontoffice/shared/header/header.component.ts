@@ -57,9 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     console.log("user ID", this.userId);
   }
 
-  profile(){
-
-  }
+ 
 
 
   ngOnDestroy(): void {
