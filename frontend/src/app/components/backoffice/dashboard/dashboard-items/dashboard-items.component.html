@@ -1,0 +1,112 @@
+<!-- <h2>Admin Dashboard</h2> -->
+<div class="cards">
+  <div class="card">
+    <div class="card-content">
+      <div class="number">{{ getAllnumberOfClients() }}</div>
+      <div class="card-name">clients</div>
+    </div>
+    <div class="icon-box">
+      <i class="fas fa-user"></i>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-content">
+      <div class="number">{{ getAllnumberOfarmers() }}</div>
+      <div class="card-name">Farmers</div>
+    </div>
+    <div class="icon-box">
+      <i class="fa fa-user"></i>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-content">
+      <div class="number">{{ countAllUsers() }}</div>
+      <div class="card-name">Total users</div>
+    </div>
+    <div class="icon-box">
+      <i class="fa fa-users"></i>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-content">
+      <div class="number">{{ getAllActiveUser() }}</div>
+      <div class="card-name">Total of Active Users</div>
+      <div class="icon-box">
+        <i class="fa fa-plug"></i>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-content">
+      <div class="number">{{ getAllnumberOfNonActiveUsers() }}</div>
+      <div class="card-name">Total of Non Active Users</div>
+      <div class="icon-box">
+        <i class="fa fa-toggle-off"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="card m-3">
+      <div class="card-body">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [labels]="chartOptions.labels"
+          [title]="chartOptions.title"
+          [responsive]="chartOptions.responsive"
+        ></apx-chart>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card m-3">
+      <div class="card-body">
+        <apx-chart
+          [series]="ChartOptions.series"
+          [chart]="ChartOptions.chart"
+          [labels]="ChartOptions.labels"
+          [title]="ChartOptions.title"
+          [responsive]="ChartOptions.responsive"
+        ></apx-chart>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div id="charts">
+  <div style="display: inline-block; margin-right: 100px;">
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [labels]="chartOptions.labels"
+      [title]="chartOptions.title"
+      [responsive]="chartOptions.responsive"
+    ></apx-chart>
+  </div>
+  <div style="display:inline-block ; margin-left: 100px ;margin-right:150px ; font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight: bold;color: green;">SOME STATISTICS</div>
+  <div style="display: inline-block; margin-left: 100px;margin-bottom: 100px;">
+    <apx-chart
+      [series]="ChartOptions.series"
+      [chart]="ChartOptions.chart"
+      [labels]="ChartOptions.labels"
+      [title]="ChartOptions.title"
+      [responsive]="ChartOptions.responsive"
+    ></apx-chart>
+  </div>
+</div> -->
+
+<div class="card m-2 mb-5">
+  <div class="card-body">
+    <apx-chart
+      [series]="chartOptionss.series"
+      [chart]="chartOptionss.chart"
+      [xaxis]="chartOptionss.xaxis"
+      [title]="chartOptionss.title"
+    ></apx-chart>
+  </div>
+</div>
+
+<div style="text-align: center"></div>
