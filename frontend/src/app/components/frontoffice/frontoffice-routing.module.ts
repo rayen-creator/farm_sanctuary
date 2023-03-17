@@ -1,5 +1,6 @@
 import { ContactComponent } from './shared/contact/contact.component';
 import { NotfoundComponent } from './shared/notfound/notfound.component';
+import { FeedbackFormComponent } from './feedbacks/feedback-form/feedback-form';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FrontofficeComponent } from './frontoffice.component';
@@ -26,7 +27,8 @@ const routes: Routes = [
       { path: 'resetpassword/:token', component: UpdatepwdComponent },
       { path: 'error', component: ErrorresetpwdComponent },
       { path: 'contact', component: ContactComponent },
-      { path: 'about', component: AboutComponent }
+      { path: 'about', component: AboutComponent },
+      {path:'feedbacks', component: FeedbackFormComponent}
 
 
     ]

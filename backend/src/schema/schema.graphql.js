@@ -12,12 +12,9 @@ const typeDefs = gql`
   enum Category {
     TECHNICAL
     NON_TECHNICAL
+    FUNCTIONAL
   }
-  enum Rating {
-    GOOD
-    AVERAGE
-    BAD
-  }
+ 
 
   type Feedback {
     id: ID!
@@ -25,7 +22,7 @@ const typeDefs = gql`
     subject: String!
     content: String!
     category:Category!
-    rating:Rating!
+    rating:Int!
   }
 
 
@@ -33,19 +30,16 @@ const typeDefs = gql`
     title: String!
     subject: String!
     content: String!
-    rating: Rating!
+    rating: Int!
     category: Category!
   }
   
-
-  
-
   
   enum Gender{
     MALE
     FEMALE
   }
-  
+    
   type User {
     id: ID!
     username: String!
@@ -239,6 +233,7 @@ type Query {
     
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
+    
 }
 
   type Mutation {

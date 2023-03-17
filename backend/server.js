@@ -12,7 +12,6 @@ const mongodbconnection = require("./src/db/index");
 const authResolver = require("./src/resolvers/auth.resolver");
 const userResolver = require("./src/resolvers/user.resolver");
 const verifyToken = require("./src/middleware/authJwt");
-
 const agentResolver = require("./src/resolvers/deliveryAgent.resolver");
 const feedbackResolver = require("./src/resolvers/feedback.resolver");
 
@@ -34,9 +33,12 @@ app.use(
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers: [userResolver,
+  resolvers: [
+    userResolver,
+    authResolver,
     feedbackResolver,
-, agentResolver, authResolver],
+    agentResolver
+],
 });
 
 async function startApolloServer() {

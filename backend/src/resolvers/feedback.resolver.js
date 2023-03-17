@@ -35,11 +35,11 @@ const feedbackResolver = {
     },
     async updateFeedback(_, { id, input }) {
       try {
-        const feedback = await userService.updateFeedback(id, input);
+        const feedback = await feedbackService.updateFeedback(id, input);
         if (!feedback) {
           throw new UserInputError('Feedback not found');
         }
-        return user;
+        return feedback;
       } catch (error) {
         throw new UserInputError(error.message);
       }
@@ -58,4 +58,5 @@ const feedbackResolver = {
   },
 };
 
+module.exports = feedbackResolver;
 module.exports = feedbackResolver;
