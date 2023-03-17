@@ -14,6 +14,7 @@ const userResolver = require("./src/resolvers/user.resolver");
 const verifyToken = require("./src/middleware/authJwt");
 
 const agentResolver = require("./src/resolvers/deliveryAgent.resolver");
+const feedbackResolver = require("./src/resolvers/feedback.resolver");
 
 app.use(morgan("dev"));
 
@@ -33,7 +34,9 @@ app.use(
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers: [userResolver, agentResolver, authResolver],
+  resolvers: [userResolver,
+    feedbackResolver,
+, agentResolver, authResolver],
 });
 
 async function startApolloServer() {

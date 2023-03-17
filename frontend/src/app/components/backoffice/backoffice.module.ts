@@ -9,10 +9,10 @@ import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import { AdminDashboardComponent } from './dashboard/dashboard-items/dashboard-items.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
-
 import { DeliveryAgentComponent } from './delivery-agent/delivery-agent.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DeliveryAgentEditComponent } from './delivery-agent-edit/delivery-agent-edit.component';
+import { FeedbackListComponent } from './Feedbacks/feedback-list/feedback-list.component';
 
 
 @NgModule({
@@ -23,15 +23,16 @@ import { DeliveryAgentEditComponent } from './delivery-agent-edit/delivery-agent
     UserListComponent,
     DeliveryAgentComponent,
     AdminDashboardComponent,
-    DeliveryAgentEditComponent
+    DeliveryAgentEditComponent,
+    FeedbackListComponent
   ],
   imports: [
     CommonModule,
     BackofficeRoutingModule,
     FormsModule,
     NgApexchartsModule,
-    FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ]
 })
 export class BackofficeModule { }

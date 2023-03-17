@@ -2,7 +2,7 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
 async function getUser(id) {
-  return User.findById(id);
+  return  User.findById(id);
 }
 
 async function getUsers() {
