@@ -13,13 +13,12 @@ import { UpdatepwdComponent } from './auth/updatepwd/updatepwd.component';
 import { RegistermainpageComponent } from './auth/registermainpage/registermainpage.component';
 import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule} from "@angular/forms";
 import { UiSwitchModule } from 'ngx-toggle-switch';
 import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
 import { ContactComponent } from './shared/contact/contact.component';
 import { AboutComponent } from './shared/about/about.component';
 import { FeedbackFormComponent } from './feedbacks/feedback-form/feedback-form';
-
 import {Ng2TelInputModule} from 'ng2-tel-input';
 
 
@@ -36,8 +35,8 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     RegistermainpageComponent,
     ErrorresetpwdComponent,
     UserProfileComponent,
-    ContactComponent,,
-    FeedbackFormComponent
+    ContactComponent,
+    FeedbackFormComponent,
     AboutComponent
   ],
   imports: [
@@ -48,7 +47,7 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     UiSwitchModule,
     GoogleSigninButtonModule,
     Ng2TelInputModule,
-    ReactiveFormsModule
+    
   ]
 })
 export class FrontofficeModule { }
