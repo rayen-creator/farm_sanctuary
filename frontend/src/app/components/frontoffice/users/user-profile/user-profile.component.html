@@ -1,0 +1,149 @@
+<div class="container">
+  <div class="main-body">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body" style="margin: 30px">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img
+                [src]="user?.image?.url"
+                alt="Admin"
+                style="color: #6d8c54"
+                width="125"
+                *ngIf="user?.image"
+              />
+              <div class="mt-3">
+                <h4>{{ user?.username }}</h4>
+                <p *ngIf="user?.role == 'FARMER'" style="color: limegreen">
+                  {{ user?.role }}
+                </p>
+                <p *ngIf="user?.role == 'CLIENT'" style="color: orangered">
+                  {{ user?.role }}
+                </p>
+                <p class="text-muted font-size-sm">{{ user?.email }}</p>
+                <div class="mt-2">
+                  <button
+                    style="margin: 10px"
+                    class="btn btn-outline-primary"
+                    (click)="fileInput.click()"
+                  >
+                    <i class="fa fa-fw fa-camera"></i>
+                    <span>Change Photo</span>
+                  </button>
+                  <input
+                    type="file"
+                    #fileInput
+                    style="display: none"
+                    (change)="handleFileInput($event)"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body" style="margin: 30.6px">
+            <form [formGroup]="userForm" *ngIf="userForm">
+              <div class="form-group row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Username</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input
+                    name="username"
+                    formControlName="username"
+                    id="username"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Phone</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input
+                    name="phone"
+                    formControlName="phone"
+                    id="phone"
+                    type="number"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input
+                    name="email"
+                    formControlName="email"
+                    id="email"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Gender</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <select
+                    name="gender"
+                    formControlName="gender"
+                    id="gender"
+                    class="form-control"
+                  >
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Two factor authentification</h6>
+                </div>
+                <!-- <ui-switch checked></ui-switch> -->
+                <div class="col-sm-9 text-secondary">
+                  <ui-switch [checked]="false"  formControlName="two_FactAuth_Option"></ui-switch>
+
+                  <!-- <div class="btn-group btn-toggle"> 
+                    <button class="btn btn-xs btn-default">ON</button>
+                  <button class="btn btn-xs btn-success active">OFF</button>
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9 text-secondary">
+                  <input
+                    type="button"
+                    class="btn px-4"
+                    type="submit"
+                    style="background-color: #6d8c54; color: aliceblue"
+                    (click)="onSubmit()"
+                    value="Save Changes"
+                  />
+                  <button
+                    routerLink="/admin/delvery"
+                    style="margin: 19.5px"
+                    class="btn btn-outline-primary"
+                  >
+                    Return
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

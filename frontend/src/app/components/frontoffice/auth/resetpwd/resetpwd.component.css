@@ -1,0 +1,40 @@
+body{margin-top:20px;}
+.form-control:not(textarea) {
+    height: 44px;
+}
+.form-control {
+    padding: 0 18px 3px;
+    border: 1px solid #dbe2e8;
+    border-radius: 22px;
+    background-color: #fff;
+    color: #606975;
+    font-family: "Maven Pro",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.form-group label {
+    margin-bottom: 8px;
+    padding-left: 18px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+
+.form-text {
+    padding-left: 18px;
+}
+.text-muted {
+    color: #9da9b9 !important;
+}
+
+.btn-primary{
+    background-color: #34B982;
+    border-color: #34B982;
+}
+.text {
+    color: #34B982;
+
+}

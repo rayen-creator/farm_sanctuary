@@ -1,43 +1,49 @@
 <div class="sidebar">
-    <div class="">
-      <a routerLink="" >  
-        <img
+  <div class="">
+    <a routerLink="">
+      <img
         src="assets/Logo FarmSanctuary (1).png"
         alt="logo"
-        class="img-fluid"/>
+        class="img-fluid"
+      />
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li>
+      <a routerLink="dashboard" routerLinkActive="active">
+        <i class="bx bxs-dashboard"></i>
+        <span class="links_name">Dashboard</span>
       </a>
-      
-    </div>
-    <ul class="nav-links">
-      <li>
-        <a href="#" class="active">
-          <i class='bx bxs-dashboard'></i>
-          <span class="links_name">Dashboard</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-            <i class='bx bx-message-dots'></i>
-            <span class="links_name">Feedback list</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-            <i class="bx bx-user"></i>
-            <span class="links_name">Driver management</span>
-        </a>
-      </li>
-      <li>
+    </li>
+    <li>
+      <a routerLink="users" routerLinkActive="active">
+        <i class="bx bx-list-ul"></i> 
+        <span class="links_name">users</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="feedbacks" routerLinkActive="active">
+        <i class="bx bx-message-dots"></i>
+        <span class="links_name">Feedback list</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="delvery" routerLinkActive="active">
+        <i class="bx bx-user"></i>
+        <span class="links_name">Driver management</span>
+      </a>
+    </li>
+    <!-- <li>
         <a href="#">
           <i class="bx bx-cog"></i>
           <span class="links_name">Setting</span>
         </a>
-      </li>
-      <li class="log_out">
-        <a href="#">
-          <i class="bx bx-log-out"></i>
-          <span class="links_name">Log out</span>
-        </a>
-      </li>
-    </ul>
-  </div>
+      </li> -->
+    <li class="log_out">
+      <a (click)="log_out()">
+        <i class="bx bx-log-out"></i>
+        <span class="links_name">Log out</span>
+      </a>
+    </li>
+  </ul>
+</div>

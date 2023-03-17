@@ -1,0 +1,146 @@
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body" style="margin: 30px;">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img *ngIf="!isHidden"  [src]="agent?.image?.url" alt="Admin" class="rounded-circle p-1 bg-primary" style="color: #6d8c54;" width="125">
+                            <img *ngIf="isHidden"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png" alt="Admin" class="rounded-circle p-1 bg-primary" style="color: #6d8c54;" width="125">
+                            <div class="mt-3">
+                                <h4   >{{agent?.fullName}}</h4>
+                                <p  class="text-secondary mb-1">{{agent?.login}}</p>
+                                <p class="text-muted font-size-sm">{{agent?.email}}</p>
+                                <div class="mt-2" >
+                                    <button style="margin: 10px;" class="btn btn-outline-primary" >
+                                      <i class="fa fa-fw fa-camera"></i>
+                                      <span  >{{action}} Photo</span>
+                                      
+                                    </button>
+                                   
+                                  </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body" style="margin: 30.6px;">
+                        <form [formGroup]="AgentForm" (ngSubmit)="onSubmit()" *ngIf="AgentForm">
+
+                            <div class="form-group row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Full Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input  name="fullName" formControlName="fullName" id="fullName" type="text"   placeholder="Enter your Full Name " class="form-control" >
+                                    <div class="alert alert-danger" *ngIf="!AgentForm.get('fullName')?.valid && AgentForm.get('fullName')?.touched">
+                                        <div *ngIf="AgentForm.get('fullName')?.errors?.['required']"  >this field is required !</div>
+                                        <div *ngIf="AgentForm.get('fullName')?.errors?.['minlength']"  >Minimum length is 3!</div>
+                                        <div *ngIf="AgentForm.get('fullName')?.errors?.['pattern']" >Symbols and numbers are not allowed!</div>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="form-group row mb-3 " [ngClass]="{'has-error': loginExist}" style="margin-top: 20px;">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Login</h6>
+                                </div>
+                            
+                                <div class="col-sm-9 text-secondary">
+                                    <input  name="login" formControlName="login" id="login" type="text" placeholder="Enter your Login" class="form-control" >
+                                    <div class="alert alert-danger" *ngIf="!AgentForm.get('login')?.valid && AgentForm.get('login')?.touched">
+                                        <div *ngIf="AgentForm.get('login')?.errors?.['required']"  >this field is required !</div>
+                                        <div *ngIf="AgentForm.get('login')?.errors?.['pattern']" >Symbols are not allowed!</div>
+                                        <div *ngIf="AgentForm.get('login')?.errors?.['minlength']"  >Minimum length is 6!</div>
+                                        <div *ngIf="loginExist">Username already used!</div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group  row mb-3" [ngClass]="{'has-error': emailExist}" style="margin-top: 20px;">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input  name="email" formControlName="email" id="email" type="email"   placeholder="Exemple@gmail.com" class="form-control" >
+                                    <div class="alert alert-danger" *ngIf="!AgentForm.get('email')?.valid && AgentForm.get('email')?.touched">
+                                        <div *ngIf="AgentForm.get('email')?.errors?.['required']"  >this field is required !</div>
+                                        <div *ngIf="AgentForm.get('email')?.errors?.['email']"  >Enter a valid email !</div>
+                                    
+                                        <div *ngIf="emailExist" >Email already used!</div>
+                                     </div>
+                                </div>
+        
+                                
+                            </div>
+                            <div class="form-group  row mb-3" style="margin-top: 20px;">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input   name="phone" formControlName="phone" id="phone" type="number"  placeholder="Enter your Pohne Number " class="form-control">
+                                    <div class="alert alert-danger" *ngIf="!AgentForm.get('phone')?.valid && AgentForm.get('phone')?.touched">
+                                        <div *ngIf="AgentForm.get('phone')?.errors?.['required']"  >this field is required !</div>
+                                        <div *ngIf="AgentForm.get('phone')?.errors?.['pattern']"  >phone should have 8 digits</div>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="form-group  row mb-3" style="margin-top: 20px;">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"> Password</h6>
+                                </div>                    
+                                <div class="col-sm-9 text-secondary">
+                                    
+                                        <h6  for="password" style="margin-top: 20px;color: #6d8c54;"  class="mb-0">New Password</h6>
+                                        <input  name="password" formControlName="password" id="password" placeholder="•••••••••"  type="password" class="form-control" #passwordfield>
+                                        <span (click)="passwordfield.type=passwordfield.type=='password'?'text':'password'"   class="fa fa-fw field-icon toggle-password" [ngClass]="(passwordfield.type=='password')?' fa-eye':' fa-eye-slash'"></span>
+                                    
+                                        <div class=" alert alert-danger" *ngIf="!AgentForm.get('password')?.valid && AgentForm.get('password')?.touched">
+                                            <div *ngIf="AgentForm.get('password')?.errors?.['required']"  >this field is required !</div>
+                                            <div *ngIf="AgentForm.get('password')?.errors?.['minlength']"  >Password must be at least 6 characters long !</div>
+                                            <div *ngIf="AgentForm.get('password')?.errors?.['maxLength']"  >Password cannot be more than 20 characters long</div>
+                                        </div>
+
+                                            <h6 for="confirmpassword" style="margin-top: 20px;color: #6d8c54;" class="mb-0">Confirm Password</h6>
+                                            <input   name="confirmpassword" formControlName="confirmpassword"  id="confirmpassword" type="password" class="form-control" #passwordfield2 placeholder="•••••••••">   
+                                            <span (click)="passwordfield2.type=passwordfield2.type=='password'?'text':'password'" 
+                                            class="fa fa-fw field-icon toggle-password" [ngClass]="(passwordfield2.type=='password')?' fa-eye':' fa-eye-slash'"></span>
+
+                                            <div class=" alert alert-danger"  *ngIf="!AgentForm.get('confirmpassword')?.valid && AgentForm.get('confirmpassword')?.touched">
+                                                <div *ngIf="AgentForm.get('confirmpassword')?.errors?.['required']"  >this field is required !</div>
+                                                <div *ngIf="AgentForm.get('confirmpassword')?.errors?.['passwordMismatch']"  >password doesnt match</div>
+       
+                                            </div>
+                                               
+                                   
+                                    
+        
+                                    </div>
+                            </div>
+                                
+                           
+                            <span  *ngIf="emailExist" style="color: red;" class="error-msg2">Email already used!</span>
+                            <span *ngIf="loginExist" style="color: red;" class="error-msg2">Login already used!</span>
+                            
+                            
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="button" class="btn   px-4"  type="submit"  style="background-color: #6d8c54; color: aliceblue;" value="Save " [disabled]="AgentForm?.invalid">
+                                    <button routerLink="/admin/delvery" style="margin: 19.5px;" class="btn btn-outline-primary">Return</button>
+                                </div>
+                            </div>
+                        
+                    </form>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>

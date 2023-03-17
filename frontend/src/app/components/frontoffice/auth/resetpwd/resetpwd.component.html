@@ -1,0 +1,29 @@
+<div class="container padding-bottom-3x mb-4 mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <h2>Forgot your password?</h2>
+            <p>Change your password in two easy steps. This helps to keep your new password secure.</p>
+            <ol class="list-unstyled">
+                <li><span class="text text-medium">1. </span>Fill in your email address below.</li>
+                <li><span class="text text-medium">2. </span>We'll email you with a link to change your password on our secure website.</li>
+                <!-- <li><span class="text-primary text-medium">3. </span>Use the code to change your password on our secure website.</li> -->
+            </ol>
+            <form class="card mt-4" [formGroup]="resetpwd" (ngSubmit)="sendmail(resetpwd.value)">
+                <div class="card-body">
+                    <div class="form-group">
+                        <div *ngIf="resetpwd.controls['email'].invalid && (resetpwd.controls['email'].dirty || resetpwd.controls['email'].touched)">
+                            <div *ngIf="resetpwd.controls['email'].hasError('required')" class="text-danger">
+                                email is required
+                            </div>
+                        </div>
+                        <label for="email-for-pass">Enter your email address</label>
+                        <input class="form-control" type="text" id="email-for-pass"formControlName="email" [ngClass]="Valid('email',resetpwd)" ><small class="form-text text-muted">* Type in the email address you used when you registered. Then we'll email a link to this address.</small>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 async function getUser(id) {
   return  User.findById(id);
@@ -8,33 +9,23 @@ async function getUsers() {
   return User.find();
 }
 
-async function createUser(input) {
-  const user = new User({
-    username: input.username,
-    email: input.email,
-    password: input.password,
-    isActive: input.isActive,
-    role: input.role,
-    image:input.image,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    isBlocked: false,
-  });
-  return await user.save(user);
-}
+
 
 async function updateUser(id, input) {
   const updatedUser = {
     username: input.username,
     password: input.password,
     email: input.email,
+    phone:input.phone,
     isActive: input.isActive,
     role: input.role,
+    gender: input.gender,
     image:input.image,
+    two_FactAuth_Option: input.two_FactAuth_Option,
     isBlocked: false,
     updatedAt: new Date(),
   };
-
+console.log(input.two_FactAuth_Option)
   return await User.findByIdAndUpdate(id, updatedUser, { new: true });
 }
 
@@ -60,7 +51,6 @@ async function toggleBlockUser(id) {
 module.exports = {
   getUser,
   getUsers,
-  createUser,
   updateUser,
   deleteUser,
   toggleBlockUser

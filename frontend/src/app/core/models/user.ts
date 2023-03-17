@@ -1,10 +1,21 @@
-import { roles } from "./role";
+import { roles } from './role';
+import { genders } from './gender';
 
-export class User{
-    id: number;
-    username: String
-    email: String
-    password: String
-    isActive: Boolean
-    role: roles
-}
+export type User = {
+  id: String;
+  username: String;
+  phone: Number;
+  email: String;
+  password: String;
+  isActive: Boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  isBlocked: Boolean;
+  gender: genders;
+  role: roles;
+  image: {
+    url: string;
+    contentType: string;
+  };
+  two_FactAuth_Option:boolean;
+};
