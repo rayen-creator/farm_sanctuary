@@ -5,12 +5,19 @@
         <div class="card">
           <div class="card-body" style="margin: 30px">
             <div class="d-flex flex-column align-items-center text-center">
+              <img *ngIf="imagePreview" [src]="imagePreview"  alt="Admin"
+                   style="color: #6d8c54"
+                   width="125"
+                   height="125"
+                   class="rounded-circle" />
               <img
+                *ngIf="!imagePreview && user?.image"
                 [src]="sanitizeImageUrl(user.image)"
                 alt="Admin"
                 style="color: #6d8c54"
                 width="125"
-                *ngIf="user?.image"
+                height="125"
+                class="rounded-circle"
               />
               <div class="mt-3">
                 <h4>{{ user?.username }}</h4>
@@ -36,6 +43,7 @@
                     style="display: none"
                     (change)="handleFileInput($event)"
                   />
+
                 </div>
               </div>
             </div>

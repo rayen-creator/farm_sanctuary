@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Apollo, gql } from "apollo-angular";
+import { Apollo} from "apollo-angular";
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { User } from "../../../../core/models/user";
 import { updateUser, user } from 'src/app/core/graphql/queries/graphql.queries.user';
@@ -16,6 +16,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class UserProfileComponent implements OnInit {
   user: User;
   userForm: FormGroup;
+  imagePreview: string;
   pattern = "^[ a-zA-Z0-9][a-zA-Z0-9 ]*$";
   // TWO_FA :boolean;
   selectedFile: File;
@@ -74,6 +75,11 @@ export class UserProfileComponent implements OnInit {
     // @ts-ignore
     this.selectedFile = (event.target as HTMLInputElement).files[0];
 console.log(this.selectedFile)
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(this.selectedFile);
     // call your service method to update user image
   }
 
