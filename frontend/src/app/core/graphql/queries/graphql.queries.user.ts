@@ -73,7 +73,7 @@ const deleteUser = gql`
 `;
 
 const updateUser = gql`
-  mutation updateUser($id:ID!,$input: UserInput!, $file: Upload!) {
+  mutation updateUser($id:ID!,$input: UserInput!, $file: Upload) {
   updateUser(id: $id,input: $input, file: $file) {
   id
    username

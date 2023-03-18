@@ -40,7 +40,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     phone:Int!
-    password: String!
+    password: String
     isActive: Boolean!
     gender:Gender!
     role: Role!
@@ -201,7 +201,7 @@ type Query {
     checkresettoken(input:checkresettoken!):checkresettokenResponse!
 
     verifyOTP(input:verifyOTPInput!):twoFactorAuthResponse!
-    updateUser(id: ID!, input: UserInput!, file: Upload!): User!
+    updateUser(id: ID!, input: UserInput!, file: Upload): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
 

@@ -33,22 +33,12 @@ async function getUsers() {
 async function updateUser(id, input, file) {
 
   console.log('File object:', file);
+  const user = await User.findById(id);
+  const isPasswordMatch = input.password === user.password;
 
-    const {
-      file: { filename, mimetype, encoding, createReadStream },
-    } = file;
-
-    let stream = createReadStream();
-
-  const pathObj = await storeFS({ stream, filename });
-  console.log("FIle 1", pathObj.path);
-  let fileLocation = pathObj.pathname;
-  const baseUrl = process.env.BASE_URL
-  const port = process.env.PORT
-  fileLocation = `${baseUrl}${port}/images/${filename}`;
   const updatedUser = {
     username: input.username,
-    password: bcrypt.hashSync(input.password, 8),
+    password: isPasswordMatch ? user.password : bcrypt.hashSync(input.password, 8),
     email: input.email,
     phone:input.phone,
     isActive: input.isActive,
@@ -58,10 +48,27 @@ async function updateUser(id, input, file) {
     isBlocked: false,
     updatedAt: new Date(),
   };
-  updatedUser.image=fileLocation;
+
+  if(file) {
+    const {
+      file: { filename, mimetype, encoding, createReadStream },
+    } = file;
+
+    let stream = createReadStream();
+
+    const pathObj = await storeFS({ stream, filename });
+    console.log("FIle 1", pathObj.path);
+    let fileLocation = pathObj.pathname;
+    const baseUrl = process.env.BASE_URL
+    const port = process.env.PORT
+    fileLocation = `${baseUrl}${port}/images/${filename}`;
+    updatedUser.image=fileLocation;
+  }
+
   console.log(input.two_FactAuth_Option);
   return await User.findByIdAndUpdate(id, updatedUser, { new: true });
 }
+
 
 async function deleteUser(id) {
   const user = await User.findById(id);
