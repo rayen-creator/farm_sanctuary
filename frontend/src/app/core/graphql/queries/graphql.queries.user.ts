@@ -12,10 +12,7 @@ getUsers{
     isBlocked,
      gender,
     role,
-     image {
-         url
-      contentType
-    },
+     image
     two_FactAuth_Option
     }
     }
@@ -36,10 +33,7 @@ query getUser($id: ID!)
     gender,
     isBlocked,
     role,
-     image {
-         url
-      contentType
-    },
+     image ,
     two_FactAuth_Option
     }
     }
@@ -57,10 +51,7 @@ const toggleBlock = gql`
       isActive
       isBlocked
       role
-      image {
-        url
-        contentType
-      }
+      image
     }
   }
 `;
@@ -76,22 +67,20 @@ const deleteUser = gql`
       isActive
       isBlocked
       role
-      image {
-        url
-        contentType
-      }
+      image
     }
   }
 `;
 
 const updateUser = gql`
-  mutation updateUser($id:ID!,$input: UserInput!) {
-  updateUser(id: $id,input: $input) {
+  mutation updateUser($id:ID!,$input: UserInput!, $file: Upload!) {
+  updateUser(id: $id,input: $input, file: $file) {
   id
    username
    phone
     gender
    email
+    image
   }
 }
 `;

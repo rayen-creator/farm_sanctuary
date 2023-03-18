@@ -7,7 +7,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { User } from "../../../../core/models/user";
 import { updateUser, user } from 'src/app/core/graphql/queries/graphql.queries.user';
-
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -20,9 +20,11 @@ export class UserProfileComponent implements OnInit {
   // TWO_FA :boolean;
   selectedFile: File;
   constructor(private currentRoute: ActivatedRoute,
-    private router: Router, private apollo: Apollo
+    private router: Router, private apollo: Apollo,private sanitizer: DomSanitizer
   ) { }
-
+  sanitizeImageUrl(imageUrl: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  }
   ngOnInit(): void {
     let id = this.currentRoute.snapshot.params['id'];
     this.apollo
@@ -70,10 +72,8 @@ export class UserProfileComponent implements OnInit {
 
   handleFileInput(event: Event) {
     // @ts-ignore
-    const file = (event.target as HTMLInputElement).files[0];
-    const formData = new FormData();
-    formData.append('image', file);
-    console.log(file)
+    this.selectedFile = (event.target as HTMLInputElement).files[0];
+console.log(this.selectedFile)
     // call your service method to update user image
   }
 
@@ -98,15 +98,20 @@ export class UserProfileComponent implements OnInit {
           isActive: this.user.isActive,
           gender: newUser.gender,
           role: this.user.role,
-          two_FactAuth_Option:newUser.two_FactAuth_Option
+          two_FactAuth_Option:newUser.two_FactAuth_Option,
+          image:this.selectedFile
         };
         console.log("after edit",this.userForm)
         let id = this.currentRoute.snapshot.params['id'];
 
+
         this.apollo
           .mutate({
             mutation: updateUser,
-            variables: { id, input: input },
+            variables: { id, input: input, file:this.selectedFile},
+            context: {
+          useMultipart: true
+        }
           })
           .subscribe({
             next: (result: any) => {

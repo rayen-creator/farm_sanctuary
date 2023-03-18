@@ -13,8 +13,16 @@ const authResolver = require("./src/resolvers/auth.resolver");
 const userResolver = require("./src/resolvers/user.resolver");
 const verifyToken = require("./src/middleware/authJwt");
 
-const agentResolver = require("./src/resolvers/deliveryAgent.resolver");
 
+const agentResolver = require("./src/resolvers/deliveryAgent.resolver");
+// const { graphqlUploadExpress } = require("graphql-upload");
+
+// import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs';
+
+const {
+  GraphQLUpload,
+  graphqlUploadExpress, // A Koa implementation is also exported.
+} = require('graphql-upload');
 app.use(morgan("dev"));
 
 // parse application/x-www-form-urlencoded
@@ -37,14 +45,16 @@ const server = new ApolloServer({
 });
 
 async function startApolloServer() {
+app.use(graphqlUploadExpress())
   await server.start();
   server.applyMiddleware({ app });
+
 }
 
 startApolloServer();
 
 const PORT = process.env.PORT || 4000;
-
+app.use(express.static('public'))
 app.listen(PORT, () => {
   console.log(
     `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`

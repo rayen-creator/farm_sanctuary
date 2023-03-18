@@ -1,5 +1,26 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const fs = require('fs');
+const path = require('path')
+
+const storeFS = ({ stream, filename }) => {
+  const uploadDir = 'public/images';
+  name = `single${Math.floor((Math.random() * 10000) + 1)}`;
+  const pathname = path.join(__dirname,`../../public/images/${filename}`) ;
+  return new Promise((resolve, reject) =>
+      stream
+          .on('error', error => {
+            if (stream.truncated)
+                // delete the truncated file
+              fs.unlinkSync(pathname);
+            reject(error);
+          })
+          .pipe(fs.createWriteStream(pathname))
+          .on('error', error => reject(error))
+          .on('finish', () => resolve({ pathname }))
+  );
+}
+
 
 async function getUser(id) {
   return User.findById(id);
@@ -9,9 +30,22 @@ async function getUsers() {
   return User.find();
 }
 
+async function updateUser(id, input, file) {
 
+  console.log('File object:', file);
 
-async function updateUser(id, input) {
+    const {
+      file: { filename, mimetype, encoding, createReadStream },
+    } = file;
+
+    let stream = createReadStream();
+
+  const pathObj = await storeFS({ stream, filename });
+  console.log("FIle 1", pathObj.path);
+  let fileLocation = pathObj.pathname;
+  const baseUrl = process.env.BASE_URL
+  const port = process.env.PORT
+  fileLocation = `${baseUrl}${port}/images/${filename}`;
   const updatedUser = {
     username: input.username,
     password: bcrypt.hashSync(input.password, 8),
@@ -20,12 +54,12 @@ async function updateUser(id, input) {
     isActive: input.isActive,
     role: input.role,
     gender: input.gender,
-    image:input.image,
     two_FactAuth_Option: input.two_FactAuth_Option,
     isBlocked: false,
     updatedAt: new Date(),
   };
-console.log(input.two_FactAuth_Option)
+  updatedUser.image=fileLocation;
+  console.log(input.two_FactAuth_Option);
   return await User.findByIdAndUpdate(id, updatedUser, { new: true });
 }
 
@@ -46,7 +80,6 @@ async function toggleBlockUser(id) {
   await user.save();
   return user;
 }
-
 
 module.exports = {
   getUser,

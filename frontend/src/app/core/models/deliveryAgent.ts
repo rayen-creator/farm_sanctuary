@@ -9,9 +9,6 @@ export type Agent = {
     'latitude': string
     'createdAt': Date
     'updatedAt': Date
-    'image': {
-    'url': string;
-    'contentType': string;
-  };
+    'image':string
 
 }

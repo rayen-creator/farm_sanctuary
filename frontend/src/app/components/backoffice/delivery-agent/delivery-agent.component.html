@@ -11,13 +11,13 @@
               <h3 class="mb-0">Delivery Agents</h3>
               <div class="d-flex justify-content-end">
                 <button routerLink="/admin/delveryAdd" style="margin: 10px;" class="btn btn-outline-primary" >
-  
+
                   <span>Add New Delivry Agent</span>
                 </button>
-               
+
               </div>
             </div>
-           
+
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
@@ -36,35 +36,35 @@
                       <th scope="row">
                         <div class="media align-items-center">
                           <a href="#" class="avatar rounded-circle mr-3">
-                            <img alt="Image placeholder"  [src]="u.image.url">
+                            <img alt="Image placeholder"  [src]="u.image">
                           </a>
                           <div class="media-body">
-                            
+
                             <span class="mb-0 text-sm">{{u.login}}</span>
                           </div>
                         </div>
                       </th>
                       <td>
                         <span class="mb-0 text-sm">{{u.fullName}}</span>
-                       
+
                       </td>
                       <td>
                         <span class="mb-0 text-sm">{{u.email}}</span>
-                       
+
                       </td>
                       <td>
                         <span class="badge ">
-                          
-                          <i class="bg-info rounded-pill">{{u.phone}}</i> 
+
+                          <i class="bg-info rounded-pill">{{u.phone}}</i>
                         </span>
                       </td>
                       <td>
-                        <span class="mb-0 text-sm">Created At:</span> 
+                        <span class="mb-0 text-sm">Created At:</span>
                         <p class="mb-0 text-sm">{{datePipe.transform(u.createdAt, 'medium') }}</p>
-                       <span class="mb-0 text-sm" >Updated At:</span> 
+                       <span class="mb-0 text-sm" >Updated At:</span>
                         <p class="mb-0 text-sm">{{datePipe.transform(u.updatedAt, 'medium') }}</p>
                       </td>
-                    
+
                       <td class="text-right">
                         <div class="dropdown">
                           <a  style="color: #6d8c54;" class="btn bg-gradient-primary dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
@@ -73,7 +73,7 @@
                           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                             <a class="dropdown-item" routerLink="/admin/delveryEdit/{{u.id}}"  >Edit</a>
                             <a class="dropdown-item"  (click)="deletedeliveryAgent(u.id)" >Delete</a>
-                            
+
                           </div>
                         </div>
                       </td>
@@ -103,14 +103,14 @@
   </ul>
 </nav>
 
-              
+
             </div>
           </div>
         </div>
       </div>
-     
-      
+
+
     </div>
   </div>
- 
+
 </body>

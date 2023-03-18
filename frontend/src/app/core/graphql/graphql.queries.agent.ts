@@ -1,8 +1,8 @@
 import { Agent } from '../models/deliveryAgent';
 import { gql } from "apollo-angular";
 const Agents  = gql`
-{ 
- 
+{
+
 
 getdeliveryAgents{
     id,
@@ -14,16 +14,13 @@ getdeliveryAgents{
     latitude,
     createdAt,
     updatedAt,
-    image {
-         url
-      contentType
-    }
+    image
     }
     }
 `;
 const getdeliveryAgent  = gql`
-  query getdeliveryAgent($id: ID!) 
-{ 
+  query getdeliveryAgent($id: ID!)
+{
   getdeliveryAgent(id: $id) {
     id,
     login,
@@ -34,10 +31,7 @@ const getdeliveryAgent  = gql`
     latitude,
     createdAt,
     updatedAt,
-    image {
-         url
-      contentType
-    }
+    image
     }
     }
 `;
@@ -54,32 +48,29 @@ const deletedeliveryAgent = gql`
      latitude,
      createdAt,
      updatedAt,
-      image {
-        url
-        contentType
-      }
+      image
     }
   }
 `;
 const updatedeliveryAgent = gql`
   mutation updatedeliveryAgent($id:ID!,$input:AgentInput!) {
     updatedeliveryAgent(id:$id,input:$input) {
-       message 
+       message
       emailExists
       loginExists
-    
-    
+
+
     }
   }
   `;
   const createdeliveryAgent = gql`
   mutation createdeliveryAgent($input:AgentInput!) {
     createdeliveryAgent(input:$input) {
-      message 
+      message
       emailExists
       loginExists
-    
-    
+
+
     }
   }
   `;
@@ -87,7 +78,7 @@ const updatedeliveryAgent = gql`
   mutation infomail($input: AgentInput!) {
     infomail(input: $input) {
       message
-      
+
     }
   }
   `;

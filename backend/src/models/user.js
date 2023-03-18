@@ -36,10 +36,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: roles,
   },
-  image: {
-    url: String,
-    contentType: String,
-  },
+  image: String,
   resetpwdToken: String,
   loginfailedAttempt: {
     count: Number,

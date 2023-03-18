@@ -6,7 +6,7 @@
           <div class="card-body" style="margin: 30px">
             <div class="d-flex flex-column align-items-center text-center">
               <img
-                [src]="user?.image?.url"
+                [src]="sanitizeImageUrl(user.image)"
                 alt="Admin"
                 style="color: #6d8c54"
                 width="125"
@@ -113,7 +113,7 @@
                 <div class="col-sm-9 text-secondary">
                   <ui-switch [checked]="false"  formControlName="two_FactAuth_Option"></ui-switch>
 
-                  <!-- <div class="btn-group btn-toggle"> 
+                  <!-- <div class="btn-group btn-toggle">
                     <button class="btn btn-xs btn-default">ON</button>
                   <button class="btn btn-xs btn-success active">OFF</button>
                   </div> -->

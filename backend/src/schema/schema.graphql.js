@@ -1,7 +1,7 @@
 const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   scalar DateTime
-
+  scalar Upload
   enum Role {
     FARMER
     CLIENT
@@ -25,7 +25,7 @@ const typeDefs = gql`
     isBlocked: Boolean!
     gender:Gender!
     role: Role!
-    image: Image
+    image: String
     two_FactAuth_Option:Boolean!  
   }
   type Two_FactAuth  { 
@@ -34,10 +34,7 @@ const typeDefs = gql`
 
   }
 
-  type Image {
-    url: String!
-    contentType: String!
-  }
+ 
 
   input UserInput {
     username: String!
@@ -47,7 +44,7 @@ const typeDefs = gql`
     isActive: Boolean!
     gender:Gender!
     role: Role!
-    image: ImageInput
+    image: Upload
     two_FactAuth_Option: Boolean
 
   }
@@ -57,10 +54,7 @@ const typeDefs = gql`
 
   }
 
-  input ImageInput {
-    url: String!
-    contentType: String!
-  }
+  
 type deliveryAgent {
   id: ID!
   login: String!
@@ -68,7 +62,7 @@ type deliveryAgent {
   email: String!
   password: String!
   phone: Int!
-  image: Image
+  image: String
   createdAt: DateTime!
   updatedAt: DateTime!
   longitude: String
@@ -120,14 +114,7 @@ input loginDriverInput {
 
 
 
-  input twoFactorAuthInput{
-    username: String!
-  }
-  type twoFactorAuthResponse{
-    message:String!
-    statusCode:Boolean!
-
-  }
+  
 
 
   input verifyOTPInput{
@@ -214,7 +201,7 @@ type Query {
     checkresettoken(input:checkresettoken!):checkresettokenResponse!
 
     verifyOTP(input:verifyOTPInput!):twoFactorAuthResponse!
-    updateUser(id: ID!, input: UserInput!): User!
+    updateUser(id: ID!, input: UserInput!, file: Upload!): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
 

@@ -1,5 +1,7 @@
 const { UserInputError } = require("apollo-server-express");
 const userService = require("../services/user");
+const path = require('path')
+const fs = require('fs')
 
 const userResolver = {
   DateTime: require("graphql-iso-date").GraphQLDateTime,
@@ -26,9 +28,9 @@ const userResolver = {
   },
 
   Mutation: {
-    async updateUser(_, { id, input }) {
+    async updateUser(parent, { id, input, file }) {
       try {
-        const user = await userService.updateUser(id, input);
+        const user = await userService.updateUser(id, input, file);
         if (!user) {
           throw new UserInputError("User not found");
         }

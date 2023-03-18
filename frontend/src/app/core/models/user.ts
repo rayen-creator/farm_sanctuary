@@ -2,20 +2,17 @@ import { roles } from './role';
 import { genders } from './gender';
 
 export type User = {
-  id: String;
-  username: String;
+  id: string;
+  username: string;
   phone: Number;
-  email: String;
-  password: String;
-  isActive: Boolean;
+  email: string;
+  password: string;
+  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
-  isBlocked: Boolean;
+  isBlocked: boolean;
   gender: genders;
   role: roles;
-  image: {
-    url: string;
-    contentType: string;
-  };
+  image: string
   two_FactAuth_Option:boolean;
 };
