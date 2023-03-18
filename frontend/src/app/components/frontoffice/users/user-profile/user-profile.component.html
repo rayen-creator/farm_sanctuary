@@ -54,18 +54,21 @@
         <div class="card">
           <div class="card-body" style="margin: 30.6px">
             <form *ngIf="userForm" [formGroup]="userForm">
-              <div class="form-group row mb-3">
+              <div class="form-group row mb-3" [ngClass]="{'has-error': usernameExist}">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Username</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
                   <input
+                    [ngClass]="{'is-invalid': usernameExist}"
                     class="form-control"
                     formControlName="username"
                     id="username"
                     name="username"
                     type="text"
                   />
+
+                  <span *ngIf="usernameExist" class="help-block">Username already used!</span>
                 </div>
               </div>
               <div class="form-group row mb-3" style="margin-top: 20px">
@@ -180,6 +183,7 @@
                                     <span *ngIf="userForm.get('confirmNewPassword')?.errors?.['passwordMismatch']"
                                           class="error">password does not match !</span>
                                   </span>
+              <span *ngIf="usernameExist" class="error-msg2">Username already used!</span>
               <div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9 text-secondary">

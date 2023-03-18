@@ -1,42 +1,43 @@
-import { gql } from "apollo-angular";
+import {gql} from "apollo-angular";
+
 const users = gql`
-{
-getUsers{
-    id,
-    username,
-    email,
-    phone,
-    createdAt,
-    updatedAt,
-    isActive,
-    isBlocked,
-     gender,
-    role,
-     image
-    two_FactAuth_Option
+  {
+    getUsers{
+      id,
+      username,
+      email,
+      phone,
+      createdAt,
+      updatedAt,
+      isActive,
+      isBlocked,
+      gender,
+      role,
+      image
+      two_FactAuth_Option
     }
-    }
+  }
 `;
 
 const user = gql`
-query getUser($id: ID!)
-{
-  getUser(id: $id) {
-    id,
-    username,
-    email,
-    password,
-    phone,
-    createdAt,
-    updatedAt,
-    isActive,
-    gender,
-    isBlocked,
-    role,
-     image ,
-    two_FactAuth_Option
+  query getUser($id: ID!)
+  {
+    getUser(id: $id) {
+      id,
+      username,
+      email,
+      password,
+      phone,
+      createdAt,
+      updatedAt,
+      isActive,
+      gender,
+      isBlocked,
+      role,
+      image ,
+      two_FactAuth_Option
     }
-    }
+  }
 `;
 
 
@@ -74,14 +75,10 @@ const deleteUser = gql`
 
 const updateUser = gql`
   mutation updateUser($id:ID!,$input: UserInput!, $file: Upload) {
-  updateUser(id: $id,input: $input, file: $file) {
-  id
-   username
-   phone
-    gender
-   email
-    image
+    updateUser(id: $id,input: $input, file: $file) {
+      message,
+      usernameExists
+    }
   }
-}
 `;
-export { users, toggleBlock, deleteUser, user, updateUser }
+export {users, toggleBlock, deleteUser, user, updateUser}

@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import {User} from "../../../../core/models/user";
 import {updateUser, user} from 'src/app/core/graphql/queries/graphql.queries.user';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {UserUpdateResponse} from "../../../../core/graphql/graphqlResponse/userUpdateResponse";
 
 @Component({
   selector: 'app-user-profile',
@@ -17,6 +18,7 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 export class UserProfileComponent implements OnInit {
   user: User;
   userForm: FormGroup;
+  usernameExist: Boolean
   imagePreview: string;
   pattern = "^[ a-zA-Z0-9][a-zA-Z0-9 ]*$";
   // TWO_FA :boolean;
@@ -128,9 +130,13 @@ export class UserProfileComponent implements OnInit {
           })
           .subscribe({
             next: (result: any) => {
-              const updatedUser = result.data.updateUser as User;
+              const userUpdateReponse = result.data as UserUpdateResponse;
+              this.usernameExist = userUpdateReponse.updateUser.usernameExists;
+              console.log(this.usernameExist)
+              if (!this.usernameExist) {
+                Swal.fire('Updated', 'User has been updated successfully.', 'success');
+              }
 
-              Swal.fire('Updated', 'User has been updated successfully.', 'success');
 
             },
             error: (err) => {
