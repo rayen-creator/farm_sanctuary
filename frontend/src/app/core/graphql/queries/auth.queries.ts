@@ -57,17 +57,17 @@ mutation resetpwd($input: resetpwd!) {
 export const VERIFY_OTP_MUTATION = gql`
   mutation VerifyOTP($input:verifyOTPInput!) {
     verifyOTP(input: $input) {
-      message  
+      message
       statusCode
-      
+
     }
   }
-`; 
+`;
 
 export const SEND_OTP_MUTATION = gql`
   mutation SendOTPMutation($input: twoFactorAuthInput!) {
     sendOTPVerificationEmail(input: $input) {
-      message 
+      message
       statusCode
     }
   }

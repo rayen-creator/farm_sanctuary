@@ -81,4 +81,33 @@ const updateUser = gql`
     }
   }
 `;
+export const VERIFY_EMAIL_CHANGE_OTP_MUTATION = gql`
+  mutation VerifyEmailChangeOTP($input:verifyEmailChangeOTPInput!) {
+    verifyEmailChangeOTP(input: $input) {
+      message
+      statusCode
+
+    }
+  }
+`;
+
+export const SEND_OTP_MUTATION_SMS = gql`
+  mutation SendOTPMutationSms($input: emailChangeInput!) {
+    sendOTPVerificationSms(input: $input) {
+      message
+      statusCode
+    }
+  }
+`;
+
+export const updateEmail = gql`
+  mutation updateEmail($input: updateEmail!) {
+    updateEmail(input: $input) {
+      message
+      updateStatus
+      userFound
+      emailExist
+    }
+  }
+`;
 export {users, toggleBlock, deleteUser, user, updateUser}

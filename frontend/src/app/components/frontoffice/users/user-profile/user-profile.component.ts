@@ -9,6 +9,7 @@ import {User} from "../../../../core/models/user";
 import {updateUser, user} from 'src/app/core/graphql/queries/graphql.queries.user';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {UserUpdateResponse} from "../../../../core/graphql/graphqlResponse/userUpdateResponse";
+import {UserService} from "../../../../core/services/user.service";
 
 @Component({
   selector: 'app-user-profile',
@@ -27,7 +28,8 @@ export class UserProfileComponent implements OnInit {
 
 
   constructor(private currentRoute: ActivatedRoute,
-              private router: Router, private apollo: Apollo, private sanitizer: DomSanitizer, private formBuilder: FormBuilder
+              private router: Router, private apollo: Apollo, private sanitizer: DomSanitizer, private formBuilder: FormBuilder,
+              private userService: UserService
   ) {
   }
 
@@ -181,4 +183,7 @@ export class UserProfileComponent implements OnInit {
   }
 
 
+  sendSMS() {
+this.userService.sendSMS(this.user.username)
+  }
 }

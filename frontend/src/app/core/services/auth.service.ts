@@ -136,7 +136,7 @@ export class AuthService {
               this.toastr.success('Welcome back to your account', 'Logged In');
               this.router.navigate(['/home']);
             }
-           
+
           }
         },
         error: (err) => {
@@ -291,7 +291,7 @@ export class AuthService {
     }
     if (expiresIn) {
       this.token = token;
-     
+
       this.isUserAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.usernameSubject.next(username ?? '');
@@ -336,6 +336,7 @@ export class AuthService {
     localStorage.setItem('role', role);
   }
 
+  
   verifyOTP(username: string, otp: string) {
     const input = {
       username: username,

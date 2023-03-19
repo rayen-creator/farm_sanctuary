@@ -49,6 +49,10 @@ const userSchema = new mongoose.Schema({
     code : String, 
     expiresAt: Date,
 
+  },
+  emailChange : {
+    code : String,
+    expiresAt: Date,
   }
 });
 

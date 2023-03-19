@@ -2,6 +2,7 @@ const { UserInputError } = require("apollo-server-express");
 const userService = require("../services/user");
 const path = require('path')
 const fs = require('fs')
+const authService = require("../services/auth");
 
 const userResolver = {
   DateTime: require("graphql-iso-date").GraphQLDateTime,
@@ -59,6 +60,24 @@ const userResolver = {
         return user;
       } catch (error) {
         throw new UserInputError(error.message);
+      }
+    },
+    async sendOTPVerificationSms(_, { input }) {
+      return await userService.sendOTPVerificationSms(input);
+    },
+    async verifyEmailChangeOTP(_, { input }) {
+      try {
+        return await userService.verifyEmailChangeOTP(input);
+      } catch (error) {
+        console.log("moshkla");
+        throw new Error(error);
+      }
+    },
+    async updateEmail(_, { input }) {
+      try {
+        return await userService.updateEmail(input);
+      } catch (error) {
+        throw new Error(error);
       }
     },
   },

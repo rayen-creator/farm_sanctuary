@@ -15,6 +15,7 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UiSwitchModule } from 'ngx-toggle-switch';
 import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
+import { ChangeMailComponent } from './users/change-mail/change-mail.component';
 
 
 
@@ -30,7 +31,8 @@ import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
     UpdatepwdComponent,
     RegistermainpageComponent,
     ErrorresetpwdComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ChangeMailComponent
   ],
   imports: [
     CommonModule,
