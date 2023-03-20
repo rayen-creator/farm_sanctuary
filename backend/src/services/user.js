@@ -235,15 +235,6 @@ async function sendOTPVerificationSms(input) {
         throw new Error(error);
     }
 
-    //Send the verification email
-    // const mailOptions = {
-    //   from: process.env.USER,
-    //   to: input.email,
-    //   subject: "Verify Your Email",
-    //   html: `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the 2 factor verification </p>
-    //   <p>this expires in 1 hour</p>`,
-    // };
-    // awaitsendEmail(mailOptions);
 }
 
 async function verifyEmailChangeOTP(input) {

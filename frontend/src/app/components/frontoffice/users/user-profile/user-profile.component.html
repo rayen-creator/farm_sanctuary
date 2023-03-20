@@ -116,9 +116,9 @@
                   <a routerLink="twofactorauth" style="font-size: 0.8rem; padding: 0;" (click)="sendSMS()">Change Email</a>
                 </div>
               </div>
-              <span class="text-danger error-msg error-msg" *ngIf="!userForm.get('email')?.valid && userForm.get('email')?.touched">
-                                    <span  *ngIf="userForm.get('email')?.errors?.['required']" class="error">this field is required !</span >
-                                    <span  *ngIf="userForm.get('email')?.errors?.['email']" class="error">enter a valid email !</span >
+              <span class="text-danger error-msg error-msg" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">
+                                    <span  *ngIf="userForm.controls['email'].errors?.['required']" class="error">this field is required !</span >
+                                    <span  *ngIf="userForm.controls['email'].errors?.['email']" class="error">enter a valid email !</span >
                                   </span>
 
 
@@ -149,13 +149,13 @@
 
                 </div>
               </div>
-              <span *ngIf="userForm.get('currentpassword')?.invalid && userForm.get('currentpassword')?.touched"
+              <span *ngIf="userForm.controls['currentpassword'].invalid && userForm.controls['currentpassword'].touched"
                     class="text-danger error-msg">
-                                    <span *ngIf="userForm.get('currentpassword')?.errors?.['incorrectPassword']"
+                                    <span *ngIf="userForm.controls['currentpassword'].errors?.['incorrectPassword']"
                                           class="error">Wrong password !</span>
                                   </span>
               <div
-                [hidden]="!userForm.get('currentpassword')?.touched || userForm?.get('currentpassword')?.invalid || !userForm.get('currentpassword')?.dirty"
+                [hidden]="!userForm.controls['currentpassword'].touched || userForm.controls['currentpassword'].invalid || !userForm.controls['currentpassword'].dirty"
                 class="form-group row mb-3"
                 style="margin-top: 20px">
                 <div class="col-sm-3">
@@ -167,13 +167,13 @@
 
                 </div>
               </div>
-              <span *ngIf="userForm.get('newpassword')?.invalid && userForm.get('newpassword')?.touched"
+              <span *ngIf="userForm.controls['newpassword'].invalid && userForm.controls['newpassword'].touched"
                     class="text-danger error-msg">
-                                    <span *ngIf="userForm.get('newpassword')?.errors?.['minlength']" class="error">Password must be at least 6 characters long ! </span>
-                                    <span *ngIf="userForm.get('newpassword')?.errors?.['maxlength']" class="error">Password cannot be more than 20 characters long !</span>
+                                    <span *ngIf="userForm.controls['newpassword'].errors?.['minlength']" class="error">Password must be at least 6 characters long ! </span>
+                                    <span *ngIf="userForm.controls['newpassword'].errors?.['maxlength']" class="error">Password cannot be more than 20 characters long !</span>
                                   </span>
               <div
-                [hidden]="!userForm.get('currentpassword')?.touched || userForm?.get('currentpassword')?.invalid || !userForm.get('currentpassword')?.dirty"
+                [hidden]="!userForm.controls['currentpassword'].touched || userForm.controls['currentpassword'].invalid || !userForm.controls['currentpassword'].dirty"
                 class="form-group row mb-3"
                 style="margin-top: 20px">
                 <div class="col-sm-3">
@@ -184,9 +184,9 @@
                          name="confirmNewPassword" type="password">
                 </div>
               </div>
-              <span *ngIf="!userForm.get('confirmNewPassword')?.valid && userForm.get('confirmNewPassword')?.touched"
+              <span *ngIf="!userForm.controls['confirmNewPassword'].valid && userForm.controls['confirmNewPassword'].touched"
                     class="text-danger error-msg">
-                                    <span *ngIf="userForm.get('confirmNewPassword')?.errors?.['passwordMismatch']"
+                                    <span *ngIf="userForm.controls['confirmNewPassword'].errors?.['passwordMismatch']"
                                           class="error">password does not match !</span>
                                   </span>
               <span *ngIf="usernameExist" class="error-msg2">Username already used!</span>
@@ -195,7 +195,7 @@
                 <div class="col-sm-9 text-secondary">
                   <input
                     (click)="onSubmit()"
-                    [disabled]="userForm?.invalid"
+                    [disabled]="userForm.invalid"
                     class="btn px-4"
                     style="background-color: #6d8c54; color: aliceblue"
                     type="button"
