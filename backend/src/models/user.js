@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema({
   },
   password: String,
   phone: Number,
+  location:String,
   createdAt: Date,
   updatedAt: Date,
   isActive: Boolean,

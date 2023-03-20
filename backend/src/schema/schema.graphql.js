@@ -53,7 +53,8 @@ const typeDefs = gql`
     gender:Gender!
     role: Role!
     image: Image
-    two_FactAuth_Option:Boolean!  
+    two_FactAuth_Option:Boolean!
+    location:String!
   }
   type Two_FactAuth  { 
     code : String! 
@@ -76,6 +77,7 @@ const typeDefs = gql`
     role: Role!
     image: ImageInput
     two_FactAuth_Option: Boolean
+    location:String!
 
   }
   input twoFactorAuthUserInput { 

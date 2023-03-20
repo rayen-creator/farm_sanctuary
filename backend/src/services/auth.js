@@ -47,7 +47,9 @@ async function signup(input) {
     createdAt: new Date(),
     updatedAt: new Date(),
     isBlocked: false,
-    two_FactAuth_Option:false
+    two_FactAuth_Option:false,
+    location:input.location,
+
   });
   await user.save(user);
   return {
@@ -65,13 +67,10 @@ async function signin(input) {
   if (!user) {
     return {
       accessToken: "",
-      // username: "",
       message: "User not found",
       expiresIn: 0,
       userfound: false,
       passwordIsValid: false,
-      // blocked: false,
-      // role: null,
       user:null
     };
   }
@@ -81,13 +80,10 @@ async function signin(input) {
   if (!passwordIsValid) {
     return {
       accessToken: "",
-      // username: "",
       message: "Auth failed ! Invalid Password!",
       expiresIn: 0,
       userfound: true,
       passwordIsValid: false,
-      // blocked: false,
-      // role: null,
       user:null
     };
   }
@@ -101,27 +97,19 @@ async function signin(input) {
   if (user.two_FactAuth_Option) {
     return {
       accessToken: token,
-      // username: user.username,
       message: "OK",
       expiresIn: process.env.JWT_EXPIRE_IN,
       userfound: true,
       passwordIsValid: true,
-      // blocked: user.isBlocked,
-      // role: user.role,
-      // two_FactAuth_Option: user.two_FactAuth_Option,
       user : user
     };
   } else {
     return {
       accessToken: token,
-      // username: user.username,
       message: "OK",
       expiresIn: process.env.JWT_EXPIRE_IN,
       userfound: true,
       passwordIsValid: true,
-      // blocked: user.isBlocked,
-      // role: user.role,
-      // two_FactAuth_Option: false,
       user : user
     };
   }
