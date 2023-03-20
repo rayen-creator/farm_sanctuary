@@ -40,8 +40,7 @@ export class AuthService {
   private isUserAuthenticated = false;
 
   private usernameSubject = new BehaviorSubject<string>('');
-  // private roleSubject=new BehaviorSubject<string>('');
-  // public username = this.usernameSubject.asObservable();
+
 
   responseMessage: any;
   public token: string;
@@ -71,9 +70,7 @@ export class AuthService {
           //get the response
           const loginresponse = res.data as LoginResponse;
 
-          // console.log("accessToken " + loginresponse.signin.accessToken);
-          // console.log("username " + loginresponse.signin.username);
-          // console.log('&&&&&&&&&&&&&&&&&' + this.isUserAuthenticated);
+         
           const token = loginresponse.signin.accessToken;
           const username = loginresponse.signin.user.username;
           const IspassowrdValid = loginresponse.signin.passwordIsValid;
@@ -150,14 +147,16 @@ export class AuthService {
   }
 
   register(user: User) {
+    const phoneNumber=Number(user.phone)
     const input = {
       username: user.username,
       email: user.email,
-      phone: user.phone,
+      phone: phoneNumber,
       password: user.password,
       isActive: false,
       gender: user.gender,
       role: user.role,
+      location:user.location
     };
 
     return this.appolo.mutate({
@@ -285,7 +284,6 @@ export class AuthService {
     const now = new Date();
     const expiresIn = new Date(expirationDate).getTime() - now.getTime();
     const currentDate = new Date();
-    console.log('expirationDate', expirationDate);
 
     if (currentDate > new Date(expirationDate)) {
       this.logout();
@@ -298,9 +296,10 @@ export class AuthService {
       this.isUserAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.usernameSubject.next(username ?? '');
-      // this.roleSubject.next(role ?? '');
+
       this.role=role as roles;
       this.authStatusListener.next(true);
+
       if(this.role==roles.ADMIN){
         this.router.navigate(['/admin']);
       }

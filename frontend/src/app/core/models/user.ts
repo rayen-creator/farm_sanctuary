@@ -7,6 +7,7 @@ export type User = {
   phone: Number;
   email: string;
   password: string;
+  location:string;
   isActive: Boolean;
   createdAt: Date;
   updatedAt: Date;

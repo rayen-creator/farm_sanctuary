@@ -17,7 +17,6 @@
                       Registration takes less than a minute but gives you many
                       features.
                     </p>
-                    <!-- <p>- Admin User</p> -->
                   </div>
                 </div>
               </div>
@@ -26,12 +25,6 @@
                   <div class="mb-5">
                     <h3 class="h4 font-weight-bold text-theme">Sign up</h3>
                   </div>
-
-                  <!-- <h6 class="h5 mb-0">No account? Sign up</h6>
-
-
-                                <p class="text-muted mt-2 mb-5">
-                                    Registration takes less than a minute but gives you many features.</p> -->
 
                   <form
                     [formGroup]="registerForm"
@@ -54,22 +47,35 @@
                       <span
                         class="text-danger error-msg error-msg"
                         *ngIf="
-                          !registerForm.get('username')?.valid &&
-                          registerForm.get('username')?.touched
+                          (registerForm.controls['username'].invalid &&
+                            registerForm.controls['username'].dirty) ||
+                          registerForm.controls['username'].touched
                         "
                       >
                         <span
-                          *ngIf="registerForm.get('username')?.errors?.['required']"
+                          *ngIf="
+                            registerForm.controls['username'].hasError(
+                              'required'
+                            )
+                          "
                           class="error"
                           >This field is required!</span
                         >
                         <span
-                          *ngIf="registerForm.get('username')?.errors?.['minlength']"
+                          *ngIf="
+                            registerForm.controls['username'].hasError(
+                              'minlength'
+                            )
+                          "
                           class="error"
                           >Minimum length is 3!</span
                         >
                         <span
-                          *ngIf="registerForm.get('username')?.errors?.['pattern']"
+                          *ngIf="
+                            registerForm.controls['username'].hasError(
+                              'pattern'
+                            )
+                          "
                           class="error"
                           >Symbols are not allowed!</span
                         >
@@ -96,17 +102,20 @@
                     <span
                       class="text-danger error-msg error-msg"
                       *ngIf="
-                        !registerForm.get('email')?.valid &&
-                        registerForm.get('email')?.touched
+                        (registerForm.controls['email'].invalid &&
+                          registerForm.controls['email'].dirty) ||
+                        registerForm.controls['email'].touched
                       "
                     >
                       <span
-                        *ngIf="registerForm.get('email')?.errors?.['required']"
+                        *ngIf="
+                          registerForm.controls['email'].hasError('required')
+                        "
                         class="error"
                         >this field is required !</span
                       >
                       <span
-                        *ngIf="registerForm.get('email')?.errors?.['email']"
+                        *ngIf="registerForm.controls['email'].hasError('email')"
                         class="error"
                         >enter a valid email !</span
                       >
@@ -115,33 +124,57 @@
                       >Email already used!</span
                     >
                     <div class="form-group">
-                      <label for="phone">Phone</label><br>
+                      <label for="phone">Phone</label><br />
                       <input
                         name="phone"
                         formControlName="phone"
                         id="phone"
-                        type="number"
+                        type="text"
                         class="form-control"
-                        ng2TelInput [ng2TelInputOptions]="{initialCountry: 'tn'}"
-                       
+                        ng2TelInput
+                        [ng2TelInputOptions]="{
+                          initialCountry: 'tn',
+                          autoHideDialCode: false,
+                          separateDialCode: true
+                        }"
+                        (countryChange)="onCell1CountryChange($event)"
                       />
                     </div>
                     <span
                       class="text-danger error-msg error-msg"
                       *ngIf="
-                        !registerForm.get('phone')?.valid &&
-                        registerForm.get('phone')?.touched
+                        (registerForm.controls['phone'].invalid &&
+                          registerForm.controls['phone'].dirty) ||
+                        registerForm.controls['phone'].touched
                       "
                     >
                       <span
-                        *ngIf="registerForm.get('phone')?.errors?.['required']"
+                        *ngIf="
+                          registerForm.controls['phone'].hasError('required')
+                        "
                         class="error"
                         >this field is required !</span
                       >
                       <span
-                        *ngIf="registerForm.get('phone')?.errors?.['pattern']"
+                        *ngIf="
+                          registerForm.controls['phone'].hasError('pattern')
+                        "
                         class="error"
-                        >phone should have 8 digits
+                        >phone should be digits
+                      </span>
+                      <span
+                        *ngIf="
+                          registerForm.controls['phone'].hasError('minlength')
+                        "
+                        class="error"
+                        >phone should't be less than 8 digits
+                      </span>
+                      <span
+                        *ngIf="
+                          registerForm.controls['phone'].hasError('maxlength')
+                        "
+                        class="error"
+                        >phone should't be more than 15 digits
                       </span>
                     </span>
                     <!-- <div class="form-control-group">
@@ -164,12 +197,15 @@
                     <span
                       class="text-danger error-msg"
                       *ngIf="
-                        !registerForm.get('gender')?.valid &&
-                        registerForm.get('gender')?.touched
+                        (registerForm.controls['gender'].invalid &&
+                          registerForm.controls['gender'].dirty) ||
+                        registerForm.controls['gender'].touched
                       "
                     >
                       <span
-                        *ngIf="registerForm.get('gender')?.errors?.['required']"
+                        *ngIf="
+                          registerForm.controls['gender'].hasError('required')
+                        "
                         class="error"
                         >this field is required !</span
                       >
@@ -187,22 +223,33 @@
                     <span
                       class="text-danger error-msg"
                       *ngIf="
-                        registerForm.get('password')?.invalid &&
-                        registerForm.get('password')?.touched
+                        (registerForm.controls['password'].invalid &&
+                          registerForm.controls['password'].dirty) ||
+                        registerForm.controls['password'].touched
                       "
                     >
                       <span
-                        *ngIf="registerForm.get('password')?.errors?.['minlength']"
+                        *ngIf="
+                          registerForm.controls['password'].hasError(
+                            'minlength'
+                          )
+                        "
                         class="error"
                         >Password must be at least 6 characters long !
                       </span>
                       <span
-                        *ngIf="registerForm.get('password')?.errors?.['maxlength']"
+                        *ngIf="
+                          registerForm.controls['password'].hasError(
+                            'maxlength'
+                          )
+                        "
                         class="error"
                         >Password cannot be more than 20 characters long !</span
                       >
                       <span
-                        *ngIf="registerForm.get('password')?.errors?.['required']"
+                        *ngIf="
+                          registerForm.controls['password'].hasError('required')
+                        "
                         class="error"
                         >Password is required</span
                       >
@@ -219,17 +266,26 @@
                       <span
                         class="text-danger error-msg"
                         *ngIf="
-                          !registerForm.get('confirmPassword')?.valid &&
-                          registerForm.get('confirmPassword')?.touched
+                          (registerForm.controls['confirmPassword'].invalid &&
+                            registerForm.controls['confirmPassword'].dirty) ||
+                          registerForm.controls['confirmPassword'].touched
                         "
                       >
                         <span
-                          *ngIf="registerForm.get('confirmPassword')?.errors?.['required']"
+                          *ngIf="
+                            registerForm.controls['confirmPassword'].hasError(
+                              'required'
+                            )
+                          "
                           class="error"
                           >this field is required !</span
                         >
                         <span
-                          *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']"
+                          *ngIf="
+                            registerForm.controls['confirmPassword'].hasError(
+                              'passwordMismatch'
+                            )
+                          "
                           class="error"
                           >password does not match !</span
                         >
@@ -245,7 +301,7 @@
                     <button
                       type="submit"
                       class="btn btn-theme forgot-link d-flex justify-content-start"
-                      [disabled]="registerForm?.invalid"
+                      [disabled]="registerForm.invalid"
                     >
                       Sign up
                     </button>

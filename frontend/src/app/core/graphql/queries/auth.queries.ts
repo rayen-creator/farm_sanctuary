@@ -8,6 +8,7 @@ mutation signin($input: signinInput!) {
       role
       isBlocked
       two_FactAuth_Option
+      
     }
     accessToken
     message
@@ -22,9 +23,9 @@ mutation signin($input: signinInput!) {
 export const signup = gql`
   mutation signup($input: UserInput!) {
     signup(input: $input) {
-    message,
-  emailExists,
-  usernameExists
+      message,
+      emailExists,
+      usernameExists
     }
   }
 `;
