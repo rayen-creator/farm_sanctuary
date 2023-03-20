@@ -12,13 +12,13 @@
             2-step verification
           </h3>
           <p class="mt-4 mb-1">
-            We sent a verification code to your firstNumber.
+            We sent a verification code to your email.
           </p>
           <p>
             Please enter the code in the field below.
           </p>
           <form [formGroup]="verifyOTPForm"  >
- 
+
           <div class="row mt-4 pt-2">
             <div class="col">
               <input type="text" class="form-control form-control-lg text-center py-4"name="firstNumber" formControlName="firstNumber" [ngClass]="Valid('firstNumber',verifyOTPForm)"  maxlength="1" autofocus="">
@@ -52,7 +52,7 @@
                 </div>
             </div> -->
             </div>
-            
+
           </div>
           <!-- <div *ngIf="!verifyOTPForm.value">
             please submit your code to continue
@@ -69,7 +69,8 @@
         </a>
       </p>
     </div>
-  </div> 
+  </div>
   <br>
-  <br> 
+  <br>
   <!-- will do a spacing after-->
+</div>

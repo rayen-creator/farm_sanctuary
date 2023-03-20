@@ -27,13 +27,16 @@ const typeDefs = gql`
         role: Role!
         image: String
         two_FactAuth_Option:Boolean!
+        email_change_option:Boolean
     }
     type Two_FactAuth  {
         code : String!
         expiresAt: DateTime!
-
     }
-
+    type emailChange  {
+        code : String!
+        expiresAt: DateTime!
+    }
 
 
     input UserInput {
@@ -53,7 +56,10 @@ const typeDefs = gql`
         expiresAt: DateTime!
 
     }
-
+    input emailChangeUserInput {
+        code : String!
+        expiresAt: DateTime!
+    }
 
     type deliveryAgent {
         id: ID!
@@ -126,6 +132,15 @@ const typeDefs = gql`
         statusCode:Boolean!
     }
 
+    input verifyEmailChangeOTPInput{
+        username: String!
+        otp:String!
+    }
+    type verifyEmailChangeOTPResponse{
+        message:String!
+        statusCode:Boolean!
+    }
+
 
 
 
@@ -134,7 +149,15 @@ const typeDefs = gql`
     input twoFactorAuthInput{
         username: String!
     }
+    input emailChangeInput{
+        username: String!
+    }
     type twoFactorAuthResponse{
+        message:String!
+        statusCode:Boolean!
+
+    }
+    type emailChangeResponse{
         message:String!
         statusCode:Boolean!
 
@@ -175,6 +198,17 @@ const typeDefs = gql`
         token:String!
     }
 
+    input updateEmail{
+        username:String!
+        email: String!
+    }
+    type UpdateEmailResponse{
+        message: String!
+        updateStatus:Boolean!
+        userFound:Boolean!
+        emailExist:Boolean!
+    }
+
 
     input checkresettoken{
         token:String!
@@ -201,10 +235,13 @@ const typeDefs = gql`
         signin(input: signinInput!): LoginResponse!
         sendmail(input:ForgetpwdInput!):ForgetpwdResponse!
         sendOTPVerificationEmail(input:twoFactorAuthInput!):twoFactorAuthResponse!
+        sendOTPVerificationSms(input:emailChangeInput!):emailChangeResponse!
         resetpwd(input:resetpwd!):UpdatepwdResponse!
+        updateEmail(input:updateEmail!):UpdateEmailResponse!
         checkresettoken(input:checkresettoken!):checkresettokenResponse!
 
         verifyOTP(input:verifyOTPInput!):twoFactorAuthResponse!
+        verifyEmailChangeOTP(input:verifyEmailChangeOTPInput!):emailChangeResponse!
         updateUser(id: ID!, input: UserInput!, file: Upload): UserUpdateResponse!
         deleteUser(id: ID!): User!
         toggleBlockUser(id: ID!): User!

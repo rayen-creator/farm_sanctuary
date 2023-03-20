@@ -14,7 +14,8 @@ const users = gql`
       gender,
       role,
       image
-      two_FactAuth_Option
+      two_FactAuth_Option,
+      email_change_option
     }
   }
 `;
@@ -35,7 +36,8 @@ const user = gql`
       isBlocked,
       role,
       image ,
-      two_FactAuth_Option
+      two_FactAuth_Option,
+      email_change_option
     }
   }
 `;
@@ -78,6 +80,35 @@ const updateUser = gql`
     updateUser(id: $id,input: $input, file: $file) {
       message,
       usernameExists
+    }
+  }
+`;
+export const VERIFY_EMAIL_CHANGE_OTP_MUTATION = gql`
+  mutation VerifyEmailChangeOTP($input:verifyEmailChangeOTPInput!) {
+    verifyEmailChangeOTP(input: $input) {
+      message
+      statusCode
+
+    }
+  }
+`;
+
+export const SEND_OTP_MUTATION_SMS = gql`
+  mutation SendOTPMutationSms($input: emailChangeInput!) {
+    sendOTPVerificationSms(input: $input) {
+      message
+      statusCode
+    }
+  }
+`;
+
+export const updateEmail = gql`
+  mutation updateEmail($input: updateEmail!) {
+    updateEmail(input: $input) {
+      message
+      updateStatus
+      userFound
+      emailExist
     }
   }
 `;

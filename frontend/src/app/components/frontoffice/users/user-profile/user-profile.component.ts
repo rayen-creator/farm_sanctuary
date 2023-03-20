@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as bcrypt from 'bcryptjs'
 import {Apollo} from "apollo-angular";
 
@@ -9,13 +9,15 @@ import {User} from "../../../../core/models/user";
 import {updateUser, user} from 'src/app/core/graphql/queries/graphql.queries.user';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {UserUpdateResponse} from "../../../../core/graphql/graphqlResponse/userUpdateResponse";
+import {UserService} from "../../../../core/services/user.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit,OnDestroy {
   user: User;
   userForm: FormGroup;
   usernameExist: Boolean
@@ -23,11 +25,13 @@ export class UserProfileComponent implements OnInit {
   pattern = "^[ a-zA-Z0-9][a-zA-Z0-9 ]*$";
   // TWO_FA :boolean;
   selectedFile: File;
+  private mySubscription: Subscription;
   disabledP: boolean = true;
 
 
   constructor(private currentRoute: ActivatedRoute,
-              private router: Router, private apollo: Apollo, private sanitizer: DomSanitizer, private formBuilder: FormBuilder
+              private router: Router, private apollo: Apollo, private sanitizer: DomSanitizer, private formBuilder: FormBuilder,
+              private userService: UserService
   ) {
   }
 
@@ -37,7 +41,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     let id = this.currentRoute.snapshot.params['id'];
-    this.apollo
+    this.mySubscription = this.apollo
       .watchQuery({
         query: user,
         variables: {id},
@@ -124,6 +128,10 @@ export class UserProfileComponent implements OnInit {
           .mutate({
             mutation: updateUser,
             variables: {id, input: input, file: this.selectedFile},
+            refetchQueries: [{
+              query: user,
+              variables: {id}
+            }],
             context: {
               useMultipart: true
             }
@@ -180,5 +188,16 @@ export class UserProfileComponent implements OnInit {
       })
   }
 
+
+  sendSMS() {
+this.userService.sendSMS(this.user.username)
+  }
+
+ngOnDestroy() {
+
+    if (this.mySubscription) {
+      this.mySubscription.unsubscribe();
+    }
+  }
 
 }
