@@ -31,7 +31,6 @@
     "boxicons": "^2.1.4",
     "graphql": "^16",
     "graphql-tag": "^2.12.6",
-    "intl-tel-input": "^17.0.21",
     "jwt-decode": "^3.1.2",
     "ng-apexcharts": "^1.7.4",
     "ng2-tel-input": "^2.3.0",
@@ -40,8 +39,7 @@
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.7.3",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4",
-    "@apollo/client": "^3.0.0"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.10",

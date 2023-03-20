@@ -11,6 +11,7 @@ import jwt_decode from "jwt-decode";
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   username: string;
+  img:string;
   role: string;
   userIsAuthenticated = false;
   token:string;
@@ -22,6 +23,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
+    this.token=this.auth.getToken();
+    this.decodedToken = jwt_decode(this.token) as DecodedToken;
+    this.userId=this.decodedToken.id;
+
+    //should't stay like this
+    this.img='https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png';
+
     this.userIsAuthenticated = this.auth.isUserAuth();
     this.authListenerSubs = this.auth.getAuthStatusListener().subscribe({
       next: (isAuthenticated) => {
@@ -42,19 +50,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
 
-    // this.roleSubs = this.auth.getRole().subscribe({
-    //   next: (role) => {
-    //     this.role = role;
-    //   },
-    //   error: () => {
-    //     this.role = ""
-    //   }
-    // })
-
-    this.token=this.auth.getToken();
-    this.decodedToken = jwt_decode(this.token) as DecodedToken;
-    this.userId=this.decodedToken.id;
-    console.log("user ID", this.userId);
   }
 
  
