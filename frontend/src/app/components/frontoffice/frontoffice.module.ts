@@ -16,11 +16,11 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
 import {FormsModule} from "@angular/forms";
 import { UiSwitchModule } from 'ngx-toggle-switch';
 import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
-import { ContactComponent } from './shared/contact/contact.component';
-import { AboutComponent } from './shared/about/about.component';
 import { FeedbackFormComponent } from './feedbacks/feedback-form/feedback-form';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { ChangeMailComponent } from './users/change-mail/change-mail.component';
+import { ContactComponent } from './shared/contact/contact.component';
+import { AboutComponent } from './shared/about/about.component';
 
 
 @NgModule({
@@ -36,10 +36,10 @@ import { ChangeMailComponent } from './users/change-mail/change-mail.component';
     RegistermainpageComponent,
     ErrorresetpwdComponent,
     UserProfileComponent,
-    ContactComponent,
     FeedbackFormComponent,
-    AboutComponent,
-    ChangeMailComponent
+    ChangeMailComponent,
+    ContactComponent,
+    AboutComponent
   ],
   imports: [
     CommonModule,
