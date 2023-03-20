@@ -14,6 +14,7 @@
     "express": "^4.18.2",
     "graphql": "^16.6.0",
     "graphql-iso-date": "^3.6.1",
+    "graphql-upload": "13.0.0",
     "handlebars": "^4.7.7",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.2",
@@ -23,5 +24,13 @@
     "nodemailer": "^6.9.1",
     "nodemailer-plugin-inline-base64": "^2.1.1",
     "nodemon": "^2.0.20"
+  },
+  "exports": {
+    "./GraphQLUpload.mjs": "./GraphQLUpload.mjs",
+    "./graphqlUploadExpress.mjs": "./graphqlUploadExpress.mjs",
+    "./graphqlUploadKoa.mjs": "./graphqlUploadKoa.mjs",
+    "./package.json": "./package.json",
+    "./processRequest.mjs": "./processRequest.mjs",
+    "./Upload.mjs": "./Upload.mjs"
   }
 }

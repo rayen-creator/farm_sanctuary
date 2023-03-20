@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
   register() {
     let newUser = this.registerForm.value;
     newUser.role = this.accountType
-    newUser.location =this.country;
+    newUser.location =this.country ?? 'Tunisia';
     console.log("country regsitred",this.country);
     if (newUser.username != "" && newUser.email != "" && newUser.password != "" && newUser.phone != "" && newUser.gender != "") {
 

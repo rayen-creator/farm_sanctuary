@@ -33,7 +33,7 @@
                   <th scope="row">
                     <div class="media align-items-center">
                       <a href="#" class="avatar rounded-circle mr-3">
-                        <img alt="Image placeholder"  [src]="u.image.url">
+                        <img alt="Image placeholder"  [src]="u.image">
                       </a>
 
                     </div>
@@ -85,12 +85,12 @@
                   </td>
                   <td *ngIf="u.isBlocked == true">
                       <span class="badge badge-dot mr-4">
-                        <i class="bg-warning"></i><span class="mb-0 text-sm" style="color: #0b0b0b">Yes</span>
+                        <i class="bg-warning"></i><span class="mb-0 text-sm" style="color: #0b0b0b">Blocked</span>
                       </span>
                   </td>
                   <td *ngIf="u.isBlocked == false">
                       <span class="badge badge-dot mr-4">
-                        <i class="bg-success"></i> <span class="mb-0 text-sm" style="color: #0b0b0b">No</span>
+                        <i class="bg-success"></i> <span class="mb-0 text-sm" style="color: #0b0b0b">Active</span>
                       </span>
                   </td>
                   <td class="text-right">

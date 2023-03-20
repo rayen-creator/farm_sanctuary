@@ -13,6 +13,8 @@ import { RegistermainpageComponent } from './auth/registermainpage/registermainp
 import { UserProfileComponent } from "./users/user-profile/user-profile.component";
 import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
 import { AboutComponent } from './shared/about/about.component';
+import { TwoFAComponent } from '../two-fa/two-fa.component';
+import { ChangeMailComponent } from './users/change-mail/change-mail.component';
 
 const routes: Routes = [
   {
@@ -23,12 +25,14 @@ const routes: Routes = [
       { path: 'signup/:accountType', component: RegisterComponent },
       { path: 'signup', component: RegistermainpageComponent },
       { path: 'profile/:id', component: UserProfileComponent },
+      { path: 'profile/:id/twofactorauth', component: TwoFAComponent },
+      { path: 'change-email', component: ChangeMailComponent },
       { path: 'forgetpassword', component: ResetpwdComponent },
       { path: 'resetpassword/:token', component: UpdatepwdComponent },
       { path: 'error', component: ErrorresetpwdComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'about', component: AboutComponent },
-      {path:'feedbacks', component: FeedbackFormComponent}
+      { path: 'feedbacks', component: FeedbackFormComponent }
 
 
     ]

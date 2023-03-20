@@ -30,10 +30,7 @@ async function signup(input) {
       usernameExists: false,
     };
   }
-  const defaultImage = {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png",
-    contentType: "image/png",
-  };
+  const defaultImage =  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
   const image = input.image || defaultImage;
   const user = new User({
     username: input.username,

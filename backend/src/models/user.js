@@ -37,10 +37,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: roles,
   },
-  image: {
-    url: String,
-    contentType: String,
-  },
+  image: String,
   resetpwdToken: String,
   loginfailedAttempt: {
     count: Number,
@@ -53,7 +50,12 @@ const userSchema = new mongoose.Schema({
     code : String, 
     expiresAt: Date,
 
-  }
+  },
+  emailChange : {
+    code : String,
+    expiresAt: Date
+  },
+  email_change_option: Boolean
 });
 
 const User = mongoose.model("Users", userSchema);

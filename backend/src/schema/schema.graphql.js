@@ -1,6 +1,7 @@
 const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   scalar DateTime
+  scalar Upload
 
   enum Role {
     FARMER
@@ -8,23 +9,20 @@ const typeDefs = gql`
     ADMIN
   }
 
-
   enum Category {
     TECHNICAL
     NON_TECHNICAL
     FUNCTIONAL
   }
- 
 
   type Feedback {
     id: ID!
     title: String!
     subject: String!
     content: String!
-    category:Category!
-    rating:Int!
+    category: Category!
+    rating: Int!
   }
-
 
   input FeedbackInput {
     title: String!
@@ -33,81 +31,78 @@ const typeDefs = gql`
     rating: Int!
     category: Category!
   }
-  
-  
-  enum Gender{
+
+  enum Gender {
     MALE
     FEMALE
   }
-    
+
   type User {
     id: ID!
     username: String!
     email: String!
-    phone:Int!
+    phone: Int!
     password: String!
     createdAt: DateTime!
     updatedAt: DateTime!
     isActive: Boolean!
     isBlocked: Boolean!
-    gender:Gender!
+    gender: Gender!
     role: Role!
-    image: Image
-    two_FactAuth_Option:Boolean!
-    location:String!
+    image: String
+    two_FactAuth_Option: Boolean!
+    location: String
+    email_change_option: Boolean
   }
-  type Two_FactAuth  { 
-    code : String! 
+  type Two_FactAuth {
+    code: String!
     expiresAt: DateTime!
-
   }
 
-  type Image {
-    url: String!
-    contentType: String!
+  type emailChange {
+    code: String!
+    expiresAt: DateTime!
   }
 
   input UserInput {
     username: String!
     email: String!
-    phone:Int!
+    phone: Int!
     password: String!
     isActive: Boolean!
-    gender:Gender!
+    gender: Gender!
     role: Role!
-    image: ImageInput
+    image: Upload
     two_FactAuth_Option: Boolean
-    location:String!
-
+    location: String
   }
-  input twoFactorAuthUserInput { 
-    code : String!
+  input twoFactorAuthUserInput {
+    code: String!
     expiresAt: DateTime!
-
+  }
+  input emailChangeUserInput {
+    code: String!
+    expiresAt: DateTime!
   }
 
-  input ImageInput {
-    url: String!
-    contentType: String!
+  type deliveryAgent {
+    id: ID!
+    login: String!
+    fullName: String!
+    email: String!
+    password: String!
+    phone: Int!
+    image: String
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    longitude: String
+    latitude: String
   }
-type deliveryAgent {
-  id: ID!
-  login: String!
-  fullName: String!
-  email: String!
-  password: String!
-  phone: Int!
-  image: Image
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  longitude: String
-  latitude: String
-}
-type loginDriverResponse {
-  login:String!
-  message:String!
-}
-input loginDriverInput {
+  type loginDriverResponse {
+    login: String!
+    message: String!
+  }
+  input loginDriverInput {
     login: String!
     password: String!
   }
@@ -117,153 +112,166 @@ input loginDriverInput {
     password: String!
   }
   type LoginResponse {
-    user:User
+    user: User
     accessToken: String!
     message: String!
     expiresIn: Int!
-    userfound:Boolean!
-    passwordIsValid:Boolean!
+    userfound: Boolean!
+    passwordIsValid: Boolean!
   }
-  type ForgetpwdResponse{
-    message:String!
-    mailstatus:Boolean!
+  type ForgetpwdResponse {
+    message: String!
+    mailstatus: Boolean!
   }
-  type acilResponse{
-    message:String!
-    
+  type acilResponse {
+    message: String!
   }
-  input ForgetpwdInput{
+  input ForgetpwdInput {
     email: String!
   }
 
-
-
-
-
-
-
-
-
-
-
-  input twoFactorAuthInput{
+  input twoFactorAuthInput {
     username: String!
   }
-  type twoFactorAuthResponse{
-    message:String!
-    statusCode:Boolean!
-
+  type twoFactorAuthResponse {
+    message: String!
+    statusCode: Boolean!
   }
 
-
-  input verifyOTPInput{
+  input verifyOTPInput {
     username: String!
-    otp:String!
+    otp: String!
   }
-  type verifyOTPResponse{
-    message:String!
-    statusCode:Boolean!
+  type verifyOTPResponse {
+    message: String!
+    statusCode: Boolean!
   }
 
+  input verifyEmailChangeOTPInput {
+    username: String!
+    otp: String!
+  }
+  type verifyEmailChangeOTPResponse {
+    message: String!
+    statusCode: Boolean!
+  }
 
-
-
-
-
-  input twoFactorAuthInput{
+  input emailChangeInput {
     username: String!
   }
-  type twoFactorAuthResponse{
-    message:String!
-    statusCode:Boolean!
 
+  type emailChangeResponse {
+    message: String!
+    statusCode: Boolean!
   }
-  type SignupResponse{
+
+  input twoFactorAuthInput {
+    username: String!
+  }
+  type twoFactorAuthResponse {
+    message: String!
+    statusCode: Boolean!
+  }
+  type SignupResponse {
     message: String!
     emailExists: Boolean!
     usernameExists: Boolean!
   }
-  type DriverResponse{
+  type DriverResponse {
     message: String!
     emailExists: Boolean!
     loginExists: Boolean!
   }
 
-input AgentInput {
+  input AgentInput {
     login: String!
     password: String!
     fullName: String!
     email: String!
     phone: Int!
-}
+  }
 
-
-  type UpdatepwdResponse{
+  type UpdatepwdResponse {
     message: String!
-    updateStatus:Boolean!
-    userFound:Boolean!
+    updateStatus: Boolean!
+    userFound: Boolean!
   }
 
-  input resetpwd{
+  input resetpwd {
     email: String!
-    password:String!
-    token:String!
+    password: String!
+    token: String!
   }
 
- 
-  input checkresettoken{
-    token:String!
-    email:String!
+  input updateEmail {
+    username: String!
+    email: String!
   }
-  type checkresettokenResponse{
+
+  type UpdateEmailResponse {
+    message: String!
+    updateStatus: Boolean!
+    userFound: Boolean!
+    emailExist: Boolean!
+  }
+  type UserUpdateResponse {
+    message: String!
+    usernameExists: Boolean!
+  }
+  input checkresettoken {
+    token: String!
+    email: String!
+  }
+  type checkresettokenResponse {
     valid: Boolean!
-    message:String!
+    message: String!
   }
-input AgentLocationInput {
+  input AgentLocationInput {
     id: ID!
     longitude: String!
     latitude: String!
-}
-type Query {
+  }
+  type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
     getdeliveryAgent(id: ID!): deliveryAgent!
     getdeliveryAgents: [deliveryAgent!]!
-    
+
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
-    
-}
+  }
 
   type Mutation {
     signup(input: UserInput!): SignupResponse!
     signin(input: signinInput!): LoginResponse!
-    sendmail(input:ForgetpwdInput!):ForgetpwdResponse!
-    sendOTPVerificationEmail(input:twoFactorAuthInput!):twoFactorAuthResponse!
-    resetpwd(input:resetpwd!):UpdatepwdResponse!
-    checkresettoken(input:checkresettoken!):checkresettokenResponse!
+    sendmail(input: ForgetpwdInput!): ForgetpwdResponse!
+    sendOTPVerificationEmail(input: twoFactorAuthInput!): twoFactorAuthResponse!
+    sendOTPVerificationSms(input: emailChangeInput!): emailChangeResponse!
+    resetpwd(input: resetpwd!): UpdatepwdResponse!
+    updateEmail(input: updateEmail!): UpdateEmailResponse!
+    checkresettoken(input: checkresettoken!): checkresettokenResponse!
 
-    verifyOTP(input:verifyOTPInput!):twoFactorAuthResponse!
-    updateUser(id: ID!, input: UserInput!): User!
+    verifyOTP(input: verifyOTPInput!): twoFactorAuthResponse!
+    verifyEmailChangeOTP(
+      input: verifyEmailChangeOTPInput!
+    ): emailChangeResponse!
+    updateUser(id: ID!, input: UserInput!, file: Upload): UserUpdateResponse!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
 
-    infomail(input: AgentInput!):acilResponse
+    infomail(input: AgentInput!): acilResponse
 
     createdeliveryAgent(input: AgentInput!): DriverResponse!
-    updatedeliveryAgent(id: ID! ,input:AgentInput!): DriverResponse!
+    updatedeliveryAgent(id: ID!, input: AgentInput!): DriverResponse!
 
-    updateLocation( input: AgentLocationInput!): deliveryAgent!
+    updateLocation(input: AgentLocationInput!): deliveryAgent!
     deletedeliveryAgent(id: ID!): deliveryAgent!
-    loginDriver(input: loginDriverInput!):loginDriverResponse!
+    loginDriver(input: loginDriverInput!): loginDriverResponse!
 
     createFeedback(input: FeedbackInput!): Feedback!
     updateFeedback(id: ID!, input: FeedbackInput!): Feedback!
     deleteFeedback(id: ID!): Feedback!
-}
+  }
 `;
 
 module.exports = typeDefs;
-
-
-

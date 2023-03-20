@@ -8,15 +8,13 @@ export type User = {
   email: string;
   password: string;
   location:string;
-  isActive: Boolean;
+  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
-  isBlocked: Boolean;
+  isBlocked: boolean;
   gender: genders;
   role: roles;
-  image: {
-    url: string;
-    contentType: string;
-  };
+  image: string
   two_FactAuth_Option:boolean;
+  email_change_option: boolean;
 };

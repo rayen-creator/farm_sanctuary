@@ -9,10 +9,8 @@ const deliveryAgentSchema = new mongoose.Schema(
     phone: Number,
     longitude: String,
     latitude: String,
-    image: {
-      url: String,
-      contentType: String
-    }
+    image: String
+
     
     
 
