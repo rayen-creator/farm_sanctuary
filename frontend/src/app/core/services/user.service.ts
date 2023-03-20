@@ -24,6 +24,9 @@ export class UserService {
                private toastr: ToastrService, private auth: AuthService) { }
 
   verifyMailChangeOTP(username: string, otp: string) {
+    this.token=this.auth.getToken();
+    this.decodedToken = jwt_decode(this.token) as DecodedToken;
+    this.userId=this.decodedToken.id;
     const input = {
       username: username,
       otp: otp,
@@ -36,7 +39,8 @@ export class UserService {
           input: input,
         },
         refetchQueries: [{
-          query: user
+          query: user,
+          variables: {id:this.userId}
         }]
       })
       .subscribe({
@@ -123,7 +127,7 @@ export class UserService {
           input: input,
         },
         refetchQueries: [{
-      query: user
+      query: user,
     }]
       })
       .subscribe({

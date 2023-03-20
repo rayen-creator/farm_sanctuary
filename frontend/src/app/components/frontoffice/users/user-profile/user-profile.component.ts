@@ -40,11 +40,6 @@ export class UserProfileComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(): void {
-    this.currentRoute.params.subscribe(params => {
-      // fetch the updated data from the server using the new route parameter
-      const id = params['id'];
-      // fetch data and update component state here
-    });
     let id = this.currentRoute.snapshot.params['id'];
     this.mySubscription = this.apollo
       .watchQuery({
@@ -134,7 +129,8 @@ export class UserProfileComponent implements OnInit,OnDestroy {
             mutation: updateUser,
             variables: {id, input: input, file: this.selectedFile},
             refetchQueries: [{
-              query: user
+              query: user,
+              variables: {id}
             }],
             context: {
               useMultipart: true
