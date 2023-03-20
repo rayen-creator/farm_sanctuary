@@ -75,12 +75,12 @@ export class AuthService {
           // console.log("username " + loginresponse.signin.username);
           // console.log('&&&&&&&&&&&&&&&&&' + this.isUserAuthenticated);
           const token = loginresponse.signin.accessToken;
-          const username = loginresponse.signin.username;
+          const username = loginresponse.signin.user.username;
           const IspassowrdValid = loginresponse.signin.passwordIsValid;
-          const blockedByAdmin = loginresponse.signin.blocked;
+          const blockedByAdmin = loginresponse.signin.user.isBlocked;
           const userfound = loginresponse.signin.userfound;
-          const role = loginresponse.signin.role;
-          const two_FactAuth_Option=loginresponse.signin.two_FactAuth_Option;
+          const role = loginresponse.signin.user.role;
+          const two_FactAuth_Option=loginresponse.signin.user.two_FactAuth_Option;
 
           this.token = token;
           // this.role=role;

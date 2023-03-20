@@ -2,11 +2,11 @@ import { roles } from './role';
 import { genders } from './gender';
 
 export type User = {
-  id: String;
-  username: String;
+  id: string;
+  username: string;
   phone: Number;
-  email: String;
-  password: String;
+  email: string;
+  password: string;
   isActive: Boolean;
   createdAt: Date;
   updatedAt: Date;

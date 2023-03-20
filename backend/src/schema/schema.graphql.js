@@ -66,15 +66,12 @@ const typeDefs = gql`
     password: String!
   }
   type LoginResponse {
+    user:User
     accessToken: String!
-    username: String!
     message: String!
     expiresIn: Int!
     userfound:Boolean!
     passwordIsValid:Boolean!
-    blocked:Boolean!
-    role:Role
-    two_FactAuth_Option: Boolean
   }
   type ForgetpwdResponse{
     message:String!

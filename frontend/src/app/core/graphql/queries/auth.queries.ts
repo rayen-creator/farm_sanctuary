@@ -3,15 +3,18 @@ import { gql } from "apollo-angular";
 export const login = gql`
 mutation signin($input: signinInput!) {
   signin(input: $input) {
+    user{
+      username
+      role
+      isBlocked
+      two_FactAuth_Option
+    }
     accessToken
-    username
     message
     expiresIn
     userfound
     passwordIsValid
-    blocked
-    role
-    two_FactAuth_Option
+  
   }
 }
 `;
@@ -35,7 +38,7 @@ mutation sendmail($input: ForgetpwdInput!) {
 }
 `;
 
-export const checkresettoken=gql`
+export const checkresettoken = gql`
 mutation checkresettoken($input: checkresettoken!) {
   checkresettoken(input: $input) {
     valid
@@ -62,7 +65,7 @@ export const VERIFY_OTP_MUTATION = gql`
       
     }
   }
-`; 
+`;
 
 export const SEND_OTP_MUTATION = gql`
   mutation SendOTPMutation($input: twoFactorAuthInput!) {
