@@ -1,4 +1,4 @@
-import { Agent } from '../models/deliveryAgent';
+import { Agent } from '../../models/deliveryAgent';
 import { gql } from "apollo-angular";
 const Agents  = gql`
 { 

@@ -65,13 +65,14 @@ async function signin(input) {
   if (!user) {
     return {
       accessToken: "",
-      username: "",
+      // username: "",
       message: "User not found",
       expiresIn: 0,
       userfound: false,
       passwordIsValid: false,
-      blocked: false,
-      role: null,
+      // blocked: false,
+      // role: null,
+      user:null
     };
   }
 
@@ -80,13 +81,14 @@ async function signin(input) {
   if (!passwordIsValid) {
     return {
       accessToken: "",
-      username: "",
+      // username: "",
       message: "Auth failed ! Invalid Password!",
       expiresIn: 0,
       userfound: true,
       passwordIsValid: false,
-      blocked: false,
-      role: null,
+      // blocked: false,
+      // role: null,
+      user:null
     };
   }
 
@@ -99,26 +101,28 @@ async function signin(input) {
   if (user.two_FactAuth_Option) {
     return {
       accessToken: token,
-      username: user.username,
+      // username: user.username,
       message: "OK",
       expiresIn: process.env.JWT_EXPIRE_IN,
       userfound: true,
       passwordIsValid: true,
-      blocked: user.isBlocked,
-      role: user.role,
-      two_FactAuth_Option: user.two_FactAuth_Option,
+      // blocked: user.isBlocked,
+      // role: user.role,
+      // two_FactAuth_Option: user.two_FactAuth_Option,
+      user : user
     };
   } else {
     return {
       accessToken: token,
-      username: user.username,
+      // username: user.username,
       message: "OK",
       expiresIn: process.env.JWT_EXPIRE_IN,
       userfound: true,
       passwordIsValid: true,
-      blocked: user.isBlocked,
-      role: user.role,
-      two_FactAuth_Option: false,
+      // blocked: user.isBlocked,
+      // role: user.role,
+      // two_FactAuth_Option: false,
+      user : user
     };
   }
 }

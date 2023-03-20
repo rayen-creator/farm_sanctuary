@@ -1,7 +1,7 @@
 import { Apollo, gql } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { createFeedback } from '../graphql/graphql.queries'
+import { createFeedback } from '../graphql/queries/graphql.queries'
 import { Feedback } from '../models/feedback';
 
 @Injectable({

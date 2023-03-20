@@ -4,7 +4,7 @@ import { rating} from 'src/app/core/models/rating';
 
 import { Feedback } from 'src/app/core/models/feedback';
 import { FeedbackService } from 'src/app/core/services/feedback.service';
-import { feedbacks } from 'src/app/graphql/graphql.queries.feedback';
+import { feedbacks } from 'src/app/core/graphql/queries/graphql.queries.feedback';
 
 @Component({
   selector: 'app-feedback-list',

@@ -3,7 +3,7 @@ import { updateDriverResponse } from './../../../core/graphql/graphqlResponse/up
 import {Customvalidator} from "../../../core/utils/custom-validator"
 import { Agent } from './../../../core/models/deliveryAgent';
 import { Component, OnInit } from '@angular/core';
-import {Agents ,infomail,updatedeliveryAgent, createdeliveryAgent,getdeliveryAgent} from "../../../core/graphql/graphql.queries.agent";
+import {Agents ,infomail,updatedeliveryAgent, createdeliveryAgent,getdeliveryAgent} from "../../../core/graphql/queries/graphql.queries.agent";
 import {Apollo, gql} from "apollo-angular";
 import { FormBuilder,FormControl,FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
