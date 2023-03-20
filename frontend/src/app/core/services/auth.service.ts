@@ -79,6 +79,9 @@ export class AuthService {
           const role = loginresponse.signin.user.role;
           const two_FactAuth_Option=loginresponse.signin.user.two_FactAuth_Option;
 
+          //it should be fixed soon
+          // const img='loginresponse.signin.user.image.url';
+
           this.token = token;
           // this.role=role;
 
@@ -169,6 +172,10 @@ export class AuthService {
 
   getToken() {
     return this.token;
+  }
+
+  getImg(){
+    return localStorage.getItem('img');
   }
 
   getRole() {
@@ -322,10 +329,6 @@ export class AuthService {
   }
 
   private clearAuthData() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    localStorage.removeItem('expiration');
-    localStorage.removeItem('role');
     localStorage.clear();
   }
 
@@ -333,12 +336,14 @@ export class AuthService {
     token: string,
     username: string,
     expirationDate: Date,
-    role: roles
+    role: roles,
   ) {
     localStorage.setItem('token', token);
     localStorage.setItem('username', username);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('role', role);
+    // localStorage.setItem('img', img);
+
   }
 
   verifyOTP(username: string, otp: string) {
