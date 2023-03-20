@@ -104,11 +104,22 @@
                   <h6 class="mb-0">Email</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <p>{{user.email}}</p>
+                  <input
+                    *ngIf="user.email_change_option"
+                    class="form-control"
+                    formControlName="email"
+                    id="email"
+                    name="email"
+                    type="email"
+                  />
+                  <p *ngIf="!user.email_change_option">{{user.email}}</p>
                   <a routerLink="twofactorauth" style="font-size: 0.8rem; padding: 0;" (click)="sendSMS()">Change Email</a>
                 </div>
               </div>
-
+              <span class="text-danger error-msg error-msg" *ngIf="!userForm.get('email')?.valid && userForm.get('email')?.touched">
+                                    <span  *ngIf="userForm.get('email')?.errors?.['required']" class="error">this field is required !</span >
+                                    <span  *ngIf="userForm.get('email')?.errors?.['email']" class="error">enter a valid email !</span >
+                                  </span>
 
 
 

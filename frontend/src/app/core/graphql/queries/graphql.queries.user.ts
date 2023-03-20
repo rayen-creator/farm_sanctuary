@@ -14,7 +14,8 @@ const users = gql`
       gender,
       role,
       image
-      two_FactAuth_Option
+      two_FactAuth_Option,
+      email_change_option
     }
   }
 `;
@@ -35,7 +36,8 @@ const user = gql`
       isBlocked,
       role,
       image ,
-      two_FactAuth_Option
+      two_FactAuth_Option,
+      email_change_option
     }
   }
 `;

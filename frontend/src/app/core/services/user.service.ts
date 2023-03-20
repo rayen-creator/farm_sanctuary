@@ -35,6 +35,9 @@ export class UserService {
         variables: {
           input: input,
         },
+        refetchQueries: [{
+          query: user
+        }]
       })
       .subscribe({
         next: (rest) => {
@@ -48,7 +51,7 @@ export class UserService {
               'success !',
               'success'
             );
-            this.router.navigate(['/change-email']);
+
 
           } else {
             this.toastr.error(

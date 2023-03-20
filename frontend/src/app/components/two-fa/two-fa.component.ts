@@ -19,7 +19,7 @@ export class TwoFAComponent implements OnInit {
   verificationCode: string = '';
   usernameSubs :Subscription;
 
-  constructor(private authservice: AuthService,private userService: UserService, private formBuilder: FormBuilder,private toaster:ToastrService, private currentRoute: ActivatedRoute) { }
+  constructor(private authservice: AuthService,private router: Router,private userService: UserService, private formBuilder: FormBuilder,private toaster:ToastrService, private currentRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.verifyOTPForm = this.formBuilder.group({
@@ -52,6 +52,7 @@ export class TwoFAComponent implements OnInit {
     if (form.firstNumber != "" || form.secondNumber != "" || form.thirdNumber != "" || form.fourthNumber != "") {
       if (id) {
         this.userService.verifyMailChangeOTP(this.username, verificationCode.toString());
+        this.router.navigate(['/profile', id]);
       } else {
         this.authservice.verifyOTP(this.username, verificationCode.toString());
       }

@@ -172,6 +172,7 @@ async function sendOTPVerificationSms(input) {
             emailChange: {
                 code: hashedOTP,
                 expiresAt: expiresAt,
+                verified: false,
             },
         }
     );
@@ -275,14 +276,33 @@ async function verifyEmailChangeOTP(input) {
     console.log(input.otp);
     console.log(user.emailChange.code);
     console.log("match0", match);
+    const now1 = Date.now();
+    const expiresAt = now1 + 3600000;
     if (match) {
+        const updateEmailChange={
+            $unset: { emailChange: 1 },
+            email_change_option:true,
+            updatedAt:new Date(),
+        }
         // OTP is valid
         // Clear OTP code and expiration time
         await User.updateOne(
             { email: user.email },
-            { $unset: { emailChange: 1 } }
+            updateEmailChange
         );
+        const task = schedule.scheduleJob(new Date(expiresAt), async () => {
+            try {
+                const result = await User.updateOne(
+                    { email: user.email },
+                    {  email_change_option: false  }
+                );
+                console.log("the field emailChange is done" + result);
+            } catch (error) {
+                console.error(error);
+            }
+        });
         return { message: "OTP verified", statusCode: true };
+
         // 2FA record has expired, delete it
         // user.two_FactAuth = undefined;
         // await user.save();

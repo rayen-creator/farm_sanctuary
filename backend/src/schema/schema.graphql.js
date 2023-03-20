@@ -27,6 +27,7 @@ const typeDefs = gql`
         role: Role!
         image: String
         two_FactAuth_Option:Boolean!
+        email_change_option:Boolean
     }
     type Two_FactAuth  {
         code : String!
@@ -58,7 +59,6 @@ const typeDefs = gql`
     input emailChangeUserInput {
         code : String!
         expiresAt: DateTime!
-
     }
 
     type deliveryAgent {

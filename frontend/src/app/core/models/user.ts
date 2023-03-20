@@ -15,4 +15,6 @@ export type User = {
   role: roles;
   image: string
   two_FactAuth_Option:boolean;
+
+  email_change_option: boolean;
 };
