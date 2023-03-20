@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import {createFeedback, feedbacks} from "../../../../core/graphql/graphql.queries";
+import {createFeedback, feedbacks} from "../../../../core/graphql/queries/graphql.queries";
 import {Apollo, gql} from "apollo-angular";
 import {Feedback} from "../../../../core/models/feedback";
 import Swal from 'sweetalert2'

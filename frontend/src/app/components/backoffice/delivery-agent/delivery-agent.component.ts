@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Agents, deletedeliveryAgent} from "../../../core/graphql/graphql.queries.agent";
+import {Agents, deletedeliveryAgent} from "../../../core/graphql/queries/graphql.queries.agent";
 import {Apollo, gql} from "apollo-angular";
 import {Agent} from "../../../../app/core/models/deliveryAgent";
 import {DatePipe} from "@angular/common";
