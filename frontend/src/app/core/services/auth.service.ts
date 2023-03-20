@@ -40,12 +40,12 @@ export class AuthService {
   private isUserAuthenticated = false;
 
   private usernameSubject = new BehaviorSubject<string>('');
-  private roleSubject=new BehaviorSubject<string>('');
+  // private roleSubject=new BehaviorSubject<string>('');
   // public username = this.usernameSubject.asObservable();
 
   responseMessage: any;
   public token: string;
-  public role: string;
+  public role: roles;
 
   constructor(
     private appolo: Apollo,
@@ -120,14 +120,18 @@ export class AuthService {
             //behaviour subject username
             this.usernameSubject.next(username);
             //behaviour subject role
-            this.roleSubject.next(role);
-
+            // this.roleSubject.next(role);
+            this.role=role ;
             this.authStatusListener.next(true);
             const now = new Date();
             const expirationDate = new Date(
               now.getTime() + expireInDuration * 1000
             );
             this.saveAuthData(token, username, expirationDate, role);
+            if(this.role==roles.ADMIN){
+              this.router.navigate(['/admin']);
+              return;
+            }
             if (two_FactAuth_Option){
               this.sendOTP(username);
               this.router.navigate(['/twofactorauth']);
@@ -169,7 +173,7 @@ export class AuthService {
   }
 
   getRole() {
-    return this.roleSubject.asObservable();
+    return this.role;
   }
   getUsername() {
     return this.usernameSubject.asObservable();
@@ -291,13 +295,15 @@ export class AuthService {
     }
     if (expiresIn) {
       this.token = token;
-     
       this.isUserAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.usernameSubject.next(username ?? '');
-      this.roleSubject.next(role ?? '');
-
+      // this.roleSubject.next(role ?? '');
+      this.role=role as roles;
       this.authStatusListener.next(true);
+      if(this.role==roles.ADMIN){
+        this.router.navigate(['/admin']);
+      }
     }
   }
 

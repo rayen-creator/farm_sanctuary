@@ -33,7 +33,8 @@
               <div class="text">
                 <p>
                   <a href="mailto:farm_sanctuary@gmail.com"
-                    >farm_sanctuary@gmail.com</a
+                    >farmsanctuary910@gmail.com
+                    </a
                   >
                 </p>
               </div>
@@ -82,7 +83,7 @@
                   <li class="dropdown megamenu">
                     <a routerLink="home">Home</a>
                   </li>
-                  <li><a href="about.html">About</a></li>
+                  <li><a routerLink="about">About</a></li>
                   <li class="dropdown">
                     <a href="#">Services</a>
                     <ul>
@@ -101,7 +102,7 @@
                       <li><a href="dairy-products.html">Dairy Products</a></li>
                     </ul>
                   </li>
-                  <li class="dropdown">
+                  <!-- <li class="dropdown">
                     <a href="#">Page</a>
                     <ul>
                       <li><a href="farmers.html">Farmers</a></li>
@@ -114,7 +115,7 @@
                       <li><a href="faq.html">Faq</a></li>
                       <li><a href="error.html">Error</a></li>
                     </ul>
-                  </li>
+                  </li> -->
                   <li class="dropdown">
                     <a href="shop.html">Shop</a>
                     <ul>
@@ -153,6 +154,8 @@
                       <li><a href="news-details.html">News Details</a></li>
                     </ul>
                   </li>
+                  <li><a routerLink="contact">Contact</a></li>
+
                 </ul>
               </div>
             </div>
@@ -181,6 +184,9 @@
 
           <div class="main-header--one__bottom-right clearfix">
             <div class="search-cart">
+              <a routerLink="feedbacks" class="search search-toggler" *ngIf="userIsAuthenticated"
+              ><span class="bx bx-message-dots"></span
+            ></a>
               <a href="#" class="search search-toggler"
                 ><span class="icon-magnifying-glass"></span
               ></a>
@@ -188,20 +194,22 @@
                 ><span class="icon-shopping-cart"></span
               ></a>
             </div>
-            <div class="contact-box" *ngIf="userIsAuthenticated">         
-                <img
-                  src="assets/images/auth_img/client.jpg"
-                  alt="Avatar"
-                  class="avatar"
-                />  
+            <div class="contact-box" *ngIf="userIsAuthenticated">
+              <img
+                src="assets/images/auth_img/client.jpg"
+                alt="Avatar"
+                class="avatar"
+              />
               <div class="text">
-                <a routerLink="profile/{{userId}}" ><h6>{{ username }}</h6></a>
-                <p>{{role}}</p>
-              </div>&nbsp;&nbsp;
-              <button class="btn btn-danger" (click)="loggingout()">Sign out</button>
-
+                <h6>{{ username }}</h6>
+                <a routerLink="profile/{{ userId }}"><p>Settings</p></a>
+              </div>
+              &nbsp;&nbsp;
+              <button class="btn btn-danger" (click)="loggingout()">
+                Sign out
+              </button>
             </div>
-            <div class="contact-box" *ngIf="!userIsAuthenticated">         
+            <div class="contact-box" *ngIf="!userIsAuthenticated">
               <!-- <img
                 src="assets/images/auth_img/client.jpg"
                 alt="Avatar"
@@ -210,11 +218,11 @@
             <div class="text">
               <a href="#"><h6>{{ username }}</h6></a>
               <p>{{role}}</p> -->
-            <!-- </div>&nbsp;&nbsp; -->
-            <button class="btn btn-success" routerLink="login">Sign in</button>
-
-          </div>
-            
+              <!-- </div>&nbsp;&nbsp; -->
+              <button class="btn btn-success" routerLink="login">
+                Sign in
+              </button>
+            </div>
           </div>
         </div>
       </div>

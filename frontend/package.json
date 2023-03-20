@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@abacritt/angularx-social-login": "^2.0.0",
     "@angular/animations": "^14.2.12",
     "@angular/common": "^14.2.12",
     "@angular/compiler": "^14.2.12",
@@ -20,6 +21,8 @@
     "@angular/platform-browser-dynamic": "^14.2.12",
     "@angular/router": "^14.2.12",
     "@apollo/client": "^3.0.0",
+    "@types/google-one-tap": "^1.2.2",
+    "angularx-social-login": "^4.1.0",
     "apexcharts": "^3.37.1",
     "apollo-angular": "^4.2.1",
     "apollo-angular-link-http": "^1.11.0",
@@ -28,14 +31,17 @@
     "boxicons": "^2.1.4",
     "graphql": "^16",
     "graphql-tag": "^2.12.6",
+    "intl-tel-input": "^17.0.21",
     "jwt-decode": "^3.1.2",
     "ng-apexcharts": "^1.7.4",
+    "ng2-tel-input": "^2.3.0",
     "ngx-toastr": "15.2.2",
     "ngx-toggle-switch": "^2.0.5",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.7.3",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "@apollo/client": "^3.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.10",

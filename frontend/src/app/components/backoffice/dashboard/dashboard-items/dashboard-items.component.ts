@@ -38,44 +38,42 @@ export class AdminDashboardComponent implements OnInit {
 
   adminList: User[] = [];
   userList: User[] = [];
-  numberOfAdmins: Number;
-  numberOfarmers: Number;
-  numberOfClients: Number;
+
   numberOfMaleClients: Number;
   numberOfFemalClients: Number;
   numberOfFemaleFarmers: Number;
   numberOfMaleFarmers: Number;
-  numberOfActiveUsers: Number;
-  numberOfNonActiveUsers: Number;
-
 
 
   date: string;
   count: number;
-
-
-
-  constructor(private apollo: Apollo) {
-
-  }
-
-
+  constructor(private apollo: Apollo) { }
 
   ngOnInit(): void {
-
     this.UsersCount();
     this.UsersCountByCategory();
     this.UserCountByDate();
-    console.log(this.numberOfFemaleFarmers)
   }
 
   countAllUsers() {
     return this.userList.filter(user => user.role != roles.ADMIN).length;
   }
-  getAllActiveUser(){
+  getAllActiveUser() {
     return this.userList.filter(user =>
       user.role != roles.ADMIN && user.isActive
     ).length;
+  }
+
+  getAllnumberOfarmers() {
+    return this.userList.filter((user) => user.role == roles.FARMER).length;
+  }
+  getAllnumberOfClients() {
+    return this.userList.filter((user) => user.role == roles.CLIENT).length;
+  }
+
+  getAllnumberOfNonActiveUsers() {
+    return this.userList.filter((user) => user.role != roles.ADMIN && user.isActive).length;
+
   }
 
   UserCountByDate() {
@@ -167,7 +165,6 @@ export class AdminDashboardComponent implements OnInit {
           this.adminList = result.data.getUsers.filter(
             (user: User) => user.role === roles.ADMIN
           );
-          this.numberOfAdmins = this.adminList.length;
           this.adminList = result.data.getUsers.filter(
             (user: User) =>
               user.role === roles.CLIENT && user.gender === genders.FEMALE
@@ -176,7 +173,6 @@ export class AdminDashboardComponent implements OnInit {
           this.adminList = result.data.getUsers.filter(
             (user: User) => user.role === roles.FARMER
           );
-          this.numberOfarmers = this.adminList.length;
           this.adminList = result.data.getUsers.filter(
             (user: User) =>
               user.role === roles.CLIENT && user.gender === genders.MALE
@@ -195,23 +191,15 @@ export class AdminDashboardComponent implements OnInit {
           this.adminList = result.data.getUsers.filter(
             (user: User) => user.isActive === true
           );
-          // this.numberOfActiveUsers = this.userList.filter(user =>
-          //   user.role != roles.ADMIN && user.isActive
-          // ).length;
-          // console.log(this.numberOfActiveUsers)
-
+         
           this.adminList = result.data.getUsers.filter(
             (user: User) => user.isActive === false
           );
-          this.numberOfNonActiveUsers = this.adminList.length;
 
 
           this.adminList = result.data.getUsers.filter(
             (user: User) => user.role === roles.CLIENT
           );
-          this.numberOfClients = this.adminList.length;
-
-
 
           this.chartOptions = {
             series: [this.numberOfMaleClients, this.numberOfFemalClients],
@@ -279,14 +267,6 @@ export class AdminDashboardComponent implements OnInit {
               }
             ]
           };
-
-          // this.adminList.filter(user => user.role === roles.FARMER);
-          // this.numberOfarmers = this.adminList.filter.length;
-          // this.adminList.filter(user => user.role === roles.CLIENT);
-          // this.numberOfClients = this.adminList.filter.length;
-          // this.adminList.filter(user => user.role === roles.CLIENT && user.gender === genders.MALE)
-          // this.numberOfFemalClients = this.adminList.filter.length;
-
         },
         error: (err) => {
           console.log('err :' + err);

@@ -8,11 +8,38 @@ const typeDefs = gql`
     ADMIN
   }
 
+
+  enum Category {
+    TECHNICAL
+    NON_TECHNICAL
+    FUNCTIONAL
+  }
+ 
+
+  type Feedback {
+    id: ID!
+    title: String!
+    subject: String!
+    content: String!
+    category:Category!
+    rating:Int!
+  }
+
+
+  input FeedbackInput {
+    title: String!
+    subject: String!
+    content: String!
+    rating: Int!
+    category: Category!
+  }
+  
+  
   enum Gender{
     MALE
     FEMALE
   }
-
+    
   type User {
     id: ID!
     username: String!
@@ -61,6 +88,28 @@ const typeDefs = gql`
     url: String!
     contentType: String!
   }
+type deliveryAgent {
+  id: ID!
+  login: String!
+  fullName: String!
+  email: String!
+  password: String!
+  phone: Int!
+  image: Image
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  longitude: String
+  latitude: String
+}
+type loginDriverResponse {
+  login:String!
+  message:String!
+}
+input loginDriverInput {
+    login: String!
+    password: String!
+  }
+
   input signinInput {
     email: String!
     password: String!
@@ -76,6 +125,9 @@ const typeDefs = gql`
   type ForgetpwdResponse{
     message:String!
     mailstatus:Boolean!
+  }
+  type acilResponse{
+    message:String!
     
   }
   input ForgetpwdInput{
@@ -129,6 +181,19 @@ const typeDefs = gql`
     emailExists: Boolean!
     usernameExists: Boolean!
   }
+  type DriverResponse{
+    message: String!
+    emailExists: Boolean!
+    loginExists: Boolean!
+  }
+
+input AgentInput {
+    login: String!
+    password: String!
+    fullName: String!
+    email: String!
+    phone: Int!
+}
 
 
   type UpdatepwdResponse{
@@ -152,10 +217,21 @@ const typeDefs = gql`
     valid: Boolean!
     message:String!
   }
-  type Query {
+input AgentLocationInput {
+    id: ID!
+    longitude: String!
+    latitude: String!
+}
+type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
-  }
+    getdeliveryAgent(id: ID!): deliveryAgent!
+    getdeliveryAgents: [deliveryAgent!]!
+    
+    getFeedback(id: ID!): Feedback!
+    getFeedbacks: [Feedback!]!
+    
+}
 
   type Mutation {
     signup(input: UserInput!): SignupResponse!
@@ -169,7 +245,20 @@ const typeDefs = gql`
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): User!
     toggleBlockUser(id: ID!): User!
-  }
+
+    infomail(input: AgentInput!):acilResponse
+
+    createdeliveryAgent(input: AgentInput!): DriverResponse!
+    updatedeliveryAgent(id: ID! ,input:AgentInput!): DriverResponse!
+
+    updateLocation( input: AgentLocationInput!): deliveryAgent!
+    deletedeliveryAgent(id: ID!): deliveryAgent!
+    loginDriver(input: loginDriverInput!):loginDriverResponse!
+
+    createFeedback(input: FeedbackInput!): Feedback!
+    updateFeedback(id: ID!, input: FeedbackInput!): Feedback!
+    deleteFeedback(id: ID!): Feedback!
+}
 `;
 
 module.exports = typeDefs;

@@ -1,0 +1,77 @@
+<div class="container py-5">
+  
+  <div class="row"> 
+    <div class="col-md-12 col-md-offset-3">
+        <form [formGroup]="TitleAndSubjectDetails" id="msform">
+            <!-- progressbar -->
+            <ul id="progressbar">
+                <li [ngClass]="step>=1 ? 'active' : 'inactive'">title & subject</li>
+                <li [ngClass]="step>=2 ? 'active' : 'inactive'">category & rating</li>
+                <li [ngClass]="step==3 ? 'active' : 'inactive'">content</li>
+            </ul>
+            <!-- fieldsets -->
+        
+            <fieldset  *ngIf="step == 1" >
+                <h2 class="fs-title">Give your feedback</h2>
+                <input type="text" formControlName="title"  [ngClass]="{ 'is-invalid': title_step && Title.subject.errors }" placeholder="Title" >
+                <div *ngIf="title_step && TitleAndSubjectDetails.controls.title.errors">
+                    <div *ngIf="Title.title.errors?.['required']">Title is required</div>
+                </div>
+                <input type="text" formControlName="subject" name="subject" placeholder="Subject"/>
+                <div *ngIf="title_step && TitleAndSubjectDetails.controls.subject.errors">
+                  <div *ngIf="Title.subject.errors?.['required']">subject is required</div>
+               </div>
+                
+                <input (click)="next()" type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+        </form>
+         <form [formGroup]="RatingAndCategoryDetails" id="msform">
+            <fieldset *ngIf="step == 2" >
+                <h2 class="fs-title">category and rating </h2>
+                Give your rating 
+                <div class="rating">
+                    
+                   <input type="radio" formControlName="rating"  id="star5" name="rating" value="5" required><label for="star5"></label>
+                   <input type="radio" formControlName="rating" id="star4" name="rating" value="4"><label for="star4"></label>
+                   <input type="radio" formControlName="rating" id="star3" name="rating" value="3"><label for="star3"></label>
+                   <input type="radio" formControlName="rating" id="star2" name="rating" value="2"><label for="star2"></label>
+                   <input type="radio" formControlName="rating" id="star1" name="rating" value="1"><label for="star1"></label>
+                        
+              </div>
+              <div *ngIf="category_step && RatingAndCategoryDetails.controls.rating.errors">
+                <div *ngIf="category.rating.errors?.['required']">rating is required</div>
+              </div>
+            <br>
+            <label>CATEGORY </label>
+            <select  formControlName="category" class="form-control">
+                <option value="FUNCTIONAL" selected>FUNCTIONAL </option>
+                <option value="TECHNICAL">TECHNICAL</option>
+                <option value="NON_TECHNICAL">NON_TECHNICAL</option>
+            </select>
+                <div *ngIf="category_step && RatingAndCategoryDetails.controls.category.errors">
+                    <div *ngIf="category.category.errors?.['required']">category is required</div>
+                </div>
+                
+                <input (click)="previous()" type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input  (click)="next()" type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+        </form>
+         <form [formGroup]="ContentDetails" id="msform">
+            <fieldset *ngIf="step == 3">
+                <h2 class="fs-title">Content Details</h2>
+                <textarea rows="5" cols="5" formControlName="content"  placeholder="type the content of the feedback"></textarea>
+                <div *ngIf="content_step && ContentDetails.controls.content.errors">
+                    <div *ngIf="content.content.errors?.['required']">Content is required</div>
+                </div>
+                
+                <input (click)="previous()" type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input (click)="onSubmit()"type="submit" name="submit" class="submit action-button" value="Submit"/>
+            </fieldset>
+        </form>
+
+    
+
+</div></div></div>
+
+
+
