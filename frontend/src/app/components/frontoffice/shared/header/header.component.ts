@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
 import { AuthService } from 'src/app/core/services/auth.service';
 import jwt_decode from "jwt-decode";
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-header',
@@ -19,16 +20,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userId:string;
   private authListenerSubs: Subscription;
   private usernameSubs: Subscription;
-  private roleSubs: Subscription;
-  constructor(private auth: AuthService) { }
+  private imgSubs: Subscription;
+  constructor(private auth: AuthService,private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.token=this.auth.getToken();
     this.decodedToken = jwt_decode(this.token) as DecodedToken;
     this.userId=this.decodedToken.id;
-
-    //should't stay like this
-    this.img='https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png';
 
     this.userIsAuthenticated = this.auth.isUserAuth();
     this.authListenerSubs = this.auth.getAuthStatusListener().subscribe({
@@ -49,11 +47,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.username = "";
       }
     });
+    this.imgSubs=this.auth.getImg().subscribe({
+      next :(img)=>{
+        this.img=img;
+      },
+      error: () => {
+        this.img = "";
+      }
+    })
 
   }
 
  
-
+  // sanitizeImageUrl(imageUrl: string): SafeUrl {
+  //   return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  // }
 
   ngOnDestroy(): void {
     this.authListenerSubs.unsubscribe();

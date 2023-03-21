@@ -8,6 +8,8 @@ mutation signin($input: signinInput!) {
       role
       isBlocked
       two_FactAuth_Option
+      image
+      location
       
     }
     accessToken

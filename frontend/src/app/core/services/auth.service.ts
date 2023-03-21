@@ -40,7 +40,7 @@ export class AuthService {
   private isUserAuthenticated = false;
 
   private usernameSubject = new BehaviorSubject<string>('');
-
+  private imgUser=new Subject<string>();
 
   responseMessage: any;
   public token: string;
@@ -78,12 +78,10 @@ export class AuthService {
           const userfound = loginresponse.signin.userfound;
           const role = loginresponse.signin.user.role;
           const two_FactAuth_Option=loginresponse.signin.user.two_FactAuth_Option;
-
-          //it should be fixed soon
-          // const img='loginresponse.signin.user.image.url';
-
+          const location=loginresponse.signin.user.location;
+          const img=loginresponse.signin.user.image;
+          
           this.token = token;
-          // this.role=role;
 
           if (!userfound) {
             console.log('userfound should be false ' + !userfound);
@@ -119,6 +117,7 @@ export class AuthService {
             this.isUserAuthenticated = true;
             //behaviour subject username
             this.usernameSubject.next(username);
+            this.imgUser.next(img);
             //behaviour subject role
             // this.roleSubject.next(role);
             this.role=role ;
@@ -127,7 +126,7 @@ export class AuthService {
             const expirationDate = new Date(
               now.getTime() + expireInDuration * 1000
             );
-            this.saveAuthData(token, username, expirationDate, role);
+            this.saveAuthData(token, username, expirationDate, role,img);
             if(this.role==roles.ADMIN){
               this.router.navigate(['/admin']);
               return;
@@ -175,7 +174,7 @@ export class AuthService {
   }
 
   getImg(){
-    return localStorage.getItem('img');
+    return this.imgUser.asObservable();
   }
 
   getRole() {
@@ -284,7 +283,7 @@ export class AuthService {
     const expirationDate = localStorage.getItem('expiration');
     const role = localStorage.getItem('role');
     const username = localStorage.getItem('username');
-
+    const img=localStorage.getItem('img');
     if (!token || !expirationDate) {
       return;
     }
@@ -303,7 +302,7 @@ export class AuthService {
       this.isUserAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.usernameSubject.next(username ?? '');
-
+      this.imgUser.next(img ?? '');
       this.role=role as roles;
       this.authStatusListener.next(true);
 
@@ -337,12 +336,13 @@ export class AuthService {
     username: string,
     expirationDate: Date,
     role: roles,
+    img:string
   ) {
     localStorage.setItem('token', token);
     localStorage.setItem('username', username);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('role', role);
-    // localStorage.setItem('img', img);
+    localStorage.setItem('img', img);
 
   }
 
