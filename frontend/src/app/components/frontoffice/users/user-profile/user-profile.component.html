@@ -155,7 +155,7 @@
                                           class="error">Wrong password !</span>
                                   </span>
               <div
-                [hidden]="!userForm.controls['currentpassword'].touched || userForm.controls['currentpassword'].invalid || !userForm.controls['currentpassword'].dirty"
+                [hidden]="!userForm.controls['currentpassword'].touched || userForm.controls['currentpassword'].invalid || !userForm.controls['currentpassword'].dirty || userForm.controls['currentpassword'].value == '' "
                 class="form-group row mb-3"
                 style="margin-top: 20px">
                 <div class="col-sm-3">
@@ -173,7 +173,7 @@
                                     <span *ngIf="userForm.controls['newpassword'].errors?.['maxlength']" class="error">Password cannot be more than 20 characters long !</span>
                                   </span>
               <div
-                [hidden]="!userForm.controls['currentpassword'].touched || userForm.controls['currentpassword'].invalid || !userForm.controls['currentpassword'].dirty"
+                [hidden]="!userForm.controls['currentpassword'].touched || userForm.controls['currentpassword'].invalid || !userForm.controls['currentpassword'].dirty || userForm.controls['currentpassword'].value == ''"
                 class="form-group row mb-3"
                 style="margin-top: 20px">
                 <div class="col-sm-3">
@@ -198,7 +198,6 @@
                     [disabled]="userForm.invalid"
                     class="btn px-4"
                     style="background-color: #6d8c54; color: aliceblue"
-                    type="button"
                     type="submit"
                     value="Save Changes"
                   />
