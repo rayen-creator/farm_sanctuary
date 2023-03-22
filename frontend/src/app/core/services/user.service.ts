@@ -4,29 +4,29 @@ import {
   updateEmail, user, users,
   VERIFY_EMAIL_CHANGE_OTP_MUTATION
 } from "../graphql/queries/graphql.queries.user";
-import {SendOTPMutationResponse, VerifyOTPResponse} from "../graphql/graphqlResponse/twoFactorAuthResponse";
-import {Apollo} from "apollo-angular";
-import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
-import {SendOTPMutationSmsResponse, verifyEmailChangeOTPResponse} from "../graphql/graphqlResponse/emailChangeResponse";
+import { SendOTPMutationResponse, VerifyOTPResponse } from "../graphql/graphqlResponse/twoFactorAuthResponse";
+import { Apollo } from "apollo-angular";
+import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
+import { SendOTPMutationSmsResponse, verifyEmailChangeOTPResponse } from "../graphql/graphqlResponse/emailChangeResponse";
 import jwt_decode from "jwt-decode";
-import {DecodedToken} from "../graphql/graphqlResponse/decodedToken";
-import {AuthService} from "./auth.service";
+import { DecodedToken } from "../graphql/graphqlResponse/decodedToken";
+import { AuthService } from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  token:string;
-  decodedToken :DecodedToken;
-  userId:string;
-  constructor( private appolo: Apollo,  private router: Router,
-               private toastr: ToastrService, private auth: AuthService) { }
+  token: string;
+  decodedToken: DecodedToken;
+  userId: string;
+  constructor(private appolo: Apollo, private router: Router,
+    private toastr: ToastrService, private auth: AuthService) { }
 
   verifyMailChangeOTP(username: string, otp: string) {
-    this.token=this.auth.getToken();
+    this.token = this.auth.getToken();
     this.decodedToken = jwt_decode(this.token) as DecodedToken;
-    this.userId=this.decodedToken.id;
+    this.userId = this.decodedToken.id;
     const input = {
       username: username,
       otp: otp,
@@ -40,7 +40,7 @@ export class UserService {
         },
         refetchQueries: [{
           query: user,
-          variables: {id:this.userId}
+          variables: { id: this.userId }
         }]
       })
       .subscribe({
@@ -112,10 +112,10 @@ export class UserService {
       });
   }
 
-  updateEmail(username:String,email: String) {
-    this.token=this.auth.getToken();
+  updateEmail(username: String, email: String) {
+    this.token = this.auth.getToken();
     this.decodedToken = jwt_decode(this.token) as DecodedToken;
-    this.userId=this.decodedToken.id;
+    this.userId = this.decodedToken.id;
     const input = {
       username: username,
       email: email
@@ -127,8 +127,8 @@ export class UserService {
           input: input,
         },
         refetchQueries: [{
-      query: user,
-    }]
+          query: user,
+        }]
       })
       .subscribe({
         next: (res) => {
