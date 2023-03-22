@@ -40,7 +40,7 @@ export class AuthService {
   private isUserAuthenticated = false;
 
   private usernameSubject = new BehaviorSubject<string>('');
-  private imgUser=new Subject<string>();
+  private imgUser=new BehaviorSubject<string>('');
 
   responseMessage: any;
   public token: string;
@@ -70,19 +70,9 @@ export class AuthService {
           //get the response
           const loginresponse = res.data as LoginResponse;
 
-         
-          const token = loginresponse.signin.accessToken;
-          const username = loginresponse.signin.user.username;
           const IspassowrdValid = loginresponse.signin.passwordIsValid;
-          const blockedByAdmin = loginresponse.signin.user.isBlocked;
           const userfound = loginresponse.signin.userfound;
-          const role = loginresponse.signin.user.role;
-          const two_FactAuth_Option=loginresponse.signin.user.two_FactAuth_Option;
-          const location=loginresponse.signin.user.location;
-          const img=loginresponse.signin.user.image;
-          
-          this.token = token;
-
+        
           if (!userfound) {
             console.log('userfound should be false ' + !userfound);
 
@@ -100,6 +90,8 @@ export class AuthService {
             });
             return;
           }
+          const blockedByAdmin = loginresponse.signin.user.isBlocked;
+
           if (blockedByAdmin) {
             this.toastr.error(
               'you have been banned by the administrator of the app',
@@ -111,7 +103,13 @@ export class AuthService {
             );
             return;
           }
-
+          const token = loginresponse.signin.accessToken;
+          const username = loginresponse.signin.user.username;
+          const role = loginresponse.signin.user.role;
+          const two_FactAuth_Option=loginresponse.signin.user.two_FactAuth_Option;
+          const location=loginresponse.signin.user.location;
+          const img=loginresponse.signin.user.image;
+          this.token = token;
           if (token) {
             const expireInDuration = loginresponse.signin.expiresIn;
             this.isUserAuthenticated = true;
@@ -126,16 +124,18 @@ export class AuthService {
             const expirationDate = new Date(
               now.getTime() + expireInDuration * 1000
             );
-            this.saveAuthData(token, username, expirationDate, role,img);
             if(this.role==roles.ADMIN){
+              this.saveAuthData(token, username, expirationDate, role,img);
               this.router.navigate(['/admin']);
               return;
             }
             if (two_FactAuth_Option){
               this.sendOTP(username);
+              this.saveAuthData(token, username, expirationDate, role,img);
               this.router.navigate(['/twofactorauth']);
 
             }else{
+              this.saveAuthData(token, username, expirationDate, role,img);
               this.toastr.success('Welcome back to your account', 'Logged In');
               this.router.navigate(['/home']);
             }
