@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
   },
   password: String,
   phone: Number,
-  location:String,
+  location: String,
   createdAt: Date,
   updatedAt: Date,
   isActive: Boolean,
@@ -39,23 +39,22 @@ const userSchema = new mongoose.Schema({
   },
   image: String,
   resetpwdToken: String,
-  loginfailedAttempt: {
-    count: Number,
-    blocked:Boolean,
-    lastAttempt: Date,
-    backonlineat: Date,
-  },
   two_FactAuth_Option: Boolean,
-  two_FactAuth : { 
-    code : String, 
+  two_FactAuth: {
+    code: String,
     expiresAt: Date,
-
   },
-  emailChange : {
-    code : String,
-    expiresAt: Date
+  emailChange: {
+    code: String,
+    expiresAt: Date,
   },
-  email_change_option: Boolean
+  email_change_option: Boolean,
+  feedbacks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Feedback",
+    },
+  ],
 });
 
 const User = mongoose.model("Users", userSchema);

@@ -8,15 +8,14 @@ const category = Object.freeze({
 
 
 const feedbackSchema = new mongoose.Schema({
-    title: String,
-    subject: String,
-    content: String,
-    rating: Number,
-    category: {
-      type: String,
-      enum: category,
-    }
-    
+      title: String,
+      subject: String,
+      content: String,
+      rating: Number,
+      category: {
+        type: String,
+        enum: category,
+      }
   });
   
   const Feedback = mongoose.model("Feedback", feedbackSchema);
