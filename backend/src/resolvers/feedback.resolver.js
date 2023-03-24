@@ -59,4 +59,3 @@ const feedbackResolver = {
 };
 
 module.exports = feedbackResolver;
-module.exports = feedbackResolver;

@@ -1,47 +1,21 @@
-// RecommendedProduct service
-const axios = require('axios');
-const cheerio = require('cheerio');
-const RecommendedProduct = require('../models/recProduct');
+const fetch = require('node-fetch');
+const Product = require('./models/Product');
 
-const RecommendedProductService = {
-  getAll() {
-    return RecommendedProduct.find();
-  },
+async function getProduct(asin) {
+  const product = await Product.findOne({ asin });
+  if (!product) return null;
 
-  getProductById(id) {
-    return RecommendedProduct.findById(id);
-  },
+  // fetch recommended products data
+  const response = await fetch(`https://example.com/api/recommendations/${asin}`);
+  const recommendedProducts = await response.json();
 
-  add(input) {
-    const { name, price, imageURL, url, category } = input;
-    const product = new RecommendedProduct({
-      name,
-      price,
-      imageURL,
-      url,
-      category
-    });
+  // add product URL to recommended products
+  const productUrl = `https://example.com/products/${asin}`;
+  const recommendedProductsWithUrl = recommendedProducts.map(p => ({ ...p, url: productUrl }));
 
-    return product.save();
-  },
+  return { ...product.toObject(), recommendedProducts: recommendedProductsWithUrl };
+}
 
-  delete(id) {
-    return RecommendedProduct.findByIdAndDelete(id);
-  },
-
-  scrapeAndAdd(url) {
-    return axios.get(url)
-      .then(response => {
-        const html = response.data;
-        const $ = cheerio.load(html);
-        const name = $('h1').text();
-        const price = $('span.price').text();
-        const imageURL = $('img.product-image').attr('src');
-
-        return RecommendedProductService.add({ name, price, imageURL, url, category: 'Farm Supplies' });
-      })
-      .catch(error => console.log(error));
-  }
+module.exports = {
+  product: ({ asin }) => getProduct(asin),
 };
-
-module.exports = RecommendedProductService;

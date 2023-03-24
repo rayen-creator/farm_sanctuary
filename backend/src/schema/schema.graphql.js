@@ -107,22 +107,24 @@ const typeDefs = gql`
     password: String!
   }
 
+  type Product {
+    title: String
+    price: Float
+    image: String
+    description: String
+    rating: Float
+    reviews: [ProductReview]
+    recommendedProducts: [RecommendedProduct]
+  }
+
   type RecommendedProduct {
-    id: ID!
-    name: String!
-    price: Float!
-    imageURL: String!
-    url: String!
-    category: String!
+    title: String
+    price: Float
+    image: String
+    url: String
   }
   
-  input RecommendedProductInput {
-    name: String!
-    price: Float!
-    imageURL: String!
-    url: String!
-    category: String!
-  }
+ 
 
   
 
@@ -210,6 +212,23 @@ const typeDefs = gql`
     phone: Int!
   }
 
+  type RecommendedProduct {
+    title: String
+    price: Float
+    image: String
+    url: String
+  }
+  
+  type Product {
+    title: String
+    price: Float
+    image: String
+    description: String
+    rating: Float
+    reviews: [ProductReview]
+    recommendedProducts: [RecommendedProduct]
+  }  
+
   type UpdatepwdResponse {
     message: String!
     updateStatus: Boolean!
@@ -259,8 +278,7 @@ const typeDefs = gql`
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
 
-    recommendedProducts: [RecommendedProduct]
-    recommendedProduct(id: ID!): RecommendedProduct
+    product(asin: String!): Product
 
   }
 
@@ -295,9 +313,7 @@ const typeDefs = gql`
     updateFeedback(id: ID!, input: FeedbackInput!): Feedback!
     deleteFeedback(id: ID!): Feedback!
 
-    addRecommendedProduct(input: RecommendedProductInput): RecommendedProduct
-    deleteRecommendedProduct(id: ID!): RecommendedProduct
-    scrapeAndAddRecommendedProduct(url: String!): RecommendedProduct
+
 
   }
 `;

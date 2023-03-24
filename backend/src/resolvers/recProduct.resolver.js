@@ -1,16 +1,23 @@
-const RecommendedProductService = require("../services/recProduct");
+const fetch = require('node-fetch');
+const Product = require('./models/Product');
 
 const resolvers = {
-    Query: {
-      recommendedProducts: () => RecommendedProductService.getAll(),
-      recommendedProduct: (_, { id }) => RecommendedProductService.getProductById(id),
+  Query: {
+    product: async (_, { asin }) => {
+      const product = await Product.findOne({ asin });
+      if (!product) return null;
+
+      // fetch recommended products data
+      const response = await fetch(`https://example.com/api/recommendations/${asin}`);
+      const recommendedProducts = await response.json();
+
+      // add product URL to recommended products
+      const productUrl = `https://example.com/products/${asin}`;
+      const recommendedProductsWithUrl = recommendedProducts.map(p => ({ ...p, url: productUrl }));
+
+      return { ...product.toObject(), recommendedProducts: recommendedProductsWithUrl };
     },
-    Mutation: {
-      addRecommendedProduct: (_, { name, price, imageURL, url, category }) => RecommendedProductService.add(name, price, imageURL, url, category),
-      deleteRecommendedProduct: (_, { id }) => RecommendedProductService.delete(id),
-      scrapeAndAddProduct: (_, { url }) => RecommendedProductService.scrapeAndAdd(url),
-    },
-  };
-  
-  module.exports = resolvers;
-  
+  },
+};
+
+module.exports = resolvers;
