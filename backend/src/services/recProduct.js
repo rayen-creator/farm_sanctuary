@@ -1,58 +1,34 @@
-import axios from 'axios';
+// RecommendedProduct service
+const axios = require('axios');
+const cheerio = require('cheerio');
+const RecommendedProduct = require('../models/recProduct');
 
-const API_URL = 'http://localhost:3000/graphql';
-
-export const RecommendedProductService = {
+const RecommendedProductService = {
   getAll() {
-    const query = `
-      query {
-        recommendedProducts {
-          id
-          name
-          price
-          imageURL
-          url
-          category
-        }
-      }
-    `;
-
-    return axios.post(API_URL, { query }).then((response) => response.data.data.recommendedProducts);
+    return RecommendedProduct.find();
   },
 
-  add(name, price, imageURL, url, category) {
-    const mutation = `
-      mutation {
-        addRecommendedProduct(name: "${name}", price: ${price}, imageURL: "${imageURL}", url: "${url}", category: "${category}") {
-          id
-          name
-          price
-          imageURL
-          url
-          category
-        }
-      }
-    `;
+  getProductById(id) {
+    return RecommendedProduct.findById(id);
+  },
 
-    return axios.post(API_URL, { query: mutation }).then((response) => response.data.data.addRecommendedProduct);
+  add(input) {
+    const { name, price, imageURL, url, category } = input;
+    const product = new RecommendedProduct({
+      name,
+      price,
+      imageURL,
+      url,
+      category
+    });
+
+    return product.save();
   },
 
   delete(id) {
-    const mutation = `
-      mutation {
-        deleteRecommendedProduct(id: "${id}") {
-          id
-          name
-          price
-          imageURL
-          url
-          category
-        }
-      }
-    `;
-
-    return axios.post(API_URL, { query: mutation }).then((response) => response.data.data.deleteRecommendedProduct);
+    return RecommendedProduct.findByIdAndDelete(id);
   },
+
   scrapeAndAdd(url) {
     return axios.get(url)
       .then(response => {
@@ -62,8 +38,10 @@ export const RecommendedProductService = {
         const price = $('span.price').text();
         const imageURL = $('img.product-image').attr('src');
 
-        return RecommendedProductService.add(name, price, imageURL, url, 'Farm Supplies');
+        return RecommendedProductService.add({ name, price, imageURL, url, category: 'Farm Supplies' });
       })
       .catch(error => console.log(error));
-  },
+  }
 };
+
+module.exports = RecommendedProductService;

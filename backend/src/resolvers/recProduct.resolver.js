@@ -1,24 +1,14 @@
-const { RecommendedProductService } = require("../services/recProduct");
+const RecommendedProductService = require("../services/recProduct");
 
 const resolvers = {
     Query: {
-      recommendedProducts: () => {
-        return RecommendedProductService.getAll();
-      },
-      recommendedProduct: (_, { id }) => {
-        return RecommendedProductService.getProductById(id);
-      },
+      recommendedProducts: () => RecommendedProductService.getAll(),
+      recommendedProduct: (_, { id }) => RecommendedProductService.getProductById(id),
     },
     Mutation: {
-      addRecommendedProduct: (_, { name, price, imageURL, url, category }) => {
-        return RecommendedProductService.add(name, price, imageURL, url, category);
-      },
-      deleteRecommendedProduct: (_, { id }) => {
-        return RecommendedProductService.delete(id);
-      },
-      scrapeAndAddRecommendedProduct: (_, { url }) => {
-        return RecommendedProductService.scrapeAndAdd(url);
-      },
+      addRecommendedProduct: (_, { name, price, imageURL, url, category }) => RecommendedProductService.add(name, price, imageURL, url, category),
+      deleteRecommendedProduct: (_, { id }) => RecommendedProductService.delete(id),
+      scrapeAndAddProduct: (_, { url }) => RecommendedProductService.scrapeAndAdd(url),
     },
   };
   

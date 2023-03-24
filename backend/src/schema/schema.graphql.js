@@ -116,6 +116,14 @@ const typeDefs = gql`
     category: String!
   }
   
+  input RecommendedProductInput {
+    name: String!
+    price: Float!
+    imageURL: String!
+    url: String!
+    category: String!
+  }
+
   
 
   input signinInput {
@@ -251,7 +259,9 @@ const typeDefs = gql`
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
 
-    recommendedProducts: [RecommendedProduct!]!
+    recommendedProducts: [RecommendedProduct]
+    recommendedProduct(id: ID!): RecommendedProduct
+
   }
 
   type Mutation {
@@ -285,8 +295,10 @@ const typeDefs = gql`
     updateFeedback(id: ID!, input: FeedbackInput!): Feedback!
     deleteFeedback(id: ID!): Feedback!
 
-    addRecommendedProduct(name: String!, price: Float!, imageURL: String!, url: String!, category: String!): RecommendedProduct!
-    deleteRecommendedProduct(id: ID!): RecommendedProduct!
+    addRecommendedProduct(input: RecommendedProductInput): RecommendedProduct
+    deleteRecommendedProduct(id: ID!): RecommendedProduct
+    scrapeAndAddRecommendedProduct(url: String!): RecommendedProduct
+
   }
 `;
 
