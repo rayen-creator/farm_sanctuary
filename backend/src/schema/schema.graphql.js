@@ -99,8 +99,11 @@ const typeDefs = gql`
     latitude: String
   }
   type loginDriverResponse {
-    login: String!
-    message: String!
+    message:String!
+    userfound:Boolean!
+    passwordIsValid:Boolean!
+    agent:deliveryAgent
+   
   }
   input loginDriverInput {
     login: String!
