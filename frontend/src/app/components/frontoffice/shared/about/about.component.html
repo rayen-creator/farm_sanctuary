@@ -287,67 +287,57 @@
       <!--End Testimonials One Left-->
 
       <!--Start Testimonials One Right-->
-      <div class="col-xl-8">
-        <div class="testimonials-one__right">
-          <div class="row">
-            <div class="col-xl-6">
-               
-                <div class="testimonials-one__single">
-                    <p class="testimonials-one__single-text">Lorem ipsum is simply free text
-                        dolor not sit amet, consectetur notted adipisicing elit sed do eiusmod
-                        tempor incididunt ut labore et dolore text.</p>
-                    <div class="testimonials-one__single-client-info">
-                        <div class="testimonials-one__single-client-info-img">
-                            <div class="testimonials-one__single-client-info-img-inner">
-                                <img src="assets/images/testimonial/testimonials-v1-img1.jpg"
-                                    alt="" />
-                            </div>
-                            <div class="icon">
-                                <span class="icon-right-quotation-mark"></span>
-                            </div>
-                        </div>
-                        <div class="testimonials-one__single-client-info-title">
-                            <h4>Kevin Martin</h4>
-                            <p>Customer</p>
-                        </div>
-                    </div>
+      <div class="testimonials-one__right">
+      <div class="row">
+        <div class="col-xl-6">
+          <div class="testimonials-one__single" *ngIf="feedbacks.length > 0">
+            <p class="testimonials-one__single-text">{{ feedbacks[0].content }}</p>
+            <div class="testimonials-one__single-client-info">
+              <div class="testimonials-one__single-client-info-img">
+                <div class="testimonials-one__single-client-info-img-inner">
+                  <img src="assets/images/testimonial/testimonials-v1-img1.jpg" alt="" />
                 </div>
-                
-                <!--Start Single Testimonials One-->
-            </div>
-          
-            <div class="col-xl-6">
-               
-                <div class="testimonials-one__single">
-                    <p class="testimonials-one__single-text">Lorem ipsum is simply free text
-                        dolor not sit amet, consectetur notted adipisicing elit sed do eiusmod
-                        tempor incididunt ut labore et dolore text.</p>
-                    <div class="testimonials-one__single-client-info">
-                        <div class="testimonials-one__single-client-info-img">
-                            <div class="testimonials-one__single-client-info-img-inner">
-                                <img src="assets/images/testimonial/testimonials-v1-img1.jpg"
-                                    alt="" />
-                            </div>
-                            <div class="icon">
-                                <span class="icon-right-quotation-mark"></span>
-                            </div>
-                        </div>
-                        <div class="testimonials-one__single-client-info-title">
-                            <h4>Kevin Martin</h4>
-                            <p>Customer</p>
-                        </div>
-                    </div>
+                <div class="icon">
+                  <span class="icon-right-quotation-mark"></span>
                 </div>
-                
-                <!--Start Single Testimonials One-->
+              </div>
+              <div class="testimonials-one__single-client-info-title">
+                <h4>{{ feedbacks[0].title }}</h4>
+                <p>{{ feedbacks[0].category }}</p>
+              </div>
             </div>
-            
           </div>
         </div>
+      
+        <div class="col-xl-6">
+          <div class="testimonials-one__single" *ngIf="feedbacks.length > 1">
+            <p class="testimonials-one__single-text">{{ feedbacks[1].content }}</p>
+            <div class="testimonials-one__single-client-info">
+              <div class="testimonials-one__single-client-info-img">
+                <div class="testimonials-one__single-client-info-img-inner">
+                  <img src="assets/images/testimonial/testimonials-v1-img1.jpg" alt="" />
+                </div>
+                <div class="icon">
+                  <span class="icon-right-quotation-mark"></span>
+                </div>
+              </div>
+              <div class="testimonials-one__single-client-info-title">
+                <h4>{{ feedbacks[1].title }}</h4>kkkk
+                <p>{{ feedbacks[1].category }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
-      <!--End Testimonials One Right-->
     </div>
-  </div>
+
+    
+          </div>
+        </div>
+        <a routerLink="/home" class="thm-btn">Discover more</a>
+      <!--End Testimonials One Right-->
+    
 </section>
 <!--Testimonials One End-->
 

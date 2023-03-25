@@ -1,4 +1,9 @@
+import { Apollo } from 'apollo-angular';
 import { Component, OnInit } from '@angular/core';
+import { Feedback } from 'src/app/core/models/feedback';
+import { FeedbackService } from 'src/app/core/services/feedback.service';
+import { ApolloQueryResult } from '@apollo/client/core';
+import { feedbacks } from 'src/app/core/graphql/queries/graphql.queries';
 
 @Component({
   selector: 'app-about',
@@ -6,10 +11,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
+  
+  feedbacks: Feedback[] = [];
+  selectedFeedback: Feedback = new Feedback();
+  isDesc: boolean = false;
 
-  constructor() { }
+
+  constructor(private feedbackservice : FeedbackService , private apollo : Apollo) { }
 
   ngOnInit(): void {
+    this.getFeedbacks();
   }
+  sort(property: any) {
+    this.feedbackservice.sortString(this.feedbacks, property);
+  }
+
+  getFeedbacks() {
+    this.apollo.watchQuery<{ getFeedbacks: Feedback[] }>({
+      query: feedbacks
+    }).valueChanges.subscribe({
+      next: (result: ApolloQueryResult<{ getFeedbacks: Feedback[] }>) => {
+        this.feedbacks = result.data.getFeedbacks;
+        this.feedbacks = this.feedbacks.slice(0, 2);
+      },
+      error: (err) => console.log(err)
+    });
+    
+    
+  }
+  
+
 
 }
