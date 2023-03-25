@@ -15,8 +15,8 @@ import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.compo
 import { AboutComponent } from './shared/about/about.component';
 import { TwoFAComponent } from '../two-fa/two-fa.component';
 import { ChangeMailComponent } from './users/change-mail/change-mail.component';
-import { LatestnewsComponent } from './latestnews/latestnews.component';
-import { DetailBlogComponent } from './detail-blog/detail-blog.component';
+import { LatestnewsComponent } from './blog/detail-blog/latestnews/latestnews.component';
+import { DetailBlogComponent } from './blog/detail-blog/detail-blog.component';
 
 const routes: Routes = [
   {

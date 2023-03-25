@@ -21,8 +21,8 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
 import { ChangeMailComponent } from './users/change-mail/change-mail.component';
 import { ContactComponent } from './shared/contact/contact.component';
 import { AboutComponent } from './shared/about/about.component';
-import { LatestnewsComponent } from './latestnews/latestnews.component';
-import { DetailBlogComponent } from './detail-blog/detail-blog.component';
+import { LatestnewsComponent } from './blog/detail-blog/latestnews/latestnews.component';
+import { DetailBlogComponent } from './blog/detail-blog/detail-blog.component';
 
 
 @NgModule({
