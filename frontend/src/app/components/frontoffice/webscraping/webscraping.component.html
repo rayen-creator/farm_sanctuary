@@ -1,0 +1,13 @@
+<div *ngIf="product">
+    <h1>{{ product.title }}</h1>
+    <p>{{ product.description }}</p>
+    <h2>Recommended Products</h2>
+    <ul>
+      <li *ngFor="let recommendedProduct of product.recommendedProducts">
+        <h3>{{ recommendedProduct.title }}</h3>
+        <p>{{ recommendedProduct.price }}</p>
+        <img [src]="recommendedProduct.image" alt="{{ recommendedProduct.title }}" />
+        <a [href]="recommendedProduct.url">View Product</a>
+      </li>
+    </ul>
+  </div>
