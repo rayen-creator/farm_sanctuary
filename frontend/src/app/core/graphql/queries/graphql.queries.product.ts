@@ -58,7 +58,7 @@ const product = gql`
   }
 `;
 
-export const createProduct = gql`
+ const createProduct = gql`
   mutation createProduct($input: CreateProductInput!) {
     createProduct(input: $input) {
       message
@@ -102,3 +102,5 @@ const deleteProduct = gql`
     }
   }
 `;
+
+export {products,product,createProduct,updateProduct,deleteProduct}
