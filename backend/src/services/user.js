@@ -12,7 +12,7 @@ const readFile = promisify(fs.readFile);
 const storeFS = ({stream, filename}) => {
     const uploadDir = 'public/images';
     name = `single${Math.floor((Math.random() * 10000) + 1)}`;
-    const pathname = path.join(__dirname, `../../public/images/${filename}`);
+    const pathname = path.join(__dirname, `../../public/images/${name}${filename}`);
     return new Promise((resolve, reject) =>
         stream
             .on('error', error => {
