@@ -9,6 +9,10 @@ async function getProduct(id) {
 async function getProducts() {
     return Product.find().populate({path: "user", model: "Users"});
 }
+async function getProductsByUser(userId) {
+    const products = await Product.find({ user: userId }).populate({path: "user", model: "Users"});
+    return products;
+}
 
 async function createProduct(input, file) {
     const product = new Product({
@@ -16,6 +20,7 @@ async function createProduct(input, file) {
         description: input.description,
         price: input.price,
         quantity: input.quantity,
+        unit: input.unit,
         user: input.user,
         expirationDate: new Date(input.expirationDate),
         category: input.category,
@@ -40,6 +45,7 @@ async function updateProduct(id, input) {
         description: input.description,
         price: input.price,
         quantity: input.quantity,
+        unit: input.unit,
         country: input.country,
         user: input.user,
         expirationDate: new Date(input.expirationDate),
@@ -66,4 +72,5 @@ module.exports = {
     createProduct,
     updateProduct,
     deleteProduct,
+    getProductsByUser
 };

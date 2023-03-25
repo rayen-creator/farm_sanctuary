@@ -1,3 +1,10 @@
+<section class="page-header clearfix" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg);">
+  <div class="container">
+    <div class="page-header__inner text-center clearfix">
+      <h2>Add product</h2>
+    </div>
+  </div>
+</section>
 <div class="container">
   <div class="main-body">
     <div class="row">
@@ -115,6 +122,29 @@
                         <span *ngIf="productForm.controls['quantity'].hasError('invalidPositiveNumber')" class="error">quantity should be positive!</span>
               </span>
               </div>
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Unit</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <select
+                    class="form-control"
+                    formControlName="unit"
+                    id="unit"
+                    name="unit"
+                  >
+                    <option value="KG">Kg</option>
+                    <option value="GRAM">Gram</option>
+                    <option value="LITRE">Litre</option>
+                    <option value="COUNT">Count</option>
+                  </select>
+                </div>
+              </div>
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="productForm.controls['unit'].invalid  && productForm.controls['unit'].touched">
+                        <span *ngIf="productForm.controls['unit'].hasError('required')" class="error">This field is required!</span>
+              </span>
                 <div class="form-group row mb-3" style="margin-top: 20px">
                   <div class="col-sm-3">
                     <h6 class="mb-0">Category</h6>

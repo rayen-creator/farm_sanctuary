@@ -15,6 +15,12 @@ const typeDefs = gql`
     FUNCTIONAL
   }
 
+  enum Unit {
+    KG
+    GRAM
+    LITRE
+    COUNT
+  }
   enum productCategory {
     FRUITS
     VEGETABLES
@@ -75,6 +81,7 @@ const typeDefs = gql`
     description: String!
     price: Float!
     quantity: Int!
+    unit: String!
     country: String!
     user: User!
     expirationDate: DateTime!
@@ -289,6 +296,7 @@ const typeDefs = gql`
     
     getProducts: [Product!]!
     getProduct(id: ID!): Product!
+    getProductsByUser(userId: ID!): [Product!]!
   }
 
   type Mutation {
@@ -333,6 +341,7 @@ const typeDefs = gql`
     description: String!
     price: Float!
     quantity: Int!
+    unit: String!
     user: ID!
     expirationDate: DateTime!
     category: productCategory!
@@ -343,6 +352,7 @@ const typeDefs = gql`
     description: String
     price: Float
     quantity: Int
+    unit: String
     country: String
     user: ID
     expirationDate: DateTime

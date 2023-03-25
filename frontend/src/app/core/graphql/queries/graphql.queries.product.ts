@@ -9,6 +9,7 @@ const products = gql`
       description,
       price,
       quantity,
+      unit,
       country,
       rating {
         total
@@ -36,6 +37,7 @@ const product = gql`
       description,
       price,
       quantity,
+      unit,
       country,
       rating {
         total
@@ -79,6 +81,7 @@ const deleteProduct = gql`
       price,
       quantity,
       country,
+      unit,
       rating {
         total
         count

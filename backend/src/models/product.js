@@ -13,7 +13,12 @@ const productCategoryEnum = Object.freeze({
     OTHER: 'OTHER'
 });
 
-
+const unitEnum = Object.freeze({
+    KG: 'KG',
+    GRAM: 'GRAM',
+    LITRE: 'LITRE',
+    COUNT: 'COUNT'
+});
 
 const productSchema = new mongoose.Schema({
     name: {
@@ -32,6 +37,11 @@ const productSchema = new mongoose.Schema({
     },
     quantity: {
         type: Number,
+        required: true
+    },
+    unit: {
+        type: String,
+        enum: unitEnum,
         required: true
     },
     country: {

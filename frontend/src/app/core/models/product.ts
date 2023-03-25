@@ -1,4 +1,5 @@
 import { ProductCategory } from './productCategory';
+import {units} from "./unit";
 
 export type Product = {
   id: string;
@@ -6,6 +7,7 @@ export type Product = {
   description: string;
   price: number;
   quantity: number;
+  unit: units
   country: string;
   user: string;
   expirationDate: Date;

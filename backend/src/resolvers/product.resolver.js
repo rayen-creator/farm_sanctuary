@@ -22,6 +22,13 @@ const productResolver = {
                 throw new UserInputError(error.message);
             }
         },
+        async getProductsByUser(_, { userId }) {
+            try {
+                return await productService.getProductsByUser(userId);
+            } catch (error) {
+                throw new UserInputError(error.message);
+            }
+        },
     },
 
     Mutation: {
