@@ -55,8 +55,8 @@ const product = gql`
 `;
 
  const createProduct = gql`
-  mutation createProduct($input: CreateProductInput!) {
-    createProduct(input: $input) {
+  mutation createProduct($input: CreateProductInput!, $file: Upload) {
+    createProduct(input: $input,  file: $file) {
       message
     }
   }

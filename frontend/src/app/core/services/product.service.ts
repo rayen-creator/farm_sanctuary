@@ -64,7 +64,7 @@ export class ProductService {
       });
   }
 
-  createProduct(product: Product) {
+  createProduct(product: Product , selectedFile: File) {
     this.token = this.auth.getToken();
     this.decodedToken = jwt_decode(this.token) as DecodedToken;
     this.userId = this.decodedToken.id;
@@ -77,12 +77,12 @@ export class ProductService {
       expirationDate: product.expirationDate,
       category: product.category,
     };
-
     return this.appolo
       .mutate({
         mutation: createProduct,
         variables: {
           input: input,
+          file: selectedFile
         },
         refetchQueries: [
           {

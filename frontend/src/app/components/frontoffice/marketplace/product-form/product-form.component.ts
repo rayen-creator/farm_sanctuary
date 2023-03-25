@@ -69,7 +69,7 @@ export class ProductFormComponent implements OnInit {
       if (result.isConfirmed) {
         let newProduct = this.productForm.value;
         newProduct.expirationDate = new Date(newProduct.expirationDate);
-       this.prodService.createProduct(newProduct);
+       this.prodService.createProduct(newProduct, this.selectedFile);
         Swal.fire('Added', 'Product has been created successfully.', 'success');
       }
     });

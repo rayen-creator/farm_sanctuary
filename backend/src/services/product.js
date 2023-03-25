@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const User = require('../models/user');
+const uploadImage = require("./utils/imageUpload");
 
 async function getProduct(id) {
     return Product.findById(id).populate({path: "user", model: "Users"});
@@ -9,7 +10,7 @@ async function getProducts() {
     return Product.find().populate({path: "user", model: "Users"});
 }
 
-async function createProduct(input) {
+async function createProduct(input, file) {
     const product = new Product({
         name: input.name,
         description: input.description,
@@ -22,6 +23,11 @@ async function createProduct(input) {
     });
     const prodUser = await User.findById(input.user)
     product.country = prodUser.location;
+    if (file) {
+        const fileLocation = await uploadImage(file)
+        product.image = fileLocation;
+    }
+
      await product.save(product);
     return {
         message: "product added !",

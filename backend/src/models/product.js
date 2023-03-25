@@ -95,7 +95,7 @@ const productSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        required: false
+        required: true
     },
 });
 

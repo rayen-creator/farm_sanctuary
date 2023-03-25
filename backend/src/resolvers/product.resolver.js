@@ -25,9 +25,9 @@ const productResolver = {
     },
 
     Mutation: {
-        async createProduct(_, { input }) {
+        async createProduct(_, { input, file }) {
             try {
-                return await productService.createProduct(input);
+                return await productService.createProduct(input, file);
             } catch (error) {
                 throw new UserInputError(error.message);
             }

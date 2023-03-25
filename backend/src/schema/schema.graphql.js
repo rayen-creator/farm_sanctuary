@@ -83,7 +83,7 @@ const typeDefs = gql`
     category: productCategory!
     createdAt: DateTime!
     updatedAt: DateTime!
-    image: String
+    image: String!
   }
 
   type Rating {
@@ -323,7 +323,7 @@ const typeDefs = gql`
     deleteFeedback(id: ID!): Feedback!
 
 
-    createProduct(input: CreateProductInput!): createProductResponse!
+    createProduct(input: CreateProductInput!, file: Upload): createProductResponse!
     updateProduct(id: ID!, input: UpdateProductInput!): createProductResponse!
     deleteProduct(id: ID!): Product!
   }
@@ -336,7 +336,6 @@ const typeDefs = gql`
     user: ID!
     expirationDate: DateTime!
     category: productCategory!
-    image: Upload
   }
 
   input UpdateProductInput {
@@ -348,7 +347,6 @@ const typeDefs = gql`
     user: ID
     expirationDate: DateTime
     category: productCategory
-    image: Upload
   }
 
 
