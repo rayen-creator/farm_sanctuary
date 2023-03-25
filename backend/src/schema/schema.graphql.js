@@ -94,7 +94,7 @@ const typeDefs = gql`
 
   type Review {
     id: ID!
-    user: User!
+    userReview: User!
     rating: Int!
     comment: String!
     createdAt: DateTime!
