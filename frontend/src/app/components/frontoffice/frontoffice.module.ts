@@ -49,7 +49,6 @@ import { AboutComponent } from './shared/about/about.component';
     UiSwitchModule,
     GoogleSigninButtonModule,
     Ng2TelInputModule,
-    
   ]
 })
 export class FrontofficeModule { }

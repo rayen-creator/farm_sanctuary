@@ -32,11 +32,12 @@ const routes: Routes = [
       { path: 'error', component: ErrorresetpwdComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'about', component: AboutComponent },
-      { path: 'feedbacks', component: FeedbackFormComponent }
-
+      { path: 'feedbacks', component: FeedbackFormComponent },
+      { path: 'marketplace', loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) }
 
     ]
   },
+
 
 ];
 
