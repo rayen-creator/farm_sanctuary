@@ -17,6 +17,7 @@ export class ProductFormComponent implements OnInit {
   product: Product;
   selectedFile: File;
 
+  photoSelected: boolean = true
   pattern = "^[ a-zA-Z0-9][a-zA-Z0-9 ]*$";
   productForm: FormGroup;
 
@@ -45,9 +46,9 @@ export class ProductFormComponent implements OnInit {
     this.productForm = this.formBuilder.group({
         name: ["", [Validators.required, Validators.pattern(this.pattern), Validators.minLength(3)]],
       description: ["", [Validators.required]],
-      price: ["", [Validators.required]],
+      price: ["", [Validators.required, this.positiveNumberValidator]],
       quantity: ["", [Validators.required, this.positiveNumberValidator]],
-      expirationDate: ["", [Validators.required]],
+      expirationDate: ["", [Validators.required, this.futureDateValidator]],
       category: ["", [Validators.required]],
       }
      )
@@ -56,7 +57,18 @@ export class ProductFormComponent implements OnInit {
     const value = parseInt(control.value, 10);
     return !isNaN(value) && Number.isFinite(value) && value >= 0 ? null : { invalidPositiveNumber: true };
   }
+
+  private futureDateValidator(control: AbstractControl): {[key: string]: any} | null {
+    const selectedDate = new Date(control.value);
+    const today = new Date();
+    if (selectedDate < today) {
+      return { 'futureDate': true };
+    }
+    return null;
+  }
   onSubmit() {
+    this.selectedFile? this.photoSelected = true : this.photoSelected = false
+if (this.photoSelected) {
     Swal.fire({
       title: 'Are you sure you want to add this product ?',
       text: 'This action cannot be undone.',
@@ -73,5 +85,5 @@ export class ProductFormComponent implements OnInit {
         Swal.fire('Added', 'Product has been created successfully.', 'success');
       }
     });
-  }
+  }}
 }

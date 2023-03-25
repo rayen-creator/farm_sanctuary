@@ -20,13 +20,6 @@
 <!--                width="125"-->
 <!--              />-->
               <div class="mt-3">
-                <h4>{{ product?.name }}</h4>
-                <p *ngIf="product?.category == 'FRUITS'" style="color: limegreen">
-                  {{ product?.category }}
-                </p>
-                <p *ngIf="product?.category == 'FRUITS'" style="color: orangered">
-                  {{ product?.category }}
-                </p>
                 <div class="mt-2">
                   <button
                     (click)="fileInput.click()"
@@ -36,6 +29,10 @@
                     <i class="fa fa-fw fa-camera"></i>
                     <span>Select Photo</span>
                   </button>
+                  <p style="font-size: small">please select a photo for your product !</p>
+                  <span *ngIf="!photoSelected" class="error-msg2"
+                  >product photo is required !</span
+                  >
                   <input
                     #fileInput
                     (change)="handleFileInput($event)"
@@ -67,7 +64,15 @@
                   />
                 </div>
               </div>
-
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="productForm.controls['name'].invalid  && productForm.controls['name'].touched">
+                        <span *ngIf="productForm.controls['name'].hasError('required')" class="error">This field is required!</span>
+                <br>
+                        <span *ngIf="productForm.controls['name'].hasError('minlength')" class="error">Minimum length is 3!</span>
+                <br>
+                        <span *ngIf="productForm.controls['name'].hasError('pattern')"class="error">Symbols are not allowed!</span>
+              </span>
               <div class="form-group row mb-3" style="margin-top: 20px">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Price</h6>
@@ -82,7 +87,13 @@
                   />
                 </div>
               </div>
-
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="productForm.controls['price'].invalid && productForm.controls['price'].touched">
+                        <span *ngIf="productForm.controls['price'].hasError('required')" class="error">This field is required!</span>
+                <br>
+                        <span *ngIf="productForm.controls['price'].hasError('invalidPositiveNumber')" class="error">price should be positive!</span>
+              </span>
               <div class="form-group row mb-3" style="margin-top: 20px">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Quantity</h6>
@@ -96,6 +107,13 @@
                     type="number"
                   />
                 </div>
+                <span
+                  class="text-danger error-msg error-msg"
+                  *ngIf="productForm.controls['quantity'].invalid  && productForm.controls['quantity'].touched">
+                        <span *ngIf="productForm.controls['quantity'].hasError('required')" class="error">This field is required!</span>
+                  <br>
+                        <span *ngIf="productForm.controls['quantity'].hasError('invalidPositiveNumber')" class="error">quantity should be positive!</span>
+              </span>
               </div>
                 <div class="form-group row mb-3" style="margin-top: 20px">
                   <div class="col-sm-3">
@@ -122,6 +140,11 @@
                     </select>
                   </div>
                 </div>
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="productForm.controls['category'].invalid  && productForm.controls['category'].touched">
+                        <span *ngIf="productForm.controls['category'].hasError('required')" class="error">This field is required!</span>
+              </span>
 
               <div class="form-group row mb-3" style="margin-top: 20px">
                 <div class="col-sm-3">
@@ -138,7 +161,13 @@
                   />
                 </div>
               </div>
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="productForm.controls['expirationDate'].invalid  && productForm.controls['expirationDate'].touched">
+                        <span *ngIf="productForm.controls['expirationDate'].hasError('required')" class="error">This field is required!</span>
+                        <span *ngIf="productForm.controls['expirationDate'].hasError('futureDate')" class="error">Expiration date must be in the future</span>
 
+              </span>
               <div class="form-group row mb-3">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Description</h6>
@@ -152,9 +181,13 @@
                     type="text"
                     rows="4" cols="50"
                   >
-                    product description
                   </textarea>
                 </div>
+                <span
+                  class="text-danger error-msg error-msg"
+                  *ngIf="productForm.controls['description'].invalid && productForm.controls['description'].touched">
+                        <span *ngIf="productForm.controls['description'].hasError('required')" class="error">This field is required!</span>
+              </span>
               </div>
 
               <div class="row">
