@@ -7,11 +7,11 @@ const recommendedProductSchema = new Schema({
   url: String,
 });
 
-const productReviewSchema = new Schema({
-  author: String,
-  rating: Number,
-  text: String,
-});
+  const productReviewSchema = new Schema({
+    author: String,
+    rating: Number,
+    text: String,
+  });
 
 const productSchema = new Schema({
   asin: { type: String, required: true, unique: true },

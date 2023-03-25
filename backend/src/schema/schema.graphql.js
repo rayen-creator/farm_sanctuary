@@ -107,15 +107,7 @@ const typeDefs = gql`
     password: String!
   }
 
-  type Product {
-    title: String
-    price: Float
-    image: String
-    description: String
-    rating: Float
-    reviews: [ProductReview]
-    recommendedProducts: [RecommendedProduct]
-  }
+
 
   type RecommendedProduct {
     title: String
@@ -211,6 +203,13 @@ const typeDefs = gql`
     email: String!
     phone: Int!
   }
+  
+  type ProductReview {
+    author: String
+    rating: Float
+    text: String
+  }
+  
 
   type RecommendedProduct {
     title: String

@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const Product = require('./models/Product');
+const Product = require('../models/recProduct');
 
 const resolvers = {
   Query: {
