@@ -9,9 +9,7 @@ const products = gql`
       description,
       price,
       quantity,
-      location {
-        coordinates
-      },
+      country,
       rating {
         total
         count
@@ -38,9 +36,7 @@ const product = gql`
       description,
       price,
       quantity,
-      location {
-        coordinates
-      },
+      country,
       rating {
         total
         count
@@ -82,9 +78,7 @@ const deleteProduct = gql`
       description,
       price,
       quantity,
-      location {
-        coordinates
-      },
+      country,
       rating {
         total
         count

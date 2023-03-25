@@ -6,10 +6,7 @@ export type Product = {
   description: string;
   price: number;
   quantity: number;
-  location: {
-    type: string;
-    coordinates: number[];
-  };
+  country: string;
   user: string;
   expirationDate: Date;
   rating: {

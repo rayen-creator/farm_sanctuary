@@ -47,7 +47,6 @@ export class ProductFormComponent implements OnInit {
       description: ["", [Validators.required]],
       price: ["", [Validators.required]],
       quantity: ["", [Validators.required, this.positiveNumberValidator]],
-      location: ["", [Validators.required]],
       expirationDate: ["", [Validators.required]],
       category: ["", [Validators.required]],
       }
