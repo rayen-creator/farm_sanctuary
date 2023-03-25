@@ -11,6 +11,9 @@ import {
 } from "../graphql/queries/graphql.queries.product";
 import {Product} from "../models/product";
 import {CreateProductResponse} from "../graphql/graphqlResponse/createProductResponse";
+import {AuthService} from "./auth.service";
+import {DecodedToken} from "../graphql/graphqlResponse/decodedToken";
+import jwt_decode from "jwt-decode";
 
 
 @Injectable({
@@ -19,10 +22,15 @@ import {CreateProductResponse} from "../graphql/graphqlResponse/createProductRes
 
 export class ProductService {
 
+  token: string;
+  decodedToken: DecodedToken;
+  userId: string;
+
   constructor(
     private appolo: Apollo,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private auth: AuthService
   ) { }
 
   getProducts(){
@@ -57,13 +65,16 @@ export class ProductService {
   }
 
   createProduct(product: Product) {
+    this.token = this.auth.getToken();
+    this.decodedToken = jwt_decode(this.token) as DecodedToken;
+    this.userId = this.decodedToken.id;
     const input = {
       name: product.name,
       description: product.description,
       price: product.price,
       quantity: product.quantity,
       location: product.location,
-      user: product.user,
+      user: this.userId,
       expirationDate: product.expirationDate,
       category: product.category,
     };
