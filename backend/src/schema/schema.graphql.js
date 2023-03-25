@@ -75,7 +75,7 @@ const typeDefs = gql`
     description: String!
     price: Float!
     quantity: Int!
-    location: Location!
+    country: String!
     user: User!
     expirationDate: DateTime!
     rating: Rating
@@ -99,14 +99,7 @@ const typeDefs = gql`
     comment: String!
     createdAt: DateTime!
   }
-
-  type Location {
-    type: String!
-    coordinates: [Float!]!
-
-  }
-
-
+  
 
   type Two_FactAuth {
     code: String!
@@ -340,7 +333,6 @@ const typeDefs = gql`
     description: String!
     price: Float!
     quantity: Int!
-    location: LocationInput!
     user: ID!
     expirationDate: DateTime!
     category: productCategory!
@@ -352,17 +344,14 @@ const typeDefs = gql`
     description: String
     price: Float
     quantity: Int
-    location: LocationInput
+    country: String
     user: ID
     expirationDate: DateTime
     category: productCategory
     image: Upload
   }
 
-  input LocationInput {
-    latitude: Float!
-    longitude: Float!
-  }
+
 
 `;
 

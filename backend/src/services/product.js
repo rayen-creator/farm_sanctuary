@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-
+const User = require('../models/user');
 
 async function getProduct(id) {
     return Product.findById(id).populate({path: "user", model: "Users"});
@@ -15,15 +15,13 @@ async function createProduct(input) {
         description: input.description,
         price: input.price,
         quantity: input.quantity,
-        location: {
-            type: 'Point',
-            coordinates: [input.location.longitude, input.location.latitude]
-        },
         user: input.user,
         expirationDate: new Date(input.expirationDate),
         category: input.category,
 
     });
+    const prodUser = await User.findById(input.user)
+    product.country = prodUser.location;
      await product.save(product);
     return {
         message: "product added !",
@@ -36,10 +34,7 @@ async function updateProduct(id, input) {
         description: input.description,
         price: input.price,
         quantity: input.quantity,
-        location: {
-            type: 'Point',
-            coordinates: [input.location.longitude, input.location.latitude]
-        },
+        country: input.country,
         user: input.user,
         expirationDate: new Date(input.expirationDate),
         category: input.category,

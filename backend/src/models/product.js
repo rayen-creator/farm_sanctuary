@@ -13,17 +13,7 @@ const productCategoryEnum = Object.freeze({
     OTHER: 'OTHER'
 });
 
-const locationSchema = new mongoose.Schema({
-    type: {
-        type: String,
-        enum: ['Point'],
-        required: true
-    },
-    coordinates: {
-        type: [Number],
-        required: true
-    }
-});
+
 
 const productSchema = new mongoose.Schema({
     name: {
@@ -44,8 +34,8 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    location: {
-        type: locationSchema,
+    country: {
+        type: String,
         required: true
     },
     user: {
