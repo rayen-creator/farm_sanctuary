@@ -1,9 +1,8 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
 import { AuthService } from 'src/app/core/services/auth.service';
 import jwt_decode from "jwt-decode";
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-header',
@@ -12,16 +11,17 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   username: string;
-  img:string;
+  img: string;
   role: string;
   userIsAuthenticated = false;
-  token:string;
-  decodedToken :DecodedToken;
-  userId:string;
+  token: string;
+  decodedToken: DecodedToken;
+  userId: string;
   private authListenerSubs: Subscription;
   private usernameSubs: Subscription;
+  private tokenSubs: Subscription;
   private imgSubs: Subscription;
-  constructor(private auth: AuthService,private sanitizer: DomSanitizer) { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
     this.userIsAuthenticated = this.auth.isUserAuth();
@@ -35,9 +35,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
     );
-    this.token=this.auth.getToken();
-    this.decodedToken = jwt_decode(this.token) as DecodedToken;
-    this.userId=this.decodedToken.id;
+    this.tokenSubs = this.auth.getToken().subscribe((token) => {
+      this.token = token
+      this.decodedToken = jwt_decode(this.token) as DecodedToken;
+      this.userId = this.decodedToken.id;
+    });
+
     this.usernameSubs = this.auth.getUsername().subscribe({
       next: (username) => {
         this.username = username;
@@ -46,9 +49,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.username = "";
       }
     });
-    this.imgSubs=this.auth.getImg().subscribe({
-      next :(img)=>{
-        this.img=img;
+    this.imgSubs = this.auth.getImg().subscribe({
+      next: (img) => {
+        this.img = img;
       },
       error: () => {
         this.img = "";
@@ -57,16 +60,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
- 
-  // sanitizeImageUrl(imageUrl: string): SafeUrl {
-  //   return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
-  // }
+
 
   ngOnDestroy(): void {
     this.authListenerSubs.unsubscribe();
     this.usernameSubs.unsubscribe();
-    // this.roleSubs.unsubscribe();
+    this.imgSubs.unsubscribe();
+    this.tokenSubs.unsubscribe();
   }
+
   loggingout() {
     this.auth.logout();
   }

@@ -43,7 +43,7 @@ export class AuthService {
   private imgUser=new BehaviorSubject<string>('');
 
   responseMessage: any;
-  public token: string;
+  public token= new BehaviorSubject<string>('');
   public role: roles;
 
   constructor(
@@ -109,7 +109,7 @@ export class AuthService {
           const two_FactAuth_Option=loginresponse.signin.user.two_FactAuth_Option;
           const location=loginresponse.signin.user.location;
           const img=loginresponse.signin.user.image;
-          this.token = token;
+          this.token.next(token);
           if (token) {
             const expireInDuration = loginresponse.signin.expiresIn;
             this.isUserAuthenticated = true;
@@ -170,7 +170,7 @@ export class AuthService {
   }
 
   getToken() {
-    return this.token;
+    return this.token.asObservable();
   }
 
   getImg(){
@@ -298,7 +298,8 @@ export class AuthService {
       });
     }
     if (expiresIn) {
-      this.token = token;
+      this.token.next(token);
+
       this.isUserAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.usernameSubject.next(username ?? '');
