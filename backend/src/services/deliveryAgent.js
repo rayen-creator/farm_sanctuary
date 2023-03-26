@@ -13,20 +13,29 @@ async function loginDriver(input) {
   });
 
   if (!agent) {
-    throw new Error("Invalid email or password");
+    return {
+      message: "User not found",
+      userfound: false,
+      passwordIsValid: false,
+      agent:null
+    };
   }
 
   const passwordIsValid = bcrypt.compareSync(input.password, agent.password);
 
   if (!passwordIsValid) {
-    throw new AuthenticationError("Unauthorized", {
+     return {
       message: "Auth failed ! Invalid Password!",
-    });
+      userfound: true,
+      passwordIsValid: false,
+      agent:null
+    };
   }
   return {
-
-    login: agent.login,
-    message: "OK",
+      message: "OK",
+      userfound: true,
+      passwordIsValid: true,
+      agent : agent
   };
 }
 async function getdeliveryAgent(id) {
@@ -38,25 +47,26 @@ async function getdeliveryAgents() {
 }
 
 async function createdeliveryAgent(input) {
-   //verify duplicated username
-   const findlogin = await Agent.findOne({ login: input.login });
-   if (findlogin) {
-     return {
-       message: "Failed! login is already in use!",
-       emailExists: false,
-       loginExists: true,
-     };
-   }
-     //verify duplicated email
-   const findemail = await Agent.findOne({ email: input.email });
-   if (findemail) {
-     return {
-       message: "Failed! Email is already in use!",
-       emailExists: true,
-       loginExists: false,
-     };
-   }
-   const defaultImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png';
+  //verify duplicated username
+  const findlogin = await Agent.findOne({ login: input.login });
+  if (findlogin) {
+    return {
+      message: "Failed! login is already in use!",
+      emailExists: false,
+      loginExists: true,
+    };
+  }
+  //verify duplicated email
+  const findemail = await Agent.findOne({ email: input.email });
+  if (findemail) {
+    return {
+      message: "Failed! Email is already in use!",
+      emailExists: true,
+      loginExists: false,
+    };
+  }
+  const defaultImage =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png";
   const image = input.image || defaultImage;
   const agent = new Agent({
     login: input.login,
@@ -70,7 +80,7 @@ async function createdeliveryAgent(input) {
   });
   await agent.save(agent);
   return {
-    message: 'Agent saved successfully',
+    message: "Agent saved successfully",
     emailExists: false,
     loginExists: false,
   };
@@ -90,9 +100,8 @@ async function infomail(input) {
         } else {
           const template = handlebars.compile(html);
           const replacements = {
-             login: input.login,
-             password: input.password,
-             
+            login: input.login,
+            password: input.password,
           };
           const htmlToSend = template(replacements);
           const mailOptions = {
@@ -111,96 +120,91 @@ async function infomail(input) {
 
     if (!mail.mailStatus) {
       return {
-        message:"error"
-       
+        message: "error",
       };
     }
     return {
-      message:"mail sending"
-     
+      message: "mail sending",
     };
   } catch (error) {
     throw new Error(error);
   }
 }
 
-async function updatedeliveryAgent(id,input) { 
- const oldagent = await Agent.findById({ _id: id })
-  console.log(oldagent.login)
-  if((oldagent.email == input.email && oldagent.login == input.login)){
-    const updatedAgent = ({
-      login:oldagent.login,
+async function updatedeliveryAgent(id, input) {
+  const oldagent = await Agent.findById({ _id: id });
+  console.log(oldagent.login);
+  if (oldagent.email == input.email && oldagent.login == input.login) {
+    const updatedAgent = {
+      login: oldagent.login,
       password: bcrypt.hashSync(input.password, 8),
       email: oldagent.email,
       fullName: input.fullName,
       phone: input.phone,
       // image: input.image,
-    // updatedAt: new Date(),
-    });
+      // updatedAt: new Date(),
+    };
     await Agent.findByIdAndUpdate({ _id: id }, updatedAgent, { new: true });
     return {
-      message: 'Agent updated successfully',
+      message: "Agent updated successfully",
       emailExists: false,
       loginExists: false,
     };
-}else{
-  const findlogin = await Agent.findOne({ login: input.login });
-   if (findlogin) {
-     return {
-       message: "Failed! login is already in use!",
-       emailExists: false,
-       loginExists: true,
-     };
-   }
-     //verify duplicated email
-   const findemail = await Agent.findOne({ email: input.email });
-   if (findemail) {
-     return {
-       message: "Failed! Email is already in use!",
-       emailExists: true,
-       loginExists: false,
-     };
-   }
-   const updatedAgent = ({
-    login: input.login,
-    password: bcrypt.hashSync(input.password, 8),
-    email: input.email,
-    fullName: input.fullName,
-    phone: input.phone,
-    // image: input.image,
-  // updatedAt: new Date(),
-  });
-  await Agent.findByIdAndUpdate({ _id: id }, updatedAgent, { new: true });
-  return {
-    message: 'Agent updated successfully',
-    emailExists: false,
-    loginExists: false,
-  };
-}
-
-}
-async function updateLocation( input) {
-  const id = input.id
+  } else {
+    const findlogin = await Agent.findOne({ login: input.login });
+    if (findlogin) {
+      return {
+        message: "Failed! login is already in use!",
+        emailExists: false,
+        loginExists: true,
+      };
+    }
+    //verify duplicated email
+    const findemail = await Agent.findOne({ email: input.email });
+    if (findemail) {
+      return {
+        message: "Failed! Email is already in use!",
+        emailExists: true,
+        loginExists: false,
+      };
+    }
     const updatedAgent = {
-        longitude: input.longitude,
-        latitude: input.latitude,
-        updatedAt: new Date(),
+      login: input.login,
+      password: bcrypt.hashSync(input.password, 8),
+      email: input.email,
+      fullName: input.fullName,
+      phone: input.phone,
+      // image: input.image,
+      // updatedAt: new Date(),
     };
-  
-    return await Agent.findByIdAndUpdate({ _id: id }, updatedAgent, { new: true });
+    await Agent.findByIdAndUpdate({ _id: id }, updatedAgent, { new: true });
+    return {
+      message: "Agent updated successfully",
+      emailExists: false,
+      loginExists: false,
+    };
   }
+}
+async function updateLocation(input) {
+  const id = input.id;
+  const updatedAgent = {
+    longitude: input.longitude,
+    latitude: input.latitude,
+    updatedAt: new Date(),
+  };
+
+  return await Agent.findByIdAndUpdate({ _id: id }, updatedAgent, {
+    new: true,
+  });
+}
 
 async function deletedeliveryAgent(id) {
-  
   const agent = await Agent.findById({ _id: id });
   if (!agent) {
     return null;
   }
   return await agent.remove();
 }
-
-
-
 
 module.exports = {
   infomail,
@@ -210,5 +214,5 @@ module.exports = {
   updatedeliveryAgent,
   deletedeliveryAgent,
   updateLocation,
-  loginDriver
+  loginDriver,
 };
