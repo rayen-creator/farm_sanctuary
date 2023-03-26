@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../../../core/services/auth.service";
 import { User } from "../../../../core/models/user";
 import { Customvalidator } from "../../../../core/utils/custom-validator";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SignupResponse } from "../../../../core/graphql/graphqlResponse/signupResponse";
 import Swal from "sweetalert2";
 import { Ng2TelInput } from 'ng2-tel-input';
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   emailExist: Boolean;
   country: string;
 
-  constructor(private authservice: AuthService, private formBuilder: FormBuilder, private currentRoute: ActivatedRoute) { }
+  constructor(private authservice: AuthService, private formBuilder: FormBuilder, private currentRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.accountType = this.currentRoute.snapshot.params['accountType'];
@@ -76,9 +76,9 @@ export class RegisterComponent implements OnInit {
           if (!this.usernameExist && !this.emailExist) {
             Swal.fire('Created', 'Account created successfully.', 'success');
             if (newUser.email != "" && newUser.password != "") {
-              this.authservice.login(newUser)
-
-
+              // this.authservice.login(newUser)
+              this.router.navigate(['/login']);
+              
             }
           }
         },
