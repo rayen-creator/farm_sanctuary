@@ -7,6 +7,7 @@ import {AuthService} from "../../../../core/services/auth.service";
 import {DecodedToken} from "../../../../core/graphql/graphqlResponse/decodedToken";
 import jwt_decode from "jwt-decode";
 import {Subscription} from "rxjs";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-user-products',
@@ -37,4 +38,23 @@ export class UserProductsComponent implements OnInit {
       },
     });
   }
+
+  deleteProduct(id:string) {
+      Swal.fire({
+        title: 'Are you sure you want to delete this product ?',
+        text: 'This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.productService.deleteProduct(id, this.userId)
+          Swal.fire('deleted', 'Product has been created successfully.', 'success');
+        }
+      });
+    }
+
+
 }

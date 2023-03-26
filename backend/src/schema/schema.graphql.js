@@ -332,7 +332,7 @@ const typeDefs = gql`
 
 
     createProduct(input: CreateProductInput!, file: Upload): createProductResponse!
-    updateProduct(id: ID!, input: UpdateProductInput!): createProductResponse!
+    updateProduct(id: ID!, input: UpdateProductInput!, file: Upload): createProductResponse!
     deleteProduct(id: ID!): Product!
   }
 

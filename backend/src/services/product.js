@@ -39,7 +39,7 @@ async function createProduct(input, file) {
     };
 }
 
-async function updateProduct(id, input) {
+async function updateProduct(id, input, file) {
     const updatedProduct = {
         name: input.name,
         description: input.description,
@@ -52,6 +52,10 @@ async function updateProduct(id, input) {
         category: input.category,
         updatedAt: new Date(),
     };
+    if (file) {
+        const fileLocation = await uploadImage(file)
+        updatedProduct.image = fileLocation;
+    }
      await Product.findByIdAndUpdate(id, updatedProduct, { new: true });
     return {
         message: "product updated !",
@@ -59,7 +63,7 @@ async function updateProduct(id, input) {
 }
 
 async function deleteProduct(id) {
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).populate({path: "user", model: "Users"});
     if (!product) {
         return null;
     }

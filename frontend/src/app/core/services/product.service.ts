@@ -80,7 +80,7 @@ export class ProductService {
       })
     );
   }
-  createProduct(product: Product , selectedFile: File) {
+  createProduct(product: Product , selectedFile: File, userId: string) {
     this.token = this.auth.getToken();
     this.decodedToken = jwt_decode(this.token) as DecodedToken;
     this.userId = this.decodedToken.id;
@@ -104,6 +104,9 @@ export class ProductService {
         refetchQueries: [
           {
             query: products
+          },  {
+            query: productsByUser,
+            variables: { userId },
           }],
         context: {
           useMultipart: true
@@ -123,7 +126,7 @@ export class ProductService {
       });
   }
 
-  updateProduct(id:string,prod: Product) {
+  updateProduct(id:string,prod: Product, selectedFile: File, userId: string) {
     const input = {
       name: prod.name,
       description: prod.description,
@@ -140,7 +143,8 @@ export class ProductService {
         mutation: updateProduct,
         variables: {
           id,
-          input: input
+          input: input,
+          file: selectedFile
         },
         refetchQueries: [{
           query: product,
@@ -148,6 +152,9 @@ export class ProductService {
         },
           {
             query: products
+          },  {
+            query: productsByUser,
+            variables: { userId },
           }],
         context: {
           useMultipart: true
@@ -167,12 +174,17 @@ export class ProductService {
       });
   }
 
-  deleteProduct(id: string){
+  deleteProduct(id: string, userId: string){
     return this.appolo
-      .watchQuery({
-        query: deleteProduct,
+      .mutate({
+        mutation: deleteProduct,
         variables: {id},
-      }).valueChanges.subscribe({
+        refetchQueries: [
+          {
+            query: productsByUser,
+            variables: { userId },
+          }],
+      }).subscribe({
         next: (res) => {
           //get the response
           const product = res.data as Product;

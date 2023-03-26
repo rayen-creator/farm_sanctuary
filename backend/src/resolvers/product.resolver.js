@@ -39,9 +39,9 @@ const productResolver = {
                 throw new UserInputError(error.message);
             }
         },
-        async updateProduct(_, { id, input }) {
+        async updateProduct(_, { id, input, file }) {
             try {
-                const product = await productService.updateProduct(id, input);
+                const product = await productService.updateProduct(id, input, file);
                 if (!product) {
                     throw new UserInputError('Product not found');
                 }

@@ -93,8 +93,8 @@ const productsByUser = gql`
 `;
 
 const updateProduct = gql`
-  mutation updateProduct($id:ID!,$input: UpdateProductInput!) {
-    updateProduct(id: $id,input: $input) {
+  mutation updateProduct($id:ID!,$input: UpdateProductInput!, $file: Upload) {
+    updateProduct(id: $id,input: $input,  file: $file) {
       message
     }
   }

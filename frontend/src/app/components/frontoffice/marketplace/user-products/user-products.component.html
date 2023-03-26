@@ -1,3 +1,4 @@
+
 <section class="page-header clearfix" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg);">
   <div class="container">
     <div class="page-header__inner text-center clearfix">
@@ -22,6 +23,7 @@
 
 
           </div><!-- /.shop-one__sidebar__item -->
+          <a routerLink="/marketplace/addProduct" class="thm-btn" style="margin-top: 20px; margin-bottom: 20px">Add product +</a>
           <div class="shop-one__sidebar__item shop-one__sidebar__category">
             <h3 class="shop-one__sidebar__item__title">Categories</h3>
             <!-- /.shop-one__sidebar__item__title -->
@@ -57,11 +59,18 @@
               </div><!-- /.shop-one__image -->
               <div class="shop-one__content text-center">
                 <h3 class="shop-one__title"><a [routerLink]="['/marketplace/product', p.id]">{{p.name}}</a></h3>
-                  <h6 style="font-size: 15px " class="shop-one__title"><a href="product-details.html">quantity : {{p.quantity}} {{p.unit}}</a>
+                <h6 style="font-size: 15px " class="shop-one__title"><a href="product-details.html">quantity : {{p.quantity}} {{p.unit}}</a>
                 </h6>
                 <p class="shop-one__price">${{p.price}}</p><!-- /.shop-one__price -->
+                <div class="shop-one__buttons">
+                  <button style="margin-right: 10px;" (click)="deleteProduct(p.id)"><i class="fas fa-trash fa-lg" style="color: red;"></i></button>
+                  <button [routerLink]="['/marketplace/product', p.id, 'edit']"><i class="fas fa-edit fa-lg" style="color: #f3da35;"></i></button>
+                </div>
+
+
               </div><!-- /.shop-one__content -->
             </div><!-- /.shop-one__item -->
+
           </div><!-- /.col-md-6 col-lg-3 -->
 
         </div><!-- /.row -->
