@@ -1,3 +1,4 @@
+import { rating } from 'src/app/core/models/rating';
 import { Apollo } from 'apollo-angular';
 import { Component, OnInit } from '@angular/core';
 import { Feedback } from 'src/app/core/models/feedback';
@@ -13,8 +14,9 @@ import { feedbacks } from 'src/app/core/graphql/queries/graphql.queries';
 export class AboutComponent implements OnInit {
   
   feedbacks: Feedback[] = [];
-  selectedFeedback: Feedback = new Feedback();
   isDesc: boolean = false;
+  
+  
 
 
   constructor(private feedbackservice : FeedbackService , private apollo : Apollo) { }
@@ -27,18 +29,39 @@ export class AboutComponent implements OnInit {
   }
 
   getFeedbacks() {
-    this.apollo.watchQuery<{ getFeedbacks: Feedback[] }>({
-      query: feedbacks
-    }).valueChanges.subscribe({
-      next: (result: ApolloQueryResult<{ getFeedbacks: Feedback[] }>) => {
-        this.feedbacks = result.data.getFeedbacks;
-        this.feedbacks = this.feedbacks.slice(0, 2);
-      },
-      error: (err) => console.log(err)
-    });
-    
-    
+    this.apollo
+      .watchQuery<{ getFeedbacks: Feedback[] }>({
+        query: feedbacks,
+      })
+      .valueChanges.subscribe({
+        next: (result: ApolloQueryResult<{ getFeedbacks: Feedback[] }>) => {
+          this.feedbacks = result.data.getFeedbacks.filter((feedback) => feedback.rating === 5);
+          this.feedbacks = this.feedbacks.slice(0, 2).map(feedback => ({
+            ...feedback, starsHTML: this.getStarsHTML(feedback)
+          }));
+        },
+        error: (err) => console.log(err),
+      });
   }
+  
+  
+  getStarsHTML(feedbacks: Feedback): string {
+    let starsHTML = '';
+    const rating = feedbacks.rating;
+  
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        starsHTML += '<span class="fa fa-star checked"></span>';
+      } else {
+        starsHTML += '<span class="fa fa-star"></span>';
+      }
+    }
+  
+    return starsHTML;
+  }
+  
+  
+  
   
 
 

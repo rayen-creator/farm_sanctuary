@@ -1,11 +1,18 @@
 .container {
     position: relative;
+ 
   }
   
   .thm-btn {
     position: absolute;
     top: 75%;
     right: 0;
-    transform: translateY(-100%);
+    
+    transform: translateY(-80%);
+    transform: translateX(-70%);
   }
   
+
+  .checked {
+    color : MediumSeaGreen;
+  }
