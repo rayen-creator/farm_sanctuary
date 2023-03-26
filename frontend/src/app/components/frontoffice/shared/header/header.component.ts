@@ -24,10 +24,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private auth: AuthService,private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    this.token=this.auth.getToken();
-    this.decodedToken = jwt_decode(this.token) as DecodedToken;
-    this.userId=this.decodedToken.id;
-
     this.userIsAuthenticated = this.auth.isUserAuth();
     this.authListenerSubs = this.auth.getAuthStatusListener().subscribe({
       next: (isAuthenticated) => {
@@ -39,6 +35,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
     );
+    this.token=this.auth.getToken();
+    this.decodedToken = jwt_decode(this.token) as DecodedToken;
+    this.userId=this.decodedToken.id;
     this.usernameSubs = this.auth.getUsername().subscribe({
       next: (username) => {
         this.username = username;
