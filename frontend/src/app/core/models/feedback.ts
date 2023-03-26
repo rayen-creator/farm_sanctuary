@@ -7,4 +7,5 @@ export class Feedback{
     content: String
     rating:number
     category: category
+    
 }
