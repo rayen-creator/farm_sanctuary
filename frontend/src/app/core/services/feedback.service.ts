@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createFeedback } from '../graphql/queries/graphql.queries'
 import { Feedback } from '../models/feedback';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class FeedbackService {
   isDesc: boolean = false;
   data: any;
 
-  constructor(private appolo: Apollo, private router: Router) { }
+  constructor(private apollo: Apollo, private router: Router) { }
+
   sortString(list: Feedback[], property: any) {
     this.data = list;
     this.isDesc = !this.isDesc;
@@ -39,23 +41,21 @@ export class FeedbackService {
       rating: feedback.rating,
       category: feedback.category
     };
-    return this.appolo.mutate({
-      mutation: createFeedback,
-      variables: {
-        input: input
-      }
-    }).subscribe({
-      next: (res) => {
-        const createdFeed = res.data as Feedback;
-
-
-      },
-      error: (err) => {
-        console.log(err);
-
-      }
-    });
+    return this.apollo
+      .mutate({
+        mutation: createFeedback,
+        variables: { input: input },
+      })
+      .subscribe({
+        next: (result: any) => {
+          const createFeedback = result.data.updateUser as Feedback;
+          Swal.fire('Created', 'Feedback has been created successfully.', 'success');
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          throw err;
+        },
+      });
   }
 
-  
 }

@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
   SEND_OTP_MUTATION_SMS,
@@ -18,13 +19,17 @@ import { AuthService } from "./auth.service";
 })
 export class UserService {
   token: string;
+  tokenSubscription:Subscription;
   decodedToken: DecodedToken;
   userId: string;
   constructor(private appolo: Apollo, private router: Router,
-    private toastr: ToastrService, private auth: AuthService) { }
+    private toastr: ToastrService, private auth: AuthService) {
+      this.tokenSubscription=this.auth.getToken().subscribe((token)=>this.token=token);
+
+     }
 
   verifyMailChangeOTP(username: string, otp: string) {
-    this.token = this.auth.getToken();
+    // this.token = this.auth.getToken();
     this.decodedToken = jwt_decode(this.token) as DecodedToken;
     this.userId = this.decodedToken.id;
     const input = {
@@ -113,7 +118,7 @@ export class UserService {
   }
 
   updateEmail(username: String, email: String) {
-    this.token = this.auth.getToken();
+    // this.token = this.auth.getToken();
     this.decodedToken = jwt_decode(this.token) as DecodedToken;
     this.userId = this.decodedToken.id;
     const input = {

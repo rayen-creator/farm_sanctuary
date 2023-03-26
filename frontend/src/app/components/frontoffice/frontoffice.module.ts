@@ -21,6 +21,8 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
 import { ChangeMailComponent } from './users/change-mail/change-mail.component';
 import { ContactComponent } from './shared/contact/contact.component';
 import { AboutComponent } from './shared/about/about.component';
+import { DetailBlogComponent } from './blog/detail-blog/detail-blog.component';
+import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { AboutComponent } from './shared/about/about.component';
     FeedbackFormComponent,
     ChangeMailComponent,
     ContactComponent,
-    AboutComponent
+    AboutComponent,
+    LatestnewsComponent,
+    DetailBlogComponent
   ],
   imports: [
     CommonModule,

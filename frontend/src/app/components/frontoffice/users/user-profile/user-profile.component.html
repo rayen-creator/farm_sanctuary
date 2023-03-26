@@ -5,11 +5,15 @@
         <div class="card">
           <div class="card-body" style="margin: 30px">
             <div class="d-flex flex-column align-items-center text-center">
-              <img *ngIf="imagePreview" [src]="imagePreview" alt="Admin"
-                   class="rounded-circle"
-                   height="125"
-                   style="color: #6d8c54"
-                   width="125"/>
+              <img
+                *ngIf="imagePreview"
+                [src]="imagePreview"
+                alt="Admin"
+                class="rounded-circle"
+                height="125"
+                style="color: #6d8c54"
+                width="125"
+              />
               <img
                 *ngIf="!imagePreview && user?.image"
                 [src]="sanitizeImageUrl(user.image)"
@@ -42,7 +46,6 @@
                     style="display: none"
                     type="file"
                   />
-
                 </div>
               </div>
             </div>
@@ -53,20 +56,25 @@
         <div class="card">
           <div class="card-body" style="margin: 30.6px">
             <form *ngIf="userForm" [formGroup]="userForm">
-              <div class="form-group row mb-3" [ngClass]="{'has-error': usernameExist}">
+              <div
+                class="form-group row mb-3"
+                [ngClass]="{ 'has-error': usernameExist }"
+              >
                 <div class="col-sm-3">
                   <h6 class="mb-0">Username</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
                   <input
-                    [ngClass]="{'is-invalid': usernameExist}"
+                    [ngClass]="{ 'is-invalid': usernameExist }"
                     class="form-control"
                     formControlName="username"
                     id="username"
                     name="username"
                     type="text"
                   />
-                  <span *ngIf="usernameExist" class="help-block">Username already used!</span>
+                  <span *ngIf="usernameExist" class="help-block"
+                    >Username already used!</span
+                  >
                 </div>
               </div>
               <div class="form-group row mb-3" style="margin-top: 20px">
@@ -79,8 +87,53 @@
                     formControlName="phone"
                     id="phone"
                     name="phone"
-                    type="number"
+                    type="text"
+                    ng2TelInput
+                    [ng2TelInputOptions]="{
+                      initialCountry: 'tn',
+                      autoHideDialCode: false,
+                      separateDialCode: true
+                    }"
+                    (countryChange)="onCell1CountryChange($event)"
+
                   />
+                  <span
+                  class="text-danger error-msg error-msg"
+                  *ngIf="
+                    (userForm.controls['phone'].invalid &&
+                    userForm.controls['phone'].dirty) ||
+                    userForm.controls['phone'].touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                    userForm.controls['phone'].hasError('required')
+                    "
+                    class="error"
+                    >this field is required !</span
+                  >
+                  <span
+                    *ngIf="
+                    userForm.controls['phone'].hasError('pattern')
+                    "
+                    class="error"
+                    >phone should be digits
+                  </span>
+                  <span
+                    *ngIf="
+                    userForm.controls['phone'].hasError('minlength')
+                    "
+                    class="error"
+                    >phone should't be less than 8 digits
+                  </span>
+                  <span
+                    *ngIf="
+                    userForm.controls['phone'].hasError('maxlength')
+                    "
+                    class="error"
+                    >phone should't be more than 15 digits
+                  </span>
+                </span>
                 </div>
               </div>
                 <div class="form-group row mb-3" style="margin-top: 20px">
@@ -113,16 +166,33 @@
                     name="email"
                     type="email"
                   />
-                  <p *ngIf="!user.email_change_option">{{user.email}}</p>
-                  <a routerLink="twofactorauth" style="font-size: 0.8rem; padding: 0;" (click)="sendSMS()">Change Email</a>
+                  <p *ngIf="!user.email_change_option">{{ user.email }}</p>
+                  <a
+                    routerLink="twofactorauth"
+                    style="font-size: 0.8rem; padding: 0"
+                    (click)="sendSMS()"
+                    >Change Email</a
+                  >
                 </div>
               </div>
-              <span class="text-danger error-msg error-msg" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">
-                                    <span  *ngIf="userForm.controls['email'].errors?.['required']" class="error">this field is required !</span >
-                                    <span  *ngIf="userForm.controls['email'].errors?.['email']" class="error">enter a valid email !</span >
-                                  </span>
-
-
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="
+                  !userForm.controls['email'].valid &&
+                  userForm.controls['email'].touched
+                "
+              >
+                <span
+                  *ngIf="userForm.controls['email'].errors?.['required']"
+                  class="error"
+                  >this field is required !</span
+                >
+                <span
+                  *ngIf="userForm.controls['email'].errors?.['email']"
+                  class="error"
+                  >enter a valid email !</span
+                >
+              </span>
 
               <div class="form-group row mb-3" style="margin-top: 20px">
                 <div class="col-sm-3">
@@ -130,7 +200,10 @@
                 </div>
                 <!-- <ui-switch checked></ui-switch> -->
                 <div class="col-sm-9 text-secondary">
-                  <ui-switch [checked]="false" formControlName="two_FactAuth_Option"></ui-switch>
+                  <ui-switch
+                    [checked]="false"
+                    formControlName="two_FactAuth_Option"
+                  ></ui-switch>
 
                   <!-- <div class="btn-group btn-toggle">
                     <button class="btn btn-xs btn-default">ON</button>
@@ -144,59 +217,113 @@
                   <h6 class="mb-0">Current Password</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input class="form-control" formControlName="currentpassword" id="currentpassword"
-                         name="currentpassword"
-                         type="password">
-
+                  <input
+                    class="form-control"
+                    formControlName="currentpassword"
+                    id="currentpassword"
+                    name="currentpassword"
+                    type="password"
+                  />
                 </div>
               </div>
-              <span *ngIf="userForm.controls['currentpassword'].invalid && userForm.controls['currentpassword'].touched"
-                    class="text-danger error-msg">
-                                    <span *ngIf="userForm.controls['currentpassword'].errors?.['incorrectPassword']"
-                                          class="error">Wrong password !</span>
-                                  </span>
+              <span
+                *ngIf="
+                  userForm.controls['currentpassword'].invalid &&
+                  userForm.controls['currentpassword'].touched
+                "
+                class="text-danger error-msg"
+              >
+                <span
+                  *ngIf="userForm.controls['currentpassword'].errors?.['incorrectPassword']"
+                  class="error"
+                  >Wrong password !</span
+                >
+              </span>
               <div
-                [hidden]="!userForm.controls['currentpassword'].touched || userForm.controls['currentpassword'].invalid || !userForm.controls['currentpassword'].dirty || userForm.controls['currentpassword'].value == '' "
+                [hidden]="
+                  !userForm.controls['currentpassword'].touched ||
+                  userForm.controls['currentpassword'].invalid ||
+                  !userForm.controls['currentpassword'].dirty ||
+                  userForm.controls['currentpassword'].value == ''
+                "
                 class="form-group row mb-3"
-                style="margin-top: 20px">
+                style="margin-top: 20px"
+              >
                 <div class="col-sm-3">
                   <h6 class="mb-0">New Password</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input class="form-control" formControlName="newpassword" id="newpassword" name="newpassword"
-                         type="password">
-
+                  <input
+                    class="form-control"
+                    formControlName="newpassword"
+                    id="newpassword"
+                    name="newpassword"
+                    type="password"
+                  />
                 </div>
               </div>
-              <span *ngIf="userForm.controls['newpassword'].invalid && userForm.controls['newpassword'].touched"
-                    class="text-danger error-msg">
-                                    <span *ngIf="userForm.controls['newpassword'].errors?.['minlength']" class="error">Password must be at least 6 characters long ! </span>
-                                    <span *ngIf="userForm.controls['newpassword'].errors?.['maxlength']" class="error">Password cannot be more than 20 characters long !</span>
-                                  </span>
+              <span
+                *ngIf="
+                  userForm.controls['newpassword'].invalid &&
+                  userForm.controls['newpassword'].touched
+                "
+                class="text-danger error-msg"
+              >
+                <span
+                  *ngIf="userForm.controls['newpassword'].errors?.['minlength']"
+                  class="error"
+                  >Password must be at least 6 characters long !
+                </span>
+                <span
+                  *ngIf="userForm.controls['newpassword'].errors?.['maxlength']"
+                  class="error"
+                  >Password cannot be more than 20 characters long !</span
+                >
+              </span>
               <div
-                [hidden]="!userForm.controls['currentpassword'].touched || userForm.controls['currentpassword'].invalid || !userForm.controls['currentpassword'].dirty || userForm.controls['currentpassword'].value == ''"
+                [hidden]="
+                  !userForm.controls['currentpassword'].touched ||
+                  userForm.controls['currentpassword'].invalid ||
+                  !userForm.controls['currentpassword'].dirty ||
+                  userForm.controls['currentpassword'].value == ''
+                "
                 class="form-group row mb-3"
-                style="margin-top: 20px">
+                style="margin-top: 20px"
+              >
                 <div class="col-sm-3">
                   <h6 class="mb-0">Confirm password</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input class="form-control" formControlName="confirmNewPassword" id="confirmNewPassword"
-                         name="confirmNewPassword" type="password">
+                  <input
+                    class="form-control"
+                    formControlName="confirmNewPassword"
+                    id="confirmNewPassword"
+                    name="confirmNewPassword"
+                    type="password"
+                  />
                 </div>
               </div>
-              <span *ngIf="!userForm.controls['confirmNewPassword'].valid && userForm.controls['confirmNewPassword'].touched"
-                    class="text-danger error-msg">
-                                    <span *ngIf="userForm.controls['confirmNewPassword'].errors?.['passwordMismatch']"
-                                          class="error">password does not match !</span>
-                                  </span>
-              <span *ngIf="usernameExist" class="error-msg2">Username already used!</span>
+              <span
+                *ngIf="
+                  !userForm.controls['confirmNewPassword'].valid &&
+                  userForm.controls['confirmNewPassword'].touched
+                "
+                class="text-danger error-msg"
+              >
+                <span
+                  *ngIf="userForm.controls['confirmNewPassword'].errors?.['passwordMismatch']"
+                  class="error"
+                  >password does not match !</span
+                >
+              </span>
+              <span *ngIf="usernameExist" class="error-msg2"
+                >Username already used!</span
+              >
               <div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9 text-secondary">
                   <input
                     (click)="onSubmit()"
-                    [disabled]="userForm.invalid"
                     class="btn px-4"
                     style="background-color: #6d8c54; color: aliceblue"
                     type="submit"
