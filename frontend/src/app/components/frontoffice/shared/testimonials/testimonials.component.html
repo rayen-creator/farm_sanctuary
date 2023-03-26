@@ -46,7 +46,11 @@
 								<div class="testimonials-one__single-client-info-title">
 									<h4>{{feedback.subject}}</h4>
 									<p>{{feedback.category}}</p>
-                                    <div [innerHTML]="getStarsHTML(feedback)"></div>
+                                    <div class="stars">
+                                        <span *ngFor="let star of getStarsArray(feedback.rating)">
+                                          <i class="fa fa-star" [ngClass]="{'checked': star === 1}"></i>
+                                        </span>
+                                      </div>
 								</div>
 							</div>
 						</div>

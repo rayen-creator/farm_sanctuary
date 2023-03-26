@@ -26,25 +26,24 @@ export class TestimonialsComponent implements OnInit {
       .valueChanges.subscribe({
         next: (result: ApolloQueryResult<{ getFeedbacks: Feedback[] }>) => {
           this.feedbacks = result.data.getFeedbacks.map(feedback => ({
-            ...feedback, starsHTML: this.getStarsHTML(feedback)
+            ...feedback, starsHTML: this.getStarsArray(feedback.rating)
           }));
         },
         error: (err) => console.log(err),
       });
   }
 
-  getStarsHTML(feedback: Feedback): string {
-    let starsHTML = '';
-    const rating = feedback.rating;
-  
+  getStarsArray(rating: number): number[] {
+    const starsArray = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= rating) {
-        starsHTML += '<span class="fa fa-star checked"></span>';
+        starsArray.push(1);
       } else {
-        starsHTML += '<span class="fa fa-star"></span>';
+        starsArray.push(0);
       }
     }
-  
-    return starsHTML;
+    return starsArray;
+  }  
+    
   }
-}
+
