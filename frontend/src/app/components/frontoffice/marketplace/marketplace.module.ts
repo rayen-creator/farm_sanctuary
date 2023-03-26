@@ -6,6 +6,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { UserProductsComponent } from './user-products/user-products.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { UserProductsComponent } from './user-products/user-products.component';
     MarketplaceComponent,
     ProductsComponent,
     ProductFormComponent,
-    UserProductsComponent
+    UserProductsComponent,
+    ProductDetailsComponent
   ],
   imports: [
     CommonModule,

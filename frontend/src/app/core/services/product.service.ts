@@ -14,7 +14,7 @@ import {CreateProductResponse} from "../graphql/graphqlResponse/createProductRes
 import {AuthService} from "./auth.service";
 import {DecodedToken} from "../graphql/graphqlResponse/decodedToken";
 import jwt_decode from "jwt-decode";
-import {Observable} from "rxjs";
+import {catchError, Observable, of} from "rxjs";
 import { map } from 'rxjs/operators';
 
 
@@ -50,20 +50,20 @@ export class ProductService {
       });
   }
 
-  getProduct(id: string){
+  getProduct(id: string): Observable<Product> {
+    // @ts-ignore
     return this.appolo
       .watchQuery({
         query: product,
         variables: {id},
-      }).valueChanges.subscribe({
-        next: (res) => {
-          //get the response
-          const product = res.data as Product;
-        },
-        error: (err) => {
+      }).valueChanges.pipe(
+        // @ts-ignore
+        map((res) => res.data.getProduct as Product),
+        catchError((err) => {
           console.log(err);
-        },
-      });
+          return of(null);
+        })
+      );
   }
 
 
