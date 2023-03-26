@@ -37,7 +37,7 @@ export class AboutComponent implements OnInit {
         next: (result: ApolloQueryResult<{ getFeedbacks: Feedback[] }>) => {
           this.feedbacks = result.data.getFeedbacks.filter((feedback) => feedback.rating === 5);
           this.feedbacks = this.feedbacks.slice(0, 2).map(feedback => ({
-            ...feedback, starsHTML: this.getStarsHTML(feedback)
+            ...feedback, starsHTML: this.getStarsHTML(feedback.rating)
           }));
         },
         error: (err) => console.log(err),
@@ -45,9 +45,8 @@ export class AboutComponent implements OnInit {
   }
   
   
-  getStarsHTML(feedbacks: Feedback): string {
+  getStarsHTML(rating: number): string {
     let starsHTML = '';
-    const rating = feedbacks.rating;
   
     for (let i = 1; i <= 5; i++) {
       if (i <= rating) {

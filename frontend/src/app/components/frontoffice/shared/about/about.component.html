@@ -305,7 +305,7 @@
                 <div class="testimonials-one__single-client-info-title">
                   <h4>{{ feedbacks[0].title }}</h4>
                   <p>{{ feedbacks[0].category }}</p>
-                  <div [innerHTML]="getStarsHTML(feedbacks[0])"></div>
+                  <div [innerHTML]="getStarsHTML(feedbacks[0].rating)"></div>
                 </div>
               </div>
             </div>
@@ -326,7 +326,7 @@
                 <div class="testimonials-one__single-client-info-title">
                   <h4>{{ feedbacks[1].title }}</h4>
                   <p>{{ feedbacks[1].category }}</p>
-                  <div [innerHTML]="getStarsHTML(feedbacks[1])"></div>
+                  <div [innerHTML]="getStarsHTML(feedbacks[1].rating)"></div>
 
                 </div>
               </div>
