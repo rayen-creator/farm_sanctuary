@@ -35,20 +35,21 @@ export class ProductService {
     private auth: AuthService
   ) { }
 
-  getProducts(){
+  getProducts(): Observable<Product[]> {
+    // @ts-ignore
     return this.appolo
       .watchQuery({
         query: products,
-      }).valueChanges.subscribe({
-        next: (res) => {
-          //get the response
-          const productList = res.data as Product[];
-        },
-        error: (err) => {
+      }).valueChanges.pipe(
+        // @ts-ignore
+        map((res) => res.data.getProducts as Product[]),
+        catchError((err) => {
           console.log(err);
-        },
-      });
+          return of([]);
+        })
+      );
   }
+
 
   getProduct(id: string): Observable<Product> {
     // @ts-ignore

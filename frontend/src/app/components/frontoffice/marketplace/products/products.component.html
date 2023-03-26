@@ -66,18 +66,18 @@
           </div><!-- /.col-lg-12 -->
         </div><!-- /.row -->
         <div class="row">
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4" *ngFor="let p of productsList ">
             <div class="shop-one__item">
               <div class="shop-one__image">
                 <span class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
-                <img src="assets/images/update-14-09-2021/shop/shop-1-1.png" alt="">
+                <img src="{{p.image}}" alt="">
                 <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
               </div><!-- /.shop-one__image -->
               <div class="shop-one__content text-center">
-                <h3 class="shop-one__title"><a href="product-details.html">Brown
-                  Bread</a>
+                <h3 class="shop-one__title"><a [routerLink]="['/marketplace/product', p.id]">{{p.name}}</a>
                 </h3>
-                <p class="shop-one__price">$23.00</p><!-- /.shop-one__price -->
+                <h6 style="font-size: 15px " class="shop-one__title"><a href="product-details.html">quantity : {{p.quantity}} {{p.unit}}</a></h6>
+                <p class="shop-one__price">${{p.price}}</p><!-- /.shop-one__price -->
                 <div class="shop-one__rating">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
@@ -88,176 +88,8 @@
               </div><!-- /.shop-one__content -->
             </div><!-- /.shop-one__item -->
           </div><!-- /.col-md-6 col-lg-3 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="shop-one__item">
-              <div class="shop-one__image">
 
-                <img src="assets/images/update-14-09-2021/shop/shop-1-2.png" alt="">
-                <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
-              </div><!-- /.shop-one__image -->
-              <div class="shop-one__content text-center">
-                <h3 class="shop-one__title"><a href="product-details.html">Red Onion</a>
-                </h3>
-                <p class="shop-one__price">$33.00</p><!-- /.shop-one__price -->
-                <div class="shop-one__rating">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div><!-- /.shop-one__rating -->
-              </div><!-- /.shop-one__content -->
-            </div><!-- /.shop-one__item -->
-          </div><!-- /.col-md-6 col-lg-3 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="shop-one__item">
-              <div class="shop-one__image">
 
-                <img src="assets/images/update-14-09-2021/shop/shop-1-3.png" alt="">
-                <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
-              </div><!-- /.shop-one__image -->
-              <div class="shop-one__content text-center">
-                <h3 class="shop-one__title"><a href="product-details.html">Broccoli</a>
-                </h3>
-                <p class="shop-one__price">$18.00</p><!-- /.shop-one__price -->
-                <div class="shop-one__rating">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div><!-- /.shop-one__rating -->
-              </div><!-- /.shop-one__content -->
-            </div><!-- /.shop-one__item -->
-          </div><!-- /.col-md-6 col-lg-3 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="shop-one__item">
-              <div class="shop-one__image">
-
-                <img src="assets/images/update-14-09-2021/shop/shop-1-4.png" alt="">
-                <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
-              </div><!-- /.shop-one__image -->
-              <div class="shop-one__content text-center">
-                <h3 class="shop-one__title"><a href="product-details.html">Fresh
-                  Potato</a>
-                </h3>
-                <p class="shop-one__price">$16.00</p><!-- /.shop-one__price -->
-                <div class="shop-one__rating">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div><!-- /.shop-one__rating -->
-              </div><!-- /.shop-one__content -->
-            </div><!-- /.shop-one__item -->
-          </div><!-- /.col-md-6 col-lg-3 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="shop-one__item">
-              <div class="shop-one__image">
-
-                <img src="assets/images/update-14-09-2021/shop/shop-1-5.png" alt="">
-                <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
-              </div><!-- /.shop-one__image -->
-              <div class="shop-one__content text-center">
-                <h3 class="shop-one__title"><a href="product-details.html">Tomatos</a>
-                </h3>
-                <p class="shop-one__price">$26.00</p><!-- /.shop-one__price -->
-                <div class="shop-one__rating">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div><!-- /.shop-one__rating -->
-              </div><!-- /.shop-one__content -->
-            </div><!-- /.shop-one__item -->
-          </div><!-- /.col-md-6 col-lg-3 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="shop-one__item">
-              <div class="shop-one__image">
-
-                <img src="assets/images/update-14-09-2021/shop/shop-1-6.png" alt="">
-                <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
-              </div><!-- /.shop-one__image -->
-              <div class="shop-one__content text-center">
-                <h3 class="shop-one__title"><a href="product-details.html">Lemons</a>
-                </h3>
-                <p class="shop-one__price">$19.00</p><!-- /.shop-one__price -->
-                <div class="shop-one__rating">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div><!-- /.shop-one__rating -->
-              </div><!-- /.shop-one__content -->
-            </div><!-- /.shop-one__item -->
-          </div><!-- /.col-md-6 col-lg-3 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="shop-one__item">
-              <div class="shop-one__image">
-                <span class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
-                <img src="assets/images/update-14-09-2021/shop/shop-1-7.png" alt="">
-                <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
-              </div><!-- /.shop-one__image -->
-              <div class="shop-one__content text-center">
-                <h3 class="shop-one__title"><a href="product-details.html">Red
-                  Chillis</a>
-                </h3>
-                <p class="shop-one__price">$9.00</p><!-- /.shop-one__price -->
-                <div class="shop-one__rating">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div><!-- /.shop-one__rating -->
-              </div><!-- /.shop-one__content -->
-            </div><!-- /.shop-one__item -->
-          </div><!-- /.col-md-6 col-lg-3 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="shop-one__item">
-              <div class="shop-one__image">
-                <img src="assets/images/update-14-09-2021/shop/shop-1-8.png" alt="">
-                <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
-              </div><!-- /.shop-one__image -->
-              <div class="shop-one__content text-center">
-                <h3 class="shop-one__title"><a href="product-details.html">Carrots</a>
-                </h3>
-                <p class="shop-one__price">$8.00</p><!-- /.shop-one__price -->
-                <div class="shop-one__rating">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div><!-- /.shop-one__rating -->
-              </div><!-- /.shop-one__content -->
-            </div><!-- /.shop-one__item -->
-          </div><!-- /.col-md-6 col-lg-3 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="shop-one__item">
-              <div class="shop-one__image">
-                <span class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
-                <img src="assets/images/update-14-09-2021/shop/shop-1-1.png" alt="">
-                <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
-              </div><!-- /.shop-one__image -->
-              <div class="shop-one__content text-center">
-                <h3 class="shop-one__title"><a href="product-details.html">Brown
-                  Bread</a>
-                </h3>
-                <p class="shop-one__price">$23.00</p><!-- /.shop-one__price -->
-                <div class="shop-one__rating">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div><!-- /.shop-one__rating -->
-              </div><!-- /.shop-one__content -->
-            </div><!-- /.shop-one__item -->
-          </div>
         </div><!-- /.row -->
       </div><!-- /.col-lg-3 -->
     </div><!-- /.row -->
