@@ -1,3 +1,4 @@
+import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
 import { ContactComponent } from './shared/contact/contact.component';
 import { NotfoundComponent } from './shared/notfound/notfound.component';
 import { FeedbackFormComponent } from './feedbacks/feedback-form/feedback-form';
@@ -32,7 +33,8 @@ const routes: Routes = [
       { path: 'error', component: ErrorresetpwdComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'about', component: AboutComponent },
-      { path: 'feedbacks', component: FeedbackFormComponent }
+      { path: 'feedbacks', component: FeedbackFormComponent },
+      { path: 'testimonials', component: TestimonialsComponent}
 
 
     ]

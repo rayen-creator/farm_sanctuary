@@ -22,6 +22,7 @@ import { ChangeMailComponent } from './users/change-mail/change-mail.component';
 import { ContactComponent } from './shared/contact/contact.component';
 import { AboutComponent } from './shared/about/about.component';
 import { WebscrapingComponent } from './webscraping/webscraping.component';
+import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { WebscrapingComponent } from './webscraping/webscraping.component';
     ChangeMailComponent,
     ContactComponent,
     AboutComponent,
-    WebscrapingComponent
+    WebscrapingComponent,
+    TestimonialsComponent
   ],
   imports: [
     CommonModule,
