@@ -5,13 +5,15 @@ import { MarketplaceComponent } from './marketplace.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { UserProductsComponent } from './user-products/user-products.component';
 
 
 @NgModule({
   declarations: [
     MarketplaceComponent,
     ProductsComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    UserProductsComponent
   ],
   imports: [
     CommonModule,

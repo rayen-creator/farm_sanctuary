@@ -6,7 +6,7 @@ import {
   createProduct,
   deleteProduct,
   product,
-  products,
+  products, productsByUser,
   updateProduct
 } from "../graphql/queries/graphql.queries.product";
 import {Product} from "../models/product";
@@ -14,6 +14,8 @@ import {CreateProductResponse} from "../graphql/graphqlResponse/createProductRes
 import {AuthService} from "./auth.service";
 import {DecodedToken} from "../graphql/graphqlResponse/decodedToken";
 import jwt_decode from "jwt-decode";
+import {Observable} from "rxjs";
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -64,6 +66,19 @@ export class ProductService {
       });
   }
 
+
+  getProductsByUser(userId: string): Observable<Product[]> {
+    return this.appolo.watchQuery({
+      query: productsByUser,
+      variables: { userId },
+    }).valueChanges.pipe(
+      map((res) => {
+        // @ts-ignore
+        const products = res.data.getProductsByUser;
+        return products as Product[];
+      })
+    );
+  }
   createProduct(product: Product , selectedFile: File) {
     this.token = this.auth.getToken();
     this.decodedToken = jwt_decode(this.token) as DecodedToken;

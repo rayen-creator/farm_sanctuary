@@ -28,10 +28,38 @@ const products = gql`
     }
   }
 `;
+
 const product = gql`
   query getProduct($id: ID!)
   {
     getProduct(id: $id) {
+      id,
+      name,
+      description,
+      price,
+      quantity,
+      unit,
+      country,
+      rating {
+        total
+        count
+        average
+      },
+      category,
+      expirationDate,
+      createdAt,
+      updatedAt,
+      user {
+        username
+      },
+      image
+    }
+  }
+`;
+const productsByUser = gql`
+  query getProductByUser($userId:ID!)
+  {
+    getProductsByUser(userId:$userId) {
       id,
       name,
       description,
@@ -100,4 +128,4 @@ const deleteProduct = gql`
   }
 `;
 
-export {products,product,createProduct,updateProduct,deleteProduct}
+export {products,product,createProduct,updateProduct,deleteProduct, productsByUser}
