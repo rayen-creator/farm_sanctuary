@@ -15,7 +15,12 @@ const feedbackSchema = new mongoose.Schema({
       category: {
         type: String,
         enum: category,
-      }
+      },
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "User"
+    },
   });
   
   const Feedback = mongoose.model("Feedback", feedbackSchema);
