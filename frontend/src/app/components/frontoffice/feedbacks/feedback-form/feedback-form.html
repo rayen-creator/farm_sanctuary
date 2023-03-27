@@ -62,11 +62,17 @@
                 <textarea rows="5" cols="5" formControlName="content"  placeholder="type the content of the feedback"></textarea>
                 <div *ngIf="content_step && ContentDetails.controls.content.errors">
                     <div *ngIf="content.content.errors?.['required']">Content is required</div>
+
                 </div>
                 
                 <input (click)="previous()" type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input (click)="onSubmit()"type="submit" name="submit" class="submit action-button" value="Submit"/>
-            </fieldset>
+                <input type="submit"
+                name="submit"
+                class="submit action-button"
+                value="Submit"
+                [disabled]="ContentDetails.get('feedback')?.hasError('badWord')"
+         />
+                     </fieldset>
         </form>
 
     

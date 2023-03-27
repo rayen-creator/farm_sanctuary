@@ -268,6 +268,8 @@ const typeDefs = gql`
     longitude: String!
     latitude: String!
   }
+ 
+  
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -276,6 +278,10 @@ const typeDefs = gql`
 
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
+    getFiveStarFeedbacks: [Feedback!]!
+
+
+
 
     product(asin: String!): Product
 

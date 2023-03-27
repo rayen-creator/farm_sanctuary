@@ -1,7 +1,7 @@
 import { Apollo, gql } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { createFeedback , feedbacks} from '../graphql/queries/graphql.queries'
+import { feedbacks ,createFeedback, getFeedbacksFiveStars} from '../graphql/queries/graphql.queries'
 import { Feedback } from '../models/feedback';
 
 @Injectable({
@@ -56,11 +56,19 @@ export class FeedbackService {
       }
     });
   }
-  getFeedbacks() {
-    return this.appolo.watchQuery({
-      query: feedbacks
-    }).valueChanges;
-  }
+  // getFeedbacks() {
+  //   return this.appolo.watchQuery({
+  //     query: feedbacks
+  //   }).valueChanges;
+  // }
+
+  // getFeedbacksFiveStars() {
+  //   return this.appolo.watchQuery({
+  //     query: getFeedbacksFiveStars
+  //   }).valueChanges;
+  // }
+
+
 
 
   

@@ -8,6 +8,12 @@ async function getFeedbacks() {
   return Feedback.find();
 }
 
+async function  getFiveStarFeedbacks() {
+  return Feedback.find({ rating: 5 });
+}
+
+
+
 async function createFeedback(input) {
   const feedback = new Feedback({
     title: input.title,
@@ -51,5 +57,5 @@ module.exports = {
   createFeedback,
   updateFeedback,
   deleteFeedback,
-  
+  getFiveStarFeedbacks
 };

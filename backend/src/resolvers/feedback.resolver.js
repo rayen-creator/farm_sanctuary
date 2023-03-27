@@ -23,6 +23,14 @@ const feedbackResolver = {
         throw new UserInputError(error.message);
       }
     },
+    async getFiveStarFeedbacks(){
+      try{
+        return await feedbackService.getFiveStarFeedbacks();
+      }catch(error){
+        throw new UserInputError(error.message);
+      }
+    }
+
   },
 
   Mutation: {

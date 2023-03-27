@@ -30,7 +30,17 @@ const createFeedback = gql `
     }
 }
 `
+const getFeedbacksFiveStars = gql`
+    query{
+    getFiveStarFeedbacks{
+        title,
+        subject,
+        content, 
+        rating,
+        category
+    
+    }
+    }
+    `;
 
-;
-
-export {feedbacks , createFeedback}
+export {feedbacks , createFeedback ,getFeedbacksFiveStars}

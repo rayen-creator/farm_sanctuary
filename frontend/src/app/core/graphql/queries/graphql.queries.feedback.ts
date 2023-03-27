@@ -11,4 +11,6 @@ const feedbacks = gql`
       }
     }
 `;
+
+
 export {feedbacks}

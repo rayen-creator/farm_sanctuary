@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Feedback } from 'src/app/core/models/feedback';
 import { FeedbackService } from 'src/app/core/services/feedback.service';
 import { ApolloQueryResult } from '@apollo/client/core';
-import { feedbacks } from 'src/app/core/graphql/queries/graphql.queries';
+import { feedbacks, getFeedbacksFiveStars } from 'src/app/core/graphql/queries/graphql.queries';
 
 @Component({
   selector: 'app-about',
@@ -22,22 +22,21 @@ export class AboutComponent implements OnInit {
   constructor(private feedbackservice : FeedbackService , private apollo : Apollo) { }
 
   ngOnInit(): void {
-    this.getFeedbacks();
+    this.getFeedbacksFiveStars();
   }
   sort(property: any) {
     this.feedbackservice.sortString(this.feedbacks, property);
   }
 
-  getFeedbacks() {
+  getFeedbacksFiveStars(): void {
     this.apollo
-      .watchQuery<{ getFeedbacks: Feedback[] }>({
-        query: feedbacks,
+      .watchQuery<{ getFiveStarFeedbacks: Feedback[] }>({
+        query: getFeedbacksFiveStars,
       })
       .valueChanges.subscribe({
-        next: (result: ApolloQueryResult<{ getFeedbacks: Feedback[] }>) => {
-          this.feedbacks = result.data.getFeedbacks.filter((feedback) => feedback.rating === 5);
-          this.feedbacks = this.feedbacks.slice(0, 2).map(feedback => ({
-            ...feedback, starsHTML: this.getStarsHTML(feedback.rating)
+        next: (result: ApolloQueryResult<{ getFiveStarFeedbacks: Feedback[] }>) => {
+          this.feedbacks = result.data.getFiveStarFeedbacks.slice(0,2).map(feedback => ({
+            ...feedback, starsHTML: this.getStarsArray(feedback.rating)
           }));
         },
         error: (err) => console.log(err),
@@ -45,23 +44,16 @@ export class AboutComponent implements OnInit {
   }
   
   
-  getStarsHTML(rating: number): string {
-    let starsHTML = '';
-  
+  getStarsArray(rating: number): number[] {
+    const starsArray = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= rating) {
-        starsHTML += '<span class="fa fa-star checked"></span>';
+        starsArray.push(1);
       } else {
-        starsHTML += '<span class="fa fa-star"></span>';
+        starsArray.push(0);
       }
     }
-  
-    return starsHTML;
-  }
-  
-  
-  
-  
-
-
+    return starsArray;
+  }  
 }
+
