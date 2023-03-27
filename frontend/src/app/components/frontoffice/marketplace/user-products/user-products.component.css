@@ -1,0 +1,40 @@
+.shop-one__delete-button {
+  background-color: #D90429;
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 8px 12px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto", sans-serif;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.shop-one__edit-button {
+  background-color: #F9A71A;
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 8px 12px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  background-image: linear-gradient(to bottom, #FF8C00, #FDBA2D);
+  font-family: "Roboto", sans-serif;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.shop-one__delete-button:hover, .shop-one__edit-button:hover {
+  background-color: #E08A1E;
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+}

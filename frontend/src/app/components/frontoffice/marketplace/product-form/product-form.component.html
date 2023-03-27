@@ -1,0 +1,250 @@
+<section class="page-header clearfix" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg);">
+  <div class="container">
+    <div class="page-header__inner text-center clearfix">
+      <h2 *ngIf="editMode==false">Add product</h2>
+      <h2 *ngIf="editMode==true">edit {{product?.name}}</h2>
+    </div>
+  </div>
+</section>
+<div class="container">
+  <div class="main-body">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body" style="margin: 30px">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img *ngIf="imagePreview" [src]="imagePreview" alt="Admin"
+                   class="rounded-circle"
+                   height="125"
+                   style="color: #6d8c54"
+                   width="125"/>
+              <img
+                *ngIf="!imagePreview && product?.image"
+                [src]="(product.image)"
+                alt="Admin"
+                class="rounded-circle"
+                height="125"
+                style="color: #6d8c54"
+                width="125"
+              />
+              <div class="mt-3">
+                <div class="mt-2">
+                  <button
+                    (click)="fileInput.click()"
+                    class="btn btn-outline-primary"
+                    style="margin: 10px"
+                  >
+                    <i class="fa fa-fw fa-camera"></i>
+                    <span>Select Photo</span>
+                  </button>
+                  <p style="font-size: small">please select a photo for your product !</p>
+                  <span *ngIf="!photoSelected && !editMode" class="error-msg2"
+                  >product photo is required !</span
+                  >
+                  <input
+                    #fileInput
+                    (change)="handleFileInput($event)"
+                    style="display: none"
+                    type="file"
+                  />
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body" style="margin: 30.6px">
+            <form *ngIf="productForm" [formGroup]="productForm">
+              <div class="form-group row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input
+                    class="form-control"
+                    formControlName="name"
+                    id="name"
+                    name="name"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="productForm.controls['name'].invalid  && productForm.controls['name'].touched">
+                        <span *ngIf="productForm.controls['name'].hasError('required')" class="error">This field is required!</span>
+                <br>
+                        <span *ngIf="productForm.controls['name'].hasError('minlength')" class="error">Minimum length is 3!</span>
+                <br>
+                        <span *ngIf="productForm.controls['name'].hasError('pattern')"class="error">Symbols are not allowed!</span>
+              </span>
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Price</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input
+                    class="form-control"
+                    formControlName="price"
+                    id="price"
+                    name="price"
+                    type="number"
+                  />
+                </div>
+              </div>
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="productForm.controls['price'].invalid && productForm.controls['price'].touched">
+                        <span *ngIf="productForm.controls['price'].hasError('required')" class="error">This field is required!</span>
+                <br>
+                        <span *ngIf="productForm.controls['price'].hasError('invalidPositiveNumber')" class="error">price should be positive!</span>
+              </span>
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Quantity</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input
+                    class="form-control"
+                    formControlName="quantity"
+                    id="quantity"
+                    name="quantity"
+                    type="number"
+                  />
+                </div>
+                <span
+                  class="text-danger error-msg error-msg"
+                  *ngIf="productForm.controls['quantity'].invalid  && productForm.controls['quantity'].touched">
+                        <span *ngIf="productForm.controls['quantity'].hasError('required')" class="error">This field is required!</span>
+                  <br>
+                        <span *ngIf="productForm.controls['quantity'].hasError('invalidPositiveNumber')" class="error">quantity should be positive!</span>
+              </span>
+              </div>
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Unit</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <select
+                    class="form-control"
+                    formControlName="unit"
+                    id="unit"
+                    name="unit"
+                  >
+                    <option value="KG">Kg</option>
+                    <option value="GRAM">Gram</option>
+                    <option value="LITRE">Litre</option>
+                    <option value="COUNT">Count</option>
+                  </select>
+                </div>
+              </div>
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="productForm.controls['unit'].invalid  && productForm.controls['unit'].touched">
+                        <span *ngIf="productForm.controls['unit'].hasError('required')" class="error">This field is required!</span>
+              </span>
+                <div class="form-group row mb-3" style="margin-top: 20px">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Category</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    <select
+                      class="form-control"
+                      formControlName="category"
+                      id="category"
+                      name="category"
+                    >
+                      <option value="FRUITS">Fruits</option>
+                      <option value="VEGETABLES">Vegetables</option>
+                      <option value="DAIRY">Dairy</option>
+                      <option value="MEAT">Meat</option>
+                      <option value="GRAINS">Grains</option>
+                      <option value="NUTS">Nuts</option>
+                      <option value="HERBS">Herbs</option>
+                      <option value="SPICES">Spices</option>
+                      <option value="HONEY">Honey</option>
+                      <option value="MUSHROOMS">Mushrooms</option>
+                      <option value="OTHER">Other</option>
+                    </select>
+                  </div>
+                </div>
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="productForm.controls['category'].invalid  && productForm.controls['category'].touched">
+                        <span *ngIf="productForm.controls['category'].hasError('required')" class="error">This field is required!</span>
+              </span>
+
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Expiration date</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input
+                    class="form-control"
+                    formControlName="expirationDate"
+                    id="expirationDate"
+                    name="expirationDate"
+                    type="date"
+                    min="{{today | date:'yyyy-MM-dd'}}"
+                  />
+                </div>
+              </div>
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="productForm.controls['expirationDate'].invalid  && productForm.controls['expirationDate'].touched">
+                        <span *ngIf="productForm.controls['expirationDate'].hasError('required')" class="error">This field is required!</span>
+                        <span *ngIf="productForm.controls['expirationDate'].hasError('futureDate')" class="error">Expiration date must be in the future</span>
+
+              </span>
+              <div class="form-group row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Description</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <textarea
+                    class="form-control"
+                    formControlName="description"
+                    id="description"
+                    name="description"
+                    type="text"
+                    rows="4" cols="50"
+                  >
+                  </textarea>
+                </div>
+                <span
+                  class="text-danger error-msg error-msg"
+                  *ngIf="productForm.controls['description'].invalid && productForm.controls['description'].touched">
+                        <span *ngIf="productForm.controls['description'].hasError('required')" class="error">This field is required!</span>
+              </span>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9 text-secondary">
+                  <input
+                    (click)="onSubmit()"
+                    [disabled]="productForm.invalid"
+                    class="btn px-4"
+                    style="background-color: #6d8c54; color: aliceblue"
+                    type="submit"
+                    value="Save Changes"
+                  />
+                  <button
+                    class="btn btn-outline-primary"
+                    routerLink="/marketplace/myProducts"
+                    style="margin: 19.5px"
+                  >
+                    Return
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
