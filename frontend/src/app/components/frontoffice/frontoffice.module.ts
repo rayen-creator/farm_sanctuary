@@ -53,7 +53,6 @@ import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
     UiSwitchModule,
     GoogleSigninButtonModule,
     Ng2TelInputModule,
-    
   ]
 })
 export class FrontofficeModule { }

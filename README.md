@@ -59,6 +59,8 @@ FarmSanctaury is a sustainable farming web application that aims to provide farm
 
 - **📈Data analysis and reporting:** Information and resources to measure the impact of sustainable farming practices on the environment, economy, and community.
 
+- **📱 [Mobile app](https://github.com/rayen-creator/farm_sanctuary_delivery) :** Mobile app built for farm sanctuary delivery agent to ensure transparency between client and his package
+
 The goal of the web application is to promote sustainable agriculture, reduce waste and environmental impact, and provide farmers with the tools and resources they need to succeed in their farming operations.
 
 
