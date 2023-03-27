@@ -19,12 +19,15 @@ export class UserProductsComponent implements OnInit {
   token: string;
   decodedToken: DecodedToken;
   userId: string;
+  private tokenSubs: Subscription;
   constructor(private productService: ProductService, private router:Router, private toastr:ToastrService, private auth: AuthService) { }
 
   ngOnInit(): void {
-    this.token = this.auth.getToken();
-    this.decodedToken = jwt_decode(this.token) as DecodedToken;
-    this.userId = this.decodedToken.id;
+    this.tokenSubs = this.auth.getToken().subscribe((token) => {
+      this.token = token
+      this.decodedToken = jwt_decode(this.token) as DecodedToken;
+      this.userId = this.decodedToken.id;
+    });
     this.getAllProducts()
   }
   getAllProducts(){

@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {DecodedToken} from "../../../../core/graphql/graphqlResponse/decodedToken";
 import jwt_decode from "jwt-decode";
 import {AuthService} from "../../../../core/services/auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-product-form',
@@ -28,13 +29,16 @@ export class ProductFormComponent implements OnInit {
 
   editMode: boolean = false
   today: Date;
+  private tokenSubs: Subscription;
   constructor(private auth: AuthService,private router: Router,  private formBuilder: FormBuilder, private prodService: ProductService,  private currentRoute: ActivatedRoute)
   {  this.today = new Date(); }
 
   ngOnInit(): void {
-    this.token = this.auth.getToken();
-    this.decodedToken = jwt_decode(this.token) as DecodedToken;
-    this.userId = this.decodedToken.id;
+    this.tokenSubs = this.auth.getToken().subscribe((token) => {
+      this.token = token
+      this.decodedToken = jwt_decode(this.token) as DecodedToken;
+      this.userId = this.decodedToken.id;
+    });
     if (this.currentRoute.snapshot.params['id']) {
       this.editMode = true
       let id = this.currentRoute.snapshot.params['id'];

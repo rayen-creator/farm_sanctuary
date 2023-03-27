@@ -14,7 +14,7 @@ import {CreateProductResponse} from "../graphql/graphqlResponse/createProductRes
 import {AuthService} from "./auth.service";
 import {DecodedToken} from "../graphql/graphqlResponse/decodedToken";
 import jwt_decode from "jwt-decode";
-import {catchError, Observable, of} from "rxjs";
+import {catchError, Observable, of, Subscription} from "rxjs";
 import { map } from 'rxjs/operators';
 
 
@@ -23,7 +23,7 @@ import { map } from 'rxjs/operators';
 })
 
 export class ProductService {
-
+  private tokenSubs: Subscription;
   token: string;
   decodedToken: DecodedToken;
   userId: string;
@@ -81,9 +81,11 @@ export class ProductService {
     );
   }
   createProduct(product: Product , selectedFile: File, userId: string) {
-    this.token = this.auth.getToken();
-    this.decodedToken = jwt_decode(this.token) as DecodedToken;
-    this.userId = this.decodedToken.id;
+    this.tokenSubs = this.auth.getToken().subscribe((token) => {
+      this.token = token
+      this.decodedToken = jwt_decode(this.token) as DecodedToken;
+      this.userId = this.decodedToken.id;
+    });
     const input = {
       name: product.name,
       description: product.description,
