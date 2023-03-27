@@ -1,9 +1,13 @@
+import { Subscription } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createFeedback } from '../graphql/queries/graphql.queries'
 import { Feedback } from '../models/feedback';
 import Swal from 'sweetalert2';
+import { AuthService } from './auth.service';
+import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
+import jwt_decode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +15,16 @@ import Swal from 'sweetalert2';
 export class FeedbackService {
   isDesc: boolean = false;
   data: any;
+  private tokenSubs: Subscription;
+  decodedToken: DecodedToken;
+  userId: string;
 
-  constructor(private apollo: Apollo, private router: Router) { }
+  constructor(private apollo: Apollo, private router: Router, private auth: AuthService) {
+    this.tokenSubs = this.auth.getToken().subscribe((token) => {
+      this.decodedToken = jwt_decode(token) as DecodedToken;
+      this.userId = this.decodedToken.id;
+    });
+  }
 
   sortString(list: Feedback[], property: any) {
     this.data = list;
@@ -33,16 +45,17 @@ export class FeedbackService {
 
   }
 
-  private assignUserToFeedback(){
-    
-  }
-  createFeedback(feedback: Feedback) {
-    const input = {
+
+  createFeedback(feedback: any) {
+  
+    console.log("userId",this.userId);
+      const input = {
       title: feedback.title,
       subject: feedback.subject,
       content: feedback.content,
       rating: feedback.rating,
-      category: feedback.category
+      category: feedback.category,
+      user: this.userId
     };
     return this.apollo
       .mutate({
@@ -62,3 +75,4 @@ export class FeedbackService {
   }
 
 }
+

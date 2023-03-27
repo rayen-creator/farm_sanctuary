@@ -110,7 +110,7 @@ export class FeedbackFormComponent implements OnInit {
           content: contentFeedback.content,
           rating: parseInt(categoryFeedback.rating),
           category: categoryFeedback.category,
-        } as Feedback;
+        };
 
         this.feedbackService.createFeedback(feedback);
 

@@ -16,7 +16,8 @@ async function createFeedback(input) {
     rating: input.rating,
     role: input.role,
     category:input.category,
-    
+    user: input.user,
+
   });
   return await feedback.save(feedback);
 }

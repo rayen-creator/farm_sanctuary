@@ -50,6 +50,8 @@ const typeDefs = gql`
     content: String!
     rating: Int!
     category: Category!
+    user: ID!
+
   }
 
   enum Gender {

@@ -7,4 +7,5 @@ export class Feedback {
     content: string
     rating: Number
     category: category
+    user: string
 }
