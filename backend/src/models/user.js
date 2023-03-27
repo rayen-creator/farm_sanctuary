@@ -49,12 +49,7 @@ const userSchema = new mongoose.Schema({
     expiresAt: Date,
   },
   email_change_option: Boolean,
-  feedbacks: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Feedback",
-    },
-  ],
+
 });
 
 const User = mongoose.model("Users", userSchema);
