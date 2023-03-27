@@ -33,7 +33,7 @@ export class FeedbackFormComponent implements OnInit {
     category_step = false;
     content_step = false;
     step = 1;
-    badWords: string[] = ['bad', 'words', 'offensive', 'inappropriate'];
+    // badWords: string[] = ['bad', 'words', 'offensive', 'inappropriate'];
   
   feedbackList: Feedback[];
     constructor(private apollo: Apollo ,private formBuilder: FormBuilder, private currentRoute: ActivatedRoute  ) {
@@ -52,7 +52,7 @@ export class FeedbackFormComponent implements OnInit {
     });
 
     this.ContentDetails = this.formBuilder.group({
-        content: ['', Validators.compose([Validators.required, badWordValidator(['bad', 'words'])])],
+        content: ['', Validators.compose([Validators.required, badWordValidator(['bad', 'stupid','fake'])])],
        
     });
     }
@@ -135,7 +135,7 @@ export class FeedbackFormComponent implements OnInit {
                 const createFeedback = result.data.updateUser as Feedback;
   
                 Swal.fire('Created', 'Feedback has been created successfully.', 'success');
-  
+                console.log(createFeedback);
               },
               error: (err) => {
                 console.log('err :' + err);
