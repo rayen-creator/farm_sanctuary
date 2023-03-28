@@ -70,11 +70,38 @@ async function deleteProduct(id) {
     return await product.remove();
 }
 
+async function addReview(idProd, idUser, input) {
+    const product = await Product.findById(idProd);
+
+    if (!product) {
+        return { message: "Product not found" };
+    }
+
+    const review = {
+        userReview: idUser,
+        rating: input.rating,
+        comment: input.comment,
+        createdAt: new Date(),
+    };
+
+    product.reviews.push(review);
+    product.rating.count += 1;
+    product.rating.total += review.rating;
+    product.rating.average = product.rating.total / product.rating.count;
+
+    await product.save();
+
+    return { message: "Review added successfully" };
+}
+
+
+
 module.exports = {
     getProduct,
     getProducts,
     createProduct,
     updateProduct,
     deleteProduct,
-    getProductsByUser
+    getProductsByUser,
+    addReview
 };

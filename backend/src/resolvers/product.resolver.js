@@ -50,6 +50,14 @@ const productResolver = {
                 throw new UserInputError(error.message);
             }
         },
+        async addReviewProduct(_, { idProd,idUser, input }) {
+            try {
+                return await productService.addReview(idProd,idUser,input);
+            } catch (error) {
+                throw new UserInputError(error.message);
+            }
+        },
+
         async deleteProduct(_, { id }) {
             try {
                 const product = await productService.deleteProduct(id);

@@ -140,29 +140,23 @@
 <section class="product-form">
   <div class="container">
     <h2 class="product-content__title">Add a Review</h2><!-- /.product-content__title -->
-    <p class="product-form__rating">
-      Rate this Product?
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-    </p>
+    <div class="product-form__rating">
+      Rate this Product
+      <div class="rating">
+
+        <input type="radio" formControlName="rating"  id="star5" name="rating" value="5" required><label for="star5"></label>
+        <input type="radio" formControlName="rating" id="star4" name="rating" value="4"><label for="star4"></label>
+        <input type="radio" formControlName="rating" id="star3" name="rating" value="3"><label for="star3"></label>
+        <input type="radio" formControlName="rating" id="star2" name="rating" value="2"><label for="star2"></label>
+        <input type="radio" formControlName="rating" id="star1" name="rating" value="1"><label for="star1"></label>
+
+      </div>
+    </div>
     <form action="https://layerdrops.com/agriox/assets/inc/sendemail.php" class="comment-one__form contact-form-validated" novalidate="novalidate">
       <div class="row">
         <div class="col-xl-12">
           <div class="comment-form__input-box">
             <textarea name="message" placeholder="Write message"></textarea>
-          </div>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6">
-          <div class="comment-form__input-box">
-            <input type="text" placeholder="Your name" name="name">
-          </div>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6">
-          <div class="comment-form__input-box">
-            <input type="email" placeholder="Email address" name="email">
           </div>
         </div>
       </div>
