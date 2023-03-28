@@ -57,7 +57,6 @@
       <div class="col-lg-9">
         <div class="row">
           <div class="col-lg-12 shop-one__sorter">
-            <p class="shop-one__product-count">Showing 1–9 of 12 results</p>
             <select class="shop-one__product-sorter" name="sortProducts" id="sortProducts">
               <option value="popularity" selected>Sort by Popular</option>
               <option value="priceAsc">Sort by Price asc</option>
@@ -90,6 +89,8 @@
           <div class="row">
             <div class="col-lg-12 text-center">
               <div class="news-sidebar__btn">
+                <p class="shop-one__product-count" *ngIf="numberOfProductsToShow < productsList.length">Showing 1–{{numberOfProductsToShow}} of {{productsList.length}} results</p>
+                <p class="shop-one__product-count" *ngIf="numberOfProductsToShow > productsList.length">Showing 1–{{productsList.length}} of {{productsList.length}} results</p>
                 <a (click)="showMoreProducts()" class="thm-btn">load more</a>
               </div>
             </div><!-- /.col-lg-12 text-center -->

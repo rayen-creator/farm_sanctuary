@@ -10,7 +10,7 @@ import { ProductService } from '../../../../core/services/product.service';
 export class ProductsComponent implements OnInit {
   public productsList: Product[];
   public visibleProducts: Product[];
-  public numberOfProductsToShow = 3;
+  public numberOfProductsToShow = 9;
 
   constructor(private productService: ProductService) { }
 
@@ -34,7 +34,7 @@ export class ProductsComponent implements OnInit {
   }
 
   showMoreProducts() {
-    this.numberOfProductsToShow += 3;
+    this.numberOfProductsToShow += 6;
     this.visibleProducts = this.productsList.slice(0, this.numberOfProductsToShow);
   }
 
