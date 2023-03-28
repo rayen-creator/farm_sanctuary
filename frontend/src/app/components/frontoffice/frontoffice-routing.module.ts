@@ -18,6 +18,7 @@ import { ChangeMailComponent } from './users/change-mail/change-mail.component';
 import { DetailBlogComponent } from './blog/detail-blog/detail-blog.component';
 import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
 import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user/feedback-list-per-user.component';
+import { AddArticleComponent } from './blog/add-article/add-article.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: 'detailnews', component: DetailBlogComponent },
       { path: 'marketplace', loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) },
       { path: 'feedbacklist', component: FeedbackListPerUserComponent },
+      { path: 'addarticle', component: AddArticleComponent },
 
     ]
   },

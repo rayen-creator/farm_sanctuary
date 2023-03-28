@@ -24,6 +24,8 @@ import { AboutComponent } from './shared/about/about.component';
 import { DetailBlogComponent } from './blog/detail-blog/detail-blog.component';
 import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
 import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user/feedback-list-per-user.component';
+import { AddArticleComponent } from './blog/add-article/add-article.component'
+import { QuillModule } from 'ngx-quill';
 
 
 @NgModule({
@@ -46,6 +48,7 @@ import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user
     LatestnewsComponent,
     DetailBlogComponent,
     FeedbackListPerUserComponent,
+    AddArticleComponent,
   ],
   imports: [
     CommonModule,
@@ -55,6 +58,7 @@ import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user
     UiSwitchModule,
     GoogleSigninButtonModule,
     Ng2TelInputModule,
+    QuillModule
   ]
 })
 export class FrontofficeModule { }
