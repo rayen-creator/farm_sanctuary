@@ -16,15 +16,15 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="product-details__image">
-          <img src="{{product.image}}" alt="">
+          <img src="{{product?.image}}" alt="">
         </div><!-- /.product-details__image -->
       </div><!-- /.col-lg-6 -->
       <div class="col-lg-6">
         <div class="product-details__content">
           <div class="product-details__content__top">
-            <h3 class="product-details__content__name">{{product.name}}</h3>
+            <h3 class="product-details__content__name">{{product?.name}}</h3>
             <!-- /.product-details__content__name -->
-            <div class="product-details__content__price">${{product.price}}</div>
+            <div class="product-details__content__price">${{product?.price}}</div>
             <!-- /.product-details__content__price -->
           </div><!-- /.product-details__content__top -->
           <div class="product-details__content__rating">
@@ -38,12 +38,12 @@
             <div class="product-details__content__rating__count">2 Customer Reviews</div>
             <!-- /.product-details__content__rating__count -->
           </div><!-- /.product-details__content__rating -->
-          <div class="product-details__content__text">
+          <div class="product-details__content__text" *ngIf="product">
             <div *ngIf="product.quantity > 0">
               <p  style="color: #007701">Available in store</p>
-              <p>Quantity: {{product.quantity}}</p>
+              <p>Quantity: {{product?.quantity}}</p>
             </div>
-            <p *ngIf="product.quantity == 0" style="color: red">Out of stock</p>
+            <p *ngIf="product?.quantity == 0" style="color: red">Out of stock</p>
           </div><!-- /.product-details__content__text -->
           <div class="product-details__content__quantity">
             <div class="product-details__content__quantity__text">Choose Quantity</div>
@@ -78,7 +78,7 @@
 <section class="product-content">
   <div class="container">
     <h2 class="product-content__title">Description</h2><!-- /.product-content__title -->
-    <p>{{product.description}}</p>
+    <p>{{product?.description}}</p>
   </div><!-- /.container -->
 </section>
 
@@ -139,32 +139,57 @@
 
 <section class="product-form">
   <div class="container">
-    <h2 class="product-content__title">Add a Review</h2><!-- /.product-content__title -->
-    <div class="product-form__rating">
-      Rate this Product
-      <div class="rating">
 
-        <input type="radio" formControlName="rating"  id="star5" name="rating" value="5" required><label for="star5"></label>
-        <input type="radio" formControlName="rating" id="star4" name="rating" value="4"><label for="star4"></label>
-        <input type="radio" formControlName="rating" id="star3" name="rating" value="3"><label for="star3"></label>
-        <input type="radio" formControlName="rating" id="star2" name="rating" value="2"><label for="star2"></label>
-        <input type="radio" formControlName="rating" id="star1" name="rating" value="1"><label for="star1"></label>
+    <form action="https://layerdrops.com/agriox/assets/inc/sendemail.php" class="comment-one__form contact-form-validated" novalidate="novalidate" [formGroup]="reviewForm">
+      <h2 class="product-content__title">Add a Review</h2><!-- /.product-content__title -->
+      <div class="product-form__rating">
+        Rate this Product
+        <div class="rating">
 
+          <input type="radio" formControlName="rating"  id="star5" name="rating" value="5" required><label for="star5"></label>
+          <input type="radio" formControlName="rating" id="star4" name="rating" value="4"><label for="star4"></label>
+          <input type="radio" formControlName="rating" id="star3" name="rating" value="3"><label for="star3"></label>
+          <input type="radio" formControlName="rating" id="star2" name="rating" value="2"><label for="star2"></label>
+          <input type="radio" formControlName="rating" id="star1" name="rating" value="1"><label for="star1"></label>
+
+        </div>
       </div>
-    </div>
-    <form action="https://layerdrops.com/agriox/assets/inc/sendemail.php" class="comment-one__form contact-form-validated" novalidate="novalidate">
+      <span
+        class="text-danger error-msg"
+        *ngIf="
+                          (reviewForm.controls['comment'].invalid &&
+                            reviewForm.controls['comment'].dirty) ||
+                          reviewForm.controls['comment'].touched
+                        "
+      >
+      <span *ngIf="reviewForm.controls['rating'].hasError('required')"
+        class="error">please select a rating !</span>
+      </span>
       <div class="row">
         <div class="col-xl-12">
           <div class="comment-form__input-box">
-            <textarea name="message" placeholder="Write message"></textarea>
+            <textarea name="message" placeholder="Write message" formControlName="comment"></textarea>
           </div>
+          <span
+            class="text-danger error-msg"
+            *ngIf="
+                          (reviewForm.controls['comment'].invalid &&
+                            reviewForm.controls['comment'].dirty) ||
+                          reviewForm.controls['comment'].touched
+                        "
+          >
+          <span
+            *ngIf="reviewForm.controls['comment'].hasError('required')"
+            class="error"
+          >this field is required !</span
+          >
+          </span>
         </div>
       </div>
       <div class="row">
         <div class="col-xl-12 col-lg-12">
-
-          <button type="submit" class="thm-btn comment-form__btn">Submit
-            comment</button>
+          <button (click)="submit()" type="submit" class="thm-btn comment-form__btn" [disabled]="reviewForm.invalid">Submit
+            review</button>
         </div>
       </div>
     </form>

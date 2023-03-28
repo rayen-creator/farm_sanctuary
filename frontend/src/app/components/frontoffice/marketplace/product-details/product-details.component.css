@@ -36,3 +36,13 @@
 .rating:hover input:not(:checked) ~ label:hover ~ label {
   color: #efce69;
 }
+.error {
+  color: red;
+  font-size: 12px;
+  font-weight: 400;
+}
+.thm-btn[disabled] {
+  background-color: gray;
+  color: white;
+  cursor: not-allowed;
+}

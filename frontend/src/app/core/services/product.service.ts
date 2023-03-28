@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {
+  addReview,
   createProduct,
   deleteProduct,
   product,
@@ -190,6 +191,40 @@ export class ProductService {
         next: (res) => {
           //get the response
           const product = res.data as Product;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+
+  addReview(idProd:string,idUser:string,comment:string,rating:number) {
+    const input = {
+     rating:rating,
+      comment:comment
+    };
+    return this.appolo
+      .mutate({
+        mutation: addReview,
+        variables: {
+          idProd: idProd,
+          idUser:idUser,
+          input: input,
+        },
+        refetchQueries: [{
+          query: product,
+          variables: {id:idProd}
+        },
+          {
+            query: products
+          }],
+        context: {
+          useMultipart: true
+        }
+      })
+      .subscribe({
+        next: (res) => {
+          //get the response
         },
         error: (err) => {
           console.log(err);

@@ -71,14 +71,14 @@ async function deleteProduct(id) {
 }
 
 async function addReview(idProd, idUser, input) {
-    const product = await Product.findById(idProd);
+    const product = await Product.findById(idUser);
 
     if (!product) {
         return { message: "Product not found" };
     }
 
     const review = {
-        userReview: idUser,
+        userReview: idProd,
         rating: input.rating,
         comment: input.comment,
         createdAt: new Date(),

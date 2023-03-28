@@ -128,4 +128,12 @@ const deleteProduct = gql`
   }
 `;
 
-export {products,product,createProduct,updateProduct,deleteProduct, productsByUser}
+const addReview = gql`
+  mutation addReviewProduct($idProd:ID!,$idUser:ID!,$input: addReviewInput!) {
+    addReviewProduct(idProd: $idUser,idUser: $idProd,input: $input) {
+      message
+    }
+  }
+`;
+
+export {products,product,createProduct,updateProduct,deleteProduct, productsByUser, addReview}
