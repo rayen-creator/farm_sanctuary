@@ -9,12 +9,15 @@ import {ProductService} from "../../../../core/services/product.service";
 })
 export class ProductsComponent implements OnInit {
   public productsList: Product[];
+
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.getAllProducts()
+    this.getAllProducts();
+    this.setupSorting();
   }
-  getAllProducts(){
+
+  getAllProducts() {
     this.productService.getProducts().subscribe({
       next: (products) => {
         this.productsList = products;
@@ -23,6 +26,24 @@ export class ProductsComponent implements OnInit {
       error: (err) => {
         console.log(err);
       },
+    });
+  }
+
+  setupSorting() {
+    const selectElement = document.getElementById('sortProducts') as HTMLSelectElement;
+    selectElement.addEventListener('change', () => {
+      const sortCriteria = selectElement.value;
+      if (sortCriteria === 'priceAsc') {
+        const sortedProducts = [...this.productsList];
+        sortedProducts.sort((a, b) => a.price - b.price);
+        this.productsList = sortedProducts;
+      } else if (sortCriteria === 'priceDesc') {
+        const sortedProducts = [...this.productsList];
+        sortedProducts.sort((a, b) => b.price - a.price);
+        this.productsList = sortedProducts;
+      } else {
+        // sort by popularity or any other criteria
+      }
     });
   }
 }
