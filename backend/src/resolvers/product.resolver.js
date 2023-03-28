@@ -6,11 +6,8 @@ const productResolver = {
     Query: {
         async getProduct(_, { id }) {
             try {
-                const product = await productService.getProduct(id);
-                if (!product) {
-                    throw new UserInputError('Product not found');
-                }
-                return product;
+                return await productService.getProduct(id);
+
             } catch (error) {
                 throw new UserInputError(error.message);
             }

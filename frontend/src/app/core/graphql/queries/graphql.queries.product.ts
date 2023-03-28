@@ -45,12 +45,22 @@ const product = gql`
         count
         average
       },
+      reviews {
+        userReview {
+          username,
+          image
+        }
+        comment
+        rating
+        createdAt
+      }
       category,
       expirationDate,
       createdAt,
       updatedAt,
       user {
         username
+        image
       },
       image
     }

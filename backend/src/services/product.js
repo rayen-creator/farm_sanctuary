@@ -3,7 +3,13 @@ const User = require('../models/user');
 const uploadImage = require("./utils/imageUpload");
 
 async function getProduct(id) {
-    return Product.findById(id).populate({path: "user", model: "Users"});
+    return Product.findById(id).populate([{path: "user", model: "Users"},{
+        path: 'reviews',
+        populate: {
+            path: 'userReview',
+            model: 'Users'
+        }
+    }])
 }
 
 async function getProducts() {

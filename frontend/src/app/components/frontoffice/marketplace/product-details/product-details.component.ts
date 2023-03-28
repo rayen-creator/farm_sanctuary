@@ -56,6 +56,15 @@ export class ProductDetailsComponent implements OnInit {
       }
     )
   }
+  getStars(average: number = 0): number[] {
+    const stars = [];
+    const roundedAverage = Math.round(average);
+    for (let i = 0; i < roundedAverage; i++) {
+      stars.push(i);
+    }
+    return stars;
+  }
+
 
   submit() {
     Swal.fire({

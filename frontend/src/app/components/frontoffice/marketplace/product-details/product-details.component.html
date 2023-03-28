@@ -29,13 +29,11 @@
           </div><!-- /.product-details__content__top -->
           <div class="product-details__content__rating">
             <div class="product-details__content__rating__star">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
+              <i class="fa fa-star" *ngFor="let star of getStars(product?.rating?.average ?? 0)"></i>
             </div><!-- /.product-details__content__rating__star -->
-            <div class="product-details__content__rating__count">2 Customer Reviews</div>
+            <div class="product-details__content__rating__value"></div>
+
+            <div class="product-details__content__rating__count">{{product?.reviews?.length}} Customer Reviews</div>
             <!-- /.product-details__content__rating__count -->
           </div><!-- /.product-details__content__rating -->
           <div class="product-details__content__text" *ngIf="product">
@@ -85,54 +83,28 @@
 
 <section class="product-review">
   <div class="container">
-    <h2 class="product-content__title">2 Reviews</h2><!-- /.product-content__title -->
-    <div class="product-review__item">
+    <h2 class="product-content__title">{{product?.reviews?.length}} Reviews</h2><!-- /.product-content__title -->
+    <div class="product-review__item" *ngFor="let review of product?.reviews?.slice()?.reverse()">
       <div class="product-review__item__image">
-        <img src="assets/images/update-14-09-2021/shop/shop-review-1-1.png" alt="">
+        <img src="{{review.userReview.image}}" alt="" style="width: 100px; height: 100px">
       </div><!-- /.product-review__item__image -->
       <div class="product-review__item__content">
         <div class="product-review__item__star">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
+          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+            <i class="fa" [ngClass]="{ 'fa-star': star <= review.rating, 'fa-star-o': star > review.rating }"></i>
+          </ng-container>
         </div><!-- /.product-review__item__star -->
-        <h3 class="product-review__item__title">Mike Hardson</h3>
+
+        <h3 class="product-review__item__title">{{review.userReview.username}}</h3>
         <div class="product-review__item__meta">
-          20 Sep, 2021 <span>.</span> 4:00 pm
+          {{ review.createdAt | date:'dd MMM, yyyy'}}  <span>.</span> {{ review.createdAt | date:'hh:mm a'}}
         </div><!-- /.product-review__item__meta -->
-        <p class="product-review__item__text">Aliquam et facilisis arcuut olestie augue. Suspendisse
-          sodales tortor nunc quis auctor ligula posuere cursus duis aute irure dolor in reprehenderit
-          in voluptate velit esse cill doloreeu fugiat nulla pariatur excepteur sint. Vivaus sed delly
-          molestie sapien. Aliquam et facilisis arcuut molestie augue. </p>
+        <p class="product-review__item__text">{{review.comment}} </p>
         <!-- /.product-review__item__text -->
       </div><!-- /.product-review__item__content -->
     </div><!-- /.product-review__item -->
 
-    <div class="product-review__item">
-      <div class="product-review__item__image">
-        <img src="assets/images/update-14-09-2021/shop/shop-review-1-2.png" alt="">
-      </div><!-- /.product-review__item__image -->
-      <div class="product-review__item__content">
-        <div class="product-review__item__star">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div><!-- /.product-review__item__star -->
-        <h3 class="product-review__item__title">Sarah Rose</h3>
-        <div class="product-review__item__meta">
-          20 Sep, 2021 <span>.</span> 4:00 pm
-        </div><!-- /.product-review__item__meta -->
-        <p class="product-review__item__text">Aliquam et facilisis arcuut olestie augue. Suspendisse
-          sodales tortor nunc quis auctor ligula posuere cursus duis aute irure dolor in reprehenderit
-          in voluptate velit esse cill doloreeu fugiat nulla pariatur excepteur sint. Vivaus sed delly
-          molestie sapien. Aliquam et facilisis arcuut molestie augue. </p>
-        <!-- /.product-review__item__text -->
-      </div><!-- /.product-review__item__content -->
-    </div><!-- /.product-review__item -->
+
   </div><!-- /.container -->
 </section>
 
