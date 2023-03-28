@@ -2,12 +2,13 @@ import { Subscription } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { createFeedback } from '../graphql/queries/graphql.queries'
 import { Feedback } from '../models/feedback';
 import Swal from 'sweetalert2';
 import { AuthService } from './auth.service';
 import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
 import jwt_decode from "jwt-decode";
+import { createFeedback, getFeedbackPerUser } from '../graphql/queries/graphql.queries.feedback';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +48,9 @@ export class FeedbackService {
 
 
   createFeedback(feedback: any) {
-  
-    console.log("userId",this.userId);
-      const input = {
+
+    console.log("userId", this.userId);
+    const input = {
       title: feedback.title,
       subject: feedback.subject,
       content: feedback.content,
@@ -73,6 +74,20 @@ export class FeedbackService {
         },
       });
   }
+
+  getFeedbackPerUser() {
+    const userId = this.userId;
+    return this.apollo.watchQuery({
+      query: getFeedbackPerUser,
+      variables: { userId }
+    }).valueChanges.pipe(
+      map((res: any) => {
+        const feedbacks = res.data.getFeedbackPerUser;
+        return feedbacks as Feedback[];
+      }))
+  }
+
+ 
 
 }
 
