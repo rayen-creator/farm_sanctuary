@@ -6,11 +6,8 @@ const productResolver = {
     Query: {
         async getProduct(_, { id }) {
             try {
-                const product = await productService.getProduct(id);
-                if (!product) {
-                    throw new UserInputError('Product not found');
-                }
-                return product;
+                return await productService.getProduct(id);
+
             } catch (error) {
                 throw new UserInputError(error.message);
             }
@@ -50,6 +47,14 @@ const productResolver = {
                 throw new UserInputError(error.message);
             }
         },
+        async addReviewProduct(_, { idProd,idUser, input }) {
+            try {
+                return await productService.addReview(idProd,idUser,input);
+            } catch (error) {
+                throw new UserInputError(error.message);
+            }
+        },
+
         async deleteProduct(_, { id }) {
             try {
                 const product = await productService.deleteProduct(id);

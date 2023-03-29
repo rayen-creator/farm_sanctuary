@@ -305,7 +305,7 @@ const typeDefs = gql`
     username: String!
     email: String!
   }
-
+  
   type UpdateEmailResponse {
     message: String!
     updateStatus: Boolean!
@@ -332,6 +332,7 @@ const typeDefs = gql`
   type createProductResponse {
     message: String!
   }
+  
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -395,6 +396,7 @@ const typeDefs = gql`
     createProduct(input: CreateProductInput!, file: Upload): createProductResponse!
     updateProduct(id: ID!, input: UpdateProductInput!, file: Upload): createProductResponse!
     deleteProduct(id: ID!): Product!
+    addReviewProduct(idProd: ID!,idUser:ID!, input:addReviewInput!): createProductResponse!
   }
 
   input CreateProductInput {
@@ -419,7 +421,10 @@ const typeDefs = gql`
     expirationDate: DateTime
     category: productCategory
   }
-
+  input addReviewInput {
+    rating: Int!
+    comment: String!
+  }
 
 
 `;
