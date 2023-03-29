@@ -26,6 +26,7 @@ import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
 import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user/feedback-list-per-user.component';
 import { AddArticleComponent } from './blog/add-article/add-article.component'
 import { QuillModule } from 'ngx-quill';
+import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
 
 
 @NgModule({
@@ -49,7 +50,7 @@ import { QuillModule } from 'ngx-quill';
     DetailBlogComponent,
     FeedbackListPerUserComponent,
     AddArticleComponent,
-  
+    TestimonialsComponent
   ],
   imports: [
     CommonModule,

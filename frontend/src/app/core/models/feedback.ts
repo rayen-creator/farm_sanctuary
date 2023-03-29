@@ -5,7 +5,7 @@ export class Feedback {
     title: string;
     subject: string;
     content: string;
-    rating: Number;
+    rating: number;
     category: category;
     user: string;
     createdAt:Date;

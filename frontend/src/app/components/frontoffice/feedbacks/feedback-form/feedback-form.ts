@@ -3,6 +3,9 @@ import { Feedback } from "../../../../core/models/feedback";
 import Swal from 'sweetalert2'
 import {  FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { FeedbackService } from 'src/app/core/services/feedback.service';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-feedback-list',
@@ -37,8 +40,8 @@ export class FeedbackFormComponent implements OnInit {
     });
 
     this.ContentDetails = this.formBuilder.group({
-      content: ['', Validators.required],
-
+        content: ['', Validators.compose([Validators.required, this.badWordValidator(['bad', 'stupid','fake'])])],
+       
     });
   }
   get Title() { return this.TitleAndSubjectDetails.controls; }
@@ -46,6 +49,15 @@ export class FeedbackFormComponent implements OnInit {
   get category() { return this.RatingAndCategoryDetails.controls; }
 
   get content() { return this.ContentDetails.controls; }
+
+  badWordValidator(badWords: string[]): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const input = control.value.toLowerCase();
+      const hasBadWord = badWords.some((word) => input.includes(word.toLowerCase()));
+  
+      return hasBadWord ? { badWord: true } : null;
+    };
+  }
 
   next() {
 

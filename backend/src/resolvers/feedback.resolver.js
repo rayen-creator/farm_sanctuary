@@ -29,6 +29,14 @@ const feedbackResolver = {
         throw error;
       }
     },
+    async getFiveStarFeedbacks(){
+      try{
+        return await feedbackService.getFiveStarFeedbacks();
+      }catch(error){
+        throw new UserInputError(error.message);
+      }
+    }
+
   },
 
   Mutation: {
@@ -39,9 +47,7 @@ const feedbackResolver = {
         throw new UserInputError(error.message);
       }
     },
-  
   },
 };
 
-module.exports = feedbackResolver;
 module.exports = feedbackResolver;

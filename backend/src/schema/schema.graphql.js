@@ -167,6 +167,19 @@ const typeDefs = gql`
     password: String!
   }
 
+
+
+  type RecommendedProduct {
+    title: String
+    price: String
+    image: String
+    url: String
+  }
+  
+ 
+
+  
+
   input signinInput {
     email: String!
     password: String!
@@ -243,6 +256,38 @@ const typeDefs = gql`
     email: String!
     phone: Int!
   }
+  
+  
+
+  type RecommendedProduct {
+    title: String
+    price: String
+    imageUrl: String
+    url: String,
+    rating: String
+  }
+  
+  type Product {
+    title: String
+    price: Float
+    image: String
+    description: String
+    rating: Int
+    recommendedProducts: [RecommendedProduct]
+  }  
+
+
+  input ProductInput {
+    title: String!
+    price: Float!
+    image: String!
+    description: String!
+    rating: Float!
+  }
+
+
+  
+
 
   type UpdatepwdResponse {
     message: String!
@@ -303,6 +348,14 @@ const typeDefs = gql`
     getProducts: [Product!]!
     getProduct(id: ID!): Product!
     getProductsByUser(userId: ID!): [Product!]!
+    getFiveStarFeedbacks: [Feedback!]!
+
+
+
+    getRecommendedProductById(asin: String!): RecommendedProduct!
+    getFarmProducts:[Product!]!
+
+
   }
 
   type Mutation {
@@ -332,7 +385,10 @@ const typeDefs = gql`
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!): loginDriverResponse!
 
-    createFeedback(input: FeedbackInput!): Feedback!
+    createFeedback(input: FeedbackInput!): Feedback! 
+    
+    createFarmProd(input: ProductInput!): Product!
+
   
 
 

@@ -290,12 +290,10 @@
       <div class="col-xl-8">
         <div class="testimonials-one__right">
           <div class="row">
-            <div class="col-xl-6">
+            <div class="col-xl-6" *ngFor ="let f of feedbacks">
                
                 <div class="testimonials-one__single">
-                    <p class="testimonials-one__single-text">Lorem ipsum is simply free text
-                        dolor not sit amet, consectetur notted adipisicing elit sed do eiusmod
-                        tempor incididunt ut labore et dolore text.</p>
+                    <p class="testimonials-one__single-text">{{f.content}}</p>
                     <div class="testimonials-one__single-client-info">
                         <div class="testimonials-one__single-client-info-img">
                             <div class="testimonials-one__single-client-info-img-inner">
@@ -309,6 +307,11 @@
                         <div class="testimonials-one__single-client-info-title">
                             <h4>Kevin Martin</h4>
                             <p>Customer</p>
+                            <div class="stars">
+                              <span *ngFor="let star of getStarsArray(f.rating)">
+                                <i class="fa fa-star" [ngClass]="{'checked': star === 1}"></i>
+                            </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -316,31 +319,7 @@
                 <!--Start Single Testimonials One-->
             </div>
           
-            <div class="col-xl-6">
-               
-                <div class="testimonials-one__single">
-                    <p class="testimonials-one__single-text">Lorem ipsum is simply free text
-                        dolor not sit amet, consectetur notted adipisicing elit sed do eiusmod
-                        tempor incididunt ut labore et dolore text.</p>
-                    <div class="testimonials-one__single-client-info">
-                        <div class="testimonials-one__single-client-info-img">
-                            <div class="testimonials-one__single-client-info-img-inner">
-                                <img src="assets/images/testimonial/testimonials-v1-img1.jpg"
-                                    alt="" />
-                            </div>
-                            <div class="icon">
-                                <span class="icon-right-quotation-mark"></span>
-                            </div>
-                        </div>
-                        <div class="testimonials-one__single-client-info-title">
-                            <h4>Kevin Martin</h4>
-                            <p>Customer</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!--Start Single Testimonials One-->
-            </div>
+         
             
           </div>
         </div>
