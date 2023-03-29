@@ -15,6 +15,14 @@ const getRecommendedProductById = async (parent, args, context, info) => {
   
 };
 
+const  createFarmProd = async (_, { input }) => {
+  try {
+    return await productDataService.createFarmProd(input);
+  } catch (error) {
+    throw new UserInputError(error.message);
+  }
+};
+
 
 
 
@@ -24,15 +32,7 @@ module.exports = {
     getRecommendedProductById,
   },
   Mutation: {
-    async createFarmProd(_, { input }) {
-      try {
-        return await productDataService.createFarmProd(input);
-      } catch (error) {
-        throw new UserInputError(error.message);
-      }
-    }
-    
-    
+    createFarmProd
   }
   
 

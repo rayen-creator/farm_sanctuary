@@ -111,7 +111,7 @@ const typeDefs = gql`
 
   type RecommendedProduct {
     title: String
-    price: Float
+    price: String
     image: String
     url: String
   }
@@ -219,17 +219,17 @@ const typeDefs = gql`
     price: Float
     image: String
     description: String
-    rating: Float
+    rating: Int
     recommendedProducts: [RecommendedProduct]
   }  
 
 
   input ProductInput {
-    title: String
-    price: Float
-    image: String
-    description: String
-    rating: Float
+    title: String!
+    price: Float!
+    image: String!
+    description: String!
+    rating: Float!
   }
 
 
