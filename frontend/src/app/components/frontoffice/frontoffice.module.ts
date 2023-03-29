@@ -49,6 +49,7 @@ import { QuillModule } from 'ngx-quill';
     DetailBlogComponent,
     FeedbackListPerUserComponent,
     AddArticleComponent,
+  
   ],
   imports: [
     CommonModule,

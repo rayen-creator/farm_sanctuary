@@ -20,6 +20,7 @@ import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
 import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user/feedback-list-per-user.component';
 import { AddArticleComponent } from './blog/add-article/add-article.component';
 
+
 const routes: Routes = [
   {
     path: '', component: FrontofficeComponent, children: [
@@ -42,6 +43,7 @@ const routes: Routes = [
       { path: 'marketplace', loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) },
       { path: 'feedbacklist', component: FeedbackListPerUserComponent },
       { path: 'addarticle', component: AddArticleComponent },
+
 
     ]
   },
