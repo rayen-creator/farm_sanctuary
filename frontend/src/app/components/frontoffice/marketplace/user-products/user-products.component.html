@@ -41,7 +41,7 @@
       <div class="col-lg-9">
         <div class="row">
           <div class="col-lg-12 shop-one__sorter">
-            <p class="shop-one__product-count">Showing 1–9 of 12 results</p>
+            <p></p>
             <select class="shop-one__product-sorter" name="sortProducts" id="sortProducts">
               <option value="popularity">Sort by Popular</option>
               <option value="quantity">Sort by Quantity</option>
@@ -62,8 +62,9 @@
                 <h6 style="font-size: 15px " class="shop-one__title"><a href="product-details.html">quantity : {{p.quantity}} {{p.unit}}</a>
                 </h6>
                 <p class="shop-one__price">${{p.price}}</p><!-- /.shop-one__price -->
-                <div class="shop-one__rating">
+                <div class="shop-one__rating" *ngIf="p.rating.count > 0">
                   <i class="fa fa-star" *ngFor="let star of getStars(p?.rating?.average ?? 0)"></i>
+                  <br>
                 </div>
                 <div class="shop-one__buttons">
                   <button style="margin-right: 10px;" (click)="deleteProduct(p.id)"><i class="fas fa-trash fa-lg" style="color: red;"></i></button>
@@ -79,8 +80,8 @@
             <div class="col-lg-12 text-center">
               <div class="news-sidebar__btn">
                 <p class="shop-one__product-count" *ngIf="numberOfProductsToShow < (productsList| filter:searchText).length">Showing 1–{{numberOfProductsToShow}} of {{(productsList| filter:searchText).length}} results</p>
-                <p class="shop-one__product-count" *ngIf="numberOfProductsToShow > (productsList| filter:searchText).length">Showing 1–{{(productsList| filter:searchText).length}} of {{(productsList| filter:searchText).length}} results</p>
-                <a (click)="showMoreProducts()" class="thm-btn">load more</a>
+                <p class="shop-one__product-count" *ngIf="numberOfProductsToShow >= (productsList| filter:searchText).length">Showing 1–{{(productsList| filter:searchText).length}} of {{(productsList| filter:searchText).length}} results</p>
+                <a (click)="showMoreProducts()" class="thm-btn" >load more</a>
               </div>
             </div><!-- /.col-lg-12 text-center -->
           </div>

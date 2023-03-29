@@ -83,6 +83,11 @@ async function addReview(idProd, idUser, input) {
         return { message: "Product not found" };
     }
 
+    const existingReview = product.reviews.find((review) => review.userReview.toString() === idProd.toString());
+    if (existingReview) {
+        return { message: "User has already added a review for this product" };
+    }
+
     const review = {
         userReview: idProd,
         rating: input.rating,
@@ -99,6 +104,7 @@ async function addReview(idProd, idUser, input) {
 
     return { message: "Review added successfully" };
 }
+
 
 
 
