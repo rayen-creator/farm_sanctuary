@@ -168,18 +168,6 @@ const typeDefs = gql`
   }
 
 
-
-  type RecommendedProduct {
-    title: String
-    price: String
-    image: String
-    url: String
-  }
-  
- 
-
-  
-
   input signinInput {
     email: String!
     password: String!
@@ -267,7 +255,7 @@ const typeDefs = gql`
     rating: String
   }
   
-  type Product {
+  type FarmProd {
     title: String
     price: Float
     image: String
