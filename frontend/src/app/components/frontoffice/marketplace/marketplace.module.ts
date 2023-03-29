@@ -7,7 +7,7 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UserProductsComponent } from './user-products/user-products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-
+import {Ng2SearchPipeModule} from "ng2-search-filter";
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
         MarketplaceRoutingModule,
         ReactiveFormsModule,
         FormsModule,
+      Ng2SearchPipeModule
 
     ]
 })

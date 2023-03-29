@@ -11,6 +11,7 @@ export class ProductsComponent implements OnInit {
   public productsList: Product[];
   public visibleProducts: Product[];
   public numberOfProductsToShow = 9;
+  searchText: any;
 
   constructor(private productService: ProductService) { }
 

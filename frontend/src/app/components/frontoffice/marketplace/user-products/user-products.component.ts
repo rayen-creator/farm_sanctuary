@@ -20,6 +20,9 @@ export class UserProductsComponent implements OnInit {
   decodedToken: DecodedToken;
   userId: string;
   private tokenSubs: Subscription;
+  public visibleProducts: Product[];
+  public numberOfProductsToShow = 9;
+  searchText: any;
   constructor(private productService: ProductService, private router:Router, private toastr:ToastrService, private auth: AuthService) { }
 
   ngOnInit(): void {
@@ -29,12 +32,15 @@ export class UserProductsComponent implements OnInit {
       this.userId = this.decodedToken.id;
     });
     this.getAllProducts()
+    this.setupSorting();
   }
   getAllProducts(){
     this.productService.getProductsByUser(this.userId).subscribe({
       next: (products) => {
         this.productsList = products;
         console.log(this.productsList);
+        this.sortByExpiration();
+        this.visibleProducts = this.productsList.slice(0, this.numberOfProductsToShow);
       },
       error: (err) => {
         console.log(err);
@@ -42,6 +48,18 @@ export class UserProductsComponent implements OnInit {
     });
   }
 
+  showMoreProducts() {
+    this.numberOfProductsToShow += 6;
+    this.visibleProducts = this.productsList.slice(0, this.numberOfProductsToShow);
+  }
+  getStars(average: number = 0): number[] {
+    const stars = [];
+    const roundedAverage = Math.round(average);
+    for (let i = 0; i < roundedAverage; i++) {
+      stars.push(i);
+    }
+    return stars;
+  }
   deleteProduct(id:string) {
       Swal.fire({
         title: 'Are you sure you want to delete this product ?',
@@ -59,5 +77,34 @@ export class UserProductsComponent implements OnInit {
       });
     }
 
-
+  setupSorting() {
+    const selectElement = document.getElementById('sortProducts') as HTMLSelectElement;
+    selectElement.value = "expiration"
+    selectElement.addEventListener('change', () => {
+      const sortCriteria = selectElement.value;
+      if (sortCriteria === 'quantity') {
+        const sortedProducts = [...this.productsList];
+        sortedProducts.sort((a, b) => a.quantity - b.quantity);
+        this.productsList = sortedProducts;
+      } else if (sortCriteria === 'popularity') {
+        const sortedProducts = [...this.productsList];
+        sortedProducts.sort((a, b) => b.rating.count - a.rating.count);
+        this.productsList = sortedProducts;
+      } else if (sortCriteria === 'expiration') {
+        const sortedProducts = [...this.productsList];
+        sortedProducts.sort((a, b) => new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime());
+        this.productsList = sortedProducts;
+      } else {
+        // sort by any other criteria
+      }
+      this.visibleProducts = this.productsList.slice(0, this.numberOfProductsToShow);
+    });
+  }
+  sortByExpiration() {
+    if (Array.isArray(this.productsList)) {
+      const sortedProducts = [...this.productsList];
+      sortedProducts.sort((a, b) => new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime());
+      this.productsList = sortedProducts;
+    }
+  }
 }
