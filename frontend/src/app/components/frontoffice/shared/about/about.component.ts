@@ -4,7 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Feedback } from 'src/app/core/models/feedback';
 import { FeedbackService } from 'src/app/core/services/feedback.service';
 import { ApolloQueryResult } from '@apollo/client/core';
-import { feedbacks, getFeedbacksFiveStars } from 'src/app/core/graphql/queries/graphql.queries';
+import { getFeedbacksFiveStars } from 'src/app/core/graphql/queries/graphql.queries.feedback';
+
 
 @Component({
   selector: 'app-about',

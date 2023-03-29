@@ -117,9 +117,9 @@
                     </ul>
                   </li> -->
                   <li class="dropdown">
-                    <a href="shop.html">Shop</a>
+                    <a routerLink="marketplace">Shop</a>
                     <ul>
-                      <li><a href="shop.html">Products</a></li>
+                      <li><a routerLink="marketplace">Products</a></li>
                       <li>
                         <a href="product-details.html">Product Details</a>
                       </li>
@@ -128,8 +128,8 @@
                     </ul>
                   </li>
                   <li class="dropdown">
-                    <a href="#">Blog</a>
-                    <ul>
+                    <a routerLink="/latestnew">Blog</a>
+                    <!-- <ul>
                       <li class="dropdown">
                         <a href="news.html">News Grid</a>
                         <ul>
@@ -152,7 +152,7 @@
                         </ul>
                       </li>
                       <li><a href="news-details.html">News Details</a></li>
-                    </ul>
+                    </ul> -->
                   </li>
                   <li><a routerLink="contact">Contact</a></li>
 
@@ -184,7 +184,7 @@
 
           <div class="main-header--one__bottom-right clearfix">
             <div class="search-cart">
-              <a routerLink="feedbacks" class="search search-toggler" *ngIf="userIsAuthenticated"
+              <a routerLink="addfeedback" class="search search-toggler" *ngIf="userIsAuthenticated"
               ><span class="bx bx-message-dots"></span
             ></a>
               <a href="#" class="search search-toggler"
@@ -195,30 +195,23 @@
               ></a>
             </div>
             <div class="contact-box" *ngIf="userIsAuthenticated">
-              <img
-              src="{{img}}"
-                alt="Avatar"
-                class="avatar"
-              />
               <div class="text">
-                <h6>{{ username }}</h6>
-                <a routerLink="profile/{{ userId }}"><p>Settings</p></a>
+                <div class="dropdown-avatar">
+                  <img class="avatar" src="{{img}}" alt="Avatar">
+                  <div class="dropdown-content">
+                   <h5><i class='bx bx-user-circle' ></i> {{ username }}</h5>
+                    <hr class="dropdown-divider">
+                    <a routerLink="profile/{{ userId }}"><i class='bx bxs-user-circle'></i> Profile</a>
+                    <a href="#"><i class='bx bx-cog'></i> Settings</a>
+                    <hr class="dropdown-divider">
+                    <a (click)="loggingout()"><i class='bx bx-log-out'></i> Logout</a>
+                  </div>
+                </div>
               </div>
-              &nbsp;&nbsp;
-              <button class="btn btn-danger" (click)="loggingout()">
-                Sign out
-              </button>
+
             </div>
             <div class="contact-box" *ngIf="!userIsAuthenticated">
-              <!-- <img
-                src="assets/images/auth_img/client.jpg"
-                alt="Avatar"
-                class="avatar"
-              />  
-            <div class="text">
-              <a href="#"><h6>{{ username }}</h6></a>
-              <p>{{role}}</p> -->
-              <!-- </div>&nbsp;&nbsp; -->
+        
               <button class="btn btn-success" routerLink="login">
                 Sign in
               </button>

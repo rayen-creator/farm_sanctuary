@@ -1,8 +1,14 @@
+import { Subscription } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { feedbacks ,createFeedback, getFeedbacksFiveStars} from '../graphql/queries/graphql.queries'
 import { Feedback } from '../models/feedback';
+import Swal from 'sweetalert2';
+import { AuthService } from './auth.service';
+import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
+import jwt_decode from "jwt-decode";
+import { createFeedback, getFeedbackPerUser , feedbacks} from '../graphql/queries/graphql.queries.feedback';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +16,17 @@ import { Feedback } from '../models/feedback';
 export class FeedbackService {
   isDesc: boolean = false;
   data: any;
+  private tokenSubs: Subscription;
+  decodedToken: DecodedToken;
+  userId: string;
 
-  constructor(private appolo: Apollo, private router: Router) { }
+  constructor(private apollo: Apollo, private router: Router, private auth: AuthService) {
+    this.tokenSubs = this.auth.getToken().subscribe((token) => {
+      this.decodedToken = jwt_decode(token) as DecodedToken;
+      this.userId = this.decodedToken.id;
+    });
+  }
+
   sortString(list: Feedback[], property: any) {
     this.data = list;
     this.isDesc = !this.isDesc;
@@ -31,33 +46,49 @@ export class FeedbackService {
 
   }
 
-  createFeedback(feedback: Feedback) {
+
+  createFeedback(feedback: any) {
+
+    console.log("userId", this.userId);
     const input = {
       title: feedback.title,
       subject: feedback.subject,
       content: feedback.content,
       rating: feedback.rating,
-      category: feedback.category
+      category: feedback.category,
+      user: this.userId
     };
-    return this.appolo.mutate({
-      mutation: createFeedback,
-      variables: {
-        input: input
-      }
-    }).subscribe({
-      next: (res) => {
-        const createdFeed = res.data as Feedback;
-
-
-      },
-      error: (err) => {
-        console.log(err);
-
-      }
-    });
+    return this.apollo
+      .mutate({
+        mutation: createFeedback,
+        variables: { input: input },
+      })
+      .subscribe({
+        next: (result: any) => {
+          const createFeedback = result.data.updateUser as Feedback;
+          Swal.fire('Created', 'Feedback has been created successfully.', 'success');
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          throw err;
+        },
+      });
   }
-  getFeedbacks() {
-    return this.appolo.watchQuery({
+
+  getFeedbackPerUser() {
+    const userId = this.userId;
+    return this.apollo.watchQuery({
+      query: getFeedbackPerUser,
+      variables: { userId }
+    }).valueChanges.pipe(
+      map((res: any) => {
+        const feedbacks = res.data.getFeedbackPerUser;
+        return feedbacks as Feedback[];
+      }))
+  }
+
+   getFeedbacks() {
+    return this.apollo.watchQuery({
       query: feedbacks
     }).valueChanges;
   }
@@ -66,5 +97,6 @@ export class FeedbackService {
 
 
 
-  
+
 }
+

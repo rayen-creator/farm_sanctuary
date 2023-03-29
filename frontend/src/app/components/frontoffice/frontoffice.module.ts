@@ -21,7 +21,11 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
 import { ChangeMailComponent } from './users/change-mail/change-mail.component';
 import { ContactComponent } from './shared/contact/contact.component';
 import { AboutComponent } from './shared/about/about.component';
-import { WebscrapingComponent } from './webscraping/webscraping.component';
+import { DetailBlogComponent } from './blog/detail-blog/detail-blog.component';
+import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
+import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user/feedback-list-per-user.component';
+import { AddArticleComponent } from './blog/add-article/add-article.component'
+import { QuillModule } from 'ngx-quill';
 import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
 
 
@@ -42,7 +46,10 @@ import { TestimonialsComponent } from './shared/testimonials/testimonials.compon
     ChangeMailComponent,
     ContactComponent,
     AboutComponent,
-    WebscrapingComponent,
+    LatestnewsComponent,
+    DetailBlogComponent,
+    FeedbackListPerUserComponent,
+    AddArticleComponent,
     TestimonialsComponent
   ],
   imports: [
@@ -53,7 +60,7 @@ import { TestimonialsComponent } from './shared/testimonials/testimonials.compon
     UiSwitchModule,
     GoogleSigninButtonModule,
     Ng2TelInputModule,
-    
+    QuillModule
   ]
 })
 export class FrontofficeModule { }

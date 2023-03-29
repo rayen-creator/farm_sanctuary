@@ -1,5 +1,5 @@
 import { gql } from "apollo-angular";
-const feedbacks = gql`
+export const feedbacks = gql`
 {
     getFeedbacks {
         category,
@@ -11,6 +11,42 @@ const feedbacks = gql`
       }
     }
 `;
+export const createFeedback = gql`
+    mutation createFeedback($input: FeedbackInput!){
+    createFeedback(input:$input){
+        title
+        subject
+        content
+        rating
+        category
+    }
+}
+`;
+
+export const getFeedbacksFiveStars = gql`
+    query{
+    getFiveStarFeedbacks{
+        title,
+        subject,
+        content, 
+        rating,
+        category
+    
+    }
+    }
+    `;
 
 
-export {feedbacks}
+export const getFeedbackPerUser = gql`
+query getFeedbackPerUser($userId:ID!){
+      getFeedbackPerUser(userId:$userId){
+        id
+        title
+        subject
+        content
+        rating
+        category
+        createdAt
+      }
+}`;
+

@@ -38,6 +38,7 @@
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js",
               "node_modules/intl-tel-input/build/js/intlTelInput.min.js"
+
             ]
           },
           "configurations": {

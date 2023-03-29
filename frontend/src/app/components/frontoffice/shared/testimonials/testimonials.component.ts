@@ -1,8 +1,9 @@
-import { feedbacks } from 'src/app/core/graphql/queries/graphql.queries';
+
 import { Feedback } from './../../../../core/models/feedback';
 import { Apollo } from 'apollo-angular';
 import { Component, OnInit } from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client/core';
+import { feedbacks } from 'src/app/core/graphql/queries/graphql.queries.feedback';
 
 @Component({
   selector: 'app-testimonials',

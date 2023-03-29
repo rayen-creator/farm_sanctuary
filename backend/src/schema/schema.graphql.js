@@ -15,6 +15,26 @@ const typeDefs = gql`
     FUNCTIONAL
   }
 
+  enum Unit {
+    KG
+    GRAM
+    LITRE
+    COUNT
+  }
+  enum productCategory {
+    FRUITS
+    VEGETABLES
+    DAIRY
+    MEAT
+    GRAINS
+    NUTS
+    HERBS
+    SPICES
+    HONEY
+    MUSHROOMS
+    OTHER
+  }
+
   type Feedback {
     id: ID!
     title: String!
@@ -22,6 +42,7 @@ const typeDefs = gql`
     content: String!
     category: Category!
     rating: Int!
+    createdAt:DateTime
   }
 
   input FeedbackInput {
@@ -30,6 +51,8 @@ const typeDefs = gql`
     content: String!
     rating: Int!
     category: Category!
+    user: ID!
+
   }
 
   enum Gender {
@@ -54,6 +77,40 @@ const typeDefs = gql`
     location: String
     email_change_option: Boolean
   }
+
+  type Product {
+    id: ID!
+    name: String!
+    description: String!
+    price: Float!
+    quantity: Int!
+    unit: String!
+    country: String!
+    user: User!
+    expirationDate: DateTime!
+    rating: Rating
+    reviews: [Review]
+    category: productCategory!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    image: String!
+  }
+
+  type Rating {
+    total: Int!
+    count: Int!
+    average: Float!
+  }
+
+  type Review {
+    id: ID!
+    userReview: User!
+    rating: Int!
+    comment: String!
+    createdAt: DateTime!
+  }
+  
+
   type Two_FactAuth {
     code: String!
     expiresAt: DateTime!
@@ -99,8 +156,11 @@ const typeDefs = gql`
     latitude: String
   }
   type loginDriverResponse {
-    login: String!
-    message: String!
+    message:String!
+    userfound:Boolean!
+    passwordIsValid:Boolean!
+    agent:deliveryAgent
+   
   }
   input loginDriverInput {
     login: String!
@@ -143,14 +203,7 @@ const typeDefs = gql`
     email: String!
   }
 
-  input twoFactorAuthInput {
-    username: String!
-  }
-  type twoFactorAuthResponse {
-    message: String!
-    statusCode: Boolean!
-  }
-
+  
   input verifyOTPInput {
     username: String!
     otp: String!
@@ -276,16 +329,25 @@ const typeDefs = gql`
     longitude: String!
     latitude: String!
   }
- 
-  
+  type createProductResponse {
+    message: String!
+  }
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
+    
+    
     getdeliveryAgent(id: ID!): deliveryAgent!
     getdeliveryAgents: [deliveryAgent!]!
 
+    
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
+    getFeedbackPerUser(userId: ID!):[Feedback!]!
+
+    getProducts: [Product!]!
+    getProduct(id: ID!): Product!
+    getProductsByUser(userId: ID!): [Product!]!
     getFiveStarFeedbacks: [Feedback!]!
 
 
@@ -323,14 +385,43 @@ const typeDefs = gql`
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!): loginDriverResponse!
 
-    createFeedback(input: FeedbackInput!): Feedback!
+    createFeedback(input: FeedbackInput!): Feedback! 
     
     createFarmProd(input: ProductInput!): Product!
 
+  
 
 
-
+    createProduct(input: CreateProductInput!, file: Upload): createProductResponse!
+    updateProduct(id: ID!, input: UpdateProductInput!, file: Upload): createProductResponse!
+    deleteProduct(id: ID!): Product!
   }
+
+  input CreateProductInput {
+    name: String!
+    description: String!
+    price: Float!
+    quantity: Int!
+    unit: String!
+    user: ID!
+    expirationDate: DateTime!
+    category: productCategory!
+  }
+
+  input UpdateProductInput {
+    name: String
+    description: String
+    price: Float
+    quantity: Int
+    unit: String
+    country: String
+    user: ID
+    expirationDate: DateTime
+    category: productCategory
+  }
+
+
+
 `;
 
 module.exports = typeDefs;

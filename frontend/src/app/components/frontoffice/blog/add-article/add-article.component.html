@@ -1,0 +1,5 @@
+<div class="container m-5">
+  <quill-editor [(ngModel)]="blogText" (ngModelChange)="onBlogTextChanged()"></quill-editor>
+</div>
+
+<div [innerHTML]="safeHtml"></div>

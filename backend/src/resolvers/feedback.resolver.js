@@ -1,15 +1,14 @@
-const { UserInputError } = require('apollo-server-express');
+const { UserInputError } = require("apollo-server-express");
 
-const feedbackService = require('../services/feedback');
+const feedbackService = require("../services/feedback");
 
 const feedbackResolver = {
-
   Query: {
     async getFeedback(_, { id }) {
       try {
         const feedback = await feedbackService.getFeedback(id);
         if (!feedback) {
-          throw new UserInputError('Feedback not found');
+          throw new UserInputError("Feedback not found");
         }
         return feedback;
       } catch (error) {
@@ -21,6 +20,13 @@ const feedbackResolver = {
         return await feedbackService.getFeedbacks();
       } catch (error) {
         throw new UserInputError(error.message);
+      }
+    },
+    async getFeedbackPerUser(_ ,{userId}) {
+      try {
+        return await feedbackService.getFeedbackPerUser(userId);
+      } catch (error) {
+        throw error;
       }
     },
     async getFiveStarFeedbacks(){
@@ -41,8 +47,6 @@ const feedbackResolver = {
         throw new UserInputError(error.message);
       }
     },
-    
-    
   },
 };
 

@@ -47,3 +47,7 @@ body {
   font-size: 20px;
 }
 
+
+:host ::ng-deep .iti {
+  width: 100%;
+}
