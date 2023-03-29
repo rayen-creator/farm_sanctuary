@@ -1,0 +1,75 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+  integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA="
+  crossorigin="anonymous"
+/>
+<section
+  class="page-header clearfix"
+  style="background-image: url(assets/images/backgrounds/page-header-bg.jpg)"
+>
+  <div class="container">
+    <div class="page-header__inner text-center clearfix">
+      <ul class="thm-breadcrumb">
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/addfeedback">add feedback</a></li>
+      </ul>
+      <h2>Your feedbacks</h2>
+    </div>
+  </div>
+</section>
+
+<div class="container mt-5 mb-5 d-flex justify-content-center">
+  <div class="col-lg-9 mt-4 mt-lg-0">
+    <div class="row">
+      <div class="col-md-12">
+        <div
+          class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm"
+        >
+          <table class="table manage-candidates-top mb-0">
+            <tbody>
+              <tr class="candidates-list" *ngFor="let f of feedbacks">
+                <td class="title">
+                  <div class="candidate-list-details">
+                    <div class="candidate-list-info">
+                      <div class="candidate-list-title">
+                        <h5 class="mb-0">
+                          {{ f.title }}
+                        </h5>
+                      </div>
+                      <div class="candidate-list-option">
+                       {{f.content}}
+                        
+                        <ul class="list-unstyled">
+                          <li>
+                            <i class='bx bx-book-content bx-xs'></i><strong> Subject :</strong>  {{ f.subject }}
+                          </li>
+                          <li>
+                            <i class='bx bx-category'></i> <strong> Category :</strong> {{ f.category }}
+                          </li>
+                          <li> <i class='bx bxs-calendar'></i> <strong> Created At :</strong> {{f.createdAt | date: 'dd/MM/yyyy' }}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              
+                <td>
+                    <div class="candidate-list-title d-flex justify-content-end">
+                        <span
+                        *ngFor="let icon of [1, 2, 3, 4, 5]"
+                        class="star"
+                        [class.filled]="icon <= f.rating"
+                      >
+                        <i class="fa fa-star"></i>
+                      </span> 
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,7 @@
-
 import { Component, OnInit } from '@angular/core';
-import { createFeedback, feedbacks } from "../../../../core/graphql/queries/graphql.queries";
-import { Apollo, gql } from "apollo-angular";
 import { Feedback } from "../../../../core/models/feedback";
 import Swal from 'sweetalert2'
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import {  FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { FeedbackService } from 'src/app/core/services/feedback.service';
 
 @Component({
@@ -14,9 +10,6 @@ import { FeedbackService } from 'src/app/core/services/feedback.service';
   styleUrls: ['./feedback-form.css']
 })
 export class FeedbackFormComponent implements OnInit {
-
-  title = 'FeedBack-code';
-
   TitleAndSubjectDetails!: FormGroup;
   RatingAndCategoryDetails!: FormGroup;
   ContentDetails!: FormGroup;
@@ -25,7 +18,6 @@ export class FeedbackFormComponent implements OnInit {
   content_step = false;
   step = 1;
 
-  feedbackList: Feedback[];
   constructor(
     private formBuilder: FormBuilder,
     private feedbackService: FeedbackService,
@@ -110,7 +102,7 @@ export class FeedbackFormComponent implements OnInit {
           content: contentFeedback.content,
           rating: parseInt(categoryFeedback.rating),
           category: categoryFeedback.category,
-        } as Feedback;
+        };
 
         this.feedbackService.createFeedback(feedback);
 

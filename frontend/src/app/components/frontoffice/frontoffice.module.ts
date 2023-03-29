@@ -23,6 +23,9 @@ import { ContactComponent } from './shared/contact/contact.component';
 import { AboutComponent } from './shared/about/about.component';
 import { DetailBlogComponent } from './blog/detail-blog/detail-blog.component';
 import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
+import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user/feedback-list-per-user.component';
+import { AddArticleComponent } from './blog/add-article/add-article.component'
+import { QuillModule } from 'ngx-quill';
 
 
 @NgModule({
@@ -43,7 +46,10 @@ import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
     ContactComponent,
     AboutComponent,
     LatestnewsComponent,
-    DetailBlogComponent
+    DetailBlogComponent,
+    FeedbackListPerUserComponent,
+    AddArticleComponent,
+  
   ],
   imports: [
     CommonModule,
@@ -53,6 +59,7 @@ import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
     UiSwitchModule,
     GoogleSigninButtonModule,
     Ng2TelInputModule,
+    QuillModule
   ]
 })
 export class FrontofficeModule { }

@@ -5,3 +5,34 @@
   height: 50px;
   border-radius: 50%;
 }
+
+.dropdown-avatar {
+  /* position: relative; */
+  display: inline-block;
+}
+
+/* .avatar2 {
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+} */
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  top: 100%; /* Position the dropdown content below the dropdown button */
+  left: 0;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  /* Set the direction of the items to be displayed vertically */
+  flex-direction: column;
+}
+
+.dropdown-avatar:hover .dropdown-content {
+  display: flex; /* Display the dropdown content as flex */
+}
+
