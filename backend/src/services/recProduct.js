@@ -1,21 +1,44 @@
-const fetch = require('node-fetch');
-const Product = require('./models/Product');
+const axios = require("axios");
+const cheerio = require("cheerio");
+const Product = require("../models/recProduct");
 
-async function getProduct(asin) {
-  const product = await Product.findOne({ asin });
-  if (!product) return null;
 
-  // fetch recommended products data
-  const response = await fetch(`https://example.com/api/recommendations/${asin}`);
-  const recommendedProducts = await response.json();
+const getProductData = async (asin) => {
+  try {
+    const response = await axios.get(`https://www.amazon.in/dp/${asin}/`);
+    const $ = cheerio.load(response.data);
+    const title = $("#productTitle").text().trim();
+    const imageUrl = $('#landingImage').attr('src');
+    const price = $('span.a-price-whole').text().substring(0,6);
+    const rating = $('#acrCustomerReviewText').text().substring(0,12);
+    return {
+      asin,
+      title,
+      imageUrl,
+      price,
+      rating,
+    };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
 
-  // add product URL to recommended products
-  const productUrl = `https://example.com/products/${asin}`;
-  const recommendedProductsWithUrl = recommendedProducts.map(p => ({ ...p, url: productUrl }));
-
-  return { ...product.toObject(), recommendedProducts: recommendedProductsWithUrl };
+async function createFarmProd(input) {
+  const farmproduct = new Product({
+    title: input.title,
+    price: input.price,
+    image: input.image,
+    description: input.description,
+    rating: input.rating,
+    
+  });
+  return await farmproduct.save(farmproduct);
 }
 
+
 module.exports = {
-  product: ({ asin }) => getProduct(asin),
+  getProductData,
+  createFarmProd
+  
 };

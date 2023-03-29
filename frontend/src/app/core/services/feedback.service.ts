@@ -56,17 +56,12 @@ export class FeedbackService {
       }
     });
   }
-  // getFeedbacks() {
-  //   return this.appolo.watchQuery({
-  //     query: feedbacks
-  //   }).valueChanges;
-  // }
+  getFeedbacks() {
+    return this.appolo.watchQuery({
+      query: feedbacks
+    }).valueChanges;
+  }
 
-  // getFeedbacksFiveStars() {
-  //   return this.appolo.watchQuery({
-  //     query: getFeedbacksFiveStars
-  //   }).valueChanges;
-  // }
 
 
 

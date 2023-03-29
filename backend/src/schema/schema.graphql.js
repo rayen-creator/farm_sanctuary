@@ -204,18 +204,14 @@ const typeDefs = gql`
     phone: Int!
   }
   
-  type ProductReview {
-    author: String
-    rating: Float
-    text: String
-  }
   
 
   type RecommendedProduct {
     title: String
-    price: Float
-    image: String
-    url: String
+    price: String
+    imageUrl: String
+    url: String,
+    rating: String
   }
   
   type Product {
@@ -224,9 +220,21 @@ const typeDefs = gql`
     image: String
     description: String
     rating: Float
-    reviews: [ProductReview]
     recommendedProducts: [RecommendedProduct]
   }  
+
+
+  input ProductInput {
+    title: String
+    price: Float
+    image: String
+    description: String
+    rating: Float
+  }
+
+
+  
+
 
   type UpdatepwdResponse {
     message: String!
@@ -282,8 +290,9 @@ const typeDefs = gql`
 
 
 
+    getRecommendedProductById(asin: String!): RecommendedProduct!
+    getFarmProducts:[Product!]!
 
-    product(asin: String!): Product
 
   }
 
@@ -315,8 +324,9 @@ const typeDefs = gql`
     loginDriver(input: loginDriverInput!): loginDriverResponse!
 
     createFeedback(input: FeedbackInput!): Feedback!
-    updateFeedback(id: ID!, input: FeedbackInput!): Feedback!
-    deleteFeedback(id: ID!): Feedback!
+    
+    createFarmProd(input: ProductInput!): Product!
+
 
 
 

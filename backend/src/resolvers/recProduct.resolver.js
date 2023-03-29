@@ -1,23 +1,42 @@
-const fetch = require('node-fetch');
-const Product = require('../models/recProduct');
+const { UserInputError } = require('apollo-server-express');
 
-const resolvers = {
-  Query: {
-    product: async (_, { asin }) => {
-      const product = await Product.findOne({ asin });
-      if (!product) return null;
+const productDataService = require('../services/recProduct');
 
-      // fetch recommended products data
-      const response = await fetch(`https://example.com/api/recommendations/${asin}`);
-      const recommendedProducts = await response.json();
-
-      // add product URL to recommended products
-      const productUrl = `https://example.com/products/${asin}`;
-      const recommendedProductsWithUrl = recommendedProducts.map(p => ({ ...p, url: productUrl }));
-
-      return { ...product.toObject(), recommendedProducts: recommendedProductsWithUrl };
-    },
-  },
+const getRecommendedProductById = async (parent, args, context, info) => {
+  const { asin } = args;
+  const productData = await productDataService.getProductData(asin);
+  return {
+    asin,
+    title: productData.title,
+    imageUrl: productData.imageUrl,
+    price: productData.price,
+    rating: productData.rating,
+  };
+  
 };
 
-module.exports = resolvers;
+
+
+
+
+module.exports = {
+  Query: {
+    getRecommendedProductById,
+  },
+  Mutation: {
+    async createFarmProd(_, { input }) {
+      try {
+        return await productDataService.createFarmProd(input);
+      } catch (error) {
+        throw new UserInputError(error.message);
+      }
+    }
+    
+    
+  }
+  
+
+};
+
+
+
