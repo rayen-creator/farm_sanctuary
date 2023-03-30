@@ -20,6 +20,11 @@ async function getProductsByUser(userId) {
     return products;
 }
 
+async function getProductsByCategory(category) {
+    const query = { category };
+    return Product.find(query).populate({ path: "user", model: "Users" });
+}
+
 async function createProduct(input, file) {
     const product = new Product({
         name: input.name,
@@ -115,5 +120,6 @@ module.exports = {
     updateProduct,
     deleteProduct,
     getProductsByUser,
-    addReview
+    addReview,
+    getProductsByCategory
 };

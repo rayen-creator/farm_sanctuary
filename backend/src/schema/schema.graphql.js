@@ -336,14 +336,16 @@ const typeDefs = gql`
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
     getFeedbackPerUser(userId: ID!):[Feedback!]!
-
+    getFiveStarFeedbacks: [Feedback!]!
+    
     getProducts: [Product!]!
     getProduct(id: ID!): Product!
     getProductsByUser(userId: ID!): [Product!]!
-    getFiveStarFeedbacks: [Feedback!]!
-
-
-
+    getProductsByCategory(category: productCategory!): [Product!]!
+    
+    
+   
+    
     getRecommendedProductById(asin: String!): RecommendedProduct!
     getFarmProducts:[Product!]!
 
