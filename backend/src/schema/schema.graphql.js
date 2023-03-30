@@ -352,7 +352,6 @@ const typeDefs = gql`
     getRecommendedProductById(asin: String!): RecommendedProduct!
     getFarmProducts:[FarmProduct!]!
 
-
   }
 
   type Mutation {
