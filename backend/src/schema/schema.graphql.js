@@ -276,7 +276,6 @@ const typeDefs = gql`
     rating: Int
   }  
 
-
   input FarmProductInput {
     title: String!
     price: String!
@@ -285,8 +284,6 @@ const typeDefs = gql`
     rating: Float!
   }
 
-
-  
 
 
   type UpdatepwdResponse {
