@@ -80,12 +80,12 @@ async function addReview(idProd, idUser, input) {
     const product = await Product.findById(idUser);
 
     if (!product) {
-        return { message: "Product not found" };
+        return { message: "Product not found", reviewExist: false };
     }
 
     const existingReview = product.reviews.find((review) => review.userReview.toString() === idProd.toString());
     if (existingReview) {
-        return { message: "User has already added a review for this product" };
+        return { message: "User has already added a review for this product", reviewExist: true };
     }
 
     const review = {
@@ -102,7 +102,7 @@ async function addReview(idProd, idUser, input) {
 
     await product.save();
 
-    return { message: "Review added successfully" };
+    return { message: "Review added successfully", reviewExist: false };
 }
 
 

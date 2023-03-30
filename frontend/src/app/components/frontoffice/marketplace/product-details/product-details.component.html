@@ -160,7 +160,7 @@
       </div>
       <div class="row">
         <div class="col-xl-12 col-lg-12">
-          <button (click)="submit()" type="submit" class="thm-btn comment-form__btn" [disabled]="reviewForm.invalid">Submit
+          <button (click)="submit()" type="submit" class="thm-btn comment-form__btn" [disabled]="reviewForm.invalid || reviewExist">Submit
             review</button>
         </div>
       </div>

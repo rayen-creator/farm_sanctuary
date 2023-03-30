@@ -320,7 +320,10 @@ const typeDefs = gql`
   type createProductResponse {
     message: String!
   }
-  
+  type addReviewResponse {
+      reviewExist: Boolean!
+      message: String!
+  }
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -384,7 +387,7 @@ const typeDefs = gql`
     createProduct(input: CreateProductInput!, file: Upload): createProductResponse!
     updateProduct(id: ID!, input: UpdateProductInput!, file: Upload): createProductResponse!
     deleteProduct(id: ID!): Product!
-    addReviewProduct(idProd: ID!,idUser:ID!, input:addReviewInput!): createProductResponse!
+    addReviewProduct(idProd: ID!,idUser:ID!, input:addReviewInput!): addReviewResponse!
   }
 
   input CreateProductInput {

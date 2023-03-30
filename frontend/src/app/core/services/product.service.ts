@@ -17,6 +17,7 @@ import {DecodedToken} from "../graphql/graphqlResponse/decodedToken";
 import jwt_decode from "jwt-decode";
 import {catchError, Observable, of, Subscription} from "rxjs";
 import { map } from 'rxjs/operators';
+import {AddReviewReponse} from "../graphql/graphqlResponse/addReviewReponse";
 
 
 @Injectable({
@@ -198,37 +199,40 @@ export class ProductService {
       });
   }
 
-  addReview(idProd:string,idUser:string,comment:string,rating:number) {
+  addReview(idProd: string, idUser: string, comment: string, rating: number): Promise<AddReviewReponse> {
     const input = {
-     rating:rating,
-      comment:comment
+      rating: rating,
+      comment: comment
     };
     return this.appolo
       .mutate({
         mutation: addReview,
         variables: {
           idProd: idProd,
-          idUser:idUser,
+          idUser: idUser,
           input: input,
         },
         refetchQueries: [{
           query: product,
-          variables: {id:idProd}
+          variables: {id: idProd}
         },
           {
             query: products
-          }],
+          }
+        ],
         context: {
           useMultipart: true
         }
       })
-      .subscribe({
-        next: (res) => {
-          //get the response
-        },
-        error: (err) => {
-          console.log(err);
-        },
+      .toPromise()
+      .then((res) => {
+        // @ts-ignore
+        const addReviewResponse = res.data as AddReviewReponse;
+        return addReviewResponse;
+      })
+      .catch((err) => {
+        console.log(err);
+        throw err;
       });
   }
 

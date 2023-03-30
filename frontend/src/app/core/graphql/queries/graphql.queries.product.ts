@@ -141,6 +141,7 @@ const deleteProduct = gql`
 const addReview = gql`
   mutation addReviewProduct($idProd:ID!,$idUser:ID!,$input: addReviewInput!) {
     addReviewProduct(idProd: $idUser,idUser: $idProd,input: $input) {
+      reviewExist
       message
     }
   }
