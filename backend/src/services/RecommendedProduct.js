@@ -1,9 +1,8 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-const Product = require("../models/recProduct");
 
 
-const getProductData = async (asin) => {
+const getRecommendedProductById = async (asin) => {
   try {
     const response = await axios.get(`https://www.amazon.in/dp/${asin}/`);
     const $ = cheerio.load(response.data);
@@ -24,21 +23,6 @@ const getProductData = async (asin) => {
   }
 };
 
-async function createFarmProd(input) {
-  const farmproduct = new Product({
-    title: input.title,
-    price: input.price,
-    image: input.image,
-    description: input.description,
-    rating: input.rating,
-    
-  });
-  return await farmproduct.save(farmproduct);
-}
-
-
 module.exports = {
-  getProductData,
-  createFarmProd
-  
+  getRecommendedProductById  
 };

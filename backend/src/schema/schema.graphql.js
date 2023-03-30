@@ -268,19 +268,18 @@ const typeDefs = gql`
     rating: String
   }
   
-  type FarmProd {
+  type FarmProduct {
     title: String
-    price: Float
+    price: String
     image: String
     description: String
     rating: Int
-    recommendedProducts: [RecommendedProduct]
   }  
 
 
-  input ProductInput {
+  input FarmProductInput {
     title: String!
-    price: Float!
+    price: String!
     image: String!
     description: String!
     rating: Float!
@@ -354,7 +353,7 @@ const typeDefs = gql`
 
 
     getRecommendedProductById(asin: String!): RecommendedProduct!
-    getFarmProducts:[Product!]!
+    getFarmProducts:[FarmProduct!]!
 
 
   }
@@ -388,7 +387,7 @@ const typeDefs = gql`
 
     createFeedback(input: FeedbackInput!): Feedback! 
     
-    createFarmProd(input: ProductInput!): Product!
+    createFarmProd(input: FarmProductInput!): FarmProduct!
 
   
 
