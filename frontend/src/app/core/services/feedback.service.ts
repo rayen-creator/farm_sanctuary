@@ -62,12 +62,16 @@ export class FeedbackService {
       .mutate({
         mutation: createFeedback,
         variables: { input: input },
+        refetchQueries: [{
+          query: getFeedbackPerUser,
+          variables: {userId:this.userId}
+        }]
       })
       .subscribe({
         next: (result: any) => {
           const createFeedback = result.data.updateUser as Feedback;
           Swal.fire('Created', 'Feedback has been created successfully.', 'success');
-          this.router.navigate(['/home']);
+          this.router.navigate(['/feedbacklist']);
         },
         error: (err) => {
           throw err;
