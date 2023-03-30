@@ -12,8 +12,13 @@ async function createFarmProd(input) {
   return await farmproduct.save(farmproduct);
 }
 
+async function getFarmProducts() {
+  return FarmProduct
+  .find();
+}
 
 module.exports = {
-  createFarmProd
+  createFarmProd,
+  getFarmProducts
   
 };
