@@ -7,7 +7,12 @@ export const feedbacks = gql`
         id,
         rating,
         subject,
-        title
+        title,
+        user {
+            username,
+            role,
+            image
+        }
       }
     }
 `;
@@ -30,7 +35,12 @@ export const getFeedbacksFiveStars = gql`
         subject,
         content, 
         rating,
-        category
+        category,
+        user {
+            username,
+            role,
+            image
+        }
     
     }
     }

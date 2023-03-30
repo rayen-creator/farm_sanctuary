@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const recFarmProd = new Schema({
+const recommendedProductSchema = new Schema({
   asin: { type: String, required: true, unique: true },
   title: String,
   price: String,
@@ -11,15 +11,15 @@ const recFarmProd = new Schema({
 
  
 
-const FarmProdSchema = new Schema({
+const FarmProd = new Schema({
   title: String,
   price: Number,
   image: String,
   description: String,
   rating: Number,
-  recFarmProd: [recFarmProd],
+  recommendedProducts: [recommendedProductSchema],
 });
 
-const Product = model('Product', FarmProdSchema);
+const Product = model('FarmProd', FarmProd);
 
 module.exports = Product;

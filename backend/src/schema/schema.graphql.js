@@ -43,6 +43,7 @@ const typeDefs = gql`
     category: Category!
     rating: Int!
     createdAt:DateTime
+    user: User!
   }
 
   input FeedbackInput {
@@ -267,7 +268,7 @@ const typeDefs = gql`
     rating: String
   }
   
-  type Product {
+  type FarmProd {
     title: String
     price: Float
     image: String
