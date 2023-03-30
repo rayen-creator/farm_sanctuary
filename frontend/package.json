@@ -35,6 +35,7 @@
     "graphql-tag": "^2.12.6",
     "jwt-decode": "^3.1.2",
     "ng-apexcharts": "^1.7.4",
+    "ng2-search-filter": "0.4.7",
     "ng2-tel-input": "^2.3.0",
     "ngx-quill": "^20.0.1",
     "ngx-toastr": "15.2.2",

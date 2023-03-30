@@ -167,6 +167,7 @@ const typeDefs = gql`
     password: String!
   }
 
+
   input signinInput {
     email: String!
     password: String!
@@ -243,6 +244,38 @@ const typeDefs = gql`
     email: String!
     phone: Int!
   }
+  
+  
+
+  type RecommendedProduct {
+    title: String
+    price: String
+    imageUrl: String
+    url: String,
+    rating: String
+  }
+  
+  type FarmProd {
+    title: String
+    price: Float
+    image: String
+    description: String
+    rating: Int
+    recommendedProducts: [RecommendedProduct]
+  }  
+
+
+  input ProductInput {
+    title: String!
+    price: Float!
+    image: String!
+    description: String!
+    rating: Float!
+  }
+
+
+  
+
 
   type UpdatepwdResponse {
     message: String!
@@ -260,7 +293,7 @@ const typeDefs = gql`
     username: String!
     email: String!
   }
-
+  
   type UpdateEmailResponse {
     message: String!
     updateStatus: Boolean!
@@ -287,6 +320,7 @@ const typeDefs = gql`
   type createProductResponse {
     message: String!
   }
+  
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -303,6 +337,14 @@ const typeDefs = gql`
     getProducts: [Product!]!
     getProduct(id: ID!): Product!
     getProductsByUser(userId: ID!): [Product!]!
+    getFiveStarFeedbacks: [Feedback!]!
+
+
+
+    getRecommendedProductById(asin: String!): RecommendedProduct!
+    getFarmProducts:[Product!]!
+
+
   }
 
   type Mutation {
@@ -332,13 +374,17 @@ const typeDefs = gql`
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!): loginDriverResponse!
 
-    createFeedback(input: FeedbackInput!): Feedback!
+    createFeedback(input: FeedbackInput!): Feedback! 
+    
+    createFarmProd(input: ProductInput!): Product!
+
   
 
 
     createProduct(input: CreateProductInput!, file: Upload): createProductResponse!
     updateProduct(id: ID!, input: UpdateProductInput!, file: Upload): createProductResponse!
     deleteProduct(id: ID!): Product!
+    addReviewProduct(idProd: ID!,idUser:ID!, input:addReviewInput!): createProductResponse!
   }
 
   input CreateProductInput {
@@ -363,7 +409,10 @@ const typeDefs = gql`
     expirationDate: DateTime
     category: productCategory
   }
-
+  input addReviewInput {
+    rating: Int!
+    comment: String!
+  }
 
 
 `;

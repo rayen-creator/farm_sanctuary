@@ -23,6 +23,20 @@ export const createFeedback = gql`
 }
 `;
 
+export const getFeedbacksFiveStars = gql`
+    query{
+    getFiveStarFeedbacks{
+        title,
+        subject,
+        content, 
+        rating,
+        category
+    
+    }
+    }
+    `;
+
+
 export const getFeedbackPerUser = gql`
 query getFeedbackPerUser($userId:ID!){
       getFeedbackPerUser(userId:$userId){

@@ -75,11 +75,16 @@
                 <h2 class="fs-title">Content Details</h2>
                 <textarea rows="5" cols="5" formControlName="content"  placeholder="type the content of the feedback"></textarea>
                 <div *ngIf="content_step && ContentDetails.controls.content.errors">
+                    <div *ngIf="content.content.errors?.['badWord']">Bad words are not allowed</div>
+                    </div>
+                <div *ngIf="content_step && ContentDetails.controls.content.errors">
                     <div *ngIf="content.content.errors?.['required']">Content is required</div>
+                    
+
                 </div>
                 
                 <input (click)="previous()" type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input (click)="onSubmit()"type="submit" name="submit" class="submit action-button" value="Submit"/>
+                <input (click)="onSubmit()" type="submit" name="submit" class="submit action-button" [disabled]="ContentDetails.controls.content.hasError('badWord')" value="Submit"/>
             </fieldset>
         </form>
 

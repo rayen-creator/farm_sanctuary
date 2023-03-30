@@ -5691,6 +5691,11 @@ ng-apexcharts@^1.7.4:
   dependencies:
     tslib "^2.0.0"
 
+ng2-search-filter@0.4.7:
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/ng2-search-filter/-/ng2-search-filter-0.4.7.tgz#1a12d741c9e784296684b7743c3063d5331701fa"
+  integrity sha512-l49diVMfN3d6BTbFBtgpvywLTHYW63/XSPpmmrfSlGP+WbxoVbbqqbG6zK/ivLvwmWWdvDAqw+b+lyhqMAkSLw==
+
 ng2-tel-input@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/ng2-tel-input/-/ng2-tel-input-2.3.0.tgz#50ec08a7bda6eaa921443d6d3519f8aeada4ffee"

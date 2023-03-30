@@ -4,10 +4,10 @@ import { MarketplaceRoutingModule } from './marketplace-routing.module';
 import { MarketplaceComponent } from './marketplace.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductFormComponent } from './product-form/product-form.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UserProductsComponent } from './user-products/user-products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-
+import {Ng2SearchPipeModule} from "ng2-search-filter";
 
 @NgModule({
   declarations: [
@@ -17,11 +17,13 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     UserProductsComponent,
     ProductDetailsComponent
   ],
-  imports: [
-    CommonModule,
-    MarketplaceRoutingModule,
-    ReactiveFormsModule,
+    imports: [
+        CommonModule,
+        MarketplaceRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+      Ng2SearchPipeModule
 
-  ]
+    ]
 })
 export class MarketplaceModule { }

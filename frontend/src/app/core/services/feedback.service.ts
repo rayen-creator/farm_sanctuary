@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { AuthService } from './auth.service';
 import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
 import jwt_decode from "jwt-decode";
-import { createFeedback, getFeedbackPerUser } from '../graphql/queries/graphql.queries.feedback';
+import { createFeedback, getFeedbackPerUser , feedbacks} from '../graphql/queries/graphql.queries.feedback';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -91,7 +91,16 @@ export class FeedbackService {
       }))
   }
 
- 
+   getFeedbacks() {
+    return this.apollo.watchQuery({
+      query: feedbacks
+    }).valueChanges;
+  }
+
+
+
+
+
 
 }
 

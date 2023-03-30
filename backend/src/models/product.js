@@ -51,7 +51,7 @@ const productSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "User"
+        ref: "user"
     },
     expirationDate: {
         type: Date,
@@ -74,7 +74,7 @@ const productSchema = new mongoose.Schema({
     reviews: [{
         userReview: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+            ref: "Users",
             required: true
         },
         rating: {

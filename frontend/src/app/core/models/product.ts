@@ -1,5 +1,6 @@
 import { ProductCategory } from './productCategory';
 import {units} from "./unit";
+import {User} from "./user";
 
 export type Product = {
   id: string;
@@ -17,7 +18,7 @@ export type Product = {
     average: number;
   };
   reviews: {
-    userReview: string;
+    userReview: User;
     rating: number;
     comment: string;
     createdAt: Date;
