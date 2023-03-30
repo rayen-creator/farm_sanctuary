@@ -29,6 +29,8 @@ export class ProductDetailsComponent implements OnInit {
   private addReviewReponse: AddReviewReponse;
 
   reviewExist: Boolean
+
+  public numberOfReviewsToShow = 3;
   constructor(private productService: ProductService,private toastr: ToastrService, private router:Router, private currentRoute: ActivatedRoute,   private formBuilder: FormBuilder, private auth: AuthService) { }
 
   ngOnInit(): void {
@@ -104,4 +106,7 @@ export class ProductDetailsComponent implements OnInit {
     });
   }
 
+  showMoreReviews() {
+    this.numberOfReviewsToShow += 3;
+  }
 }

@@ -84,7 +84,7 @@
 <section class="product-review">
   <div class="container">
     <h2 class="product-content__title">{{product?.reviews?.length}} Reviews</h2><!-- /.product-content__title -->
-    <div class="product-review__item" *ngFor="let review of product?.reviews?.slice()?.reverse()">
+    <div class="product-review__item" *ngFor="let review of product?.reviews?.slice(-numberOfReviewsToShow)?.reverse()">
       <div class="product-review__item__image">
         <img src="{{review.userReview.image}}" alt="" style="width: 100px; height: 100px">
       </div><!-- /.product-review__item__image -->
@@ -103,7 +103,13 @@
         <!-- /.product-review__item__text -->
       </div><!-- /.product-review__item__content -->
     </div><!-- /.product-review__item -->
-
+    <div class="row" *ngIf="numberOfReviewsToShow < product.reviews.length">
+      <div class="col-lg-12 text-center">
+        <div class="news-sidebar__btn">
+          <a (click)="showMoreReviews()" class="thm-btn">load more</a>
+        </div>
+      </div><!-- /.col-lg-12 text-center -->
+    </div>
 
   </div><!-- /.container -->
 </section>
