@@ -102,7 +102,8 @@ export class UserProductsComponent implements OnInit {
           this.productsList = filteredProducts;
           this.visibleProducts = this.productsList.slice(0, this.numberOfProductsToShow);
         }
-
+        categoryLinks.forEach(link => link.classList.remove('selected'));
+        link.classList.add('selected');
       });
     });
 
