@@ -7,7 +7,7 @@ import {
   createProduct,
   deleteProduct,
   product,
-  products, productsByUser,
+  products, ProductsByCategory, productsByUser,
   updateProduct
 } from "../graphql/queries/graphql.queries.product";
 import {Product} from "../models/product";
@@ -78,6 +78,18 @@ export class ProductService {
       map((res) => {
         // @ts-ignore
         const products = res.data.getProductsByUser;
+        return products as Product[];
+      })
+    );
+  }
+  getProductsByCategory(category: string): Observable<Product[]> {
+    return this.appolo.watchQuery({
+      query: ProductsByCategory,
+      variables: { category },
+    }).valueChanges.pipe(
+      map((res) => {
+        // @ts-ignore
+        const products = res.data.getProductsByCategory;
         return products as Product[];
       })
     );
