@@ -266,6 +266,7 @@ const typeDefs = gql`
     imageUrl: String
     url: String,
     rating: String
+    productUrl: String
   }
   
   type FarmProduct {

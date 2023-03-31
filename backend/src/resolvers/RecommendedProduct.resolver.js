@@ -11,6 +11,7 @@ const getRecommendedProductById = async (parent, args, context, info) => {
     imageUrl: productData.imageUrl,
     price: productData.price,
     rating: productData.rating,
+    productUrl: productData.productUrl
   };
   
 };

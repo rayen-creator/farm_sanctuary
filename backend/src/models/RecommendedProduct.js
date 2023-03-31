@@ -6,6 +6,7 @@ const recommendedProductSchema = new Schema({
   price: String,
   imageUrl: String,
   url: String,
+  productUrl : String,
   ratingNumber:String
 });
 

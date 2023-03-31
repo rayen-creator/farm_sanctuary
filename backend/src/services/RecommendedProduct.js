@@ -8,14 +8,17 @@ const getRecommendedProductById = async (asin) => {
     const $ = cheerio.load(response.data);
     const title = $("#productTitle").text().trim();
     const imageUrl = $('#landingImage').attr('src');
-    const price = $('span.a-price-whole').text().substring(0,6);
-    const rating = $('#acrCustomerReviewText').text().substring(0,12);
+    const price = $('span.a-price-whole').text().substring(0,5);
+    const rating = $('#acrCustomerReviewText').text().substring(0,13);
+    const productUrl = response.config.url;
+
     return {
       asin,
       title,
       imageUrl,
       price,
       rating,
+      productUrl
     };
   } catch (error) {
     console.log(error);

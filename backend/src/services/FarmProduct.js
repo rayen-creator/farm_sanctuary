@@ -13,8 +13,7 @@ async function createFarmProd(input) {
 }
 
 async function getFarmProducts() {
-  return FarmProduct
-  .find();
+  return FarmProduct.find();
 }
 
 module.exports = {

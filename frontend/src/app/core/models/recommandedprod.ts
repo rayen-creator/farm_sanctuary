@@ -1,7 +1,9 @@
-export interface RecommendedProduct {
+export type RecommendedProduct = {
+    asin:String;
     title: string;
-    price: number;
-    image: string;
-    url: string;
+    price: String;
+    imageUrl: string;
+    rating: string;
+    productUrl: string; 
   }
   
