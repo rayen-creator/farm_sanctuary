@@ -46,10 +46,12 @@ const typeDefs = gql`
   }
 
   type Post{
-    title:String,
-    text:String,
-    likes:Number,
-    topic:Topic,
+    id: ID!
+    image:String!
+    title:String!
+    text:String!
+    likes:Int
+    topic:Topic!
   }
 
   type Feedback {
@@ -337,7 +339,16 @@ const typeDefs = gql`
   type createProductResponse {
     message: String!
   }
-  
+
+  input postInput{
+    image:String!
+    title:String!
+    text:String!
+    topic:Topic!
+    user:ID
+
+  }
+
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -402,6 +413,10 @@ const typeDefs = gql`
     updateProduct(id: ID!, input: UpdateProductInput!, file: Upload): createProductResponse!
     deleteProduct(id: ID!): Product!
     addReviewProduct(idProd: ID!,idUser:ID!, input:addReviewInput!): createProductResponse!
+
+    addPost(input:postInput!):Post!
+    modifyPost(id: ID!,input:postInput!):Post!
+    deletePost(id:ID!):Post!
   }
 
   input CreateProductInput {
