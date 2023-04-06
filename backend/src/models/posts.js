@@ -6,6 +6,7 @@ const topic = Object.freeze({
 });
 
 const postSchema = new mongoose.Schema({
+  image:String,
   title: String,
   text: Number,
   likes: Number,
