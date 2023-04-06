@@ -34,6 +34,23 @@ const typeDefs = gql`
     MUSHROOMS
     OTHER
   }
+  
+  enum Topic{
+    farming
+    agriculture
+    ranching
+  }
+
+  type Comment{
+    content:String!
+  }
+
+  type Post{
+    title:String,
+    text:String,
+    likes:Number,
+    topic:Topic,
+  }
 
   type Feedback {
     id: ID!
