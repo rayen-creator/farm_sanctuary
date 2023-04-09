@@ -10,6 +10,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import {Ng2SearchPipeModule} from "ng2-search-filter";
 import { CategoryProductsComponent } from './category-products/category-products.component';
 import {UiSwitchModule} from "ngx-toggle-switch";
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {UiSwitchModule} from "ngx-toggle-switch";
     ProductFormComponent,
     UserProductsComponent,
     ProductDetailsComponent,
-    CategoryProductsComponent
+    CategoryProductsComponent,
+    CartComponent
   ],
     imports: [
         CommonModule,

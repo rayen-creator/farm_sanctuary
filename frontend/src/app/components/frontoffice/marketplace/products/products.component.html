@@ -80,7 +80,7 @@
               <div class="shop-one__image">
                 <span *ngIf="p.inSale === true" class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
                 <img src="{{p.image}}" alt="">
-                <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
+                <a class="shop-one__cart"  (click)="addToCart(p)" style="cursor: pointer;"><i class=" icon-shopping-cart"></i></a>
               </div><!-- /.shop-one__image -->
               <div class="shop-one__content text-center">
                 <h3 class="shop-one__title"><a [routerLink]="['/marketplace/product', p.id]">{{p.name}}</a>

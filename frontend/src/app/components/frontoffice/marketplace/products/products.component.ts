@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../../core/models/product';
 import { ProductService } from '../../../../core/services/product.service';
+import {CartService} from "../../../../core/services/cart.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-products',
@@ -13,7 +15,7 @@ export class ProductsComponent implements OnInit {
   public numberOfProductsToShow = 9;
   searchText: any;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private cartService: CartService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -85,5 +87,10 @@ export class ProductsComponent implements OnInit {
       sortedProducts.sort((a, b) => new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime());
       this.productsList = sortedProducts;
     }
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    this.toastr.success('Product added to cart', 'success');
   }
 }

@@ -123,7 +123,7 @@
                       <li>
                         <a href="product-details.html">Product Details</a>
                       </li>
-                      <li><a href="cart.html">Cart</a></li>
+                      <li><a routerLink="marketplace/cart">Cart</a></li>
                       <li><a href="checkout.html">Checkout</a></li>
                     </ul>
                   </li>
@@ -190,9 +190,10 @@
               <a href="#" class="search search-toggler"
                 ><span class="icon-magnifying-glass"></span
               ></a>
-              <a href="#" class="cart mini-cart__toggler"
-                ><span class="icon-shopping-cart"></span
-              ></a>
+              <a routerLink="marketplace/cart" class="cart mini-cart__toggler">
+                <span class="icon-shopping-cart"></span>
+                <span class="badge">{{ cartItemCount }}</span>
+              </a>
             </div>
             <div class="contact-box" *ngIf="userIsAuthenticated">
               <div class="text">

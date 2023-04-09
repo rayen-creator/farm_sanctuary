@@ -11,6 +11,7 @@ import {Subscription} from "rxjs";
 import jwt_decode from "jwt-decode";
 import {ToastrService} from "ngx-toastr";
 import {AddReviewReponse} from "../../../../core/graphql/graphqlResponse/addReviewReponse";
+import {CartService} from "../../../../core/services/cart.service";
 
 @Component({
   selector: 'app-product-details',
@@ -31,7 +32,7 @@ export class ProductDetailsComponent implements OnInit {
   reviewExist: Boolean
 
   public numberOfReviewsToShow = 3;
-  constructor(private productService: ProductService,private toastr: ToastrService, private router:Router, private currentRoute: ActivatedRoute,   private formBuilder: FormBuilder, private auth: AuthService) { }
+  constructor(private productService: ProductService,private cartService: CartService,private toastr: ToastrService, private router:Router, private currentRoute: ActivatedRoute,   private formBuilder: FormBuilder, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.tokenSubs = this.auth.getToken().subscribe((token) => {
@@ -108,5 +109,10 @@ export class ProductDetailsComponent implements OnInit {
 
   showMoreReviews() {
     this.numberOfReviewsToShow += 3;
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    this.toastr.success('Product added to cart', 'success');
   }
 }
