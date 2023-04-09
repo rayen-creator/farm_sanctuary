@@ -1,0 +1,20 @@
+.content-editor{
+    height: 200px;
+    width: 70%;
+    margin: 5px;
+}
+.form-control{
+    min-width: 50%;
+    width: 70%;
+}
+.form-select{
+    min-width: 50%;
+    width: 70%;
+}
+.preview-container {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }

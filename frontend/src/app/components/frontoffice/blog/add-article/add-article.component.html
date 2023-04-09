@@ -1,5 +1,55 @@
 <div class="container m-5">
-  <quill-editor [(ngModel)]="blogText" (ngModelChange)="onBlogTextChanged()"></quill-editor>
-</div>
+  <div class="row">
+    <div class="col-md-8">
+      <form
+        [formGroup]="articleForm"
+        (ngSubmit)="onFormSubmit(articleForm.value)"
+      >
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="title"
+            placeholder="Title"
+          />
+        </div>
+        <div class="form-group">
+          <select formControlName="topic" class="form-select">
+            <option selected>-- Select topic --</option>
+            <option value="farming">farming</option>
+            <option value="agriculture">agriculture</option>
+            <option value="ranching">ranching</option>
+          </select>
+        </div>
 
-<div [innerHTML]="safeHtml"></div>
+        <div class="form-group">
+          <quill-editor
+            class="content-editor"
+            formControlName="text"
+          ></quill-editor>
+          <!-- [(ngModel)]="blogText"
+          [ngModelOptions]="{ standalone: true }"
+          (ngModelChange)="onBlogTextChanged()" -->
+          <!-- <div
+            id="editor"
+            style="min-height: 200px; border: 1px solid #ccc"
+            (ngModelChange)="onBlogTextChanged()"
+          ></div> -->
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4">
+      <div class="preview-container">
+        <div *ngIf="articleForm.value.text">
+          <!-- <div [innerHTML]="safeHtml"></div> -->
+          <div [innerHTML]="articleForm.value.text"></div>
+        </div>
+        <div *ngIf="!articleForm.value.text">nothing to preview</div>
+      </div>
+    </div>
+  </div>
+</div>
