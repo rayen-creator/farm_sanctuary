@@ -37,9 +37,10 @@
             <!-- /.product-details__content__rating__count -->
           </div><!-- /.product-details__content__rating -->
           <div class="product-details__content__text" *ngIf="product">
+            <p *ngIf="product.inSale" class="sale-text">On Sale!</p>
             <div *ngIf="product.quantity > 0">
               <p  style="color: #007701">Available in store</p>
-              <p>Quantity: {{product?.quantity}}</p>
+              <p style="margin-top: -10px">Quantity: {{product?.quantity}}</p>
             </div>
             <p *ngIf="product?.quantity == 0" style="color: red">Out of stock</p>
           </div><!-- /.product-details__content__text -->

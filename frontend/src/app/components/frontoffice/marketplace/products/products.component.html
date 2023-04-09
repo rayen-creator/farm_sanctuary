@@ -86,7 +86,11 @@
                 <h3 class="shop-one__title"><a [routerLink]="['/marketplace/product', p.id]">{{p.name}}</a>
                 </h3>
                 <h6 style="font-size: 15px " class="shop-one__title"><a href="product-details.html">quantity : {{p.quantity}} {{p.unit}}</a></h6>
-                <p class="shop-one__price">${{p.price}}</p><!-- /.shop-one__price -->
+                <div class="shop-one__price">
+                  <span *ngIf="p.inSale === true" class="original-price" style="text-decoration: line-through;">${{p.price * 2}}</span>
+                  <span *ngIf="p.inSale === true" class="sale-price" style=" font-size: large; font-weight: bold; color: #0b0b0b"> ${{p.price}}</span>
+                  <span *ngIf="p.inSale === false" class="sale-price" style="font-weight: bold;"> ${{p.price}}</span>
+                </div><!-- /.shop-one__price -->
                 <p class="shop-one__price" style="font-size: x-small">from: {{p.country}}</p><!-- /.shop-one__price -->
                 <div class="shop-one__rating">
                   <i class="fa fa-star" *ngFor="let star of getStars(p?.rating?.average ?? 0)"></i>
