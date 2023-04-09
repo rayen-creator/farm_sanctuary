@@ -78,6 +78,7 @@ export class ProductFormComponent implements OnInit {
       quantity: ["", [Validators.required, this.positiveNumberValidator]],
       expirationDate: ["", [Validators.required, this.futureDateValidator]],
       category: ["", [Validators.required]],
+      expirationDiscount: [false, Validators.required],
       }
      )
   }
@@ -89,6 +90,7 @@ export class ProductFormComponent implements OnInit {
     let unit: String = ""
     let expirationDate = null
     let category: String = ""
+    let expirationDiscount;
 
 
     const p = this.product
@@ -101,6 +103,7 @@ export class ProductFormComponent implements OnInit {
     expirationDate = date.toISOString().substr(0, 10);
     console.log(expirationDate)
     category = p.category
+    expirationDiscount = p.expirationDiscount
 
     this.productForm = this.formBuilder.group({
         name: [name, [Validators.required, Validators.pattern(this.pattern), Validators.minLength(3)]],
@@ -110,6 +113,7 @@ export class ProductFormComponent implements OnInit {
         quantity: [quantity, [Validators.required, this.positiveNumberValidator]],
         expirationDate: [expirationDate, [Validators.required, this.futureDateValidator]],
         category: [category, [Validators.required]],
+      expirationDiscount: [expirationDiscount, Validators.required],
       }
     )
   }

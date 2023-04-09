@@ -109,6 +109,7 @@ export class ProductService {
       user: this.userId,
       expirationDate: product.expirationDate,
       category: product.category,
+      expirationDiscount: product.expirationDiscount
     };
     return this.appolo
       .mutate({
@@ -152,6 +153,7 @@ export class ProductService {
       user: prod.user,
       expirationDate: prod.expirationDate,
       category: prod.category,
+      expirationDiscount: prod.expirationDiscount
     };
 
     return this.appolo

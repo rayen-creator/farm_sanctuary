@@ -13,6 +13,7 @@ export type Product = {
   user: string;
   expirationDate: Date;
   inSale: boolean;
+  expirationDiscount: boolean;
   rating: {
     total: number;
     count: number;

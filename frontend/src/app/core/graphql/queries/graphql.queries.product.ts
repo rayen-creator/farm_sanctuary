@@ -19,6 +19,7 @@ const products = gql`
       category,
       expirationDate,
       inSale
+      expirationDiscount
       createdAt,
       updatedAt,
       user {
@@ -58,6 +59,7 @@ const product = gql`
       category,
       expirationDate,
       inSale
+      expirationDiscount
       createdAt,
       updatedAt,
       user {
@@ -87,6 +89,7 @@ const productsByUser = gql`
       category,
       expirationDate,
       inSale
+      expirationDiscount
       createdAt,
       updatedAt,
       user {
@@ -115,6 +118,7 @@ const ProductsByCategory = gql`
       category
       expirationDate
       inSale
+      expirationDiscount
       createdAt
       updatedAt
       user {
@@ -158,6 +162,7 @@ const deleteProduct = gql`
       category,
       expirationDate,
       inSale
+      expirationDiscount
       createdAt,
       updatedAt,
       user {

@@ -416,6 +416,7 @@ const typeDefs = gql`
     user: ID
     expirationDate: DateTime
     category: productCategory
+    expirationDiscount: Boolean!
   }
   input addReviewInput {
     rating: Int!

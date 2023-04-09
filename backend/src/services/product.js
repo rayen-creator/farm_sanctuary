@@ -52,11 +52,11 @@ async function createProduct(input, file) {
 }
 
 // Scheduled job to update product prices
-cron.schedule('*/10 * * * * *', async () => {
+cron.schedule('0 0 * * *', async () => {
     const products = await Product.find();
     const currentDate = new Date();
     for (const product of products) {
-        if (product.expirationDate && (product.expirationDate - currentDate) <= 3 * 24 * 60 * 60 * 1000 && product.inSale === false) {
+        if (product.expirationDate && (product.expirationDate - currentDate) <= 3 * 24 * 60 * 60 * 1000 && product.inSale === false && product.expirationDiscount === true) {
             product.inSale = true
             product.price = product.price * 0.5;
             await product.save();
