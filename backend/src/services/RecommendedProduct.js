@@ -1,31 +1,48 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const RecommendedProduct = require("../models/RecommendedProduct");
 
+const fetchProducts = async (url) => {
+  const response = await axios.get(url);
+  const html = response.data;
+  const $ = cheerio.load(html);
+  const products = [];
 
-const getRecommendedProductById = async (asin) => {
-  try {
-    const response = await axios.get(`https://www.amazon.in/dp/${asin}/`);
-    const $ = cheerio.load(response.data);
-    const title = $("#productTitle").text().trim();
-    const imageUrl = $('#landingImage').attr('src');
-    const price = $('span.a-price-whole').text().substring(0,5);
-    const rating = $('#acrCustomerReviewText').text().substring(0,13);
-    const productUrl = response.config.url;
+  $('.ty-column3').each((index, element) => {
+    const priceText = $(element).find('.ty-price-num').last().text().trim();
+    let price = null;
+    if (priceText !== '') {
+      price = parseFloat(priceText.replace('£', ''));
+    }
 
-    return {
-      asin,
-      title,
-      imageUrl,
-      price,
-      rating,
-      productUrl
-    };
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+    const image = $(element).find('.ty-pict').attr('src');
+    const url = $(element).find('.ty-grid-list__image a').attr('href');
+    const title = $(element).find('.product-title').text();
+    const category = $('h1.ty-mainbox-title span').text();
+
+    const product = new RecommendedProduct({
+      title: title,
+      price: price,
+      image: image,
+      category: category,
+      url: url
+    });
+    products.push(product);
+  });
+
+  await RecommendedProduct.insertMany(products);
+
+  return products;
 };
 
+
+async function getRecommendedProducts(){
+  return RecommendedProduct.find();
+}
+
+
+
 module.exports = {
-  getRecommendedProductById  
+  fetchProducts,
+  getRecommendedProducts
 };

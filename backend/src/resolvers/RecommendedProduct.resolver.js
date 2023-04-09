@@ -1,30 +1,20 @@
-// const { UserInputError } = require('apollo-server-express');
+const { fetchProducts, getRecommendedProducts } = require('../services/RecommendedProduct');
 
-const RecommendedProduct = require('../services/RecommendedProduct');
-
-const getRecommendedProductById = async (parent, args, context, info) => {
-  const { asin } = args;
-  const productData = await RecommendedProduct.getRecommendedProductById(asin);
-  return {
-    asin,
-    title: productData.title,
-    imageUrl: productData.imageUrl,
-    price: productData.price,
-    rating: productData.rating,
-    productUrl: productData.productUrl
-  };
-  
-};
-
-
-
-
-
-module.exports = {
+const recommendedproductresolvers = {
   Query: {
-    getRecommendedProductById,
-  }
+    products: async (_, { url }) => {
+      const products = await fetchProducts(url);
+      return products;
+    },
+  
+  async getRecommendedProducts() {
+    try {
+        return await getRecommendedProducts();
+    } catch (error) {
+        throw new UserInputError(error.message);
+    }
+  },
+},
 };
 
-
-
+module.exports = recommendedproductresolvers;

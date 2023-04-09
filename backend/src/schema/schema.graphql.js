@@ -171,11 +171,14 @@ const typeDefs = gql`
 
 
   type RecommendedProduct {
-    title: String
-    price: String
-    image: String
-    url: String
+    id: ID!
+    title: String!
+    price: Float!
+    image: String!
+    url: String!
+    category: String!
   }
+  
   
  
 
@@ -260,30 +263,9 @@ const typeDefs = gql`
   
   
 
-  type RecommendedProduct {
-    title: String
-    price: String
-    imageUrl: String
-    url: String,
-    rating: String
-    productUrl: String
-  }
-  
-  type FarmProduct {
-    title: String
-    price: String
-    image: String
-    description: String
-    rating: Int
-  }  
 
-  input FarmProductInput {
-    title: String!
-    price: String!
-    image: String!
-    description: String!
-    rating: Float!
-  }
+
+
 
 
 
@@ -348,10 +330,8 @@ const typeDefs = gql`
     getProductsByUser(userId: ID!): [Product!]!
     getFiveStarFeedbacks: [Feedback!]!
 
-
-
-    getRecommendedProductById(asin: String!): RecommendedProduct!
-    getFarmProducts:[FarmProduct!]!
+    products(url: String!): [RecommendedProduct!]!
+    getRecommendedProducts: [RecommendedProduct!]!
 
   }
 
@@ -384,7 +364,6 @@ const typeDefs = gql`
 
     createFeedback(input: FeedbackInput!): Feedback! 
     
-    createFarmProd(input: FarmProductInput!): FarmProduct!
 
   
 
