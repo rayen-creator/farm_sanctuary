@@ -18,6 +18,7 @@ const feedbackResolver = require("./src/resolvers/feedback.resolver");
 const { GraphQLUpload, graphqlUploadExpress } = require("graphql-upload");
 const reProdresolvers = require("./src/resolvers/recProduct.resolver");
 const postResolver = require("./src/resolvers/post.resolver");
+const commentResolver = require("./src/resolvers/comment.resolver");
 
 app.use(morgan("dev"));
 
@@ -45,6 +46,7 @@ const server = new ApolloServer({
     reProdresolvers,
     productResolver,
     postResolver,
+    commentResolver
   ],
 });
 
