@@ -12,6 +12,7 @@ export type Product = {
   country: string;
   user: string;
   expirationDate: Date;
+  inSale: boolean;
   rating: {
     total: number;
     count: number;

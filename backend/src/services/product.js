@@ -1,7 +1,7 @@
 const Product = require('../models/product');
 const User = require('../models/user');
 const uploadImage = require("./utils/imageUpload");
-
+const cron = require('node-cron'); // Import node-cron
 async function getProduct(id) {
     return Product.findById(id).populate([{path: "user", model: "Users"},{
         path: 'reviews',
@@ -35,6 +35,7 @@ async function createProduct(input, file) {
         user: input.user,
         expirationDate: new Date(input.expirationDate),
         category: input.category,
+        expirationDiscount: input.expirationDiscount,
 
     });
     const prodUser = await User.findById(input.user)
@@ -50,6 +51,21 @@ async function createProduct(input, file) {
     };
 }
 
+// Scheduled job to update product prices
+cron.schedule('*/10 * * * * *', async () => {
+    const products = await Product.find();
+    const currentDate = new Date();
+    for (const product of products) {
+        if (product.expirationDate && (product.expirationDate - currentDate) <= 3 * 24 * 60 * 60 * 1000 && product.inSale === false) {
+            product.inSale = true
+            product.price = product.price * 0.5;
+            await product.save();
+        }
+    }
+    console.log("done job")
+});
+
+
 async function updateProduct(id, input, file) {
     const updatedProduct = {
         name: input.name,
@@ -62,6 +78,7 @@ async function updateProduct(id, input, file) {
         expirationDate: new Date(input.expirationDate),
         category: input.category,
         updatedAt: new Date(),
+        expirationDiscount: input.expirationDiscount,
     };
     if (file) {
         const fileLocation = await uploadImage(file)

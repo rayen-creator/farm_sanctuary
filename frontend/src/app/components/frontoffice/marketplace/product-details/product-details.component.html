@@ -103,7 +103,7 @@
         <!-- /.product-review__item__text -->
       </div><!-- /.product-review__item__content -->
     </div><!-- /.product-review__item -->
-    <div class="row" *ngIf="numberOfReviewsToShow < product.reviews.length">
+    <div class="row" *ngIf="numberOfReviewsToShow < (product?.reviews?.length ?? 0)">
       <div class="col-lg-12 text-center">
         <div class="news-sidebar__btn">
           <a (click)="showMoreReviews()" class="thm-btn">load more</a>

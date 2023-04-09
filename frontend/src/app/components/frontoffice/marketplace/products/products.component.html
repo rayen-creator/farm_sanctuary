@@ -65,10 +65,11 @@
           <div class="col-lg-12 shop-one__sorter">
             <p></p>
             <select class="shop-one__product-sorter" name="sortProducts" id="sortProducts">
-              <option value="popularity" selected>Sort by Popular</option>
+              <option value="popularity" >Sort by Popular</option>
               <option value="priceAsc">Sort by Price asc</option>
               <option value="priceDesc">Sort by Price desc</option>
               <option value="country">Sort by country</option>
+              <option value="expiration" selected>Sort by Expiration Date</option>
             </select>
 
           </div><!-- /.col-lg-12 -->
@@ -77,7 +78,7 @@
           <div class="col-md-6 col-lg-4" *ngFor="let p of visibleProducts | filter:searchText ">
             <div class="shop-one__item">
               <div class="shop-one__image">
-                <span class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
+                <span *ngIf="p.inSale === true" class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
                 <img src="{{p.image}}" alt="">
                 <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
               </div><!-- /.shop-one__image -->

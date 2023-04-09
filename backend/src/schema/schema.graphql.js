@@ -88,6 +88,8 @@ const typeDefs = gql`
     country: String!
     user: User!
     expirationDate: DateTime!
+    inSale: Boolean!
+    expirationDiscount: Boolean!
     rating: Rating
     reviews: [Review]
     category: productCategory!
@@ -401,6 +403,7 @@ const typeDefs = gql`
     user: ID!
     expirationDate: DateTime!
     category: productCategory!
+    expirationDiscount: Boolean!
   }
 
   input UpdateProductInput {
