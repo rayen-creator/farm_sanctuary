@@ -12,6 +12,23 @@ async function addPost(input) {
   });
   return await post.save(post);
 }
+async function getAllpost() {
+  return await Post.find().populate({
+    path: "user",
+    model: "Users",
+  });
+}
+
+async function getpostById(id) {
+  return await Post.findById(id).populate({
+    path: "user",
+    model: "Users",
+  });
+}
+async function getPostsByUser(userId) {
+  const posts = await Post.find({ user: userId }).populate({path: "user", model: "Users"});
+  return posts;
+}
 async function modifyPost(id, input, file) {
   const updatedPost = {
     image: input.image,
@@ -38,5 +55,8 @@ async function deletePost(id) {
 module.exports = {
   addPost,
   modifyPost,
-  deletePost
+  deletePost,
+  getAllpost,
+  getpostById,
+  getPostsByUser
 };

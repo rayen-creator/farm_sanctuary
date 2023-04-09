@@ -43,15 +43,20 @@ const typeDefs = gql`
 
   type Comment{
     content:String!
+    createdAt:DateTime
   }
 
   type Post{
     id: ID!
-    image:String!
+    image:String
     title:String!
     text:String!
     likes:Int
     topic:Topic!
+    createdAt:DateTime!
+    updatedAt:DateTime
+    user:User
+    comments:[Comment]
   }
 
   type Feedback {
@@ -341,12 +346,18 @@ const typeDefs = gql`
   }
 
   input postInput{
-    image:String!
+    image:String
     title:String!
     text:String!
     topic:Topic!
     user:ID
+    comments:ID
 
+  }
+  input commentInput{
+    content:String!
+    user:ID
+    post:ID
   }
 
   type Query {
@@ -372,7 +383,11 @@ const typeDefs = gql`
     getRecommendedProductById(asin: String!): RecommendedProduct!
     getFarmProducts:[Product!]!
 
+    getAllPost:[Post!]!
+    getpostById(id:ID!):Post!
 
+    getAllComment:[Comment!]!
+    getCommentById(id:ID!):Comment!
   }
 
   type Mutation {
@@ -414,9 +429,13 @@ const typeDefs = gql`
     deleteProduct(id: ID!): Product!
     addReviewProduct(idProd: ID!,idUser:ID!, input:addReviewInput!): createProductResponse!
 
-    addPost(input:postInput!):Post!
-    modifyPost(id: ID!,input:postInput!):Post!
-    deletePost(id:ID!):Post!
+    addPost(input:postInput!):Post
+    modifyPost(id: ID!,input:postInput!):Post
+    deletePost(id:ID!):Post
+
+    addComment(input:commentInput):Comment!
+    modifyComment(id:ID!,input:commentInput!):Comment!
+    deleteComment(id:ID!):Comment!
   }
 
   input CreateProductInput {
