@@ -2,8 +2,8 @@
   <div class="container">
     <div class="page-header__inner text-center clearfix">
       <ul class="thm-breadcrumb">
-        <li><a href="index-main.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
+        <li><a routerLink="">Home</a></li>
+        <li><a routerLink="/marketplace">Shop</a></li>
         <li>Cart</li>
       </ul>
       <h2>Cart</h2>
@@ -94,7 +94,7 @@
           </li>
         </ul><!-- /.list-unstyled proceed-to-checkout__list -->
         <div class="proceed-to-checkout__buttons">
-          <a href="cart.html" class="thm-btn proceed-to-checkout__checkout-btn">Update</a>
+          <a (click)="clearCart()" class="thm-btn proceed-to-checkout__checkout-btn" style="cursor: pointer">Clear</a>
           <a href="checkout.html" class="thm-btn ">Checkout</a>
         </div><!-- /.proceed-to-checkout__buttons -->
       </div><!-- /.col-lg-4 -->
