@@ -6,7 +6,7 @@ const topic = Object.freeze({
 });
 
 const postSchema = new mongoose.Schema({
-  image:String,
+  image: String,
   title: String,
   text: String,
   likes: Number,
@@ -19,6 +19,13 @@ const postSchema = new mongoose.Schema({
     required: true,
     ref: "User",
   },
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      require: true,
+      ref: "Comment",
+    },
+  ],
   createdAt: Date,
   updatedAt: Date,
 });

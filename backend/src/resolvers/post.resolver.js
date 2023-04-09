@@ -1,7 +1,22 @@
 const postService = require("../services/blog/postService");
 
 const postResolver = {
-  Query: {},
+  Query: {
+    async getAllPost() {
+      try {
+        return await postService.getAllpost();
+      } catch (error) {
+        throw Error(error);
+      }
+    },
+    async getpostById(_, { id }) {
+      try {
+        return await postService.getpostById(id);
+      } catch (error) {
+        throw Error(error);
+      }
+    },
+  },
   Mutation: {
     async addPost(_, { input }) {
       try {
