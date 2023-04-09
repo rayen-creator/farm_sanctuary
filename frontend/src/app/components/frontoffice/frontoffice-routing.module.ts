@@ -40,7 +40,7 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
       { path: 'addfeedback', component: FeedbackFormComponent },
       { path: 'latestnew', component: LatestnewsComponent },
-      { path: 'detailnews', component: DetailBlogComponent },
+      { path: 'detailnews/:id', component: DetailBlogComponent },
       { path: 'marketplace', loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) },
       { path: 'feedbacklist', component: FeedbackListPerUserComponent },
       { path: 'addarticle', component: AddArticleComponent },
