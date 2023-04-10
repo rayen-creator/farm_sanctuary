@@ -65,7 +65,7 @@
         <ul class="list-unstyled proceed-to-checkout__list">
           <li>
             <span>Subtotal</span>
-            <i>$20.98 USD</i>
+            <i>{{ cartTotal | currency:'USD' }}</i>
           </li>
           <li>
             <span>Shipping Cost</span>
@@ -73,9 +73,9 @@
           </li>
           <li>
             <span>Total</span>
-            <i>$20.98 USD</i>
+            <i>{{ cartTotal | currency:'USD' }}</i>
           </li>
-        </ul><!-- /.list-unstyled proceed-to-checkout__list -->
+        </ul><!-- /.list-unstyled proceed-to-checkout__ -->
         <div class="proceed-to-checkout__buttons">
           <a (click)="clearCart()" class="thm-btn proceed-to-checkout__checkout-btn" style="cursor: pointer">Clear</a>
           <a href="checkout.html" class="thm-btn ">Checkout</a>

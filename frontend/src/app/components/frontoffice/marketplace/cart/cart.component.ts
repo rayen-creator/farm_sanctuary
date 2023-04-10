@@ -11,12 +11,17 @@ import {CartItem} from "../../../../core/models/cartItem";
 })
 export class CartComponent implements OnInit {
  cartProducts: CartItem[];
+  cartTotal = 0;
 
-  constructor( private cartService: CartService) { }
+  constructor( private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartProducts = this.cartService.getItems()
-    console.log(this.cartProducts)
+    this.cartProducts = this.cartService.getItems();
+    this.cartTotal = this.cartProducts.reduce((total, item) => total + item.total, 0);
+    this.cartService.cartUpdated.subscribe(() => {
+      this.cartProducts = this.cartService.getItems();
+      this.cartTotal = this.cartProducts.reduce((total, item) => total + item.total, 0);
+    });
   }
   clearCart() {
     Swal.fire({
@@ -40,6 +45,7 @@ export class CartComponent implements OnInit {
     if (product.quantity + modifier > 0) {
       product.quantity += modifier;
       product.total = product.quantity * product.price
+      this.cartService.cartUpdated.next()
     }
   }
 
