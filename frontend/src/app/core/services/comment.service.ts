@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 import jwt_decode from "jwt-decode";
 import { Comment } from '../models/comment';
 import { addComment, getAllComment } from '../graphql/queries/graphql.comment.queries';
+import { getAllPost, getpostById } from '../graphql/queries/post.queries';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,13 @@ export class CommentService {
         {
           query:getAllComment,
           variables:{postId:postId}
+        },
+        {
+          query:getAllPost
+        },
+        {
+          query:getpostById,
+          variables:postId
         }
       ]
     }).subscribe({

@@ -65,5 +65,6 @@ export class DetailBlogComponent implements OnInit {
 
   addComment(form:any){
     this.commentService.addComment(form,this.id);
+    this.commentForm.controls['content'].setValue(null);
   }
 }
