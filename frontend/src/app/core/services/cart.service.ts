@@ -32,6 +32,7 @@ export class CartService {
         name: product.name,
         price: product.price,
         unit: product.unit,
+        total: product.price,
         // @ts-ignore
         image: product.image,
         quantity: 1
