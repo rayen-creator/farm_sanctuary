@@ -14,12 +14,14 @@ export const getAllPost = gql`
         user{
             username
             image
-            location
+            location 
          }
         comments{
             content
-            createdAt
+           
         }
+      
+       
   }
 } `;
 export const getPostsByUser = gql`
@@ -38,9 +40,8 @@ query getPostsByUser($userId:ID!){
             image
             location
          }
-        comments{
-            content
-            createdAt
+         comments{
+           content
         }
       }
 }`;
@@ -63,7 +64,6 @@ query getpostById($id:ID!) {
          }
         comments{
             content
-            createdAt
         }
   }
 } `;

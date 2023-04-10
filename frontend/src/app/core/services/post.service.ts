@@ -91,6 +91,7 @@ export class PostService {
     }).valueChanges.pipe(
       map((res: any) => {
         const posts = res.data.getpostById;
+        console.log("ss",res.data);
         return posts as Post;
       })
     )

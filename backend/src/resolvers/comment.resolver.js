@@ -2,9 +2,9 @@ const commentService = require("../services/blog/commentService");
 
 const commentResolver = {
   Query: {
-    async getAllComment() {
+    async getAllComment(_,{postId}) {
       try {
-        return await commentService.getAllcomment();
+        return await commentService.getAllcomment(postId);
       } catch (error) {
         throw Error(error);
       }
@@ -18,9 +18,9 @@ const commentResolver = {
     },
   },
   Mutation: {
-    async addComment(_, { input }) {
+    async addComment(_, { input, postId, userId }) {
       try {
-        return await commentService.addComment(input);
+        return await commentService.addComment(input, postId, userId);
       } catch (error) {
         throw Error(error);
       }

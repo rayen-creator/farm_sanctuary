@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Comment } from 'src/app/core/models/comment';
 import { Post } from 'src/app/core/models/post';
+import { CommentService } from 'src/app/core/services/comment.service';
 import { PostService } from 'src/app/core/services/post.service';
 
 @Component({
@@ -14,11 +16,13 @@ export class DetailBlogComponent implements OnInit {
   post: Post;
   latestPosts: Post[];
   commentForm: FormGroup;
+  comments:Comment[];
   constructor(
     private postService: PostService,
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private commentService:CommentService
      ) { }
     
  
@@ -44,10 +48,22 @@ export class DetailBlogComponent implements OnInit {
         throw err;
       }
     });
+    this.commentService.getAllcomment(this.id).subscribe({
+      next:(comments:any)=>{
+        this.comments=comments;
+      },
+      error:(err)=>{
+        throw err;
+      }
+    });
     
     this.commentForm = this.formBuilder.group({
       content: ['']
     });
   }
 
+
+  addComment(form:any){
+    this.commentService.addComment(form,this.id);
+  }
 }
