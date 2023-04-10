@@ -22,6 +22,28 @@ export const getAllPost = gql`
         }
   }
 } `;
+export const getPostsByUser = gql`
+query getPostsByUser($userId:ID!){
+    getPostsByUser(userId:$userId){
+        id
+        image
+         title
+        text
+        likes
+        topic
+        createdAt
+        updatedAt
+        user{
+            username
+            image
+            location
+         }
+        comments{
+            content
+            createdAt
+        }
+      }
+}`;
 
 export const getpostById = gql`
 query getpostById($id:ID!) {

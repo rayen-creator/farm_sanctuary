@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './auth.service';
-import { addPost, getAllPost, getpostById } from '../graphql/queries/post.queries';
+import { addPost, deletePost, getAllPost, getPostsByUser, getpostById } from '../graphql/queries/post.queries';
 import { Subscription, map } from 'rxjs';
 import { Post } from '../models/post';
 import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
@@ -50,8 +50,9 @@ export class PostService {
       }
     }).subscribe({
       next: () => {
-        this.toastr.success('Post added successfully');
-        this.router.navigate(['/latestnew']);
+        this.toastr.success('Post added successfully', 'Success', {
+          progressBar: true
+        }); this.router.navigate(['/myarticles']);
       },
       error: (error) => {
         throw error;
@@ -71,7 +72,16 @@ export class PostService {
   }
 
   getPostperUser() {
-
+    const userId = this.userId;
+    return this.apollo.watchQuery({
+      query: getPostsByUser,
+      variables: { userId }
+    }).valueChanges.pipe(
+      map((res: any) => {
+        const posts = res.data.getPostsByUser;
+        return posts as Post[];
+      })
+    )
   }
 
   getPostById(id: any) {
@@ -90,7 +100,26 @@ export class PostService {
 
   }
 
-  deletePost() {
+  deletePost(id: any) {
+    const userId = this.userId;
+
+    return this.apollo.mutate({
+      mutation: deletePost,
+      variables: { id }, refetchQueries: [
+        { query: getpostById, variables: { userId } },
+        { query: getAllPost },
+        { query: getPostsByUser, variables: { userId } }
+      ]
+    }).subscribe({
+      next: () => {
+        this.toastr.success('Post deleted successfully', 'Success', {
+          progressBar: true
+        });
+      },
+      error: (error) => {
+        throw error;
+      }
+    })
 
   }
 }
