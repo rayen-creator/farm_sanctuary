@@ -30,8 +30,9 @@ async function getpostById(id) {
   });
 }
 async function getPostsByUser(userId) {
-  const posts = await Post.find({ user: userId }).populate({path: "user", model: "Users"});
-  return posts;
+  console.log(userId);
+  return await Post.find({ user: userId }).populate({path: "user", model: "Users"});
+
 }
 async function modifyPost(id, input, file) {
   const updatedPost = {

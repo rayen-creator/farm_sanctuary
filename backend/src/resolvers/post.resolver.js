@@ -16,6 +16,13 @@ const postResolver = {
         throw Error(error);
       }
     },
+    async getPostsByUser(_, { userId }) {
+      try {
+        return await postService.getPostsByUser(userId);
+      } catch (error) {
+        throw Error(error);
+      }
+    },
   },
   Mutation: {
     async addPost(_, { input,file }) {

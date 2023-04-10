@@ -47,13 +47,13 @@ const typeDefs = gql`
   }
 
   type Post{
-    id: ID!
+    id: ID
     image:String
-    title:String!
-    text:String!
+    title:String
+    text:String
     likes:Int
-    topic:Topic!
-    createdAt:DateTime!
+    topic:Topic
+    createdAt:DateTime
     updatedAt:DateTime
     user:User
     comments:[Comment]
@@ -385,6 +385,7 @@ const typeDefs = gql`
 
     getAllPost:[Post!]!
     getpostById(id:ID!):Post!
+    getPostsByUser(userId:ID!):[Post]!
 
     getAllComment:[Comment!]!
     getCommentById(id:ID!):Comment!
