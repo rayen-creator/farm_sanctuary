@@ -15,8 +15,8 @@ const recommendedproducts = gql`
 `;
 
 const RecommendedProductsByCategory = gql`
-  query GetRecommendedProductsByCategory($category: productCategory!) {
-    GetRecommendedProductsByCategory(category: $category) {
+  query getRecommendedProductsByCategory($category: recommendedproductCategory!) {
+    getRecommendedProductsByCategory(category: $category) {
       title
       price
       image

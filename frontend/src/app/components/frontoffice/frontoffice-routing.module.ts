@@ -49,7 +49,7 @@ const routes: Routes = [
       { path: 'addarticle', component: AddArticleComponent },
       { path: 'testimonials', component: TestimonialsComponent},
       { path: 'recommendedproducts', component: RecommendProductComponent},
-      { path: 'recommendedproduct/:category', component: CategoryRecommendedProductsComponent },
+      { path: 'recommendedproducts/:category', component: CategoryRecommendedProductsComponent },
 
 
 

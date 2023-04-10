@@ -59,30 +59,27 @@
             </div><!-- /.col-lg-12 -->
           </div><!-- /.row -->
           <div class="row">
-            <div class="col-md-6 col-lg-4" *ngFor="let p of visibleProducts | filter:searchText ">
+            <div class="col-md-6 col-lg-4" *ngFor="let p of visibleRecommendedProducts | filter:searchText ">
               <div class="shop-one__item">
                 <div class="shop-one__image">
                   <span class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
                   <img src="{{p.image}}" alt="">
-                  <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
+                  <a class="shop-one__cart" href="{{p.url}}"><i class=" icon-shopping-cart"></i></a>
                 </div><!-- /.shop-one__image -->
                 <div class="shop-one__content text-center">
-                  <h3 class="shop-one__title"><a [routerLink]="['/marketplace/product', p.id]">{{p.name}}</a>
+                  <h3 class="shop-one__title">{{p.title}}
                   </h3>
-                  <h6 style="font-size: 15px " class="shop-one__title"><a href="product-details.html">quantity : {{p.quantity}} {{p.unit}}</a></h6>
+                  <!-- <h6 style="font-size: 15px " class="shop-one__title"><a href="product-details.html">price : {{p.price}}</a></h6> -->
                   <p class="shop-one__price">${{p.price}}</p><!-- /.shop-one__price -->
-                  <p class="shop-one__price" style="font-size: x-small">from: {{p.country}}</p><!-- /.shop-one__price -->
-                  <div class="shop-one__rating">
-                    <i class="fa fa-star" *ngFor="let star of getStars(p?.rating?.average ?? 0)"></i>
-                  </div><!-- /.shop-one__rating -->
+                  
                 </div><!-- /.shop-one__content -->
               </div><!-- /.shop-one__item -->
             </div><!-- /.col-md-6 col-lg-3 -->
             <div class="row">
               <div class="col-lg-12 text-center">
                 <div class="news-sidebar__btn">
-                  <p class="shop-one__product-count" *ngIf="numberOfProductsToShow < (categoryProductsList| filter:searchText)?.length">Showing 1–{{numberOfProductsToShow}} of {{(categoryProductsList| filter:searchText).length}} results</p>
-                  <p class="shop-one__product-count" *ngIf="numberOfProductsToShow > (categoryProductsList| filter:searchText)?.length">Showing 1–{{(categoryProductsList| filter:searchText).length}} of {{(categoryProductsList| filter:searchText).length}} results</p>
+                  <p class="shop-one__product-count" *ngIf="numberOfRecommendedProductsToShow < (categoryRecommendedProductsList| filter:searchText)?.length">Showing 1–{{numberOfRecommendedProductsToShow}} of {{(categoryRecommendedProductsList| filter:searchText).length}} results</p>
+                  <p class="shop-one__product-count" *ngIf="numberOfRecommendedProductsToShow > (categoryRecommendedProductsList| filter:searchText)?.length">Showing 1–{{(categoryRecommendedProductsList| filter:searchText).length}} of {{(categoryRecommendedProductsList| filter:searchText).length}} results</p>
                   <a (click)="showMoreProducts()" class="thm-btn">load more</a>
                 </div>
               </div><!-- /.col-lg-12 text-center -->
@@ -94,7 +91,7 @@
     </div><!-- /.container -->
   </section>
   
-  <section class="shop-one" *ngIf="(categoryProductsList | filter:searchText)?.length === 0">
+  <section class="shop-one" *ngIf="(categoryRecommendedProductsList | filter:searchText)?.length === 0">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
@@ -102,7 +99,7 @@
             <img src="assets/no-product-found.png" alt="No products found" style="max-width: 100%;">
             <h3 class="mt-4 mb-3">No products found</h3>
             <p>Sorry, we couldn't find any products in this category.</p>
-            <a routerLink="/marketplace" class="btn btn-success mt-3 rounded-pill"> <i class="fa fa-arrow-left mr-2"></i> Back to the Fields </a>
+            <a routerLink="/recommendedproducts" class="btn btn-success mt-3 rounded-pill"> <i class="fa fa-arrow-left mr-2"></i> Back to the Fields </a>
           </div>
         </div>
       </div>

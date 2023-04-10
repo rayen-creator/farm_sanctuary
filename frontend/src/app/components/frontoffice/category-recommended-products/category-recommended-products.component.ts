@@ -36,6 +36,11 @@ export class CategoryRecommendedProductsComponent implements OnInit {
     });
   }
 
+  showMoreProducts() {
+    this.numberOfRecommendedProductsToShow += 6;
+    this.visibleRecommendedProducts = this.categoryRecommendedProductsList.slice(0, this.numberOfRecommendedProductsToShow);
+  }
+
 
 
 
