@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { error } from 'console';
 import { Post } from 'src/app/core/models/post';
 import { PostService } from 'src/app/core/services/post.service';
 
