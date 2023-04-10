@@ -192,7 +192,7 @@
               ></a>
               <a routerLink="marketplace/cart" class="cart mini-cart__toggler">
                 <span class="icon-shopping-cart"></span>
-                <span class="badge">{{ cartItemCount }}</span>
+                <span class="badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
               </a>
             </div>
             <div class="contact-box" *ngIf="userIsAuthenticated">
