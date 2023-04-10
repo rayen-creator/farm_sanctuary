@@ -9,6 +9,9 @@ import { RecommendedProduct } from 'src/app/core/models/recommandedprod';
 })
 export class RecommendProductComponent implements OnInit {
   public recommendedproductsList: RecommendedProduct[];
+  public visibleRecommendedProducts: RecommendedProduct[];
+  public numberOfRecommendedProductsToShow = 9;
+  searchText: any;
   constructor(private recommendedProductService: recommendedProductService) { }
 
   ngOnInit(): void {
@@ -24,6 +27,11 @@ export class RecommendProductComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  showMoreProducts() {
+    this.numberOfRecommendedProductsToShow += 6;
+    this.visibleRecommendedProducts = this.recommendedproductsList.slice(0, this.numberOfRecommendedProductsToShow);
   }
 
 }

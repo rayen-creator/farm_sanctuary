@@ -1,8 +1,7 @@
 
-<html>
-<body>
 
-	<div>
+
+
 
 
 		<div class="stricky-header stricked-menu main-menu">
@@ -24,19 +23,19 @@
 				</div>
 			</div>
 		</section>
-    </div>
-    <section class="shop-one">
+    <section class="shop-one" *ngIf="(recommendedproductsList | filter:searchText)?.length > 0">
         <div class="container">
           <div class="row">
             <div class="col-lg-3">
               <div class="shop-one__sidebar">
                 <div class="shop-one__sidebar__item shop-one__sidebar__search">
                   <form action="#">
-                    <input type="text" placeholder="Search here">
+                    <input class="form-control" type="text" name="Search here" [(ngModel)]="searchText" autocomplete="off" placeholder="Search">
                     <button type="submit"><i class=" icon-search "></i></button>
                   </form>
       
-                </div><!-- /.shop-one__sidebar__item -->
+                  </div> 
+                  
                 <div class="shop-one__sidebar__item shop-one__sidebar__price">
                   <h3 class="shop-one__sidebar__item__title">Price</h3>
                   <!-- /.shop-one__sidebar__item__title -->
@@ -75,7 +74,7 @@
                 </div><!-- /.col-lg-12 -->
               </div><!-- /.row -->
               <div class="row">
-                <div class="col-md-6 col-lg-4" *ngFor="let p of recommendedproductsList ">
+                <div class="col-md-6 col-lg-4" *ngFor="let p of visibleRecommendedProducts| filter:searchText ">
                   <div class="shop-one__item">
                     <div class="shop-one__image">
                       <span class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
@@ -87,17 +86,45 @@
                       </h3>
                       <h6 style="font-size: 15px " class="shop-one__title"><a href="product-details.html">category : {{p.category}}</a></h6>
                       <p class="shop-one__price"><strong>price :£{{p.price}}</strong></p><!-- /.shop-one__price -->
-                      </div><!-- /.shop-one__rating -->
+                      </div>
                     </div><!-- /.shop-one__content -->
-                  </div><!-- /.shop-one__item -->
+                  <!-- /.shop-one__item -->
                 </div><!-- /.col-md-6 col-lg-3 -->
+                
       
       
               </div><!-- /.row -->
             </div><!-- /.col-lg-3 -->
-          </div><!-- /.row -->
+          
         
         <!-- /.container -->
-      </section>
-</body>
-</html>
+     
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="news-sidebar__btn">
+            <p class="shop-one__product-count" *ngIf="numberOfRecommendedProductsToShow < (recommendedproductsList| filter:searchText)?.length">Showing 1–{{numberOfRecommendedProductsToShow}} of {{(recommendedproductsList| filter:searchText).length}} results</p>
+            <p class="shop-one__product-count" *ngIf="numberOfRecommendedProductsToShow > (recommendedproductsList| filter:searchText)?.length">Showing 1–{{(recommendedproductsList| filter:searchText).length}} of {{(recommendedproductsList| filter:searchText).length}} results</p>
+            <a (click)="showMoreProducts()" class="thm-btn">load more</a>
+          </div>
+        </div><!-- /.col-lg-12 text-center -->
+      </div>
+      </div>
+    </div><!-- /.row -->
+  
+  </section>
+  
+    <section class="shop-one" *ngIf="(recommendedproductsList | filter:searchText)?.length === 0">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="text-center">
+              <img src="assets/no-product-found.png" alt="No products found" style="max-width: 100%;">
+              <h3 class="mt-4 mb-3">No products found</h3>
+              <p>Sorry, we couldn't find any products in this category.</p>
+              <a routerLink="/home" class="btn btn-success mt-3 rounded-pill"> <i class="fa fa-arrow-left mr-2"></i> Back to the Fields </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
