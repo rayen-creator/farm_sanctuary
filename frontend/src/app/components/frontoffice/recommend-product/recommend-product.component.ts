@@ -1,4 +1,6 @@
+import { recommendedProductService } from './../../../core/services/recommendedProduct.service';
 import { Component, OnInit } from '@angular/core';
+import { RecommendedProduct } from 'src/app/core/models/recommandedprod';
 
 @Component({
   selector: 'app-recommend-product',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recommend-product.component.css']
 })
 export class RecommendProductComponent implements OnInit {
-
-  constructor() { }
+  public recommendedproductsList: RecommendedProduct[];
+  constructor(private recommendedProductService: recommendedProductService) { }
 
   ngOnInit(): void {
+    this.getAllRecommendedProducts();
+  }
+  getAllRecommendedProducts(){
+    this.recommendedProductService.getRecommendedProducts().subscribe({
+      next: (products) => {
+        this.recommendedproductsList = products;
+        console.log(this.recommendedproductsList);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
 }

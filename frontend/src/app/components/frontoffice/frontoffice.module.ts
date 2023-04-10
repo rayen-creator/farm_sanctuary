@@ -28,6 +28,9 @@ import { AddArticleComponent } from './blog/add-article/add-article.component'
 import { QuillModule } from 'ngx-quill';
 import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
 import { RecommendProductComponent } from './recommend-product/recommend-product.component';
+import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
+import {Ng2SearchPipeModule} from "ng2-search-filter";
+
 
 
 @NgModule({
@@ -52,7 +55,8 @@ import { RecommendProductComponent } from './recommend-product/recommend-product
     FeedbackListPerUserComponent,
     AddArticleComponent,
     TestimonialsComponent,
-    RecommendProductComponent
+    RecommendProductComponent,
+    CategoryRecommendedProductsComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +66,8 @@ import { RecommendProductComponent } from './recommend-product/recommend-product
     UiSwitchModule,
     GoogleSigninButtonModule,
     Ng2TelInputModule,
-    QuillModule
+    QuillModule,
+    Ng2SearchPipeModule
   ]
 })
 export class FrontofficeModule { }

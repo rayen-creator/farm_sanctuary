@@ -40,9 +40,14 @@ async function getRecommendedProducts(){
   return RecommendedProduct.find();
 }
 
+async function getRecommendedProductsByCategory(category) {
+  const query = { category };
+  return RecommendedProduct.find(query);
+}
 
 
 module.exports = {
   fetchProducts,
-  getRecommendedProducts
+  getRecommendedProducts,
+  getRecommendedProductsByCategory
 };

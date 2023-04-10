@@ -20,6 +20,9 @@ import { DetailBlogComponent } from './blog/detail-blog/detail-blog.component';
 import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
 import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user/feedback-list-per-user.component';
 import { AddArticleComponent } from './blog/add-article/add-article.component';
+import { RecommendProductComponent } from './recommend-product/recommend-product.component';
+import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
+
 
 
 const routes: Routes = [
@@ -44,7 +47,12 @@ const routes: Routes = [
       { path: 'marketplace', loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) },
       { path: 'feedbacklist', component: FeedbackListPerUserComponent },
       { path: 'addarticle', component: AddArticleComponent },
-      { path: 'testimonials', component: TestimonialsComponent}
+      { path: 'testimonials', component: TestimonialsComponent},
+      { path: 'recommendedproducts', component: RecommendProductComponent},
+      { path: 'recommendedproduct/:category', component: CategoryRecommendedProductsComponent },
+
+
+
 
     ]
   },

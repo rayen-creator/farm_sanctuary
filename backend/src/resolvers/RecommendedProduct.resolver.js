@@ -1,4 +1,5 @@
-const { fetchProducts, getRecommendedProducts } = require('../services/RecommendedProduct');
+const { UserInputError } = require('apollo-server-express');
+const { fetchProducts, getRecommendedProducts, getRecommendedProductsByCategory } = require('../services/RecommendedProduct');
 
 const recommendedproductresolvers = {
   Query: {
@@ -10,6 +11,13 @@ const recommendedproductresolvers = {
   async getRecommendedProducts() {
     try {
         return await getRecommendedProducts();
+    } catch (error) {
+        throw new UserInputError(error.message);
+    }
+  },
+  async getRecommendedProductsByCategory(_, { category }) {
+    try {
+        return await getRecommendedProductsByCategory(category);
     } catch (error) {
         throw new UserInputError(error.message);
     }

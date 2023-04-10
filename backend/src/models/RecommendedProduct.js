@@ -1,4 +1,9 @@
 const { Schema, model } = require('mongoose');
+const recommendedproductCategoryEnum = Object.freeze({
+  Inputs :'Inputs',
+  Tyres:'Tyres',
+  Workshop:'Workshop'
+});
 
 const recommendedProductSchema = new Schema({
   title: {
@@ -19,7 +24,8 @@ const recommendedProductSchema = new Schema({
   },
   category:{
     type: String,
-    required: true,
+    enum:recommendedproductCategoryEnum,
+    required: true
   }
 });
 

@@ -169,7 +169,6 @@ const typeDefs = gql`
   }
 
 
-
   type RecommendedProduct {
     id: ID!
     title: String!
@@ -178,10 +177,14 @@ const typeDefs = gql`
     url: String!
     category: String!
   }
-  
-  
- 
 
+  enum recommendedproductCategory {
+    Inputs
+    Workshop
+    Tyres
+  }
+  
+  
   
 
   input signinInput {
@@ -332,6 +335,7 @@ const typeDefs = gql`
 
     products(url: String!): [RecommendedProduct!]!
     getRecommendedProducts: [RecommendedProduct!]!
+    getRecommendedProductsByCategory(category: recommendedproductCategory!): [RecommendedProduct!]!
 
   }
 
