@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CartService} from "../../../../core/services/cart.service";
-import {Product} from "../../../../core/models/product";
 import Swal from "sweetalert2";
+import {CartItem} from "../../../../core/models/cartItem";
 
 
 @Component({
@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  private cartProducts: Product[];
+ cartProducts: CartItem[];
 
   constructor( private cartService: CartService) { }
 
@@ -34,5 +34,30 @@ export class CartComponent implements OnInit {
         Swal.fire('Cleared', 'Cart has been cleared successfully.', 'success');
       }
     });
+  }
+
+  updateQuantity(product: any, modifier: number) {
+    if (product.quantity + modifier > 0) {
+      product.quantity += modifier;
+      product.total = product.quantity * product.price
+    }
+  }
+
+  removeFromCart(product: CartItem) {
+    Swal.fire({
+      title: 'Are you sure you want to remove this item from the cart?',
+      text: 'This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, remove item'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cartService.removeFromCart(product);
+        Swal.fire('Removed', 'Item has been removed from the cart.', 'success');
+      }
+    });
+
   }
 }

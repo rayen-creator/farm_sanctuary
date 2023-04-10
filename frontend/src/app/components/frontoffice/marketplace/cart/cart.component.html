@@ -20,48 +20,31 @@
         <th scope="col">Item</th>
         <th scope="col">Price</th>
         <th scope="col">Quantity</th>
+        <th scope="col">Unit</th>
         <th scope="col">Total</th>
         <th scope="col">Remove</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
+      <tr *ngFor="let product of cartProducts">
         <td data-label="Item">
           <div class="cart-table__item">
-            <img src="assets/images/update-14-09-2021/shop/cart-1-1.png" alt="">
-            <h3 class="cart-table__item__title">Brown Bread</h3>
+            <img src="{{product.image}}" alt="" style="width: 80px;height: 80px">
+            <h3 class="cart-table__item__title">{{product.name}}</h3>
             <!-- /.cart-table__item__title -->
           </div><!-- /.cart-table__item -->
         </td>
-        <td data-label="Price">$10.99</td>
+        <td data-label="Price">${{product.price}}</td>
         <td data-label="Quantity">
           <div class="quantity-box">
-            <button type="button" class="sub"><i class="fa fa-minus"></i></button>
-            <input type="number" id="product-2" value="1">
-            <button type="button" class="add"><i class="fa fa-plus"></i></button>
+            <button type="button" class="sub"  (click)="updateQuantity(product, -1)"><i class="fa fa-minus"></i></button>
+            <input type="number" id="product-2" value="{{product.quantity}}">
+            <button type="button" class="add" (click)="updateQuantity(product, 1)"><i class="fa fa-plus" ></i></button>
           </div>
         </td>
-        <td data-label="Total">$10.99</td>
-        <td data-label="Remove"><span class="cart-table__close"></span></td>
-      </tr>
-      <tr>
-        <td data-label="Item">
-          <div class="cart-table__item">
-            <img src="assets/images/update-14-09-2021/shop/cart-1-2.png" alt="">
-            <h3 class="cart-table__item__title">Broccoli</h3>
-            <!-- /.cart-table__item__title -->
-          </div><!-- /.cart-table__item -->
-        </td>
-        <td data-label="Price">$10.99</td>
-        <td data-label="Quantity">
-          <div class="quantity-box">
-            <button type="button" class="sub"><i class="fa fa-minus"></i></button>
-            <input type="number" id="product-1" value="1">
-            <button type="button" class="add"><i class="fa fa-plus"></i></button>
-          </div>
-        </td>
-        <td data-label="Total">$10.99</td>
-        <td data-label="Remove"><span class="cart-table__close"></span></td>
+        <td data-label="Unit">{{product.unit}}</td>
+        <td data-label="Total">${{product.total}}</td>
+        <td data-label="Remove"><span class="cart-table__close" (click)="removeFromCart(product)" style="cursor: pointer"></span></td>
       </tr>
       </tbody>
     </table>
