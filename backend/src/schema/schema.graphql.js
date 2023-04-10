@@ -429,7 +429,7 @@ const typeDefs = gql`
     deleteProduct(id: ID!): Product!
     addReviewProduct(idProd: ID!,idUser:ID!, input:addReviewInput!): createProductResponse!
 
-    addPost(input:postInput!):Post
+    addPost(input:postInput!,file: Upload):Post
     modifyPost(id: ID!,input:postInput!):Post
     deletePost(id:ID!):Post
 

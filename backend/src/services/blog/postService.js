@@ -1,8 +1,8 @@
 const Post = require("../../models/posts");
+const uploadImage = require("../utils/imageUpload");
 
-async function addPost(input) {
+async function addPost(input,file) {
   const post = new Post({
-    image: input.image,
     title: input.title,
     text: input.text,
     likes: 0,
@@ -10,6 +10,10 @@ async function addPost(input) {
     user: input.user,
     createdAt: new Date(),
   });
+  if (file) {
+    const fileLocation = await uploadImage(file)
+    post.image = fileLocation;
+}
   return await post.save(post);
 }
 async function getAllpost() {

@@ -8,7 +8,7 @@
           <!--Start Single Blog One-->
           <div class="blog-one__single">
             <div class="blog-one__single-img">
-              <img src="assets/images/blog/blog-v2-img1.jpg" alt="" />
+              <img src="{{post.image}}" alt="" class="img-fluid" />
             </div>
 
             <div class="blog-one__single-content blog-details">
@@ -36,16 +36,6 @@
             </div>
           </div>
           <!--End Single Blog One-->
-
-          <!-- <p class="news-details__left-text1">Lorem Ipsum has been the industry's standard dummy text
-                        ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-                        make a type simen book. It has survived not only five centuries, but also the leap into
-                        electronic typesetting.</p>
-                    <p class="news-details__left-text2">Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. orem Ipsum has been the industry's standard dummy text ever since
-                        the when an unknown printer took a galley of type and scrambled it to make a type
-                        specimen book.</p> -->
-
           <div class="tag-social-link">
             <div class="tag-social-link__tag">
               <div class="title">
@@ -56,7 +46,6 @@
                   <li>
                     <a href="javascript:void(0);">{{ post.topic }}</a>
                   </li>
-                  <!-- <li><a href="#">dairy</a></li> -->
                 </ul>
               </div>
             </div>
@@ -107,24 +96,7 @@
             <h3 class="comment-one__title">
               {{ post.comments.length }} comments
             </h3>
-            <!-- <div class="comment-one__single">
-                            <div class="comment-one__image">
-                                <img src="assets/images/blog/comment-img1.jpg" alt="">
-                            </div>
-                            <div class="comment-one__content">
-                                <div class="comment-one__content-top">
-                                    <div class="comment-one__content-text">
-                                        <h3>Kevin Martin</h3>
-                                    </div>
-                                    <div class="comment-one__content-btn">
-                                        <a href="#" class="thm-btn">Reply</a>
-                                    </div>
-                                </div>
-                                <p>It has survived not only five centuries, but also the leap into electronic
-                                    typesetting unchanged. It was popularised in the sheets containing lorem
-                                    ipsum is simply free text.</p>
-                            </div>
-                        </div> -->
+         
           </div>
           <!--End Comment One -->
 
@@ -158,17 +130,6 @@
       <div class="col-xl-4 col-lg-5">
         <div class="sidebar">
           <div
-            class="sidebar__single sidebar__search wow fadeInUp animated animated animated"
-            data-wow-delay="0.1s"
-            data-wow-duration="1200m"
-          >
-            <form action="#" class="sidebar__search-form">
-              <input type="search" placeholder="Search here" />
-              <button type="submit"><span class="icon-search"></span></button>
-            </form>
-          </div>
-
-          <div
             class="sidebar__single sidebar__latest-posts wow fadeInUp animated animated animated"
             data-wow-delay="0.2s"
             data-wow-duration="1200m"
@@ -183,8 +144,9 @@
               >
                 <div class="img-box">
                   <img
-                    src="assets/images/resources/sidebar-latest-posts-img1.jpg"
+                    src="{{post.image}}"
                     alt=""
+                    class="img-fluid"
                   />
                 </div>
                 <div class="title">

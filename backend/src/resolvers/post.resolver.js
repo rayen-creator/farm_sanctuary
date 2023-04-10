@@ -18,9 +18,9 @@ const postResolver = {
     },
   },
   Mutation: {
-    async addPost(_, { input }) {
+    async addPost(_, { input,file }) {
       try {
-        return await postService.addPost(input);
+        return await postService.addPost(input,file);
       } catch (error) {
         throw new Error(error);
       }

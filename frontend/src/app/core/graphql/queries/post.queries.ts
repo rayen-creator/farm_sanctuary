@@ -47,8 +47,8 @@ query getpostById($id:ID!) {
 } `;
 
 export const addPost = gql`
-mutation addPost($input:postInput!) {
-    addPost(input:$input) {
+mutation addPost($input:postInput!,$file: Upload) {
+    addPost(input:$input,file: $file) {
         image
         title
         text

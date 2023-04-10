@@ -5,28 +5,100 @@
         [formGroup]="articleForm"
         (ngSubmit)="onFormSubmit(articleForm.value)"
       >
-        <div class="form-group">
+        <div class="form-group m-1">
           <input
             type="text"
             class="form-control"
             formControlName="title"
-            placeholder="Title"
+            placeholder="title"
+            [ngClass]="Valid('title', articleForm)"
           />
+          <div
+            *ngIf="
+              articleForm.controls['title'].invalid &&
+              (articleForm.controls['title'].dirty ||
+                articleForm.controls['title'].touched)
+            "
+          >
+            <div
+              *ngIf="articleForm.controls['title'].hasError('required')"
+              class="text-danger"
+            >
+              title is required
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <select formControlName="topic" class="form-select">
+        <div class="form-group m-1">
+          <select
+            formControlName="topic"
+            [ngClass]="Valid('topic', articleForm)"
+            class="form-select"
+          >
             <option selected>-- Select topic --</option>
             <option value="farming">farming</option>
             <option value="agriculture">agriculture</option>
             <option value="ranching">ranching</option>
           </select>
+          <div
+            *ngIf="
+              articleForm.controls['topic'].invalid &&
+              (articleForm.controls['topic'].dirty ||
+                articleForm.controls['topic'].touched)
+            "
+          >
+            <div
+              *ngIf="articleForm.controls['topic'].hasError('required')"
+              class="text-danger"
+            >
+              topic is required
+            </div>
+          </div>
         </div>
+        <div class="form-group m-1">
+          <input
+            class="form-control"
+            [ngClass]="Valid('image', articleForm)"
+            (change)="handleFile($event)"
 
-        <div class="form-group">
+            formControlName="image"
+            type="file"
+            id="formFile"
+          />
+          <div
+            *ngIf="
+              articleForm.controls['image'].invalid &&
+              (articleForm.controls['image'].dirty ||
+                articleForm.controls['image'].touched)
+            "
+          >
+            <div
+              *ngIf="articleForm.controls['image'].hasError('required')"
+              class="text-danger"
+            >
+              image is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-1">
           <quill-editor
             class="content-editor"
             formControlName="text"
+            [ngClass]="Valid('text', articleForm)"
           ></quill-editor>
+          <div
+            *ngIf="
+              articleForm.controls['text'].invalid &&
+              (articleForm.controls['text'].dirty ||
+                articleForm.controls['text'].touched)
+            "
+          >
+            <div
+              *ngIf="articleForm.controls['text'].hasError('required')"
+              class="text-danger"
+            >
+              text is required
+            </div>
+          </div>
           <!-- [(ngModel)]="blogText"
           [ngModelOptions]="{ standalone: true }"
           (ngModelChange)="onBlogTextChanged()" -->
@@ -37,18 +109,32 @@
           ></div> -->
         </div>
 
-        <div class="form-group">
-          <button type="submit" class="btn btn-success">Submit</button>
+        <div class="form-group m-1">
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="articleForm.invalid"
+          >
+            Submit
+          </button>
         </div>
       </form>
     </div>
+
     <div class="col-md-4">
-      <div class="preview-container">
-        <div *ngIf="articleForm.value.text">
-          <!-- <div [innerHTML]="safeHtml"></div> -->
-          <div [innerHTML]="articleForm.value.text"></div>
+      <div class="row">
+        <div class="col">
+          <div class="vertical-line"></div>
         </div>
-        <div *ngIf="!articleForm.value.text">nothing to preview</div>
+        <div class="col">
+          <div class="preview-container">
+            <div *ngIf="articleForm.value.text">
+              <!-- <div [innerHTML]="safeHtml"></div> -->
+              <div [innerHTML]="articleForm.value.text"></div>
+            </div>
+            <div *ngIf="!articleForm.value.text">nothing to preview</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -25,9 +25,9 @@ export class PostService {
       this.decodedToken = jwt_decode(token) as DecodedToken;
       this.userId = this.decodedToken.id;
     });
-  } 
- 
-  addPost(post: Post) {
+  }
+
+  addPost(post: Post, selectedFile: File) {
 
     const input = {
       image: post.image,
@@ -39,12 +39,15 @@ export class PostService {
     return this.apollo.mutate({
       mutation: addPost,
       variables: {
-        input: input
+        input: input,
+        file: selectedFile
       }, refetchQueries: [
         {
           query: getAllPost
         }
-      ] 
+      ], context: {
+        useMultipart: true
+      }
     }).subscribe({
       next: () => {
         this.toastr.success('Post added successfully');

@@ -1,20 +1,31 @@
-.content-editor{
+.content-editor {
     height: 200px;
     width: 70%;
     margin: 5px;
 }
-.form-control{
+
+.form-control {
     min-width: 50%;
     width: 70%;
 }
-.form-select{
+
+.form-select {
     min-width: 50%;
     width: 70%;
 }
+
 .preview-container {
     max-width: 100%;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
     hyphens: auto;
-  }
+}
+
+.vertical-line {
+    border-left: 1px solid rgb(201, 199, 199);
+    height: 500px;
+    /* adjust as needed */
+    margin: 0 10px;
+    /* adjust as needed */
+}
