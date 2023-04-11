@@ -22,6 +22,7 @@ export class RecommendProductComponent implements OnInit {
       next: (products) => {
         this.recommendedproductsList = products;
         console.log(this.recommendedproductsList);
+        this.visibleRecommendedProducts = this.recommendedproductsList.slice(0, this.numberOfRecommendedProductsToShow);
       },
       error: (err) => {
         console.log(err);
