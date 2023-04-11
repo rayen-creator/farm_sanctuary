@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './auth.service';
 import jwt_decode from "jwt-decode";
 import { Comment } from '../models/comment';
-import { addComment, getAllComment } from '../graphql/queries/graphql.comment.queries';
+import { addComment, deleteComment, getAllComment, getCommentById } from '../graphql/queries/graphql.comment.queries';
 import { getAllPost, getpostById } from '../graphql/queries/post.queries';
 
 @Injectable({
@@ -41,17 +41,17 @@ export class CommentService {
         input: input,
         postId: postId,
         userId: userId
-      },refetchQueries:[
+      }, refetchQueries: [
         {
-          query:getAllComment,
-          variables:{postId:postId}
+          query: getAllComment,
+          variables: { postId: postId }
         },
         {
-          query:getAllPost
+          query: getAllPost
         },
         {
-          query:getpostById,
-          variables:postId
+          query: getpostById,
+          variables: { postId: postId }
         }
       ]
     }).subscribe({
@@ -65,16 +65,57 @@ export class CommentService {
     })
   }
 
-  getAllcomment(postId:any){
+  deleteComment(id: any, postId: any) {
+    return this.apollo.mutate({
+      mutation: deleteComment,
+      variables: { id },
+      refetchQueries: [
+        {
+          query: getAllComment,
+          variables: { postId: postId }
+        },
+        {
+          query: getAllPost
+        },
+        {
+          query: getpostById,
+          variables: { postId: postId }
+        }
+      ]
+    }).subscribe({
+      next: (res) => {
+        this.toastr.success('comment deleted successfully', 'Success', {
+          progressBar: true
+        });
+      },
+      error: (error) => {
+        throw error;
+
+      }
+    })
+  }
+  getAllcomment(postId: any) {
     return this.apollo.watchQuery({
-      query:getAllComment,
-      variables:{postId:postId}
+      query: getAllComment,
+      variables: { postId: postId }
     }).valueChanges.pipe(
-      map((res:any)=>{
-        const comments=res.data.getAllComment;
+      map((res: any) => {
+        const comments = res.data.getAllComment;
         return comments as Comment[];
       })
     );
   }
-
+  getcommentbyid(id: any) {
+    return this.apollo.watchQuery({
+      query: getCommentById,
+      variables: {
+        id:id
+      }
+    }).valueChanges.pipe(
+      map((res: any) => {
+        const isMyComment = res.data.getCommentById;
+        return isMyComment as Comment;
+      })
+    );
+  }
 }

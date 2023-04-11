@@ -8,8 +8,12 @@ query getAllComment($postId:ID!){
        content
        createdAt
         user{
+            id
             image
            username
+         }
+         post{
+            id
          }
   }
 } `;
@@ -20,7 +24,7 @@ query getAllComment($postId:ID!){
 //        content
 //        createdAt
 //         user{
-//             username
+//             id
 //         }
 //         post{
 //             id
@@ -28,20 +32,20 @@ query getAllComment($postId:ID!){
 //       }
 // }`;
 
-// export const getCommentById = gql`
-// query getCommentById($id:ID!) {
-//     getCommentById(id:$id) {
-//         id
-//        content
-//        createdAt
-//         user{
-//             username
-//         }
-//         post{
-//             id
-//         }
-//   }
-// } `;
+export const getCommentById = gql`
+query getCommentById($id:ID!) {
+    getCommentById(id:$id) {
+        id
+       content
+       createdAt
+        user{
+            username
+        }
+        post{
+            id
+        }
+  }
+} `;
 
 export const addComment = gql`
 mutation addComment($input:commentInput!,$postId: ID!,$userId:ID!) {
@@ -74,13 +78,6 @@ mutation deleteComment($id:ID!) {
     deleteComment(id:$id) {
         id
        content
-       createdAt
-        user{
-            username
-        }
-        post{
-            id
-        }
-      
+       createdAt  
   }
 } `;
