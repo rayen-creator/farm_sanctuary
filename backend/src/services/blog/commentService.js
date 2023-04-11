@@ -16,12 +16,13 @@ async function addComment(input, postId, userId) {
       { $push: { comments: newComment._id } },
       { new: true }
     );
-    return newComment; // or return newComment._id, or updated post, depending on what you want to return
+    return newComment; 
   }
 }
 
 async function getAllcomment(postId) {
-  return await Comment.find({ post: postId }).populate({
+  return await Comment.find({ post: postId })
+    .populate({
       path: "user",
       model: "Users",
     })
@@ -52,20 +53,16 @@ async function updateComment(id, input) {
 }
 
 async function deleteComment(id) {
-  const comment = await Comment.findById(id)
-    .populate({
-      path: "user",
-      model: "Users",
-    })
-    .populate({
-      path: "post",
-      model: "Posts",
-    });
+  const comment = await Comment.findByIdAndDelete(id);
 
-  if (!comment) {
-    return null;
+  if (comment) {
+    // Remove comment ID from corresponding post's comments array
+    await Post.updateOne(
+      { _id: comment.post },
+      { $pull: { comments: comment._id } }
+    );
   }
-  return await comment.remove();
+  return comment;
 }
 
 module.exports = {

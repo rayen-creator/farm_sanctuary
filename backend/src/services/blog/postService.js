@@ -1,7 +1,7 @@
 const Post = require("../../models/posts");
 const uploadImage = require("../utils/imageUpload");
 
-async function addPost(input,file) {
+async function addPost(input, file) {
   const post = new Post({
     title: input.title,
     text: input.text,
@@ -11,9 +11,9 @@ async function addPost(input,file) {
     createdAt: new Date(),
   });
   if (file) {
-    const fileLocation = await uploadImage(file)
+    const fileLocation = await uploadImage(file);
     post.image = fileLocation;
-}
+  }
   return await post.save(post);
 }
 async function getAllpost() {
@@ -29,11 +29,14 @@ async function getpostById(id) {
     model: "Users",
   });
 }
-async function getPostsByUser(userId) {
-  console.log(userId);
-  return await Post.find({ user: userId }).populate({path: "user", model: "Users"});
 
+async function getPostsByUser(userId) {
+  return await Post.find({ user: userId }).populate({
+    path: "user",
+    model: "Users",
+  });
 }
+
 async function modifyPost(id, input, file) {
   const updatedPost = {
     image: input.image,
@@ -63,5 +66,5 @@ module.exports = {
   deletePost,
   getAllpost,
   getpostById,
-  getPostsByUser
+  getPostsByUser,
 };
