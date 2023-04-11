@@ -1,10 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 import { Comment } from 'src/app/core/models/comment';
 import { Post } from 'src/app/core/models/post';
 import { CommentService } from 'src/app/core/services/comment.service';
 import { PostService } from 'src/app/core/services/post.service';
+import Swal from 'sweetalert2';
+import jwt_decode from "jwt-decode";
+import { AuthService } from 'src/app/core/services/auth.service';
+import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
 
 @Component({
   selector: 'app-detail-blog',
@@ -16,16 +21,26 @@ export class DetailBlogComponent implements OnInit {
   post: Post;
   latestPosts: Post[];
   commentForm: FormGroup;
-  comments:Comment[];
+  comments: Comment[];
+  // isTheCommentMine:Observable<boolean>;
+  private tokenSubs: Subscription;
+  decodedToken: DecodedToken;
+  userId: string;
   constructor(
     private postService: PostService,
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private commentService:CommentService
-     ) { }
-    
- 
+    private commentService: CommentService,
+     private auth: AuthService
+  ) { 
+      this.tokenSubs = this.auth.getToken().subscribe((token) => {
+      this.decodedToken = jwt_decode(token) as DecodedToken;
+      this.userId = this.decodedToken.id;
+    });
+  }
+
+
   ngOnInit(): void {
     this.id = this.activatedRouter.snapshot.params['id'];
     this.postService.getPostById(this.id).subscribe({
@@ -49,22 +64,42 @@ export class DetailBlogComponent implements OnInit {
       }
     });
     this.commentService.getAllcomment(this.id).subscribe({
-      next:(comments:any)=>{
-        this.comments=comments;
+      next: (comments: any) => {
+        this.comments = comments;
       },
-      error:(err)=>{
+      error: (err) => {
         throw err;
       }
     });
     
+
     this.commentForm = this.formBuilder.group({
       content: ['']
     });
   }
 
 
-  addComment(form:any){
-    this.commentService.addComment(form,this.id);
+  addComment(form: any) {
+    this.commentService.addComment(form, this.id);
     this.commentForm.controls['content'].setValue(null);
   }
+
+  deleteComment(id: any) {
+    Swal.fire({
+      title: 'Are you sure you want to delete this comment ?',
+      text: 'This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.commentService.deleteComment(id, this.id);
+        // Swal.fire('deleted', 'article has been created successfully.', 'success');
+      }
+    });
+  }
+
+  
 }

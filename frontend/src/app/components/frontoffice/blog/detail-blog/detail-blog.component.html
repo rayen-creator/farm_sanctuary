@@ -106,9 +106,12 @@
                       <div class="comment-one__content-text">
                           <h3>{{c.user.username}}</h3>
                       </div>
+
                       <div class="comment-one__content-btn">
-                          <a href="#" class="thm-btn">Reply</a>
-                      </div>
+                          <a href="#" class="thm-btn mx-1">Reply</a>
+                         <button class="thm-btn danger" *ngIf="c.user.id==userId " (click)="deleteComment(c.id)">Delete</button>
+                  
+                    </div>
                   </div>
                   <p>{{c.content}}</p>
               </div>
