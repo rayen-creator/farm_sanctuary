@@ -100,7 +100,7 @@ const typeDefs = gql`
     gender: Gender!
     role: Role!
     image: String
-    two_FactAuth_Option: Boolean!
+    two_FactAuth_Option: Boolean
     location: String
     email_change_option: Boolean
   }
