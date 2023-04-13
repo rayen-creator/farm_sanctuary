@@ -44,10 +44,10 @@ async function getcommentById(id) {
     });
 }
 async function updateComment(id, input) {
-  const updatedComment = new Comment({
+  const updatedComment = {
     content: input.content,
     updatedAt: new Date(),
-  });
+  };
   await Comment.findByIdAndUpdate(id, updatedComment, { new: true });
   return updatedComment;
 }
