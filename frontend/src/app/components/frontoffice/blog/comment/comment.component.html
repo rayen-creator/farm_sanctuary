@@ -17,7 +17,11 @@
         
           </div>
         </div>
-        <p *ngIf="!isEditmode">{{comment.content}}</p>
+        <span *ngIf="!isEditmode">
+          <p >{{comment.content}}</p>
+          <p class="meta-info"><i class="far fa-clock"></i> {{comment.createdAt |  date:'medium' }}</p>
+        </span>
+        
         <div *ngIf="isEditmode">
           <form [formGroup]="updateCommentForm" (ngSubmit)="updateComment(updateCommentForm.value,comment.id)" class="comment-one__form contact-form-validated">
             <div class="row">

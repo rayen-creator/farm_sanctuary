@@ -90,62 +90,26 @@
               <!--End Single News Details Pagenation-->
             </div>
           </div>
-
-          <!--Start Comment One -->
-          <div class="comment-one">
-            <h3 class="comment-one__title">
-              {{ post.comments.length }} comments
-            </h3>
-            <app-comment *ngFor="let c of comments" [comment]="c" [id]="post.id" [userId]="userId"></app-comment>
-
-            <!-- <span *ngFor="let c of comments">
-            </span> -->
-
-              <!-- <div class="comment-one__single" >
-  
-                <div class="comment-one__image">
-                    <img src="{{c.user.image}}" alt="" width="150px" height="150px">
+     <div class="card border-0 m-4">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card border-0">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <button type="submit"class="btn btn-like mx-2">
+                      <i class="fas fa-thumbs-up mr-2"></i>
+                      Like
+                    </button>
+                    <button type="submit" (click)="isComment()" class="btn btn-comment ml-3">
+                      <i class="fas fa-comment mr-2"></i>
+                      Comment
+                    </button>
+                  </div>
                 </div>
-                <div class="comment-one__content">
-                    <div class="comment-one__content-top">
-                        <div class="comment-one__content-text">
-                            <h3>{{c.user.username}}</h3>
-                        </div>
-  
-                        <div class="comment-one__content-btn">
-                            <button class="thm-btn mx-1" *ngIf="!isEditmode && c.user.id==userId" (click)="editcomment(c.id)" >Edit</button>
-  
-                            <button class="thm-btn mx-1" *ngIf="isEditmode" (click)="cancelEdit()" >Cancel</button>
-                           <button class="thm-btn danger" *ngIf="c.user.id==userId " (click)="deleteComment(c.id)">Delete</button>
-                    
-                      </div>
-                    </div>
-                    <p *ngIf="!isEditmode">{{c.content}}</p>
-                    <div *ngIf="isEditmode">
-                      <form [formGroup]="updateCommentForm" (ngSubmit)="updateComment(updateCommentForm.value,c.id)" class="comment-one__form contact-form-validated">
-                        <div class="row">
-                          <div class="col-xl-12 col-lg-12">
-                            <div class="comment-form__input-box">
-                              <textarea
-                                formControlName="content"
-                                name="message"
-                                placeholder="Write message"
-                              ></textarea>
-                            </div>
-                            <button type="submit" class="thm-btn comment-form__btn">
-                              update comment
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                
-                </div>
-            </div> -->
+              </div>
+            </div>
           </div>
-          <!--End Comment One -->
-
-          <div class="news-details__comment-form">
+          
+          <div class="news-details__comment-form" *ngIf="isCommentActive">
             <h3 class="comment-form__title">Leave a Comment</h3>
             <form
               [formGroup]="commentForm"
@@ -168,6 +132,15 @@
               </div>
             </form>
           </div>
+          <!--Start Comment One -->
+          <div class="comment-one">
+            <h3 class="comment-one__title">
+              {{ post.comments.length }} comments
+            </h3>
+            <app-comment *ngFor="let c of comments" [comment]="c" [id]="post.id" [userId]="userId"></app-comment>
+          </div>
+          <!--End Comment One -->
+     
         </div>
       </div>
       <!--End News Sidebar Laft-->
