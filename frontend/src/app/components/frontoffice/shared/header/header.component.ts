@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
 import { AuthService } from 'src/app/core/services/auth.service';
 import jwt_decode from "jwt-decode";
+import {CartService} from "../../../../core/services/cart.service";
 
 @Component({
   selector: 'app-header',
@@ -21,9 +22,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private usernameSubs: Subscription;
   private tokenSubs: Subscription;
   private imgSubs: Subscription;
-  constructor(private auth: AuthService) { }
+  cartItemCount: number;
+  constructor(private auth: AuthService,  private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.cartItemCount = this.cartService.getItems().length;
+    this.cartService.cartUpdated.subscribe(() => {
+      this.cartItemCount = this.cartService.getItems().length;
+    });
     this.userIsAuthenticated = this.auth.isUserAuth();
     this.authListenerSubs = this.auth.getAuthStatusListener().subscribe({
       next: (isAuthenticated) => {

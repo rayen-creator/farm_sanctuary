@@ -122,7 +122,7 @@
                       <li>
                         <a href="product-details.html">Product Details</a>
                       </li>
-                      <li><a href="cart.html">Cart</a></li>
+                      <li><a routerLink="marketplace/cart">Cart</a></li>
                       <li><a href="checkout.html">Checkout</a></li>
                     </ul>
                   </li>
@@ -181,30 +181,29 @@
               <a href="#" class="search search-toggler"
                 ><span class="icon-magnifying-glass"></span
               ></a>
-              <a href="#" class="cart mini-cart__toggler"
-                ><span class="icon-shopping-cart"></span
-              ></a>
+              <a routerLink="marketplace/cart" class="cart mini-cart__toggler">
+                <span class="icon-shopping-cart"></span>
+                <span class="badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+              </a>
             </div>
             <div class="contact-box" *ngIf="userIsAuthenticated">
               <div class="text">
                 <div class="dropdown-avatar">
                   <img class="avatar" src="{{ img }}" alt="Avatar" />
                   <div class="dropdown-content">
-                    <h5><i class="bx bx-user-circle"></i> {{ username }}</h5>
-                    <hr class="dropdown-divider" />
-                    <a routerLink="profile/{{ userId }}"
-                      ><i class="bx bxs-user-circle"></i> Profile</a
-                    >
-                    <a href="#"><i class="bx bx-cog"></i> Settings</a>
-                    <hr class="dropdown-divider" />
-                    <a (click)="loggingout()"
-                      ><i class="bx bx-log-out"></i> Logout</a
-                    >
+                   <h5><i class='bx bx-user-circle' ></i> {{ username }}</h5>
+                    <hr class="dropdown-divider">
+                    <a routerLink="profile/{{ userId }}"><i class='bx bxs-user-circle'></i> Profile</a>
+                    <a routerLink="/marketplace/myProducts"><i class='bx bxs-user-circle'></i>My Products</a>
+                    <a href="#"><i class='bx bx-cog'></i> Settings</a>
+                    <hr class="dropdown-divider">
+                    <a (click)="loggingout()"><i class='bx bx-log-out'></i> Logout</a>
                   </div>
                 </div>
               </div>
             </div>
             <div class="contact-box" *ngIf="!userIsAuthenticated">
+        
               <button class="btn btn-success" routerLink="login">
                 Sign in
               </button>

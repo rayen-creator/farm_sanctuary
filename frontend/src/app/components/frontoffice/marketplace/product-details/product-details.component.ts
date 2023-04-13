@@ -10,6 +10,8 @@ import {DecodedToken} from "../../../../core/graphql/graphqlResponse/decodedToke
 import {Subscription} from "rxjs";
 import jwt_decode from "jwt-decode";
 import {ToastrService} from "ngx-toastr";
+import {AddReviewReponse} from "../../../../core/graphql/graphqlResponse/addReviewReponse";
+import {CartService} from "../../../../core/services/cart.service";
 
 @Component({
   selector: 'app-product-details',
@@ -25,7 +27,12 @@ export class ProductDetailsComponent implements OnInit {
   decodedToken: DecodedToken;
   userId: string;
   private tokenSubs: Subscription;
-  constructor(private productService: ProductService,private toastr: ToastrService, private router:Router, private currentRoute: ActivatedRoute,   private formBuilder: FormBuilder, private auth: AuthService) { }
+  private addReviewReponse: AddReviewReponse;
+
+  reviewExist: Boolean
+
+  public numberOfReviewsToShow = 3;
+  constructor(private productService: ProductService,private cartService: CartService,private toastr: ToastrService, private router:Router, private currentRoute: ActivatedRoute,   private formBuilder: FormBuilder, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.tokenSubs = this.auth.getToken().subscribe((token) => {
@@ -81,11 +88,31 @@ export class ProductDetailsComponent implements OnInit {
         let review = this.reviewForm.value;
         let comment = review.comment
         let rating = parseInt(review.rating)
-        this.productService.addReview(idProd, this.userId,comment,rating);
-        this.toastr.success('review added successfully ', 'success');
+        this.productService.addReview(idProd, this.userId, comment, rating)
+          .then((addReviewResponse) => {
+            this.addReviewReponse = addReviewResponse;
+            this.reviewExist = this.addReviewReponse.addReviewProduct.reviewExist
+            if (this.reviewExist){
+              this.toastr.error('You have already added a review for this product', 'error');
+            } else {
+              this.toastr.success('review added successfully ', 'success');
+            }
 
+          })
+          .catch((err) => {
+            console.log(err);
+            this.toastr.error('failed to add review', 'error');
+          });
       }
     });
   }
 
+  showMoreReviews() {
+    this.numberOfReviewsToShow += 3;
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    this.toastr.success('Product added to cart', 'success');
+  }
 }

@@ -115,6 +115,8 @@ const typeDefs = gql`
     country: String!
     user: User!
     expirationDate: DateTime!
+    inSale: Boolean!
+    expirationDiscount: Boolean!
     rating: Rating
     reviews: [Review]
     category: productCategory!
@@ -351,6 +353,10 @@ const typeDefs = gql`
     post: ID
   }
 
+  type addReviewResponse {
+      reviewExist: Boolean!
+      message: String!
+  }
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -361,12 +367,16 @@ const typeDefs = gql`
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
     getFeedbackPerUser(userId: ID!): [Feedback!]!
-
+    getFiveStarFeedbacks: [Feedback!]!
+    
     getProducts: [Product!]!
     getProduct(id: ID!): Product!
     getProductsByUser(userId: ID!): [Product!]!
-    getFiveStarFeedbacks: [Feedback!]!
-
+    getProductsByCategory(category: productCategory!): [Product!]!
+    
+    
+   
+    
     getRecommendedProductById(asin: String!): RecommendedProduct!
     getFarmProducts: [Product!]!
 
@@ -423,7 +433,7 @@ const typeDefs = gql`
       idProd: ID!
       idUser: ID!
       input: addReviewInput!
-    ): createProductResponse!
+    ): addReviewResponse!
 
     addPost(input: postInput!, file: Upload): Post
     modifyPost(id: ID!, input: postInput!): Post
@@ -443,6 +453,7 @@ const typeDefs = gql`
     user: ID!
     expirationDate: DateTime!
     category: productCategory!
+    expirationDiscount: Boolean!
   }
 
   input UpdateProductInput {
@@ -455,6 +466,7 @@ const typeDefs = gql`
     user: ID
     expirationDate: DateTime
     category: productCategory
+    expirationDiscount: Boolean!
   }
   input addReviewInput {
     rating: Int!
