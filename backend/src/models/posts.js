@@ -6,18 +6,26 @@ const topic = Object.freeze({
 });
 
 const postSchema = new mongoose.Schema({
+  image: String,
   title: String,
-  text: Number,
+  text: String,
   likes: Number,
   topic: {
-    enum: topic,
     type: String,
+    enum: topic,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "User",
   },
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      require: true,
+      ref: "Comment",
+    },
+  ],
   createdAt: Date,
   updatedAt: Date,
 });

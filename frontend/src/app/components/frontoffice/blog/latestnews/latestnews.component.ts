@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/app/core/models/post';
+import { PostService } from 'src/app/core/services/post.service';
 
 @Component({
   selector: 'app-latestnews',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./latestnews.component.css']
 })
 export class LatestnewsComponent implements OnInit {
-
-  constructor() { }
+  posts:Post[];
+  constructor(private postService:PostService) { }
 
   ngOnInit(): void {
+    this.postService.getAllposts().subscribe({
+      next: (posts) => {
+        this.posts = posts;
+
+      },
+      error:(error)=>{
+        throw error;
+      }
+    })
   }
 
 }
