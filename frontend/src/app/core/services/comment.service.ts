@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './auth.service';
 import jwt_decode from "jwt-decode";
 import { Comment } from '../models/comment';
-import { addComment, deleteComment, getAllComment, getCommentById } from '../graphql/queries/graphql.comment.queries';
+import { addComment, deleteComment, getAllComment, getCommentById, modifyComment } from '../graphql/queries/graphql.comment.queries';
 import { getAllPost, getpostById } from '../graphql/queries/post.queries';
 
 @Injectable({
@@ -64,7 +64,23 @@ export class CommentService {
       }
     })
   }
-
+  updateComment(newcomment:Comment,id:any,postId: any){
+    const input={
+      content:newcomment.content
+    };
+    return this.apollo.mutate({
+      mutation:modifyComment,
+      variables:{
+        id:id,
+        input:input
+      },refetchQueries:[
+        {
+          query: getAllComment,
+          variables: { postId: postId }
+        },
+      ]
+    });
+  }
   deleteComment(id: any, postId: any) {
     return this.apollo.mutate({
       mutation: deleteComment,

@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import jwt_decode from "jwt-decode";
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detail-blog',
@@ -26,15 +27,19 @@ export class DetailBlogComponent implements OnInit {
   private tokenSubs: Subscription;
   decodedToken: DecodedToken;
   userId: string;
+  isEditmode: boolean = false;
+  updateCommentForm: FormGroup;
+  comment: Comment;
   constructor(
     private postService: PostService,
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private formBuilder: FormBuilder,
     private commentService: CommentService,
-     private auth: AuthService
-  ) { 
-      this.tokenSubs = this.auth.getToken().subscribe((token) => {
+    private auth: AuthService,
+    private toastr: ToastrService
+  ) {
+    this.tokenSubs = this.auth.getToken().subscribe((token) => {
       this.decodedToken = jwt_decode(token) as DecodedToken;
       this.userId = this.decodedToken.id;
     });
@@ -71,35 +76,18 @@ export class DetailBlogComponent implements OnInit {
         throw err;
       }
     });
-    
+
 
     this.commentForm = this.formBuilder.group({
       content: ['']
     });
   }
 
-
-  addComment(form: any) {
+ addComment(form: any) {
     this.commentService.addComment(form, this.id);
     this.commentForm.controls['content'].setValue(null);
   }
 
-  deleteComment(id: any) {
-    Swal.fire({
-      title: 'Are you sure you want to delete this comment ?',
-      text: 'This action cannot be undone.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.commentService.deleteComment(id, this.id);
-        // Swal.fire('deleted', 'article has been created successfully.', 'success');
-      }
-    });
-  }
 
-  
+
 }

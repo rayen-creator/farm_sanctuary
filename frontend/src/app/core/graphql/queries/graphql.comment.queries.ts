@@ -58,18 +58,10 @@ mutation addComment($input:commentInput!,$postId: ID!,$userId:ID!) {
 } `;
 
 export const modifyComment = gql`
-mutation modifyComment($id:ID!,$input:CommentInput!) {
+mutation modifyComment($id:ID!,$input:commentInput!) {
     modifyComment(id:$id,input:$input) {
-        id
        content
        createdAt
-        user{
-            username
-        }
-        post{
-            id
-        }
-       
   }
 } `;
 
