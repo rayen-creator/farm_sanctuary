@@ -49,7 +49,13 @@ const userSchema = new mongoose.Schema({
     expiresAt: Date,
   },
   email_change_option: Boolean,
-
+  badges: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Badge",
+    },
+  ],
 });
 
 const User = mongoose.model("Users", userSchema);

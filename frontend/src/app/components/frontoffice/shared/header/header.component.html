@@ -34,8 +34,7 @@
                 <p>
                   <a href="mailto:farm_sanctuary@gmail.com"
                     >farmsanctuary910@gmail.com
-                    </a
-                  >
+                  </a>
                 </p>
               </div>
             </li>
@@ -129,33 +128,22 @@
                   </li>
                   <li class="dropdown">
                     <a routerLink="/latestnew">Blog</a>
-                    <!-- <ul>
+                    <ul>
+                      <li><a routerLink="/latestnew">News</a></li>
                       <li class="dropdown">
-                        <a href="news.html">News Grid</a>
-                        <ul>
+                        <a routerLink="/addarticle">add new article</a>
+                        <!-- <ul>
                           <li><a href="news-2-col.html">News Two Col</a></li>
                           <li><a href="news.html">News Three Col</a></li>
                           <li><a href="news-4-col.html">News Four Col</a></li>
-                        </ul>
+                        </ul> -->
                       </li>
                       <li>
-                        <a href="news-sidebar.html">News Sidebar</a>
-                        <ul>
-                          <li>
-                            <a href="news-sidebar.html">News Sidebar Right</a>
-                          </li>
-                          <li>
-                            <a href="news-sidebar-left.html"
-                              >News Sidebar Left</a
-                            >
-                          </li>
-                        </ul>
+                        <a routerLink="/myarticles">myarticles</a>
                       </li>
-                      <li><a href="news-details.html">News Details</a></li>
-                    </ul> -->
+                    </ul>
                   </li>
                   <li><a routerLink="contact">Contact</a></li>
-
                 </ul>
               </div>
             </div>
@@ -184,9 +172,12 @@
 
           <div class="main-header--one__bottom-right clearfix">
             <div class="search-cart">
-              <a routerLink="addfeedback" class="search search-toggler" *ngIf="userIsAuthenticated"
-              ><span class="bx bx-message-dots"></span
-            ></a>
+              <a
+                routerLink="addfeedback"
+                class="search search-toggler"
+                *ngIf="userIsAuthenticated"
+                ><span class="bx bx-message-dots"></span
+              ></a>
               <a href="#" class="search search-toggler"
                 ><span class="icon-magnifying-glass"></span
               ></a>
@@ -198,7 +189,7 @@
             <div class="contact-box" *ngIf="userIsAuthenticated">
               <div class="text">
                 <div class="dropdown-avatar">
-                  <img class="avatar" src="{{img}}" alt="Avatar">
+                  <img class="avatar" src="{{ img }}" alt="Avatar" />
                   <div class="dropdown-content">
                    <h5><i class='bx bx-user-circle' ></i> {{ username }}</h5>
                     <hr class="dropdown-divider">
@@ -210,10 +201,9 @@
                   </div>
                 </div>
               </div>
-
             </div>
             <div class="contact-box" *ngIf="!userIsAuthenticated">
-
+        
               <button class="btn btn-success" routerLink="login">
                 Sign in
               </button>
