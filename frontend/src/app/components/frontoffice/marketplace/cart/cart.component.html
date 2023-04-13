@@ -12,7 +12,7 @@
 </section>
 
 
-<section class="cart-table">
+<section class="cart-table" *ngIf="cartProducts.length > 0">
   <div class="container">
     <table>
       <thead>
@@ -51,8 +51,23 @@
   </div><!-- /.container -->
 </section>
 
+<section class="cart-table" *ngIf="cartProducts.length === 0">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="text-center">
+          <img src="assets/empty-cart.png" alt="No products found" style="max-width: 100%;">
+          <a routerLink="/marketplace" class="btn btn-success mt-3 rounded-pill" style="margin-bottom: 50px"> <i class="fa fa-arrow-left mr-2"></i> Back to the Fields </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<section class="proceed-to-checkout">
+
+
+
+<section class="proceed-to-checkout" *ngIf="cartProducts.length > 0">
   <div class="container">
     <div class="row">
       <div class="col-lg-8">
