@@ -159,7 +159,7 @@ const typeDefs = gql`
     role: Role!
     image: Upload
     two_FactAuth_Option: Boolean
-    location: String
+    location: String!
   }
   input twoFactorAuthUserInput {
     code: String!
@@ -386,6 +386,7 @@ const typeDefs = gql`
 
     getAllComment(postId: ID!): [Comment!]!
     getCommentById(id: ID!): Comment!
+    getCommentPerUser(userId:ID!):[Comment!]!
   }
 
   type Mutation {

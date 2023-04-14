@@ -71,8 +71,8 @@ export class PostService {
     )
   }
 
-  getPostperUser() {
-    const userId = this.userId;
+  getPostperUser(userId:any) {
+    // const userId = this.userId;
     return this.apollo.watchQuery({
       query: getPostsByUser,
       variables: { userId }

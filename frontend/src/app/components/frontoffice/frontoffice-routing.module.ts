@@ -1,3 +1,4 @@
+import { ViewProfileComponent } from './blog/view-profile/view-profile.component';
 import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
 import { ContactComponent } from './shared/contact/contact.component';
 import { NotfoundComponent } from './shared/notfound/notfound.component';
@@ -45,10 +46,9 @@ const routes: Routes = [
       { path: 'marketplace', loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) },
       { path: 'feedbacklist', component: FeedbackListPerUserComponent },
       { path: 'addarticle', component: AddArticleComponent },
-      { path: 'testimonials', component: TestimonialsComponent},
-      { path: 'myarticles', component: MyarticlesComponent}
-
-
+      { path: 'testimonials', component: TestimonialsComponent },
+      { path: 'myarticles', component: MyarticlesComponent },
+      { path: 'viewprofile/:id', component: ViewProfileComponent }
     ]
   },
 

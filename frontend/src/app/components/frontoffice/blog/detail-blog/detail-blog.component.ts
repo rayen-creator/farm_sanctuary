@@ -30,6 +30,7 @@ export class DetailBlogComponent implements OnInit {
   isEditmode: boolean = false;
   updateCommentForm: FormGroup;
   comment: Comment;
+  isCommentActive:boolean = false
   constructor(
     private postService: PostService,
     private router: Router,
@@ -88,6 +89,13 @@ export class DetailBlogComponent implements OnInit {
     this.commentForm.controls['content'].setValue(null);
   }
 
+  isComment(){
+    if (this.isCommentActive){
+      this.isCommentActive=false;
+    }else{
+      this.isCommentActive=true;
 
+    }
+  }
 
 }

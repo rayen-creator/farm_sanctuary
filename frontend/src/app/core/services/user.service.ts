@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
   SEND_OTP_MUTATION_SMS,
@@ -13,20 +13,21 @@ import { SendOTPMutationSmsResponse, verifyEmailChangeOTPResponse } from "../gra
 import jwt_decode from "jwt-decode";
 import { DecodedToken } from "../graphql/graphqlResponse/decodedToken";
 import { AuthService } from "./auth.service";
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   token: string;
-  tokenSubscription:Subscription;
+  tokenSubscription: Subscription;
   decodedToken: DecodedToken;
   userId: string;
   constructor(private appolo: Apollo, private router: Router,
     private toastr: ToastrService, private auth: AuthService) {
-      this.tokenSubscription=this.auth.getToken().subscribe((token)=>this.token=token);
+    this.tokenSubscription = this.auth.getToken().subscribe((token) => this.token = token);
 
-     }
+  }
 
   verifyMailChangeOTP(username: string, otp: string) {
     // this.token = this.auth.getToken();
@@ -146,6 +147,18 @@ export class UserService {
           throw error;
         },
       });
+  }
+
+  getUserById(id: any) {
+    return this.appolo
+      .watchQuery({
+        query: user,
+        variables: { id },
+      }).valueChanges.pipe(
+        map((res: any) => {
+          const user = res.data.getUser as User
+          return user;
+        }));
   }
 }
 

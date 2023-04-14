@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './auth.service';
 import jwt_decode from "jwt-decode";
 import { Comment } from '../models/comment';
-import { addComment, deleteComment, getAllComment, getCommentById, modifyComment } from '../graphql/queries/graphql.comment.queries';
+import { addComment, deleteComment, getAllComment, getCommentById, getCommentPerUser, modifyComment } from '../graphql/queries/graphql.comment.queries';
 import { getAllPost, getpostById } from '../graphql/queries/post.queries';
 
 @Injectable({
@@ -64,16 +64,16 @@ export class CommentService {
       }
     })
   }
-  updateComment(newcomment:Comment,id:any,postId: any){
-    const input={
-      content:newcomment.content
+  updateComment(newcomment: Comment, id: any, postId: any) {
+    const input = {
+      content: newcomment.content
     };
     return this.apollo.mutate({
-      mutation:modifyComment,
-      variables:{
-        id:id,
-        input:input
-      },refetchQueries:[
+      mutation: modifyComment,
+      variables: {
+        id: id,
+        input: input
+      }, refetchQueries: [
         {
           query: getAllComment,
           variables: { postId: postId }
@@ -125,12 +125,23 @@ export class CommentService {
     return this.apollo.watchQuery({
       query: getCommentById,
       variables: {
-        id:id
+        id: id
       }
     }).valueChanges.pipe(
       map((res: any) => {
         const isMyComment = res.data.getCommentById;
         return isMyComment as Comment;
+      })
+    );
+  }
+  getCommentPerUser(userId: any) {
+    return this.apollo.watchQuery({
+      query: getCommentPerUser,
+      variables: { userId: userId }
+    }).valueChanges.pipe(
+      map((res: any) => {
+        const comments = res.data.getCommentPerUser;
+        return comments as Comment[];
       })
     );
   }

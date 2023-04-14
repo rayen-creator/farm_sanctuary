@@ -93,6 +93,7 @@ async function updateUser(id, input, file) {
         two_FactAuth_Option: input.two_FactAuth_Option,
         isBlocked: false,
         updatedAt: new Date(),
+        location:input.location
     };
 
     if (file) {

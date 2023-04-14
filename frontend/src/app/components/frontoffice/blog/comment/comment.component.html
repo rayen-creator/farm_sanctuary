@@ -1,11 +1,13 @@
 <div class="comment-one__single" >
     <div class="comment-one__image">
-        <img src="{{comment.user.image}}" alt="" width="150px" height="150px">
-    </div>
+        <a routerLink="/viewprofile/{{comment.user.id}}">
+          <img src="{{comment.user.image}}" alt="" width="150px" height="150px">
+    
+        </a></div>
     <div class="comment-one__content">
         <div class="comment-one__content-top">
             <div class="comment-one__content-text">
-                <h3>{{comment.user.username}}</h3>
+                <a routerLink="/viewprofile/{{comment.user.id}}"><h3>{{comment.user.username}}</h3></a>
             </div>
 
             <div class="comment-one__content-btn">
@@ -17,7 +19,11 @@
         
           </div>
         </div>
-        <p *ngIf="!isEditmode">{{comment.content}}</p>
+        <span *ngIf="!isEditmode">
+          <p >{{comment.content}}</p>
+          <p class="meta-info"><i class="far fa-clock"></i> {{comment.createdAt |  date:'medium' }}</p>
+        </span>
+        
         <div *ngIf="isEditmode">
           <form [formGroup]="updateCommentForm" (ngSubmit)="updateComment(updateCommentForm.value,comment.id)" class="comment-one__form contact-form-validated">
             <div class="row">

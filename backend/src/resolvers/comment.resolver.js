@@ -2,7 +2,7 @@ const commentService = require("../services/blog/commentService");
 
 const commentResolver = {
   Query: {
-    async getAllComment(_,{postId}) {
+    async getAllComment(_, { postId }) {
       try {
         return await commentService.getAllcomment(postId);
       } catch (error) {
@@ -12,6 +12,13 @@ const commentResolver = {
     async getCommentById(_, { id }) {
       try {
         return await commentService.getcommentById(id);
+      } catch (error) {
+        throw Error(error);
+      }
+    },
+    async getCommentPerUser(_, { userId }) {
+      try {
+        return await commentService.getcommentByUser(userId);
       } catch (error) {
         throw Error(error);
       }
