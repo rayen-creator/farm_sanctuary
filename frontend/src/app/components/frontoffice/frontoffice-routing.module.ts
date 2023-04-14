@@ -22,6 +22,8 @@ import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
 import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user/feedback-list-per-user.component';
 import { AddArticleComponent } from './blog/add-article/add-article.component';
 import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
+import { AuthGuard } from 'src/app/core/helpers/auth.guard';
+import { roles } from 'src/app/core/models/role';
 
 
 const routes: Routes = [
@@ -41,13 +43,13 @@ const routes: Routes = [
       { path: 'contact', component: ContactComponent },
       { path: 'about', component: AboutComponent },
       { path: 'addfeedback', component: FeedbackFormComponent },
-      { path: 'latestnew', component: LatestnewsComponent },
-      { path: 'detailnews/:id', component: DetailBlogComponent },
+      { path: 'latestnew', component: LatestnewsComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
+      { path: 'detailnews/:id', component: DetailBlogComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
       { path: 'marketplace', loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) },
       { path: 'feedbacklist', component: FeedbackListPerUserComponent },
-      { path: 'addarticle', component: AddArticleComponent },
+      { path: 'addarticle', component: AddArticleComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
       { path: 'testimonials', component: TestimonialsComponent },
-      { path: 'myarticles', component: MyarticlesComponent },
+      { path: 'myarticles', component: MyarticlesComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
       { path: 'viewprofile/:id', component: ViewProfileComponent }
     ]
   },
