@@ -157,7 +157,7 @@ const typeDefs = gql`
     role: Role!
     image: Upload
     two_FactAuth_Option: Boolean
-    location: String
+    location: String!
   }
   input twoFactorAuthUserInput {
     code: String!
