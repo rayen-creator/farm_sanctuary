@@ -12,6 +12,7 @@ export const getAllPost = gql`
         createdAt
         updatedAt
         user{
+            id
             username
             image
             location 
@@ -36,6 +37,7 @@ query getPostsByUser($userId:ID!){
         createdAt
         updatedAt
         user{
+            id
             username
             image
             location
@@ -58,6 +60,7 @@ query getpostById($id:ID!) {
         createdAt
         updatedAt
         user{
+            id
             username
             image
             location
