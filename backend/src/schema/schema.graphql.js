@@ -376,6 +376,7 @@ const typeDefs = gql`
 
     getAllComment(postId: ID!): [Comment!]!
     getCommentById(id: ID!): Comment!
+    getCommentPerUser(userId:ID!):[Comment!]!
   }
 
   type Mutation {

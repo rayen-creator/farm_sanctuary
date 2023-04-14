@@ -16,7 +16,7 @@ async function addComment(input, postId, userId) {
       { $push: { comments: newComment._id } },
       { new: true }
     );
-    return newComment; 
+    return newComment;
   }
 }
 
@@ -34,6 +34,17 @@ async function getAllcomment(postId) {
 
 async function getcommentById(id) {
   return await Comment.findById(id)
+    .populate({
+      path: "user",
+      model: "Users",
+    })
+    .populate({
+      path: "post",
+      model: "Posts",
+    });
+}
+async function getcommentByUser(userId) {
+  return await Comment.find({ user: userId })
     .populate({
       path: "user",
       model: "Users",
@@ -71,4 +82,5 @@ module.exports = {
   deleteComment,
   getAllcomment,
   getcommentById,
+  getcommentByUser,
 };
