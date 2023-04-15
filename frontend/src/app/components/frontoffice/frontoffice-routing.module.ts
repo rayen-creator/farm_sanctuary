@@ -20,6 +20,7 @@ import { DetailBlogComponent } from './blog/detail-blog/detail-blog.component';
 import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
 import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user/feedback-list-per-user.component';
 import { AddArticleComponent } from './blog/add-article/add-article.component';
+import { RealtimechatComponent } from './realtimechat/realtimechat.component';
 
 
 const routes: Routes = [
@@ -44,7 +45,8 @@ const routes: Routes = [
       { path: 'marketplace', loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) },
       { path: 'feedbacklist', component: FeedbackListPerUserComponent },
       { path: 'addarticle', component: AddArticleComponent },
-      { path: 'testimonials', component: TestimonialsComponent}
+      { path: 'testimonials', component: TestimonialsComponent},
+      { path: 'chat', component: RealtimechatComponent }
 
     ]
   },
