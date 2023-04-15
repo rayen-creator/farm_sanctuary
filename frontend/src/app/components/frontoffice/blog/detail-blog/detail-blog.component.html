@@ -109,7 +109,7 @@
                       (click)="LikeButton()"
                     >
                       <i class="fas fa-thumbs-up mr-2"></i>
-                      <span *ngIf="isLiked">Unlike</span>
+                      <span *ngIf="isLiked">Dislike</span>
                       <span *ngIf="!isLiked">Like</span>
                     </button>
                     <button
@@ -127,7 +127,7 @@
           </div>
 
           <div class="news-details__comment-form" *ngIf="isCommentActive">
-            <h3 class="comment-form__title">Leave a Comment</h3>
+            <h5 class="comment-form__title">Leave a Comment</h5>
             <form
               [formGroup]="commentForm"
               (ngSubmit)="addComment(commentForm.value)"

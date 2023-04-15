@@ -53,6 +53,20 @@ async function likePost(userId, postId) {
     return post;
   }
 }
+async function dislikePost(userId, postId) {
+  const post = await Post.findById(postId);
+  const user = await User.findById(userId);
+  if (post && user.likedPost.includes(postId)) {
+    const addLike = await Post.updateOne(
+      { _id: postId },
+      { $set: { likes: post.likes - 1 } }
+    );
+    const assignLikeToUser = await User.updateOne({_id :userId}, {
+      $pull:  { likedPost: post._id },
+    });
+    return post;
+  }
+}
 async function modifyPost(id, input, file) {
   const updatedPost = {
     image: input.image,
@@ -84,4 +98,5 @@ module.exports = {
   getpostById,
   getPostsByUser,
   likePost,
+  dislikePost
 };

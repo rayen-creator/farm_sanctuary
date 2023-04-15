@@ -441,6 +441,7 @@ const typeDefs = gql`
     modifyPost(id: ID!, input: postInput!): Post
     deletePost(id: ID!): Post
     likePost(userId:ID!, postId:ID!):Post
+    dislikePost(userId:ID!, postId:ID!):Post
 
     addComment(input: commentInput, postId: ID!, userId: ID!): Comment!
     modifyComment(id: ID!, input: commentInput!): Comment!

@@ -125,3 +125,16 @@ mutation likePost($userId:ID!, $postId:ID!) {
       
   }
 } `;
+export const dislikePost = gql`
+mutation dislikePost($userId:ID!, $postId:ID!) {
+    dislikePost(userId:$userId,postId:$postId) {
+        image
+        title
+        text
+        likes
+        topic
+        createdAt
+        updatedAt
+      
+  }
+} `;
