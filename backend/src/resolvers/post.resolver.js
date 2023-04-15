@@ -39,6 +39,14 @@ const postResolver = {
         throw new Error(error);
       }
     },
+    async likePost(_,{userId, postId}){
+      try {
+        return await postService.likePost(userId, postId);
+      }catch(error){
+        throw new Error(error);
+
+      }
+    },
     async deletePost(_, { id }) {
       try {
         return await postService.deletePost(id);

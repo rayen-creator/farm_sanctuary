@@ -49,6 +49,13 @@ const userSchema = new mongoose.Schema({
     expiresAt: Date,
   },
   email_change_option: Boolean,
+  likedPost: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Post",
+    },
+  ],
   badges: [
     {
       type: mongoose.Schema.Types.ObjectId,

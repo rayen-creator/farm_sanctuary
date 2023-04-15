@@ -12,7 +12,7 @@ export class Post {
     likes: number
     topic: topic
     user: User
-    comments: [Comment]
+    comments: Comment[]
     createdAt: Date
     updatedAt: Date
 };

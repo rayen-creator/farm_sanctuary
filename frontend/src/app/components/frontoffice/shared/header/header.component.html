@@ -193,9 +193,9 @@
                   <div class="dropdown-content">
                    <h5><i class='bx bx-user-circle' ></i> {{ username }}</h5>
                     <hr class="dropdown-divider">
-                    <a routerLink="profile/{{ userId }}"><i class='bx bxs-user-circle'></i> Profile</a>
+                    <a routerLink="viewprofile/{{ userId }}"><i class='bx bxs-user-circle'></i> Profile</a>
                     <a routerLink="/marketplace/myProducts"><i class='bx bxs-user-circle'></i>My Products</a>
-                    <a href="#"><i class='bx bx-cog'></i> Settings</a>
+                    <a routerLink="profile/{{ userId }}"><i class='bx bx-cog'></i> Settings</a>
                     <hr class="dropdown-divider">
                     <a (click)="loggingout()"><i class='bx bx-log-out'></i> Logout</a>
                   </div>

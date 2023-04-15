@@ -23,7 +23,6 @@ export class DetailBlogComponent implements OnInit {
   latestPosts: Post[];
   commentForm: FormGroup;
   comments: Comment[];
-  // isTheCommentMine:Observable<boolean>;
   private tokenSubs: Subscription;
   decodedToken: DecodedToken;
   userId: string;
@@ -31,6 +30,7 @@ export class DetailBlogComponent implements OnInit {
   updateCommentForm: FormGroup;
   comment: Comment;
   isCommentActive:boolean = false
+  isLiked:boolean=false;
   constructor(
     private postService: PostService,
     private router: Router,
@@ -94,7 +94,16 @@ export class DetailBlogComponent implements OnInit {
       this.isCommentActive=false;
     }else{
       this.isCommentActive=true;
+    }
+  }
 
+  LikeButton(){
+    if(this.isLiked){
+      this.isLiked=false;
+    }else{
+      this.postService.addLikeToPost(this.id);
+      this.isLiked=true;
+      
     }
   }
 
