@@ -111,3 +111,17 @@ mutation deletePost($id:ID!) {
       
   }
 } `;
+
+export const likePost = gql`
+mutation likePost($userId:ID!, $postId:ID!) {
+    likePost(userId:$userId,postId:$postId) {
+        image
+        title
+        text
+        likes
+        topic
+        createdAt
+        updatedAt
+      
+  }
+} `;

@@ -103,6 +103,7 @@ const typeDefs = gql`
     two_FactAuth_Option: Boolean
     location: String
     email_change_option: Boolean
+    likedPost:[Post]
   }
 
   type Product {
@@ -439,6 +440,7 @@ const typeDefs = gql`
     addPost(input: postInput!, file: Upload): Post
     modifyPost(id: ID!, input: postInput!): Post
     deletePost(id: ID!): Post
+    likePost(userId:ID!, postId:ID!):Post
 
     addComment(input: commentInput, postId: ID!, userId: ID!): Comment!
     modifyComment(id: ID!, input: commentInput!): Comment!

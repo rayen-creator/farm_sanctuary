@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './auth.service';
-import { addPost, deletePost, getAllPost, getPostsByUser, getpostById } from '../graphql/queries/post.queries';
+import { addPost, deletePost, getAllPost, getPostsByUser, getpostById, likePost } from '../graphql/queries/post.queries';
 import { Subscription, map } from 'rxjs';
 import { Post } from '../models/post';
 import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
@@ -99,6 +99,27 @@ export class PostService {
 
   updatePost() {
 
+  }
+  addLikeToPost(postId:any){
+    const userId=this.userId;
+    return this.apollo.mutate({
+      mutation:likePost,
+      variables:{
+        userId:userId,
+        postId:postId
+      },refetchQueries: [
+        {
+          query: getAllPost
+        }
+      ]
+    }).subscribe({
+      next: () => {
+
+      },
+      error:()=>{
+        
+      }
+    })
   }
 
   deletePost(id: any) {

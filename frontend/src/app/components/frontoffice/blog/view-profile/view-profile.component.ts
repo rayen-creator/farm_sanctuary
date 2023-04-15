@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
 import { Comment } from 'src/app/core/models/comment';
 import { Post } from 'src/app/core/models/post';
 import { User } from 'src/app/core/models/user';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { CommentService } from 'src/app/core/services/comment.service';
 import { PostService } from 'src/app/core/services/post.service';
 import { UserService } from 'src/app/core/services/user.service';
+import jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-view-profile',
@@ -17,13 +21,17 @@ export class ViewProfileComponent implements OnInit {
   user: User;
   posts:Post[];
   comments:Comment[];
+  private tokenSubs: Subscription;
+  token: string;
+  decodedToken: DecodedToken;
+  userId: string;
   constructor(private activatedRoute: ActivatedRoute, 
     private userService: UserService,
     private postService:PostService,
-    private commentService:CommentService) { }
+    private commentService:CommentService,
+    private auth: AuthService,) { }
 
   ngOnInit(): void {
-
     this.id = this.activatedRoute.snapshot.params['id'];
     this.userService.getUserById(this.id).subscribe({
       next: (res) => {
@@ -48,7 +56,12 @@ export class ViewProfileComponent implements OnInit {
       error:(err)=>{
         throw err;
       }
-    })
+    });
+    this.tokenSubs = this.auth.getToken().subscribe((token) => {
+      this.token = token
+      this.decodedToken = jwt_decode(this.token) as DecodedToken;
+      this.userId = this.decodedToken.id;
+    });
   }
 
 }
