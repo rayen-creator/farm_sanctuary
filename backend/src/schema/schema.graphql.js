@@ -103,6 +103,7 @@ const typeDefs = gql`
     two_FactAuth_Option: Boolean
     location: String
     email_change_option: Boolean
+    likedPost:[Post]
   }
 
   type Product {
