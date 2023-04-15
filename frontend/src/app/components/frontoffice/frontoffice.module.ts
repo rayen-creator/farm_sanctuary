@@ -27,6 +27,9 @@ import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user
 import { AddArticleComponent } from './blog/add-article/add-article.component'
 import { QuillModule } from 'ngx-quill';
 import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
+import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
+import { CommentComponent } from './blog/comment/comment.component';
+import { ViewProfileComponent } from './blog/view-profile/view-profile.component';
 import { RealtimechatComponent } from './realtimechat/realtimechat.component';
 
 
@@ -52,6 +55,9 @@ import { RealtimechatComponent } from './realtimechat/realtimechat.component';
     FeedbackListPerUserComponent,
     AddArticleComponent,
     TestimonialsComponent,
+    MyarticlesComponent,
+    CommentComponent,
+    ViewProfileComponent,
     RealtimechatComponent
   ],
   imports: [

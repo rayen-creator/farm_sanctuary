@@ -35,6 +35,34 @@ const typeDefs = gql`
     OTHER
   }
 
+  enum Topic {
+    farming
+    agriculture
+    ranching
+  }
+
+  type Comment {
+    id: ID!
+    content: String
+    createdAt: DateTime
+    updatedAt:DateTime
+    user:User
+    post:Post
+  }
+
+  type Post {
+    id: ID
+    image: String
+    title: String
+    text: String
+    likes: Int
+    topic: Topic
+    createdAt: DateTime
+    updatedAt: DateTime
+    user: User
+    comments:[Comment]
+  }
+
   type Feedback {
     id: ID!
     title: String!
@@ -42,7 +70,7 @@ const typeDefs = gql`
     content: String!
     category: Category!
     rating: Int!
-    createdAt:DateTime
+    createdAt: DateTime
   }
 
   input FeedbackInput {
@@ -52,7 +80,6 @@ const typeDefs = gql`
     rating: Int!
     category: Category!
     user: ID!
-
   }
 
   enum Gender {
@@ -73,7 +100,7 @@ const typeDefs = gql`
     gender: Gender!
     role: Role!
     image: String
-    two_FactAuth_Option: Boolean!
+    two_FactAuth_Option: Boolean
     location: String
     email_change_option: Boolean
   }
@@ -88,6 +115,8 @@ const typeDefs = gql`
     country: String!
     user: User!
     expirationDate: DateTime!
+    inSale: Boolean!
+    expirationDiscount: Boolean!
     rating: Rating
     reviews: [Review]
     category: productCategory!
@@ -109,7 +138,6 @@ const typeDefs = gql`
     comment: String!
     createdAt: DateTime!
   }
-  
 
   type Two_FactAuth {
     code: String!
@@ -131,7 +159,7 @@ const typeDefs = gql`
     role: Role!
     image: Upload
     two_FactAuth_Option: Boolean
-    location: String
+    location: String!
   }
   input twoFactorAuthUserInput {
     code: String!
@@ -156,17 +184,15 @@ const typeDefs = gql`
     latitude: String
   }
   type loginDriverResponse {
-    message:String!
-    userfound:Boolean!
-    passwordIsValid:Boolean!
-    agent:deliveryAgent
-   
+    message: String!
+    userfound: Boolean!
+    passwordIsValid: Boolean!
+    agent: deliveryAgent
   }
   input loginDriverInput {
     login: String!
     password: String!
   }
-
 
   input signinInput {
     email: String!
@@ -191,7 +217,6 @@ const typeDefs = gql`
     email: String!
   }
 
-  
   input verifyOTPInput {
     username: String!
     otp: String!
@@ -244,17 +269,15 @@ const typeDefs = gql`
     email: String!
     phone: Int!
   }
-  
-  
 
   type RecommendedProduct {
     title: String
     price: String
     imageUrl: String
-    url: String,
+    url: String
     rating: String
   }
-  
+
   type FarmProd {
     title: String
     price: Float
@@ -262,8 +285,7 @@ const typeDefs = gql`
     description: String
     rating: Int
     recommendedProducts: [RecommendedProduct]
-  }  
-
+  }
 
   input ProductInput {
     title: String!
@@ -272,10 +294,6 @@ const typeDefs = gql`
     description: String!
     rating: Float!
   }
-
-
-  
-
 
   type UpdatepwdResponse {
     message: String!
@@ -293,7 +311,7 @@ const typeDefs = gql`
     username: String!
     email: String!
   }
-  
+
   type UpdateEmailResponse {
     message: String!
     updateStatus: Boolean!
@@ -320,31 +338,55 @@ const typeDefs = gql`
   type createProductResponse {
     message: String!
   }
-  
+
+  input postInput {
+    image: String
+    title: String!
+    text: String!
+    topic: Topic!
+    user: ID
+    comments: ID
+  }
+  input commentInput {
+    content: String!
+    user: ID
+    post: ID
+  }
+
+  type addReviewResponse {
+      reviewExist: Boolean!
+      message: String!
+  }
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
-    
-    
+
     getdeliveryAgent(id: ID!): deliveryAgent!
     getdeliveryAgents: [deliveryAgent!]!
 
-    
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
-    getFeedbackPerUser(userId: ID!):[Feedback!]!
-
+    getFeedbackPerUser(userId: ID!): [Feedback!]!
+    getFiveStarFeedbacks: [Feedback!]!
+    
     getProducts: [Product!]!
     getProduct(id: ID!): Product!
     getProductsByUser(userId: ID!): [Product!]!
-    getFiveStarFeedbacks: [Feedback!]!
-
-
-
+    getProductsByCategory(category: productCategory!): [Product!]!
+    
+    
+   
+    
     getRecommendedProductById(asin: String!): RecommendedProduct!
-    getFarmProducts:[Product!]!
+    getFarmProducts: [Product!]!
 
+    getAllPost: [Post!]!
+    getpostById(id: ID!): Post!
+    getPostsByUser(userId: ID!): [Post]!
 
+    getAllComment(postId: ID!): [Comment!]!
+    getCommentById(id: ID!): Comment!
+    getCommentPerUser(userId:ID!):[Comment!]!
   }
 
   type Mutation {
@@ -374,17 +416,33 @@ const typeDefs = gql`
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!): loginDriverResponse!
 
-    createFeedback(input: FeedbackInput!): Feedback! 
-    
+    createFeedback(input: FeedbackInput!): Feedback!
+
     createFarmProd(input: ProductInput!): Product!
 
-  
-
-
-    createProduct(input: CreateProductInput!, file: Upload): createProductResponse!
-    updateProduct(id: ID!, input: UpdateProductInput!, file: Upload): createProductResponse!
+    createProduct(
+      input: CreateProductInput!
+      file: Upload
+    ): createProductResponse!
+    updateProduct(
+      id: ID!
+      input: UpdateProductInput!
+      file: Upload
+    ): createProductResponse!
     deleteProduct(id: ID!): Product!
-    addReviewProduct(idProd: ID!,idUser:ID!, input:addReviewInput!): createProductResponse!
+    addReviewProduct(
+      idProd: ID!
+      idUser: ID!
+      input: addReviewInput!
+    ): addReviewResponse!
+
+    addPost(input: postInput!, file: Upload): Post
+    modifyPost(id: ID!, input: postInput!): Post
+    deletePost(id: ID!): Post
+
+    addComment(input: commentInput, postId: ID!, userId: ID!): Comment!
+    modifyComment(id: ID!, input: commentInput!): Comment!
+    deleteComment(id: ID!): Comment!
   }
 
   input CreateProductInput {
@@ -396,6 +454,7 @@ const typeDefs = gql`
     user: ID!
     expirationDate: DateTime!
     category: productCategory!
+    expirationDiscount: Boolean!
   }
 
   input UpdateProductInput {
@@ -408,13 +467,12 @@ const typeDefs = gql`
     user: ID
     expirationDate: DateTime
     category: productCategory
+    expirationDiscount: Boolean!
   }
   input addReviewInput {
     rating: Int!
     comment: String!
   }
-
-
 `;
 
 module.exports = typeDefs;

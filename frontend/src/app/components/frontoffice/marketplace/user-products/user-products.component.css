@@ -38,3 +38,9 @@
   transform: translateY(-2px);
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
 }
+.shop-one__sidebar__category__list .category-link {
+  cursor: pointer;
+}
+.category-link.selected {
+  color: orangered;
+}

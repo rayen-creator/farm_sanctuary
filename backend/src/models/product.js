@@ -57,6 +57,16 @@ const productSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    inSale: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    expirationDiscount: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
     rating: {
         total: {
             type: Number,

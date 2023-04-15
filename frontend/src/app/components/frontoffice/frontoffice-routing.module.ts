@@ -1,3 +1,4 @@
+import { ViewProfileComponent } from './blog/view-profile/view-profile.component';
 import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
 import { ContactComponent } from './shared/contact/contact.component';
 import { NotfoundComponent } from './shared/notfound/notfound.component';
@@ -20,6 +21,7 @@ import { DetailBlogComponent } from './blog/detail-blog/detail-blog.component';
 import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
 import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user/feedback-list-per-user.component';
 import { AddArticleComponent } from './blog/add-article/add-article.component';
+import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
 import { RealtimechatComponent } from './realtimechat/realtimechat.component';
 
 
@@ -41,13 +43,14 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
       { path: 'addfeedback', component: FeedbackFormComponent },
       { path: 'latestnew', component: LatestnewsComponent },
-      { path: 'detailnews', component: DetailBlogComponent },
+      { path: 'detailnews/:id', component: DetailBlogComponent },
       { path: 'marketplace', loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) },
       { path: 'feedbacklist', component: FeedbackListPerUserComponent },
       { path: 'addarticle', component: AddArticleComponent },
-      { path: 'testimonials', component: TestimonialsComponent},
+      { path: 'testimonials', component: TestimonialsComponent },
+      { path: 'myarticles', component: MyarticlesComponent },
+      { path: 'viewprofile/:id', component: ViewProfileComponent },
       { path: 'chat', component: RealtimechatComponent }
-
     ]
   },
 

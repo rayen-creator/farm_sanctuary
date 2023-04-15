@@ -23,6 +23,7 @@ export class UserProductsComponent implements OnInit {
   public visibleProducts: Product[];
   public numberOfProductsToShow = 9;
   searchText: any;
+  private initList: Product[];
   constructor(private productService: ProductService, private router:Router, private toastr:ToastrService, private auth: AuthService) { }
 
   ngOnInit(): void {
@@ -38,6 +39,7 @@ export class UserProductsComponent implements OnInit {
     this.productService.getProductsByUser(this.userId).subscribe({
       next: (products) => {
         this.productsList = products;
+        this.initList = products;
         console.log(this.productsList);
         this.sortByExpiration();
         this.visibleProducts = this.productsList.slice(0, this.numberOfProductsToShow);
@@ -80,6 +82,31 @@ export class UserProductsComponent implements OnInit {
   setupSorting() {
     const selectElement = document.getElementById('sortProducts') as HTMLSelectElement;
     selectElement.value = "expiration"
+
+    // Add click event listeners to category links
+    const categoryLinks = document.querySelectorAll('.shop-one__sidebar__category__list a');
+    categoryLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        // Reset the product list to its original state
+        this.productsList=this.initList;
+
+
+        // @ts-ignore
+        const category = link.getAttribute('data-category');
+        if (category === "ALL") {
+          this.productsList=this.initList;
+          this.visibleProducts = this.productsList.slice(0, this.numberOfProductsToShow)
+        } else {
+          const filteredProducts = this.productsList.filter(product => product.category === category);
+          console.log(category)
+          this.productsList = filteredProducts;
+          this.visibleProducts = this.productsList.slice(0, this.numberOfProductsToShow);
+        }
+        categoryLinks.forEach(link => link.classList.remove('selected'));
+        link.classList.add('selected');
+      });
+    });
+
     selectElement.addEventListener('change', () => {
       const sortCriteria = selectElement.value;
       if (sortCriteria === 'quantity') {

@@ -3,7 +3,8 @@
   <div class="container">
     <div class="page-header__inner text-center clearfix">
       <ul class="thm-breadcrumb">
-        <li><a href="index-main.html">Home</a></li>
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/marketplace">Shop</a></li>
         <li>My Products</li>
       </ul>
       <h2>My Products</h2>
@@ -28,12 +29,20 @@
             <h3 class="shop-one__sidebar__item__title">Categories</h3>
             <!-- /.shop-one__sidebar__item__title -->
             <ul class="list-unstyled shop-one__sidebar__category__list">
-              <li><a href="#">Agriculture</a></li>
-              <li><a href="#">Dairy Farm</a></li>
-              <li><a href="#">Economy Solution</a></li>
-              <li><a href="#">Harvests Innovations</a></li>
-              <li><a href="#">Organic Food</a></li>
-              <li><a href="#">Fresh Vegetables</a></li>
+              <li><a class="category-link selected" data-category="ALL">All</a></li>
+              <li><a class="category-link" data-category="FRUITS">Fruits</a></li>
+              <li><a class="category-link" data-category="VEGETABLES">Vegetables</a></li>
+              <li><a class="category-link" data-category="DAIRY">Dairy</a></li>
+              <li><a class="category-link" data-category="MEAT">Meat</a></li>
+              <li><a class="category-link" data-category="GRAINS">Grains</a></li>
+              <li><a class="category-link" data-category="NUTS">Nuts</a></li>
+              <li><a class="category-link" data-category="HERBS">Herbs</a></li>
+              <li><a class="category-link" data-category="SPICES">Spices</a></li>
+              <li><a class="category-link" data-category="HONEY">Honey</a></li>
+              <li><a class="category-link" data-category="MUSHROOMS">Mushrooms</a></li>
+              <li><a class="category-link" data-category="OTHER">Other</a></li>
+
+
             </ul>
           </div><!-- /.shop-one__sidebar__item -->
         </div><!-- /.shop-one__sidebar -->
@@ -53,7 +62,7 @@
           <div class="col-md-6 col-lg-4" *ngFor="let p of visibleProducts | filter:searchText ">
             <div class="shop-one__item">
               <div class="shop-one__image">
-                <span class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
+                <span *ngIf="p.inSale === true" class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
                 <img src="{{p.image}}" alt="">
                 <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
               </div><!-- /.shop-one__image -->
@@ -61,7 +70,11 @@
                 <h3 class="shop-one__title"><a [routerLink]="['/marketplace/product', p.id]">{{p.name}}</a></h3>
                 <h6 style="font-size: 15px " class="shop-one__title"><a href="product-details.html">quantity : {{p.quantity}} {{p.unit}}</a>
                 </h6>
-                <p class="shop-one__price">${{p.price}}</p><!-- /.shop-one__price -->
+                <div class="shop-one__price">
+                  <span *ngIf="p.inSale === true" class="original-price" style="text-decoration: line-through;">${{p.price * 2}}</span>
+                  <span *ngIf="p.inSale === true" class="sale-price" style=" font-size: large; font-weight: bold; color: #0b0b0b"> ${{p.price}}</span>
+                  <span *ngIf="p.inSale === false" class="sale-price" style="font-weight: bold;"> ${{p.price}}</span>
+                </div><!-- /.shop-one__price -->
                 <div class="shop-one__rating" *ngIf="p.rating.count > 0">
                   <i class="fa fa-star" *ngFor="let star of getStars(p?.rating?.average ?? 0)"></i>
                   <br>
@@ -79,8 +92,8 @@
           <div class="row">
             <div class="col-lg-12 text-center">
               <div class="news-sidebar__btn">
-                <p class="shop-one__product-count" *ngIf="numberOfProductsToShow < (productsList| filter:searchText).length">Showing 1–{{numberOfProductsToShow}} of {{(productsList| filter:searchText).length}} results</p>
-                <p class="shop-one__product-count" *ngIf="numberOfProductsToShow >= (productsList| filter:searchText).length">Showing 1–{{(productsList| filter:searchText).length}} of {{(productsList| filter:searchText).length}} results</p>
+                <p class="shop-one__product-count" *ngIf="numberOfProductsToShow < (productsList| filter:searchText)?.length">Showing 1–{{numberOfProductsToShow}} of {{(productsList| filter:searchText)?.length}} results</p>
+                <p class="shop-one__product-count" *ngIf="numberOfProductsToShow >= (productsList| filter:searchText)?.length">Showing 1–{{(productsList| filter:searchText)?.length}} of {{(productsList| filter:searchText)?.length}} results</p>
                 <a (click)="showMoreProducts()" class="thm-btn" >load more</a>
               </div>
             </div><!-- /.col-lg-12 text-center -->

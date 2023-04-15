@@ -1,0 +1,83 @@
+<!--Page Header Start-->
+<section
+  class="page-header clearfix"
+  style="background-image: url(assets/images/backgrounds/page-header-bg.jpg)"
+>
+  <div class="container">
+    <div class="page-header__inner text-center clearfix">
+      <ul class="thm-breadcrumb">
+        <li><a routerLink="/myarticles">My articles</a></li>
+        <li><a routerLink="/addarticle">add article </a></li>
+      </ul>
+      <h2>My articles</h2>
+    </div>
+  </div>
+</section>
+<!--Page Header End-->
+
+<!--Blog One Start-->
+<section class="blog-one blog-one--news">
+  <div
+    class="blog-one__bg wow slideInDown"
+    data-wow-delay="100ms"
+    data-wow-duration="2500ms"
+  ></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="error-page__wrapper text-center" *ngIf="posts.length == 0">
+          <div class="error-page__content">
+            <h2>No article found</h2>
+            <p>Try adding new article here 👇.</p>
+          </div>
+          <div class="error-page__btn">
+            <a routerLink="/addarticle" class="thm-btn">add new article</a>
+          </div>
+        </div>
+      </div>
+
+      <!--Start Single Blog One-->
+      <div
+        class="col-lg-6 col-md-6 wow fadeInLeft"
+        data-wow-delay="0ms"
+        data-wow-duration="1500ms"
+        *ngFor="let p of posts"
+      >
+        <div class="blog-one__single">
+          <div class="blog-one__single-img">
+            <img src="{{ p.image }}" alt="" width="100%" height="400px" />
+            <div class="date-box">
+              <span>{{ p.createdAt | date }}</span>
+            </div>
+            <div class="overlay-icon">
+              <a routerLink="/detailnews/{{ p.id }}"
+                ><span class="icon-plus"></span
+              ></a>
+            </div>
+          </div>
+
+          <div class="blog-one__single-content">
+            <ul class="meta-info">
+              <li>
+                <a href="javascript:void(0);"
+                  ><i class="far fa-comments"></i
+                  >{{ p.comments.length }} comments</a
+                >
+              </li>
+            </ul>
+            <h2>
+              <a href="news-details.html">{{ p.title }}</a>
+            </h2>
+            <button class="btn btn-warning mx-1">update</button>
+
+            <button class="btn btn-danger mx-1" (click)="deleteArticle(p.id)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--End Single Blog One-->
+    </div>
+  </div>
+</section>
+<!--Blog One End-->

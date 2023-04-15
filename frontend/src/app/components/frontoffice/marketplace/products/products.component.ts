@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../../core/models/product';
 import { ProductService } from '../../../../core/services/product.service';
+import {CartService} from "../../../../core/services/cart.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-products',
@@ -13,7 +15,7 @@ export class ProductsComponent implements OnInit {
   public numberOfProductsToShow = 9;
   searchText: any;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private cartService: CartService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -25,7 +27,7 @@ export class ProductsComponent implements OnInit {
       next: (products) => {
         this.productsList = products;
         console.log(this.productsList);
-        this.sortByPopularity();
+        this.sortByExpiration();
         this.visibleProducts = this.productsList.slice(0, this.numberOfProductsToShow);
       },
       error: (err) => {
@@ -68,6 +70,10 @@ export class ProductsComponent implements OnInit {
         const sortedProducts = [...this.productsList];
         sortedProducts.sort((a, b) => a.country.localeCompare(b.country));
         this.productsList = sortedProducts;
+      } else if (sortCriteria === 'expiration') {
+        const sortedProducts = [...this.productsList];
+        sortedProducts.sort((a, b) => new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime());
+        this.productsList = sortedProducts;
       } else {
         // sort by any other criteria
       }
@@ -75,11 +81,16 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  sortByPopularity() {
+  sortByExpiration() {
     if (Array.isArray(this.productsList)) {
       const sortedProducts = [...this.productsList];
-      sortedProducts.sort((a, b) => b.rating.count - a.rating.count);
+      sortedProducts.sort((a, b) => new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime());
       this.productsList = sortedProducts;
     }
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    this.toastr.success('Product added to cart', 'success');
   }
 }
