@@ -19,7 +19,7 @@
                   >
                 </li>
                 <li>
-                  <a routerLink="/viewprofile/{{post.user.id}}"
+                  <a routerLink="/viewprofile/{{ post.user.id }}"
                     ><i class="far fa-user-circle"></i
                     >{{ post.user.username }}</a
                   >
@@ -52,16 +52,24 @@
             <div class="tag-social-link__social-links">
               <ul>
                 <li>
-                  <a href="javascript:void(0);"><i class="fab fa-twitter"></i></a>
+                  <a href="javascript:void(0);"
+                    ><i class="fab fa-twitter"></i
+                  ></a>
                 </li>
                 <li>
-                  <a href="javascript:void(0);"><i class="fab fa-facebook"></i></a>
+                  <a href="javascript:void(0);"
+                    ><i class="fab fa-facebook"></i
+                  ></a>
                 </li>
                 <li>
-                  <a href="javascript:void(0);"><i class="fab fa-pinterest-p"></i></a>
+                  <a href="javascript:void(0);"
+                    ><i class="fab fa-pinterest-p"></i
+                  ></a>
                 </li>
                 <li>
-                  <a href="javascript:void(0);"><i class="fab fa-instagram"></i></a>
+                  <a href="javascript:void(0);"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
                 </li>
               </ul>
             </div>
@@ -90,16 +98,25 @@
               <!--End Single News Details Pagenation-->
             </div>
           </div>
-     <div class="card border-0 m-4">
+          <div class="card border-0 m-4">
             <div class="row">
               <div class="col-md-12">
                 <div class="card border-0">
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="submit"class="btn btn-like mx-2">
+                    <button
+                      type="submit"
+                      class="btn btn-like mx-2"
+                      (click)="LikeButton()"
+                    >
                       <i class="fas fa-thumbs-up mr-2"></i>
-                      Like
+                      <span *ngIf="isLiked">Unlike</span>
+                      <span *ngIf="!isLiked">Like</span>
                     </button>
-                    <button type="submit" (click)="isComment()" class="btn btn-comment ml-3">
+                    <button
+                      type="submit"
+                      (click)="isComment()"
+                      class="btn btn-comment ml-3"
+                    >
                       <i class="fas fa-comment mr-2"></i>
                       Comment
                     </button>
@@ -108,7 +125,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="news-details__comment-form" *ngIf="isCommentActive">
             <h3 class="comment-form__title">Leave a Comment</h3>
             <form
@@ -134,13 +151,25 @@
           </div>
           <!--Start Comment One -->
           <div class="comment-one">
-            <h3 class="comment-one__title">
-              {{ post.comments.length }} comments
-            </h3>
-            <app-comment *ngFor="let c of comments" [comment]="c" [id]="post.id" [userId]="userId"></app-comment>
+            <div class="row">
+              <div class="col-md-2">
+                <h5 class="comment-one__title">{{ post.likes }} likes</h5>
+              </div>
+              <div class="col-md-4">
+                <h5 class="comment-one__title">
+                  {{ post.comments.length }} comments
+                </h5>
+              </div>
+            </div>
+
+            <app-comment
+              *ngFor="let c of comments.slice().reverse()"
+              [comment]="c"
+              [id]="post.id"
+              [userId]="userId"
+            ></app-comment>
           </div>
           <!--End Comment One -->
-     
         </div>
       </div>
       <!--End News Sidebar Laft-->
