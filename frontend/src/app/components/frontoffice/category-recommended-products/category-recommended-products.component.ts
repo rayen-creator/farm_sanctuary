@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RecommendedProduct } from 'src/app/core/models/recommandedprod';
 import { recommendedProductService } from 'src/app/core/services/recommendedProduct.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-category-recommended-products',
@@ -16,7 +18,7 @@ export class CategoryRecommendedProductsComponent implements OnInit {
   searchText: any;
   category: any;
 
-  constructor(private recommendedproductService: recommendedProductService,private currentRoute: ActivatedRoute) { }
+  constructor(private recommendedproductService: recommendedProductService,private currentRoute: ActivatedRoute,private router : Router) { }
 
   ngOnInit(): void {
     this.category = this.currentRoute.snapshot.params['category'];
@@ -39,6 +41,11 @@ export class CategoryRecommendedProductsComponent implements OnInit {
   showMoreProducts() {
     this.numberOfRecommendedProductsToShow += 6;
     this.visibleRecommendedProducts = this.categoryRecommendedProductsList.slice(0, this.numberOfRecommendedProductsToShow);
+  }
+  refreshPage(category: string): void {
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate(['recommendedproducts', category]);
+    });
   }
 
 

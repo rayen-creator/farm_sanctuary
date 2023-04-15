@@ -16,6 +16,7 @@ export class RecommendProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllRecommendedProducts();
+    this.setupSorting();
   }
   getAllRecommendedProducts(){
     this.recommendedProductService.getRecommendedProducts().subscribe({
@@ -29,6 +30,24 @@ export class RecommendProductComponent implements OnInit {
       },
     });
   }
+
+
+  setupSorting() {
+    const selectElement = document.getElementById('sortProducts') as HTMLSelectElement;
+    if (selectElement) {
+      selectElement.addEventListener('change', () => {
+        const sortCriteria = selectElement.value;
+        if (sortCriteria === 'priceAsc') {
+          this.recommendedproductsList.sort((a, b) => Number(a.price) - Number(b.price));
+        } else if (sortCriteria === 'priceDesc') {
+          this.recommendedproductsList.sort((a, b) => Number(b.price) - Number(a.price));
+        } else {
+          // sort by any other criteria
+        }
+      });
+    }
+  }
+  
 
   showMoreProducts() {
     this.numberOfRecommendedProductsToShow += 6;
