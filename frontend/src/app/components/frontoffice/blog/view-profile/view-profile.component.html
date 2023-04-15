@@ -3,14 +3,39 @@
     <div class="row align-items-center flex-row-reverse">
       <div class="col-lg-6">
         <div class="about-text go-to">
-          
           <div class="row">
             <div class="col">
               <h3 class="dark-color">{{ user.username | uppercase }}</h3>
-
             </div>
-            <div class="col" *ngIf="user.id==userId">
-              <a routerLink="/profile/{{user.id}}" class="thm-btn ">Edit profile</a>
+            <div class="col">
+              <div class="dropdown">
+                <a
+                  class="btn bg-gradient-primary dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      routerLink="/profile/{{ user.id }}"
+                      *ngIf="user.id == userId"
+                      class="dropdown-item"
+                      >Edit profile</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="javascript:void(0);"
+                      *ngIf="user.id != userId"
+                      class="dropdown-item"
+                      >Send message</a
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <h6 class="theme-color lead">{{ user.role }}</h6>
@@ -49,10 +74,6 @@
                 <label>Phone</label>
                 <p>{{ user.phone }}</p>
               </div>
-              <!-- <div class="media">
-                                <label>Skype</label>
-                                <p>skype.0404</p>
-                            </div> -->
             </div>
           </div>
         </div>
@@ -73,32 +94,28 @@
       <div class="row">
         <div class="col-6 col-lg-4">
           <div class="count-data text-center">
-            <h6 class="count h2" data-to="500" data-speed="500"><i class='bx bx-like' ></i> 0</h6>
+            <h6 class="count h2" data-to="500" data-speed="500">
+              <i class="bx bx-like"></i> 0
+            </h6>
             <p class="m-0px font-w-600">Likes</p>
           </div>
         </div>
         <div class="col-6 col-lg-4">
           <div class="count-data text-center">
-            <h6 class="count h2" >
-                <i class='bx bx-comment-dots'></i> {{ comments.length }}
+            <h6 class="count h2">
+              <i class="bx bx-comment-dots"></i> {{ comments.length }}
             </h6>
             <p class="m-0px font-w-600">Comments</p>
           </div>
         </div>
         <div class="col-6 col-lg-4">
           <div class="count-data text-center">
-            <h6 class="count h2" >
-                <i class='bx bx-repost'></i>  {{ posts.length }}
+            <h6 class="count h2">
+              <i class="bx bx-repost"></i> {{ posts.length }}
             </h6>
             <p class="m-0px font-w-600">Posts</p>
           </div>
         </div>
-        <!-- <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2" data-to="190" data-speed="190">190</h6>
-                        <p class="m-0px font-w-600">Telephonic Talk</p>
-                    </div>
-                </div> -->
       </div>
     </div>
   </div>
