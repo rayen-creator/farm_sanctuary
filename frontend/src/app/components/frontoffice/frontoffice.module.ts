@@ -27,6 +27,7 @@ import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user
 import { AddArticleComponent } from './blog/add-article/add-article.component'
 import { QuillModule } from 'ngx-quill';
 import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
+import { CropReFormComponent } from './cropRecommandation/crop-re-form/crop-re-form.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { TestimonialsComponent } from './shared/testimonials/testimonials.compon
     DetailBlogComponent,
     FeedbackListPerUserComponent,
     AddArticleComponent,
-    TestimonialsComponent
+    TestimonialsComponent,
+    CropReFormComponent
   ],
   imports: [
     CommonModule,
