@@ -1,1 +1,70 @@
-<p>crop-re-form works!</p>
+<body>
+    <div id="main-wrapper" class="container mb-4 mt-4">
+      <div class="row justify-content-center">
+        <div class="col-xl-10"> 
+
+          
+          <div class="card border-1 mt-4">
+            <div class="card-body p-0">
+              <div class="row justify-content-md-center">
+         
+                <div class="col-lg-6 ">
+                  <div class="p-5">
+                    <div class="mb-5">
+                      <h3 class="h4 font-weight-bold text-theme">Crop Recommandation Model</h3>
+                    </div>
+  
+                        <!-- app.component.html -->
+    <form #cropForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="N">N</label>
+        <input type="number" class="form-control" id="N" name="N" required [(ngModel)]="formData.N">
+      </div>
+      <div class="form-group">
+        <label for="P">P</label>
+        <input type="number" class="form-control" id="P" name="P" required [(ngModel)]="formData.P">
+      </div>
+      <div class="form-group">
+        <label for="K">K</label>
+        <input type="number" class="form-control" id="K" name="K" required [(ngModel)]="formData.K">
+      </div>
+      <div class="form-group">
+        <label for="temperature">Temperature</label>
+        <input type="number" class="form-control" id="temperature" name="temperature" required [(ngModel)]="formData.temperature">
+      </div>
+      <div class="form-group">
+        <label for="humidity">Humidity</label>
+        <input type="number" class="form-control" id="humidity" name="humidity" required [(ngModel)]="formData.humidity">
+      </div>
+      <div class="form-group">
+        <label for="ph">pH</label>
+        <input type="number" class="form-control" id="ph" name="ph" required [(ngModel)]="formData.ph">
+      </div>
+      <div class="form-group">
+        <label for="rainfall">Rainfall</label>
+        <input type="number" class="form-control" id="rainfall" name="rainfall" required [(ngModel)]="formData.rainfall">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div *ngIf="showResult">
+        <h3>Prediction result:</h3>
+        <p>{{ predictionResult }}</p>
+      </div>
+  
+                      
+                      
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end card-body -->
+          </div>
+          <!-- end card -->
+        </div>
+        <!-- end col -->
+      </div>
+      <!-- Row -->
+    </div>
+  </body>
+  
