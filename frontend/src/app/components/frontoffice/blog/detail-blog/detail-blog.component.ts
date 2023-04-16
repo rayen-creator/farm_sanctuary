@@ -56,13 +56,16 @@ export class DetailBlogComponent implements OnInit {
       next: (post) => {
         this.post = post;
 
-        this.userSerivce.getUserById(this.post.user.id).subscribe({
+        this.userSerivce.getUserById(this.userId).subscribe({
           next: (user: User) => {
             const currentPost = user.likedPost.find((idPost) => idPost.id == this.id);
             if (currentPost) {
               this.isLiked = false;
+              console.log("isLiked false",currentPost)
             } else {
               this.isLiked = true;
+              console.log("isLiked true",currentPost)
+
             }
           },
           error: (err) => {

@@ -85,8 +85,8 @@ mutation addPost($input:postInput!,$file: Upload) {
 } `;
 
 export const modifyPost = gql`
-mutation modifyPost($id:ID!,$input:postInput!) {
-    modifyPost(id:$id,input:$input) {
+mutation modifyPost($id:ID!,$input:postInput!,$file: Upload) {
+    modifyPost(id:$id,input:$input,file: $file) {
         image
         title
         text

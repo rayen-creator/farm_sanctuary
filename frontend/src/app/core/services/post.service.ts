@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './auth.service';
-import { addPost, deletePost, dislikePost, getAllPost, getPostsByUser, getpostById, likePost } from '../graphql/queries/post.queries';
+import { addPost, deletePost, dislikePost, getAllPost, getPostsByUser, getpostById, likePost, modifyPost } from '../graphql/queries/post.queries';
 import { Subscription, map } from 'rxjs';
 import { Post } from '../models/post';
 import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
@@ -29,7 +29,7 @@ export class PostService {
   }
 
   addPost(post: Post, selectedFile: File) {
-    const userId=this.userId;
+    const userId = this.userId;
     const input = {
       image: post.image,
       title: post.title,
@@ -47,7 +47,7 @@ export class PostService {
           query: getAllPost
         },
         {
-          query:user,
+          query: user,
           variables: { userId }
         },
         {
@@ -80,7 +80,7 @@ export class PostService {
     )
   }
 
-  getPostperUser(userId:any) {
+  getPostperUser(userId: any) {
     // const userId = this.userId;
     return this.apollo.watchQuery({
       query: getPostsByUser,
@@ -105,42 +105,66 @@ export class PostService {
     )
   }
 
-  updatePost() {
-
-  }
-  addLikeToPost(postId:any){
-    const userId=this.userId;
-    const id=userId;
+  updatePost(id: any, post: Post, selectedFile: File) {
     return this.apollo.mutate({
-      mutation:likePost,
-      variables:{
-        userId:userId,
-        postId:postId
-      },refetchQueries: [
+      mutation: modifyPost,
+      variables: { id, post, selectedFile },
+      refetchQueries: [
+        {
+          query: getpostById,
+          variables: { id }
+        },
         {
           query: getAllPost
         },
         {
-          query:user,
-          variables: { id:id }
+          query: getPostsByUser,
+          variables: { userId: this.userId }
+        }
+      ]
+    }).subscribe({
+      next: () => {
+        this.toastr.success('Post updated successfully', 'Success', {
+          progressBar: true
+        }); this.router.navigate(['/myarticles']);
+      }, error: (err) => {
+        throw err;
+      }
+    })
+  }
+  addLikeToPost(postId: any) {
+    const userId = this.userId;
+    const id = userId;
+    return this.apollo.mutate({
+      mutation: likePost,
+      variables: {
+        userId: userId,
+        postId: postId
+      }, refetchQueries: [
+        {
+          query: getAllPost
+        },
+        {
+          query: user,
+          variables: { id: id }
         }
       ]
     });
   }
-  dislikePost(postId:any){
-    const userId=this.userId;
-    const id=userId;
+  dislikePost(postId: any) {
+    const userId = this.userId;
+    const id = userId;
     return this.apollo.mutate({
-      mutation:dislikePost,
-      variables:{
-        userId:userId,
-        postId:postId
-      },refetchQueries: [
+      mutation: dislikePost,
+      variables: {
+        userId: userId,
+        postId: postId
+      }, refetchQueries: [
         {
           query: getAllPost
         },
         {
-          query:user,
+          query: user,
           variables: { id }
         }
       ]
@@ -149,7 +173,7 @@ export class PostService {
 
   deletePost(id: any) {
     const userId = this.userId;
-    
+
     return this.apollo.mutate({
       mutation: deletePost,
       variables: { id }, refetchQueries: [
@@ -157,7 +181,7 @@ export class PostService {
         { query: getAllPost },
         { query: getPostsByUser, variables: { userId } },
         {
-          query:user,
+          query: user,
           variables: { userId }
         }
       ]
