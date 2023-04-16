@@ -30,6 +30,7 @@ import { TestimonialsComponent } from './shared/testimonials/testimonials.compon
 import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
 import { CommentComponent } from './blog/comment/comment.component';
 import { ViewProfileComponent } from './blog/view-profile/view-profile.component';
+import { RealtimechatComponent } from './realtimechat/realtimechat.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { ViewProfileComponent } from './blog/view-profile/view-profile.component
     TestimonialsComponent,
     MyarticlesComponent,
     CommentComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    RealtimechatComponent
   ],
   imports: [
     CommonModule,
