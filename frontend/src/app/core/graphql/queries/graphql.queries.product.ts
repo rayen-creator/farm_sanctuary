@@ -18,6 +18,8 @@ const products = gql`
       },
       category,
       expirationDate,
+      inSale
+      expirationDiscount
       createdAt,
       updatedAt,
       user {
@@ -45,12 +47,24 @@ const product = gql`
         count
         average
       },
+      reviews {
+        userReview {
+          username,
+          image
+        }
+        comment
+        rating
+        createdAt
+      }
       category,
       expirationDate,
+      inSale
+      expirationDiscount
       createdAt,
       updatedAt,
       user {
         username
+        image
       },
       image
     }
@@ -74,6 +88,8 @@ const productsByUser = gql`
       },
       category,
       expirationDate,
+      inSale
+      expirationDiscount
       createdAt,
       updatedAt,
       user {
@@ -84,6 +100,34 @@ const productsByUser = gql`
   }
 `;
 
+const ProductsByCategory = gql`
+  query GetProductsByCategory($category: productCategory!) {
+    getProductsByCategory(category: $category) {
+      id
+      name
+      description
+      price
+      quantity
+      unit
+      country
+      rating {
+        total
+        count
+        average
+      }
+      category
+      expirationDate
+      inSale
+      expirationDiscount
+      createdAt
+      updatedAt
+      user {
+        username
+      }
+      image
+    }
+  }
+`;
  const createProduct = gql`
   mutation createProduct($input: CreateProductInput!, $file: Upload) {
     createProduct(input: $input,  file: $file) {
@@ -117,6 +161,8 @@ const deleteProduct = gql`
       },
       category,
       expirationDate,
+      inSale
+      expirationDiscount
       createdAt,
       updatedAt,
       user {
@@ -128,4 +174,13 @@ const deleteProduct = gql`
   }
 `;
 
-export {products,product,createProduct,updateProduct,deleteProduct, productsByUser}
+const addReview = gql`
+  mutation addReviewProduct($idProd:ID!,$idUser:ID!,$input: addReviewInput!) {
+    addReviewProduct(idProd: $idUser,idUser: $idProd,input: $input) {
+      reviewExist
+      message
+    }
+  }
+`;
+
+export {products,product,createProduct,updateProduct,deleteProduct, productsByUser, addReview, ProductsByCategory}

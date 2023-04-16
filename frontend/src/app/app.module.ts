@@ -18,7 +18,7 @@ import {GoogleLoginProvider} from '@abacritt/angularx-social-login';
     AppComponent,
     TwoFAComponent,
   ],
-  imports: [ 
+  imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

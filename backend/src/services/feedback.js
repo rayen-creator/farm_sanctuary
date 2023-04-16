@@ -23,8 +23,7 @@ async function createFeedback(input) {
     title: input.title,
     subject: input.subject,
     content: input.content,
-    rating: input.rating,
-    role: input.role,
+    rating: input.rating,    
     category:input.category,
     user: input.user,
     createdAt:new Date()
@@ -39,7 +38,6 @@ async function updateFeedback(id, input) {
     subject: input.subject,
     content: input.content,
     rating: input.rating,
-    role: input.role,
     category:input.category,
   };
 

@@ -1,9 +1,15 @@
 const Product = require('../models/product');
 const User = require('../models/user');
 const uploadImage = require("./utils/imageUpload");
-
+const cron = require('node-cron'); // Import node-cron
 async function getProduct(id) {
-    return Product.findById(id).populate({path: "user", model: "Users"});
+    return Product.findById(id).populate([{path: "user", model: "Users"},{
+        path: 'reviews',
+        populate: {
+            path: 'userReview',
+            model: 'Users'
+        }
+    }])
 }
 
 async function getProducts() {
@@ -12,6 +18,11 @@ async function getProducts() {
 async function getProductsByUser(userId) {
     const products = await Product.find({ user: userId }).populate({path: "user", model: "Users"});
     return products;
+}
+
+async function getProductsByCategory(category) {
+    const query = { category };
+    return Product.find(query).populate({ path: "user", model: "Users" });
 }
 
 async function createProduct(input, file) {
@@ -24,6 +35,7 @@ async function createProduct(input, file) {
         user: input.user,
         expirationDate: new Date(input.expirationDate),
         category: input.category,
+        expirationDiscount: input.expirationDiscount,
 
     });
     const prodUser = await User.findById(input.user)
@@ -39,6 +51,21 @@ async function createProduct(input, file) {
     };
 }
 
+// Scheduled job to update product prices
+cron.schedule('0 0 * * *', async () => {
+    const products = await Product.find();
+    const currentDate = new Date();
+    for (const product of products) {
+        if (product.expirationDate && (product.expirationDate - currentDate) <= 3 * 24 * 60 * 60 * 1000 && product.inSale === false && product.expirationDiscount === true) {
+            product.inSale = true
+            product.price = product.price * 0.5;
+            await product.save();
+        }
+    }
+    console.log("done job")
+});
+
+
 async function updateProduct(id, input, file) {
     const updatedProduct = {
         name: input.name,
@@ -51,6 +78,7 @@ async function updateProduct(id, input, file) {
         expirationDate: new Date(input.expirationDate),
         category: input.category,
         updatedAt: new Date(),
+        expirationDiscount: input.expirationDiscount,
     };
     if (file) {
         const fileLocation = await uploadImage(file)
@@ -70,11 +98,45 @@ async function deleteProduct(id) {
     return await product.remove();
 }
 
+async function addReview(idProd, idUser, input) {
+    const product = await Product.findById(idUser);
+
+    if (!product) {
+        return { message: "Product not found", reviewExist: false };
+    }
+
+    const existingReview = product.reviews.find((review) => review.userReview.toString() === idProd.toString());
+    if (existingReview) {
+        return { message: "User has already added a review for this product", reviewExist: true };
+    }
+
+    const review = {
+        userReview: idProd,
+        rating: input.rating,
+        comment: input.comment,
+        createdAt: new Date(),
+    };
+
+    product.reviews.push(review);
+    product.rating.count += 1;
+    product.rating.total += review.rating;
+    product.rating.average = product.rating.total / product.rating.count;
+
+    await product.save();
+
+    return { message: "Review added successfully", reviewExist: false };
+}
+
+
+
+
 module.exports = {
     getProduct,
     getProducts,
     createProduct,
     updateProduct,
     deleteProduct,
-    getProductsByUser
+    getProductsByUser,
+    addReview,
+    getProductsByCategory
 };

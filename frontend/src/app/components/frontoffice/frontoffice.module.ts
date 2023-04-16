@@ -27,6 +27,10 @@ import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user
 import { AddArticleComponent } from './blog/add-article/add-article.component'
 import { QuillModule } from 'ngx-quill';
 import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
+import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
+import { CommentComponent } from './blog/comment/comment.component';
+import { ViewProfileComponent } from './blog/view-profile/view-profile.component';
+import { RealtimechatComponent } from './realtimechat/realtimechat.component';
 import { RecommendProductComponent } from './recommend-product/recommend-product.component';
 import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
 import {Ng2SearchPipeModule} from "ng2-search-filter";
@@ -55,6 +59,10 @@ import {Ng2SearchPipeModule} from "ng2-search-filter";
     FeedbackListPerUserComponent,
     AddArticleComponent,
     TestimonialsComponent,
+    MyarticlesComponent,
+    CommentComponent,
+    ViewProfileComponent,
+    RealtimechatComponent,
     RecommendProductComponent,
     CategoryRecommendedProductsComponent
   ],

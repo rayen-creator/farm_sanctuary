@@ -51,11 +51,21 @@ const productSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "User"
+        ref: "user"
     },
     expirationDate: {
         type: Date,
         required: true
+    },
+    inSale: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    expirationDiscount: {
+        type: Boolean,
+        required: false,
+        default: false
     },
     rating: {
         total: {
@@ -74,7 +84,7 @@ const productSchema = new mongoose.Schema({
     reviews: [{
         userReview: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+            ref: "Users",
             required: true
         },
         rating: {

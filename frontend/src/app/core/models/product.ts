@@ -1,5 +1,6 @@
 import { ProductCategory } from './productCategory';
 import {units} from "./unit";
+import {User} from "./user";
 
 export type Product = {
   id: string;
@@ -11,13 +12,15 @@ export type Product = {
   country: string;
   user: string;
   expirationDate: Date;
+  inSale: boolean;
+  expirationDiscount: boolean;
   rating: {
     total: number;
     count: number;
     average: number;
   };
   reviews: {
-    userReview: string;
+    userReview: User;
     rating: number;
     comment: string;
     createdAt: Date;

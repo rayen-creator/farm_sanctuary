@@ -4,10 +4,13 @@ import { MarketplaceRoutingModule } from './marketplace-routing.module';
 import { MarketplaceComponent } from './marketplace.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductFormComponent } from './product-form/product-form.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UserProductsComponent } from './user-products/user-products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-
+import {Ng2SearchPipeModule} from "ng2-search-filter";
+import { CategoryProductsComponent } from './category-products/category-products.component';
+import {UiSwitchModule} from "ngx-toggle-switch";
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -15,13 +18,18 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     ProductsComponent,
     ProductFormComponent,
     UserProductsComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    CategoryProductsComponent,
+    CartComponent
   ],
-  imports: [
-    CommonModule,
-    MarketplaceRoutingModule,
-    ReactiveFormsModule,
+    imports: [
+        CommonModule,
+        MarketplaceRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        Ng2SearchPipeModule,
+        UiSwitchModule
 
-  ]
+    ]
 })
 export class MarketplaceModule { }

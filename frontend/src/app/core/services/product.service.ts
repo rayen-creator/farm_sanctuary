@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {
+  addReview,
   createProduct,
   deleteProduct,
   product,
-  products, productsByUser,
+  products, ProductsByCategory, productsByUser,
   updateProduct
 } from "../graphql/queries/graphql.queries.product";
 import {Product} from "../models/product";
@@ -16,6 +17,7 @@ import {DecodedToken} from "../graphql/graphqlResponse/decodedToken";
 import jwt_decode from "jwt-decode";
 import {catchError, Observable, of, Subscription} from "rxjs";
 import { map } from 'rxjs/operators';
+import {AddReviewReponse} from "../graphql/graphqlResponse/addReviewReponse";
 
 
 @Injectable({
@@ -80,6 +82,18 @@ export class ProductService {
       })
     );
   }
+  getProductsByCategory(category: string): Observable<Product[]> {
+    return this.appolo.watchQuery({
+      query: ProductsByCategory,
+      variables: { category },
+    }).valueChanges.pipe(
+      map((res) => {
+        // @ts-ignore
+        const products = res.data.getProductsByCategory;
+        return products as Product[];
+      })
+    );
+  }
   createProduct(product: Product , selectedFile: File, userId: string) {
     this.tokenSubs = this.auth.getToken().subscribe((token) => {
       this.token = token
@@ -95,6 +109,7 @@ export class ProductService {
       user: this.userId,
       expirationDate: product.expirationDate,
       category: product.category,
+      expirationDiscount: product.expirationDiscount
     };
     return this.appolo
       .mutate({
@@ -138,6 +153,7 @@ export class ProductService {
       user: prod.user,
       expirationDate: prod.expirationDate,
       category: prod.category,
+      expirationDiscount: prod.expirationDiscount
     };
 
     return this.appolo
@@ -194,6 +210,43 @@ export class ProductService {
         error: (err) => {
           console.log(err);
         },
+      });
+  }
+
+  addReview(idProd: string, idUser: string, comment: string, rating: number): Promise<AddReviewReponse> {
+    const input = {
+      rating: rating,
+      comment: comment
+    };
+    return this.appolo
+      .mutate({
+        mutation: addReview,
+        variables: {
+          idProd: idProd,
+          idUser: idUser,
+          input: input,
+        },
+        refetchQueries: [{
+          query: product,
+          variables: {id: idProd}
+        },
+          {
+            query: products
+          }
+        ],
+        context: {
+          useMultipart: true
+        }
+      })
+      .toPromise()
+      .then((res) => {
+        // @ts-ignore
+        const addReviewResponse = res.data as AddReviewReponse;
+        return addReviewResponse;
+      })
+      .catch((err) => {
+        console.log(err);
+        throw err;
       });
   }
 

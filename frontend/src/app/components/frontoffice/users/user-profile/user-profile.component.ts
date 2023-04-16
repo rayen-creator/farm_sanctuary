@@ -116,7 +116,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         if (newUser.newpassword == '') {
           newUser.newpassword = this.user.password
         }
-      
         const input = {
           username: newUser.username,
           email: newUser.email,
@@ -127,7 +126,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
           role: this.user.role,
           two_FactAuth_Option: newUser.two_FactAuth_Option,
           image: this.selectedFile,
-          location:newUser.location =this.country ?? 'Tunisia'
+          location:this.country ?? 'Tunisia'
         };
         console.log("after edit", input)
         let id = this.currentRoute.snapshot.params['id'];

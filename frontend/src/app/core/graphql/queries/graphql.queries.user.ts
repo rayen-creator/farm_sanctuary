@@ -7,6 +7,7 @@ const users = gql`
       username,
       email,
       phone,
+      location,
       createdAt,
       updatedAt,
       isActive,
@@ -29,6 +30,7 @@ const user = gql`
       email,
       password,
       phone,
+      location,
       createdAt,
       updatedAt,
       isActive,
@@ -37,7 +39,10 @@ const user = gql`
       role,
       image ,
       two_FactAuth_Option,
-      email_change_option
+      email_change_option,
+      likedPost{
+        id
+      }
     }
   }
 `;

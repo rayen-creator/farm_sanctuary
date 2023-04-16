@@ -1,0 +1,53 @@
+.rating {
+  display: flex;
+  flex-direction: row-reverse; /* change the direction of the labels */
+  justify-content: center; /* align the labels to the left */
+  height: 25px;
+  font-size: 25px;
+  margin-bottom: 12px;
+  margin-left: 6px;
+}
+
+.rating input {
+  display: none; /* hide the radio inputs */
+}
+.sale-text {
+  color: #fff;
+  color: #ecb36a;
+  border-radius: 5px;
+}
+
+.rating label {
+  display: inline-block;
+  cursor: pointer;
+  color: #ddd;
+  margin-right: 5px; /* add some spacing between the labels */
+}
+
+.rating label:before {
+  content: '\2605'; /* add a star symbol */
+}
+
+.rating input:checked ~ label,
+.rating input:checked ~ label ~ label {
+  color: #f70;
+}
+
+.rating:hover input:not(:checked) ~ label {
+  color: #ddd;
+}
+
+.rating:hover input:not(:checked) ~ label:hover,
+.rating:hover input:not(:checked) ~ label:hover ~ label {
+  color: #efce69;
+}
+.error {
+  color: red;
+  font-size: 12px;
+  font-weight: 400;
+}
+.thm-btn[disabled] {
+  background-color: gray;
+  color: white;
+  cursor: not-allowed;
+}

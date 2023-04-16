@@ -3,7 +3,8 @@
   <div class="container">
     <div class="page-header__inner text-center clearfix">
       <ul class="thm-breadcrumb">
-        <li><a href="index-main.html">Home</a></li>
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/marketplace">Shop</a></li>
         <li>My Products</li>
       </ul>
       <h2>My Products</h2>
@@ -17,7 +18,7 @@
         <div class="shop-one__sidebar">
           <div class="shop-one__sidebar__item shop-one__sidebar__search">
             <form action="#">
-              <input type="text" placeholder="Search here">
+              <input class="form-control" type="text" name="Search here" [(ngModel)]="searchText" autocomplete="off" placeholder="Search">
               <button type="submit"><i class=" icon-search "></i></button>
             </form>
 
@@ -28,12 +29,20 @@
             <h3 class="shop-one__sidebar__item__title">Categories</h3>
             <!-- /.shop-one__sidebar__item__title -->
             <ul class="list-unstyled shop-one__sidebar__category__list">
-              <li><a href="#">Agriculture</a></li>
-              <li><a href="#">Dairy Farm</a></li>
-              <li><a href="#">Economy Solution</a></li>
-              <li><a href="#">Harvests Innovations</a></li>
-              <li><a href="#">Organic Food</a></li>
-              <li><a href="#">Fresh Vegetables</a></li>
+              <li><a class="category-link selected" data-category="ALL">All</a></li>
+              <li><a class="category-link" data-category="FRUITS">Fruits</a></li>
+              <li><a class="category-link" data-category="VEGETABLES">Vegetables</a></li>
+              <li><a class="category-link" data-category="DAIRY">Dairy</a></li>
+              <li><a class="category-link" data-category="MEAT">Meat</a></li>
+              <li><a class="category-link" data-category="GRAINS">Grains</a></li>
+              <li><a class="category-link" data-category="NUTS">Nuts</a></li>
+              <li><a class="category-link" data-category="HERBS">Herbs</a></li>
+              <li><a class="category-link" data-category="SPICES">Spices</a></li>
+              <li><a class="category-link" data-category="HONEY">Honey</a></li>
+              <li><a class="category-link" data-category="MUSHROOMS">Mushrooms</a></li>
+              <li><a class="category-link" data-category="OTHER">Other</a></li>
+
+
             </ul>
           </div><!-- /.shop-one__sidebar__item -->
         </div><!-- /.shop-one__sidebar -->
@@ -41,19 +50,19 @@
       <div class="col-lg-9">
         <div class="row">
           <div class="col-lg-12 shop-one__sorter">
-            <p class="shop-one__product-count">Showing 1–9 of 12 results</p>
-            <select class="shop-one__product-sorter" name="" id="">
-              <option value="">Sort by Popular</option>
-              <option value="">Sort by Popular</option>
-              <option value="">Sort by Popular</option>
+            <p></p>
+            <select class="shop-one__product-sorter" name="sortProducts" id="sortProducts">
+              <option value="popularity">Sort by Popular</option>
+              <option value="quantity">Sort by Quantity</option>
+              <option value="expiration">Sort by Expiration Date</option>
             </select>
           </div><!-- /.col-lg-12 -->
         </div><!-- /.row -->
         <div class="row">
-          <div class="col-md-6 col-lg-4" *ngFor="let p of productsList ">
+          <div class="col-md-6 col-lg-4" *ngFor="let p of visibleProducts | filter:searchText ">
             <div class="shop-one__item">
               <div class="shop-one__image">
-                <span class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
+                <span *ngIf="p.inSale === true" class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
                 <img src="{{p.image}}" alt="">
                 <a class="shop-one__cart" href="cart.html"><i class=" icon-shopping-cart"></i></a>
               </div><!-- /.shop-one__image -->
@@ -61,7 +70,15 @@
                 <h3 class="shop-one__title"><a [routerLink]="['/marketplace/product', p.id]">{{p.name}}</a></h3>
                 <h6 style="font-size: 15px " class="shop-one__title"><a href="product-details.html">quantity : {{p.quantity}} {{p.unit}}</a>
                 </h6>
-                <p class="shop-one__price">${{p.price}}</p><!-- /.shop-one__price -->
+                <div class="shop-one__price">
+                  <span *ngIf="p.inSale === true" class="original-price" style="text-decoration: line-through;">${{p.price * 2}}</span>
+                  <span *ngIf="p.inSale === true" class="sale-price" style=" font-size: large; font-weight: bold; color: #0b0b0b"> ${{p.price}}</span>
+                  <span *ngIf="p.inSale === false" class="sale-price" style="font-weight: bold;"> ${{p.price}}</span>
+                </div><!-- /.shop-one__price -->
+                <div class="shop-one__rating" *ngIf="p.rating.count > 0">
+                  <i class="fa fa-star" *ngFor="let star of getStars(p?.rating?.average ?? 0)"></i>
+                  <br>
+                </div>
                 <div class="shop-one__buttons">
                   <button style="margin-right: 10px;" (click)="deleteProduct(p.id)"><i class="fas fa-trash fa-lg" style="color: red;"></i></button>
                   <button [routerLink]="['/marketplace/product', p.id, 'edit']"><i class="fas fa-edit fa-lg" style="color: #f3da35;"></i></button>
@@ -72,9 +89,20 @@
             </div><!-- /.shop-one__item -->
 
           </div><!-- /.col-md-6 col-lg-3 -->
-
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <div class="news-sidebar__btn">
+                <p class="shop-one__product-count" *ngIf="numberOfProductsToShow < (productsList| filter:searchText)?.length">Showing 1–{{numberOfProductsToShow}} of {{(productsList| filter:searchText)?.length}} results</p>
+                <p class="shop-one__product-count" *ngIf="numberOfProductsToShow >= (productsList| filter:searchText)?.length">Showing 1–{{(productsList| filter:searchText)?.length}} of {{(productsList| filter:searchText)?.length}} results</p>
+                <a (click)="showMoreProducts()" class="thm-btn" >load more</a>
+              </div>
+            </div><!-- /.col-lg-12 text-center -->
+          </div>
         </div><!-- /.row -->
+
       </div><!-- /.col-lg-3 -->
+
     </div><!-- /.row -->
+
   </div><!-- /.container -->
 </section>
