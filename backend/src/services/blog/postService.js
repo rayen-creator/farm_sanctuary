@@ -75,6 +75,10 @@ async function modifyPost(id, input, file) {
     topic: input.topic,
     updatedAt: new Date(),
   };
+  if (file) {
+    const fileLocation = await uploadImage(file);
+    updatedPost.image = fileLocation;
+  }
   await Post.findByIdAndUpdate(id, updatedPost, { new: true });
   return updatedPost;
 }

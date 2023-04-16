@@ -32,9 +32,9 @@ const postResolver = {
         throw new Error(error);
       }
     },
-    async modifyPost(_, { id, input }) {
+    async modifyPost(_, { id, input ,file }) {
       try {
-        return await postService.modifyPost(id, input);
+        return await postService.modifyPost(id, input,file);
       } catch (error) {
         throw new Error(error);
       }
