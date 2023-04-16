@@ -55,7 +55,7 @@ export class DetailBlogComponent implements OnInit {
     this.postService.getPostById(this.id).subscribe({
       next: (post) => {
         this.post = post;
-      
+
         this.userSerivce.getUserById(this.post.user.id).subscribe({
           next: (user: User) => {
             const currentPost = user.likedPost.find((idPost) => idPost.id == this.id);
@@ -74,7 +74,7 @@ export class DetailBlogComponent implements OnInit {
         throw err;
       }
     });
-  
+
 
     this.postService.getAllposts().subscribe({
       next: (posts: Post[]) => {
@@ -117,14 +117,13 @@ export class DetailBlogComponent implements OnInit {
   }
 
   LikeButton() {
-    if (!this.isLiked) {
+    if (this.isLiked) {
       this.postService.addLikeToPost(this.id).subscribe({
         next: () => {
-          this.isLiked = true;
-
+          this.isLiked = false;
         },
-        error: () => {
-
+        error: (err) => {
+          throw err;
         }
       });
 
@@ -132,11 +131,10 @@ export class DetailBlogComponent implements OnInit {
 
       this.postService.dislikePost(this.id).subscribe({
         next: () => {
-          this.isLiked = false;
-
+          this.isLiked = true;
         },
-        error: () => {
-
+        error: (err) => {
+          throw err;
         }
       });
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
@@ -16,12 +16,16 @@ import jwt_decode from "jwt-decode";
   templateUrl: './view-profile.component.html',
   styleUrls: ['./view-profile.component.css']
 })
-export class ViewProfileComponent implements OnInit {
+export class ViewProfileComponent implements OnInit , OnDestroy {
   id: string;
   user: User;
   posts:Post[];
   comments:Comment[];
   private tokenSubs: Subscription;
+  private userSubs:Subscription;
+  private postSubs:Subscription;
+  private commentSubs:Subscription;
+
   token: string;
   decodedToken: DecodedToken;
   userId: string;
@@ -30,10 +34,11 @@ export class ViewProfileComponent implements OnInit {
     private postService:PostService,
     private commentService:CommentService,
     private auth: AuthService,) { }
+ 
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.userService.getUserById(this.id).subscribe({
+    this.userSubs=this.userService.getUserById(this.id).subscribe({
       next: (res) => {
         this.user = res;
       }, error: (err) => {
@@ -41,7 +46,7 @@ export class ViewProfileComponent implements OnInit {
       }
     });
 
-    this.postService.getPostperUser(this.id).subscribe({
+    this.postSubs=this.postService.getPostperUser(this.id).subscribe({
       next: (res) => {
         this.posts=res;
       },
@@ -49,7 +54,7 @@ export class ViewProfileComponent implements OnInit {
         throw err;
       }
     });
-    this.commentService.getCommentPerUser(this.id).subscribe({
+   this.commentSubs= this.commentService.getCommentPerUser(this.id).subscribe({
       next :(res)=>{
         this.comments=res;
       },
@@ -64,4 +69,10 @@ export class ViewProfileComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+   this.userSubs.unsubscribe();
+   this.commentSubs.unsubscribe();
+   this.postSubs.unsubscribe();
+   this.tokenSubs.unsubscribe();
+  }
 }

@@ -8,6 +8,7 @@ import { Subscription, map } from 'rxjs';
 import { Post } from '../models/post';
 import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
 import jwt_decode from "jwt-decode";
+import { user } from '../graphql/queries/graphql.queries.user';
 
 @Injectable({
   providedIn: 'root'
@@ -28,13 +29,13 @@ export class PostService {
   }
 
   addPost(post: Post, selectedFile: File) {
-
+    const userId=this.userId;
     const input = {
       image: post.image,
       title: post.title,
       text: post.text,
       topic: post.topic,
-      user: this.userId,
+      user: userId,
     }
     return this.apollo.mutate({
       mutation: addPost,
@@ -44,6 +45,14 @@ export class PostService {
       }, refetchQueries: [
         {
           query: getAllPost
+        },
+        {
+          query:user,
+          variables: { userId }
+        },
+        {
+          query: getPostsByUser,
+          variables: { userId }
         }
       ], context: {
         useMultipart: true
@@ -101,6 +110,7 @@ export class PostService {
   }
   addLikeToPost(postId:any){
     const userId=this.userId;
+    const id=userId;
     return this.apollo.mutate({
       mutation:likePost,
       variables:{
@@ -109,12 +119,17 @@ export class PostService {
       },refetchQueries: [
         {
           query: getAllPost
+        },
+        {
+          query:user,
+          variables: { id:id }
         }
       ]
     });
   }
   dislikePost(postId:any){
     const userId=this.userId;
+    const id=userId;
     return this.apollo.mutate({
       mutation:dislikePost,
       variables:{
@@ -123,6 +138,10 @@ export class PostService {
       },refetchQueries: [
         {
           query: getAllPost
+        },
+        {
+          query:user,
+          variables: { id }
         }
       ]
     });
@@ -130,13 +149,17 @@ export class PostService {
 
   deletePost(id: any) {
     const userId = this.userId;
-
+    
     return this.apollo.mutate({
       mutation: deletePost,
       variables: { id }, refetchQueries: [
         { query: getpostById, variables: { userId } },
         { query: getAllPost },
-        { query: getPostsByUser, variables: { userId } }
+        { query: getPostsByUser, variables: { userId } },
+        {
+          query:user,
+          variables: { userId }
+        }
       ]
     }).subscribe({
       next: () => {
