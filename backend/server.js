@@ -16,7 +16,7 @@ const agentResolver = require("./src/resolvers/deliveryAgent.resolver");
 const productResolver = require("./src/resolvers/product.resolver");
 const feedbackResolver = require("./src/resolvers/feedback.resolver");
 const { GraphQLUpload, graphqlUploadExpress } = require("graphql-upload");
-const reProdresolvers = require("./src/resolvers/recProduct.resolver");
+const recommendedproductresolvers = require("./src/resolvers/RecommendedProduct.resolver");
 const postResolver = require("./src/resolvers/post.resolver");
 const commentResolver = require("./src/resolvers/comment.resolver");
 
@@ -43,10 +43,10 @@ const server = new ApolloServer({
     authResolver,
     feedbackResolver,
     agentResolver,
-    reProdresolvers,
     productResolver,
     postResolver,
-    commentResolver
+    commentResolver,
+    recommendedproductresolvers
   ],
 });
 

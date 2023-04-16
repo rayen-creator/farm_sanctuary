@@ -1,7 +1,10 @@
-export interface RecommendedProduct {
+import { recommendedcategory } from "./recommendedcatergory";
+
+export type RecommendedProduct = {
     title: string;
-    price: number;
+    price: String;
     image: string;
     url: string;
+    category:recommendedcategory
   }
   

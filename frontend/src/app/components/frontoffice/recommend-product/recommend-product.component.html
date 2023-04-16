@@ -1,0 +1,116 @@
+
+
+
+
+
+
+		<div class="stricky-header stricked-menu main-menu">
+			<div class="sticky-header__content">
+
+			</div><!-- /.sticky-header__content -->
+		</div><!-- /.stricky-header -->
+
+		<!--Page Header Start-->
+		<section class="page-header clearfix"
+			style="background-image: url(assets/images/backgrounds/page-header-bg.jpg);">
+			<div class="container">
+				<div class="page-header__inner text-center clearfix">
+					<ul class="thm-breadcrumb">
+						<li><a href="index-main.html">Home</a></li>
+						<li>Recommended Product</li>
+					</ul>
+					<h2>Recommended Product</h2>
+				</div>
+			</div>
+		</section>
+    <section class="shop-one" *ngIf="(recommendedproductsList | filter:searchText)?.length > 0">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="shop-one__sidebar">
+                <div class="shop-one__sidebar__item shop-one__sidebar__search">
+                  <form action="#">
+                    <input class="form-control" type="text" name="Search here" [(ngModel)]="searchText" autocomplete="off" placeholder="Search">
+                    <button type="submit"><i class=" icon-search "></i></button>
+                  </form>
+      
+                  </div> 
+               
+                <div class="shop-one__sidebar__item shop-one__sidebar__category">
+                  <h3 class="shop-one__sidebar__item__title">Categories</h3>
+                  <!-- /.shop-one__sidebar__item__title -->
+                  <ul class="list-unstyled shop-one__sidebar__category__list">
+                    <li><a routerLink="Inputs">Inputs</a></li>
+                    <li><a routerLink="Workshop">Workshop</a></li>
+                    <li><a routerLink="Tyres">Tyres</a></li>
+                  </ul>
+                </div><!-- /.shop-one__sidebar__item -->
+              </div><!-- /.shop-one__sidebar -->
+            </div><!-- /.col-lg-3 -->
+            <div class="col-lg-9">
+              <div class="row">
+                <div class="col-lg-12 shop-one__sorter">
+                  <label for="sortProducts">Sort by:</label>
+                  <select class="shop-one__product-sorter" name="sortProducts" id="sortProducts">
+                    <option value="priceAsc" selected>Price: Low to High</option>
+                    <option value="priceDesc">Price: High to Low</option>
+                  </select>
+                </div>                
+            </div>
+              <div class="row">
+                <div class="col-md-6 col-lg-4" *ngFor="let p of visibleRecommendedProducts| filter:searchText ">
+                  <div class="shop-one__item">
+                    <div class="shop-one__image">
+                      <span class="shop-one__sale">sale</span><!-- /.shop-one__sale -->
+                      <img src="{{p.image}}" alt="">
+                      <a class="shop-one__cart" href="{{p.url}}"><i class=" icon-shopping-cart"></i></a>
+                    </div><!-- /.shop-one__image -->
+                    <div class="shop-one__content text-center">
+                      <h3 class="shop-one__title">{{p.title}}
+                      </h3>
+                      <h6 style="font-size: 15px " class="shop-one__title"><a href="product-details.html">category : {{p.category}}</a></h6>
+                      <p class="shop-one__price"><strong>price :£{{p.price}}</strong></p><!-- /.shop-one__price -->
+                      </div>
+                    </div><!-- /.shop-one__content -->
+                  <!-- /.shop-one__item -->
+                </div><!-- /.col-md-6 col-lg-3 -->
+                
+      
+      
+              <!-- /.row -->
+            <!-- /.col-lg-3 -->
+          
+        
+        <!-- /.container -->
+     
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="news-sidebar__btn">
+            <p class="shop-one__product-count" *ngIf="numberOfRecommendedProductsToShow < (recommendedproductsList| filter:searchText)?.length">Showing 1–{{numberOfRecommendedProductsToShow}} of {{(recommendedproductsList| filter:searchText).length}} results</p>
+            <p class="shop-one__product-count" *ngIf="numberOfRecommendedProductsToShow > (recommendedproductsList| filter:searchText)?.length">Showing 1–{{(recommendedproductsList| filter:searchText).length}} of {{(recommendedproductsList| filter:searchText).length}} results</p>
+            <a (click)="showMoreProducts()" class="thm-btn">load more</a>
+          </div>
+        </div><!-- /.col-lg-12 text-center -->
+      </div>
+    </div>
+      </div>
+    </div><!-- /.row -->
+        </div>
+  
+  </section>
+  
+    <section class="shop-one" *ngIf="(recommendedproductsList | filter:searchText)?.length === 0">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="text-center">
+              <img src="assets/no-product-found.png" alt="No products found" style="max-width: 100%;">
+              <h3 class="mt-4 mb-3">No products found</h3>
+              <p>Sorry, we couldn't find any products in this category.</p>
+              <a routerLink="/home" class="btn btn-success mt-3 rounded-pill"> <i class="fa fa-arrow-left mr-2"></i> Back to the Fields </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    

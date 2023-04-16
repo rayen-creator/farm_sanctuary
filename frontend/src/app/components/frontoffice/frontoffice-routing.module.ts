@@ -25,6 +25,9 @@ import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
 import { AuthGuard } from 'src/app/core/helpers/auth.guard';
 import { roles } from 'src/app/core/models/role';
 import { RealtimechatComponent } from './realtimechat/realtimechat.component';
+import { RecommendProductComponent } from './recommend-product/recommend-product.component';
+import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
+
 
 
 const routes: Routes = [
@@ -52,7 +55,9 @@ const routes: Routes = [
       { path: 'testimonials', component: TestimonialsComponent },
       { path: 'myarticles', component: MyarticlesComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
       { path: 'viewprofile/:id', component: ViewProfileComponent },
-      { path: 'chat', component: RealtimechatComponent }
+      { path: 'chat', component: RealtimechatComponent },
+      { path: 'recommendedproducts', component: RecommendProductComponent},
+      { path: 'recommendedproducts/:category', component: CategoryRecommendedProductsComponent }
     ]
   },
 
