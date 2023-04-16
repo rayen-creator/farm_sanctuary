@@ -27,7 +27,7 @@ def predict(response):
     prediction = model.predict(features)
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    return jsonify({'message': 'Todo deleted successfully'}), 200
+    return jsonify(prediction[0])
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     app.run(debug=True)

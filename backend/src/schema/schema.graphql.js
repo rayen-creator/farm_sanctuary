@@ -41,7 +41,7 @@ const typeDefs = gql`
     subject: String!
     content: String!
     category: Category!
-    rating: Int!
+    rating: Int
     createdAt:DateTime
   }
 

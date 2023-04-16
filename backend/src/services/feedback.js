@@ -5,7 +5,7 @@ async function getFeedback(id) {
 }
 
 async function getFeedbacks() {
-  return await Feedback.find();
+  return await Feedback.find().populate({path: "user", model: "Users"});
 }
 
 async function getFeedbackPerUser(userId){
