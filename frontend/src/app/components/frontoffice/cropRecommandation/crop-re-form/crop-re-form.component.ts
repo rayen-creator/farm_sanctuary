@@ -35,9 +35,11 @@ export class CropReFormComponent implements OnInit {
       let values = [104,18, 30, 23.603016, 60.3, 6.7, 140.91]; 
 
      //To extract only the values of the form in the same order as the form ya nour without them being an object
-      const formValues = Object.values(this.myForm.value);
-      this.formValuesArray.push(...formValues);
-      console.log(this.formValuesArray);
+     const formValues = Object.values(this.myForm.value);
+     //empty the formValuesArray array before pushing new values
+     this.formValuesArray.splice(0, this.formValuesArray.length);
+     this.formValuesArray.push(...formValues);
+     console.log(this.formValuesArray);
 
       //ardha aleya ya rayen :)
       this.predictionService.predict(this.formValuesArray).subscribe({
