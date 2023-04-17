@@ -21,13 +21,11 @@ def hello():
     return 'Hello'
 @cross_origin()
 @app.route('/predict', methods =['POST'])
-def predict(response):
+def predict():
     data = request.get_json(force=True)
     features = [np.array(data['data'])]
     prediction = model.predict(features)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
     return jsonify(prediction[0])
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

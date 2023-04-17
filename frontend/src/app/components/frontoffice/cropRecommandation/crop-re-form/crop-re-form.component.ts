@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PredictionService } from 'src/app/core/services/prediction.service';
 
@@ -9,31 +9,51 @@ import { PredictionService } from 'src/app/core/services/prediction.service';
   styleUrls: ['./crop-re-form.component.css']
 })
 export class CropReFormComponent implements OnInit {
-    formData = {
-      N: null,
-      P: null,
-      K: null,
-      temperature: null,
-      humidity: null,
-      ph: null,
-      rainfall: null
-    };
-    predictionResult: string;
-    showResult = false;
-  
-    constructor(private predictionService: PredictionService) { }
-    ngOnInit(): void {
-    }
+  predictionResult: string;
+  showResult = false;
+  myForm: FormGroup;
+  formValuesArray: any[] = [];
 
-    onSubmit() {
-      this.predictionService.predict(this.formData).subscribe((result: string) => {
-            this.predictionResult = result;
-            this.showResult = true;
+
+  
+    constructor(private predictionService: PredictionService, private fb : FormBuilder) {}
+    ngOnInit(): void {
+      this.myForm = this.fb.group({
+        N: ['', Validators.required],
+        P: ['', Validators.required],
+        K: ['', Validators.required],
+        temperature: ['', Validators.required],
+        humidity: ['', Validators.required],
+        ph: ['', Validators.required],
+        rainfall: ['', Validators.required]
+      });
+    }
+    
+
+    onSubmit() {  
+      //To test my form with constant values
+      let values = [104,18, 30, 23.603016, 60.3, 6.7, 140.91]; 
+
+     //To extract only the values of the form in the same order as the form ya nour without them being an object
+      const formValues = Object.values(this.myForm.value);
+      this.formValuesArray.push(...formValues);
+      console.log(this.formValuesArray);
+
+      //ardha aleya ya rayen :)
+      this.predictionService.predict(this.formValuesArray).subscribe({
+        next: (result: any) => {
+          this.predictionResult = result;
+          this.showResult = true;
+          console.log(result);
         },
-        (error) => {
+        error: (error) => {
           console.log(error);
+        },
+        complete: () => {
+          // Optional complete callback
         }
-      );
+      });
+      
     }
     
   }

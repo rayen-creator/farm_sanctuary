@@ -10,8 +10,10 @@ export class PredictionService {
 
   constructor(private http: HttpClient) { }
 
-  predict(formData: any): Observable<any> {
-    return this.http.post<any>(environment.flask+'/predict', { data: formData }, {headers : { "Content-Type": "application/json",
+  predict(formData: any): Observable<String> {
+    console.log(environment.flask+'/predict');
+    console.log(formData);
+    return this.http.post<any>(environment.flask+'/predict', { "data": formData }, {headers : { "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*"},} );
   }
 }
