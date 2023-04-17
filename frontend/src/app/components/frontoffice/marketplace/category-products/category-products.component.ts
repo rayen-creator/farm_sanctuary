@@ -2,7 +2,8 @@ import {AfterContentInit, Component} from '@angular/core';
 import {Product} from "../../../../core/models/product";
 import {ProductService} from "../../../../core/services/product.service";
 import {ActivatedRoute} from "@angular/router";
-
+import {CartService} from "../../../../core/services/cart.service";
+import {ToastrService} from "ngx-toastr";
 @Component({
   selector: 'app-category-products',
   templateUrl: './category-products.component.html',
@@ -16,7 +17,7 @@ export class CategoryProductsComponent implements AfterContentInit {
   searchText: any;
    category: any;
 
-  constructor(private productService: ProductService,private currentRoute: ActivatedRoute) { }
+  constructor(private productService: ProductService,private currentRoute: ActivatedRoute,  private cartService: CartService, private toastr: ToastrService) { }
 
   ngAfterContentInit(): void {
     this.category = this.currentRoute.snapshot.params['category'];
@@ -86,5 +87,10 @@ export class CategoryProductsComponent implements AfterContentInit {
       sortedProducts.sort((a, b) => b.rating.count - a.rating.count);
       this.categoryProductsList = sortedProducts;
     }
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    this.toastr.success('Product added to cart', 'success');
   }
 }
