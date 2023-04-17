@@ -12,6 +12,7 @@ export const getAllPost = gql`
         createdAt
         updatedAt
         user{
+            id
             username
             image
             location 
@@ -36,6 +37,7 @@ query getPostsByUser($userId:ID!){
         createdAt
         updatedAt
         user{
+            id
             username
             image
             location
@@ -58,6 +60,7 @@ query getpostById($id:ID!) {
         createdAt
         updatedAt
         user{
+            id
             username
             image
             location
@@ -82,8 +85,8 @@ mutation addPost($input:postInput!,$file: Upload) {
 } `;
 
 export const modifyPost = gql`
-mutation modifyPost($id:ID!,$input:postInput!) {
-    modifyPost(id:$id,input:$input) {
+mutation modifyPost($id:ID!,$input:postInput!,$file: Upload) {
+    modifyPost(id:$id,input:$input,file: $file) {
         image
         title
         text
@@ -98,6 +101,33 @@ mutation modifyPost($id:ID!,$input:postInput!) {
 export const deletePost = gql`
 mutation deletePost($id:ID!) {
     deletePost(id:$id) {
+        image
+        title
+        text
+        likes
+        topic
+        createdAt
+        updatedAt
+      
+  }
+} `;
+
+export const likePost = gql`
+mutation likePost($userId:ID!, $postId:ID!) {
+    likePost(userId:$userId,postId:$postId) {
+        image
+        title
+        text
+        likes
+        topic
+        createdAt
+        updatedAt
+      
+  }
+} `;
+export const dislikePost = gql`
+mutation dislikePost($userId:ID!, $postId:ID!) {
+    dislikePost(userId:$userId,postId:$postId) {
         image
         title
         text

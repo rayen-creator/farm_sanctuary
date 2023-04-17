@@ -1,4 +1,3 @@
-import { ContactComponent } from './../../../components/frontoffice/shared/contact/contact.component';
 import { gql } from "apollo-angular";
 
 export const getAllComment = gql`
@@ -17,20 +16,20 @@ query getAllComment($postId:ID!){
          }
   }
 } `;
-// export const getCommentsByUser = gql`
-// query getCommentsByUser($userId:ID!){
-//     getCommentsByUser(userId:$userId){
-//         id
-//        content
-//        createdAt
-//         user{
-//             id
-//         }
-//         post{
-//             id
-//         }
-//       }
-// }`;
+export const getCommentPerUser = gql`
+query getCommentPerUser($userId:ID!){
+    getCommentPerUser(userId:$userId){
+        id
+       content
+       createdAt
+        user{
+            id
+        }
+        post{
+            id
+        }
+      }
+}`;
 
 export const getCommentById = gql`
 query getCommentById($id:ID!) {

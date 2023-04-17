@@ -71,6 +71,7 @@ const typeDefs = gql`
     category: Category!
     rating: Int!
     createdAt: DateTime
+    user: User!
   }
 
   input FeedbackInput {
@@ -103,6 +104,7 @@ const typeDefs = gql`
     two_FactAuth_Option: Boolean
     location: String
     email_change_option: Boolean
+    likedPost:[Post]
   }
 
   type Product {
@@ -159,7 +161,7 @@ const typeDefs = gql`
     role: Role!
     image: Upload
     two_FactAuth_Option: Boolean
-    location: String
+    location: String!
   }
   input twoFactorAuthUserInput {
     code: String!
@@ -193,6 +195,25 @@ const typeDefs = gql`
     login: String!
     password: String!
   }
+
+
+  type RecommendedProduct {
+    id: ID!
+    title: String!
+    price: Float!
+    image: String!
+    url: String!
+    category: String!
+  }
+
+  enum recommendedproductCategory {
+    Inputs
+    Workshop
+    Tyres
+  }
+  
+  
+  
 
   input signinInput {
     email: String!
@@ -271,29 +292,25 @@ const typeDefs = gql`
   }
 
   type RecommendedProduct {
-    title: String
-    price: String
-    imageUrl: String
-    url: String
-    rating: String
-  }
-
-  type FarmProd {
-    title: String
-    price: Float
-    image: String
-    description: String
-    rating: Int
-    recommendedProducts: [RecommendedProduct]
-  }
-
-  input ProductInput {
+    id: ID!
     title: String!
     price: Float!
     image: String!
-    description: String!
-    rating: Float!
+    url: String!
+    category: String!
   }
+
+  enum recommendedproductCategory {
+    Inputs
+    Workshop
+    Tyres
+  }
+
+  
+
+
+  
+
 
   type UpdatepwdResponse {
     message: String!
@@ -372,12 +389,15 @@ const typeDefs = gql`
     getProducts: [Product!]!
     getProduct(id: ID!): Product!
     getProductsByUser(userId: ID!): [Product!]!
+
     getProductsByCategory(category: productCategory!): [Product!]!
     
     
    
     
-    getRecommendedProductById(asin: String!): RecommendedProduct!
+    products(url: String!): [RecommendedProduct!]!
+    getRecommendedProducts: [RecommendedProduct!]!
+    getRecommendedProductsByCategory(category: recommendedproductCategory!): [RecommendedProduct!]!
     getFarmProducts: [Product!]!
 
     getAllPost: [Post!]!
@@ -386,6 +406,7 @@ const typeDefs = gql`
 
     getAllComment(postId: ID!): [Comment!]!
     getCommentById(id: ID!): Comment!
+    getCommentPerUser(userId:ID!):[Comment!]!
   }
 
   type Mutation {
@@ -417,7 +438,6 @@ const typeDefs = gql`
 
     createFeedback(input: FeedbackInput!): Feedback!
 
-    createFarmProd(input: ProductInput!): Product!
 
     createProduct(
       input: CreateProductInput!
@@ -436,8 +456,10 @@ const typeDefs = gql`
     ): addReviewResponse!
 
     addPost(input: postInput!, file: Upload): Post
-    modifyPost(id: ID!, input: postInput!): Post
+    modifyPost(id: ID!, input: postInput!,file: Upload): Post
     deletePost(id: ID!): Post
+    likePost(userId:ID!, postId:ID!):Post
+    dislikePost(userId:ID!, postId:ID!):Post
 
     addComment(input: commentInput, postId: ID!, userId: ID!): Comment!
     modifyComment(id: ID!, input: commentInput!): Comment!

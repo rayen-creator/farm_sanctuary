@@ -29,6 +29,12 @@ import { QuillModule } from 'ngx-quill';
 import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
 import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
 import { CommentComponent } from './blog/comment/comment.component';
+import { ViewProfileComponent } from './blog/view-profile/view-profile.component';
+import { RealtimechatComponent } from './realtimechat/realtimechat.component';
+import { RecommendProductComponent } from './recommend-product/recommend-product.component';
+import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
+import {Ng2SearchPipeModule} from "ng2-search-filter";
+
 
 
 @NgModule({
@@ -54,7 +60,11 @@ import { CommentComponent } from './blog/comment/comment.component';
     AddArticleComponent,
     TestimonialsComponent,
     MyarticlesComponent,
-    CommentComponent
+    CommentComponent,
+    ViewProfileComponent,
+    RealtimechatComponent,
+    RecommendProductComponent,
+    CategoryRecommendedProductsComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +74,8 @@ import { CommentComponent } from './blog/comment/comment.component';
     UiSwitchModule,
     GoogleSigninButtonModule,
     Ng2TelInputModule,
-    QuillModule
+    QuillModule,
+    Ng2SearchPipeModule
   ]
 })
 export class FrontofficeModule { }

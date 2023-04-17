@@ -5,7 +5,7 @@ async function getFeedback(id) {
 }
 
 async function getFeedbacks() {
-  return await Feedback.find();
+  return await Feedback.find().populate({path: "user", model: "Users"});
 }
 
 async function getFeedbackPerUser(userId){
@@ -13,7 +13,7 @@ async function getFeedbackPerUser(userId){
 }
 
 async function  getFiveStarFeedbacks() {
-  return Feedback.find({ rating: 5 });
+  return await Feedback.find({ rating: 5 }).populate({path: "user", model: "Users"});
 }
 
 
@@ -31,21 +31,6 @@ async function createFeedback(input) {
   });
   return await feedback.save(feedback);
 }
-
-async function updateFeedback(id, input) {
-  const updatedFeedback = {
-    title: input.title,
-    subject: input.subject,
-    content: input.content,
-    rating: input.rating,
-    category:input.category,
-  };
-
-  return await Feedback.findByIdAndUpdate(id, updatedFeedback, { new: true });
-}
-
-
-
 
 
 module.exports = {

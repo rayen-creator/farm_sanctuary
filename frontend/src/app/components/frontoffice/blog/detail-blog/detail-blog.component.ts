@@ -11,6 +11,8 @@ import jwt_decode from "jwt-decode";
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/core/services/user.service';
+import { User } from 'src/app/core/models/user';
 
 @Component({
   selector: 'app-detail-blog',
@@ -23,13 +25,14 @@ export class DetailBlogComponent implements OnInit {
   latestPosts: Post[];
   commentForm: FormGroup;
   comments: Comment[];
-  // isTheCommentMine:Observable<boolean>;
   private tokenSubs: Subscription;
   decodedToken: DecodedToken;
   userId: string;
   isEditmode: boolean = false;
   updateCommentForm: FormGroup;
   comment: Comment;
+  isCommentActive: boolean = false
+  isLiked: boolean;
   constructor(
     private postService: PostService,
     private router: Router,
@@ -37,7 +40,8 @@ export class DetailBlogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private commentService: CommentService,
     private auth: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private userSerivce: UserService
   ) {
     this.tokenSubs = this.auth.getToken().subscribe((token) => {
       this.decodedToken = jwt_decode(token) as DecodedToken;
@@ -51,11 +55,30 @@ export class DetailBlogComponent implements OnInit {
     this.postService.getPostById(this.id).subscribe({
       next: (post) => {
         this.post = post;
+
+        this.userSerivce.getUserById(this.userId).subscribe({
+          next: (user: User) => {
+            const currentPost = user.likedPost.find((idPost) => idPost.id == this.id);
+            if (currentPost) {
+              this.isLiked = false;
+              console.log("isLiked false",currentPost)
+            } else {
+              this.isLiked = true;
+              console.log("isLiked true",currentPost)
+
+            }
+          },
+          error: (err) => {
+            throw err;
+          }
+        });
       },
       error: (err) => {
         throw err;
       }
     });
+
+
     this.postService.getAllposts().subscribe({
       next: (posts: Post[]) => {
         if (posts && posts.length > 0) {
@@ -83,11 +106,41 @@ export class DetailBlogComponent implements OnInit {
     });
   }
 
- addComment(form: any) {
+  addComment(form: any) {
     this.commentService.addComment(form, this.id);
     this.commentForm.controls['content'].setValue(null);
   }
 
+  isComment() {
+    if (this.isCommentActive) {
+      this.isCommentActive = false;
+    } else {
+      this.isCommentActive = true;
+    }
+  }
 
+  LikeButton() {
+    if (this.isLiked) {
+      this.postService.addLikeToPost(this.id).subscribe({
+        next: () => {
+          this.isLiked = false;
+        },
+        error: (err) => {
+          throw err;
+        }
+      });
+
+    } else {
+
+      this.postService.dislikePost(this.id).subscribe({
+        next: () => {
+          this.isLiked = true;
+        },
+        error: (err) => {
+          throw err;
+        }
+      });
+    }
+  }
 
 }

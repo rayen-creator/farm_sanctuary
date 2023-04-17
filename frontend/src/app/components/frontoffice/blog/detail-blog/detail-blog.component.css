@@ -2,3 +2,33 @@
   width: 80px;
   height: 70px;
 }
+.card.border-0 {
+  box-shadow: none;
+}
+
+.btn-like,
+.btn-comment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: #70777f;
+  color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.btn-like:hover,
+.btn-comment:hover {
+  background-color: #70777f;
+  transform: scale(1.05);
+}
+
+.btn-like i,
+.btn-comment i {
+  margin-right: 5px;
+  transition: all 0.3s ease;
+}
