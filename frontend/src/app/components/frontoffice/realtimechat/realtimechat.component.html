@@ -9,39 +9,31 @@
       </div>
       <div class="panel-body">
         <div class="chats">
-          <div *ngFor="let message of messages" class="chat" [ngClass]="{'chat-left': message.userName !== userName}">
+          <div *ngFor="let message of  messages | keyvalue" class="chat" [ngClass]="{'chat-left':   message.key === 'user1' }">
             <div class="chat-avatar">
-              <a class="avatar avatar-online" data-toggle="tooltip" href="#" data-placement="right" title="" [attr.data-original-title]="message.userName">
-                <img [src]="message.avatarUrl" alt="...">
+              <a class="avatar avatar-online" data-toggle="tooltip" href="#" data-placement="right" title="" >
                 <i></i>
               </a>
             </div>
             <div class="chat-body">
               <div class="chat-content">
-                <p>{{message.content}}</p>
-                <time class="chat-time" [attr.datetime]="message.timestamp">{{message.timestamp}}</time>
+                <p>{{message.value}}</p>
+                
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="panel-footer">
-        <form (submit)="sendMessage(); $event.preventDefault()">
+        <form #f="ngForm" (submit)="sendMessage()">
           <div class="input-group">
-            <input [(ngModel)]="messageContent" type="text" class="form-control" placeholder="Say something">
-            <span class="input-group-btn">
-              <button class="btn btn-primary" type="submit">Send</button>
-            </span>
-          </div>
-        </form>
-      </div>
-      <div class="panel-footer">
-        <form (submit)="joinChat(); $event.preventDefault()">
-          <div class="input-group">
-            <input [(ngModel)]="messageContent" type="text" class="form-control" placeholder="Say something">
-            <span class="input-group-btn">
-              <button class="btn btn-primary" type="submit">Send</button>
-            </span>
+            <input type="text" [(ngModel)]="messageContent" name="messageContent" placeholder="Type your message here...">
+         
+              <span class="input-group-btn">
+                <button [disabled]="f.invalid"  (click)="sendMessage()" class="btn btn-primary" type="button">Send</button>
+
+              </span>
+             
           </div>
         </form>
       </div>

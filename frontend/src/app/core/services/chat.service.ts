@@ -1,36 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { io, Socket } from 'socket.io-client';
-import { Observable } from 'rxjs';
+import { Observable , Subject, tap } from 'rxjs';
+import { Message } from '../models/message';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
   private socket: Socket;
+  private _refreshrequired = new Subject<void>();
 
   constructor(private http: HttpClient) {
     // Connect to Socket.io server
     this.socket = io('http://localhost:3001');
   }
 
-  joinChat(conversationName: string, userName: string): Observable<any> {
-    // Join the chat room
-    this.socket.emit('subscribe', { conversationName: conversationName, userName: userName });
-
+  
+  get Refreshrequired() {
+    return this._refreshrequired;
+  }
+  joinChat(conversationName: string): Observable<any> {
     // Fetch existing chat history
-    return this.http.get(`http://localhost:3001/Message?roomName=${conversationName}`);
+    return this.http.get(`http://localhost:3001/Message/showmessage/${conversationName}`);
   }
 
-  leaveChat(conversationName: string, userName: string): void {
-    // Leave the chat room
-    this.socket.emit('unsubscribe', { conversationName: conversationName, userName: userName });
-  }
 
-  sendMessage(conversationName: string, userName: string, messageContent: string): void {
+  sendMessage(conversationName: string, userid :string, messageContent: Message): Observable<any> {
     // Send a new message
-    const chatData = { conversationName: conversationName, userName: userName, messageContent: messageContent };
-    this.socket.emit('newMessage', chatData);
+    return this.http.post(`http://localhost:3001/Message/addmessage/${userid}/${conversationName}`,messageContent).pipe(
+      tap(() => {
+        this.Refreshrequired.next();
+
+      })
+    );
   }
 
   getMessages(): Observable<any> {

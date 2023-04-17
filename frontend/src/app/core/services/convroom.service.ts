@@ -14,7 +14,10 @@ export class ConvroomService {
     this.socket = io('http://localhost:3001');
    }
    addroom(room: convroom,iduser1:String,iduser2:String): Observable<any>{
-    return this.http.post(`http://localhost:3001/Room/add/`+iduser1+'/'+iduser2,room)
+    return this.http.post(`http://localhost:3001/Room/add/${iduser1}/${iduser2}`,room)
+   }
+   getroombyuser12(iduser1:String,iduser2:String){
+    return this.http.get(`http://localhost:3001/Room/getroom/${iduser1}/${iduser2}`)
    }
 }
   
