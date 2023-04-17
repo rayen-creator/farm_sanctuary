@@ -28,7 +28,7 @@ export class CommentComponent implements OnInit {
   }
  
 
-  deleteComment(id: any) {
+  deleteComment(id: any,userId:any) {
     Swal.fire({
       title: 'Are you sure you want to delete this comment ?',
       text: 'This action cannot be undone.',
@@ -39,7 +39,7 @@ export class CommentComponent implements OnInit {
       confirmButtonText: 'Yes, delete',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.commentService.deleteComment(id, this.id);
+        this.commentService.deleteComment(id, this.id,userId);
         // Swal.fire('deleted', 'article has been created successfully.', 'success');
       }
     });

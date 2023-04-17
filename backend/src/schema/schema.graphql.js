@@ -456,9 +456,10 @@ const typeDefs = gql`
     ): addReviewResponse!
 
     addPost(input: postInput!, file: Upload): Post
-    modifyPost(id: ID!, input: postInput!): Post
+    modifyPost(id: ID!, input: postInput!,file: Upload): Post
     deletePost(id: ID!): Post
     likePost(userId:ID!, postId:ID!):Post
+    dislikePost(userId:ID!, postId:ID!):Post
 
     addComment(input: commentInput, postId: ID!, userId: ID!): Comment!
     modifyComment(id: ID!, input: commentInput!): Comment!

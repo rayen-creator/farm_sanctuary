@@ -32,21 +32,6 @@ async function createFeedback(input) {
   return await feedback.save(feedback);
 }
 
-async function updateFeedback(id, input) {
-  const updatedFeedback = {
-    title: input.title,
-    subject: input.subject,
-    content: input.content,
-    rating: input.rating,
-    category:input.category,
-  };
-
-  return await Feedback.findByIdAndUpdate(id, updatedFeedback, { new: true });
-}
-
-
-
-
 
 module.exports = {
   getFeedback,

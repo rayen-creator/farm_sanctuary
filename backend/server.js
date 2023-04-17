@@ -22,16 +22,16 @@ const commentResolver = require("./src/resolvers/comment.resolver");
 
 app.use(morgan("dev"));
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-// parse application/json
-app.use(bodyParser.json());
-
 app.use(
   cors({
     origin: "http://localhost:4200",
   })
 );
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+// parse application/json
+app.use(bodyParser.json());
 
 // Add the middleware function to the middleware stack
 // app.use(verifyToken());

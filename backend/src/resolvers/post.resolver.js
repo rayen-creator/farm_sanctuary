@@ -25,26 +25,33 @@ const postResolver = {
     },
   },
   Mutation: {
-    async addPost(_, { input,file }) {
+    async addPost(_, { input, file }) {
       try {
-        return await postService.addPost(input,file);
+        return await postService.addPost(input, file);
       } catch (error) {
         throw new Error(error);
       }
     },
-    async modifyPost(_, { id, input }) {
+    async modifyPost(_, { id, input ,file }) {
       try {
-        return await postService.modifyPost(id, input);
+        return await postService.modifyPost(id, input,file);
       } catch (error) {
         throw new Error(error);
       }
     },
-    async likePost(_,{userId, postId}){
+    async likePost(_, { userId, postId }) {
       try {
         return await postService.likePost(userId, postId);
-      }catch(error){
+      } catch (error) {
         throw new Error(error);
+      }
+    },
 
+    async dislikePost(_, { userId, postId }) {
+      try {
+        return await postService.dislikePost(userId, postId);
+      } catch (error) {
+        throw new Error(error);
       }
     },
     async deletePost(_, { id }) {
