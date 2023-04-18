@@ -59,7 +59,9 @@ const routes: Routes = [
       { path: 'viewprofile/:id', component: ViewProfileComponent },
       { path: 'chat', component: RealtimechatComponent },
       { path: 'recommendedproducts', component: RecommendProductComponent},
-      { path: 'recommendedproducts/:category', component: CategoryRecommendedProductsComponent }
+      { path: 'recommendedproducts/:category', component: CategoryRecommendedProductsComponent },
+      { path: 'croprecommendation', component: CropReFormComponent }
+
 
 
     ]
