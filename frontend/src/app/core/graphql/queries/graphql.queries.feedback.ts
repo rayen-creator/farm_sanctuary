@@ -37,6 +37,11 @@ export const getFeedbacksFiveStars = gql`
         content, 
         rating,
         category
+        user {
+            username,
+            role,
+            image
+        }
     
     }
     }

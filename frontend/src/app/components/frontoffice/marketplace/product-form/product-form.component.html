@@ -199,6 +199,18 @@
                         <span *ngIf="productForm.controls['expirationDate'].hasError('futureDate')" class="error">Expiration date must be in the future</span>
 
               </span>
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Discount on expiration</h6>
+                </div>
+                <!-- <ui-switch checked></ui-switch> -->
+                <div class="col-sm-9 text-secondary">
+                  <ui-switch
+                    [checked]="false"
+                    formControlName="expirationDiscount"
+                  ></ui-switch>
+                </div>
+              </div>
               <div class="form-group row mb-3">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Description</h6>

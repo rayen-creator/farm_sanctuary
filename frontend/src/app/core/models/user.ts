@@ -1,5 +1,6 @@
 import { roles } from './role';
 import { genders } from './gender';
+import { Post } from './post';
 
 export type User = {
   id: string;
@@ -17,4 +18,5 @@ export type User = {
   image: string
   two_FactAuth_Option:boolean;
   email_change_option: boolean;
+  likedPost:Post[];
 };

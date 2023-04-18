@@ -11,6 +11,11 @@
 .rating input {
   display: none; /* hide the radio inputs */
 }
+.sale-text {
+  color: #fff;
+  color: #ecb36a;
+  border-radius: 5px;
+}
 
 .rating label {
   display: inline-block;

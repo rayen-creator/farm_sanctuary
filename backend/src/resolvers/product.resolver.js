@@ -26,6 +26,13 @@ const productResolver = {
                 throw new UserInputError(error.message);
             }
         },
+        async getProductsByCategory(_, { category }) {
+            try {
+                return await productService.getProductsByCategory(category);
+            } catch (error) {
+                throw new UserInputError(error.message);
+            }
+        },
     },
 
     Mutation: {

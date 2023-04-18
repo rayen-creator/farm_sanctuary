@@ -1,5 +1,6 @@
 
 import { category } from './category'
+import { User } from './user';
 
 export class Feedback {
     id:string;
@@ -8,6 +9,6 @@ export class Feedback {
     content: string;
     rating: number;
     category: category;
-    user: string;
+    user: User;
     createdAt:Date;
 }

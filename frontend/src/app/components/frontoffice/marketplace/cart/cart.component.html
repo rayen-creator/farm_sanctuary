@@ -1,0 +1,101 @@
+<section class="page-header clearfix" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg);">
+  <div class="container">
+    <div class="page-header__inner text-center clearfix">
+      <ul class="thm-breadcrumb">
+        <li><a routerLink="">Home</a></li>
+        <li><a routerLink="/marketplace">Shop</a></li>
+        <li>Cart</li>
+      </ul>
+      <h2>Cart</h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="cart-table" *ngIf="cartProducts.length > 0">
+  <div class="container">
+    <table>
+      <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Unit</th>
+        <th scope="col">Total</th>
+        <th scope="col">Remove</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of cartProducts">
+        <td data-label="Item">
+          <div class="cart-table__item">
+            <img src="{{product.image}}" alt="" style="width: 80px;height: 80px">
+            <h3 class="cart-table__item__title">{{product.name}}</h3>
+            <!-- /.cart-table__item__title -->
+          </div><!-- /.cart-table__item -->
+        </td>
+        <td data-label="Price">${{product.price}}</td>
+        <td data-label="Quantity">
+          <div class="quantity-box">
+            <button type="button" class="sub"  (click)="updateQuantity(product, -1)"><i class="fa fa-minus"></i></button>
+            <input type="number" id="product-2" value="{{product.quantity}}">
+            <button type="button" class="add" (click)="updateQuantity(product, 1)"><i class="fa fa-plus" ></i></button>
+          </div>
+        </td>
+        <td data-label="Unit">{{product.unit}}</td>
+        <td data-label="Total">${{product.total}}</td>
+        <td data-label="Remove"><span class="cart-table__close" (click)="removeFromCart(product)" style="cursor: pointer"></span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div><!-- /.container -->
+</section>
+
+<section class="cart-table" *ngIf="cartProducts.length === 0">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="text-center">
+          <img src="assets/empty-cart.png" alt="No products found" style="max-width: 100%;">
+          <a routerLink="/marketplace" class="btn btn-success mt-3 rounded-pill" style="margin-bottom: 50px"> <i class="fa fa-arrow-left mr-2"></i> Back to the Fields </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="proceed-to-checkout" *ngIf="cartProducts.length > 0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="proceed-to-checkout__cupon">
+          <input type="text" placeholder="Enter Coupon Code">
+          <button type="submit" class="thm-btn">Apply coupon</button><!-- /.thm-btn -->
+        </div><!-- /.proceed-to-checkout__cupon -->
+      </div><!-- /.col-lg-8 -->
+      <div class="col-lg-4">
+        <ul class="list-unstyled proceed-to-checkout__list">
+          <li>
+            <span>Subtotal</span>
+            <i>{{ cartTotal | currency:'USD' }}</i>
+          </li>
+          <li>
+            <span>Shipping Cost</span>
+            <i>$00.00 USD</i>
+          </li>
+          <li>
+            <span>Total</span>
+            <i>{{ cartTotal | currency:'USD' }}</i>
+          </li>
+        </ul><!-- /.list-unstyled proceed-to-checkout__ -->
+        <div class="proceed-to-checkout__buttons">
+          <a (click)="clearCart()" class="thm-btn proceed-to-checkout__checkout-btn" style="cursor: pointer">Clear</a>
+          <a href="checkout.html" class="thm-btn ">Checkout</a>
+        </div><!-- /.proceed-to-checkout__buttons -->
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+</section>

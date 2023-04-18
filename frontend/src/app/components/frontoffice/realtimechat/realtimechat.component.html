@@ -1,0 +1,51 @@
+<div class="container bootstrap snippets bootdeys d-flex justify-content-center m-5">
+  <div class="col-md-7 col-xs-12 col-md-offset-2">
+    <!-- Panel Chat -->
+    <div class="panel" id="chat">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon wb-chat-text" aria-hidden="true"></i> Chat
+        </h3>
+      </div>
+      <div class="panel-body">
+        <div class="chats">
+          <div *ngFor="let message of messages" class="chat" [ngClass]="{'chat-left': message.userName !== userName}">
+            <div class="chat-avatar">
+              <a class="avatar avatar-online" data-toggle="tooltip" href="#" data-placement="right" title="" [attr.data-original-title]="message.userName">
+                <img [src]="message.avatarUrl" alt="...">
+                <i></i>
+              </a>
+            </div>
+            <div class="chat-body">
+              <div class="chat-content">
+                <p>{{message.content}}</p>
+                <time class="chat-time" [attr.datetime]="message.timestamp">{{message.timestamp}}</time>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <form (submit)="sendMessage(); $event.preventDefault()">
+          <div class="input-group">
+            <input [(ngModel)]="messageContent" type="text" class="form-control" placeholder="Say something">
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="submit">Send</button>
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="panel-footer">
+        <form (submit)="joinChat(); $event.preventDefault()">
+          <div class="input-group">
+            <input [(ngModel)]="messageContent" type="text" class="form-control" placeholder="Say something">
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="submit">Send</button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- End Panel Chat -->
+  </div>
+</div>

@@ -293,32 +293,35 @@
             <div class="col-xl-6" *ngFor ="let f of feedbacks">
                
                 <div class="testimonials-one__single">
-                    <p class="testimonials-one__single-text">{{f.content}}</p>
+                    <p class="testimonials-one__single-text">{{f.title}}</p>
                     <div class="testimonials-one__single-client-info">
                         <div class="testimonials-one__single-client-info-img">
                             <div class="testimonials-one__single-client-info-img-inner">
-                                <img src="assets/images/testimonial/testimonials-v1-img1.jpg"
-                                    alt="" />
+                                <img src="{{f.user.image}}"
+                                    alt="" style="height: 100px; width: 100px" />
                             </div>
                             <div class="icon">
                                 <span class="icon-right-quotation-mark"></span>
                             </div>
                         </div>
                         <div class="testimonials-one__single-client-info-title">
-                            <h4>Kevin Martin</h4>
-                            <p>Customer</p>
+                            <h4>{{f.user.username}}</h4>
+                            <p>{{f.user.role}}</p>
                             <div class="stars">
                               <span *ngFor="let star of getStarsArray(f.rating)">
                                 <i class="fa fa-star" [ngClass]="{'checked': star === 1}"></i>
-                            </span>
+                             </span>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
                 
                 <!--Start Single Testimonials One-->
             </div>
-          
+            <div class="video-one__btn">
+              <a routerLink="/testimonials" class="thm-btn">Discover more</a>
+            </div>
          
             
           </div>

@@ -1,3 +1,4 @@
+import { ViewProfileComponent } from './blog/view-profile/view-profile.component';
 import { TestimonialsComponent } from './shared/testimonials/testimonials.component';
 import { ContactComponent } from './shared/contact/contact.component';
 import { NotfoundComponent } from './shared/notfound/notfound.component';
@@ -22,6 +23,13 @@ import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user
 import { AddArticleComponent } from './blog/add-article/add-article.component';
 import { CropReFormComponent } from './cropRecommandation/crop-re-form/crop-re-form.component';
 
+import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
+import { AuthGuard } from 'src/app/core/helpers/auth.guard';
+import { roles } from 'src/app/core/models/role';
+import { RealtimechatComponent } from './realtimechat/realtimechat.component';
+import { RecommendProductComponent } from './recommend-product/recommend-product.component';
+import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
+
 
 
 const routes: Routes = [
@@ -41,13 +49,17 @@ const routes: Routes = [
       { path: 'contact', component: ContactComponent },
       { path: 'about', component: AboutComponent },
       { path: 'addfeedback', component: FeedbackFormComponent },
-      { path: 'latestnew', component: LatestnewsComponent },
-      { path: 'detailnews', component: DetailBlogComponent },
+      { path: 'latestnew', component: LatestnewsComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
+      { path: 'detailnews/:id', component: DetailBlogComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
       { path: 'marketplace', loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) },
       { path: 'feedbacklist', component: FeedbackListPerUserComponent },
       { path: 'addarticle', component: AddArticleComponent },
       { path: 'testimonials', component: TestimonialsComponent},
-      { path: 'croprecommendation', component: CropReFormComponent}
+      { path: 'myarticles', component: MyarticlesComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
+      { path: 'viewprofile/:id', component: ViewProfileComponent },
+      { path: 'chat', component: RealtimechatComponent },
+      { path: 'recommendedproducts', component: RecommendProductComponent},
+      { path: 'recommendedproducts/:category', component: CategoryRecommendedProductsComponent }
 
 
     ]

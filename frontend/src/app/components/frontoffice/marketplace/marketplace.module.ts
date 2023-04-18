@@ -8,6 +8,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UserProductsComponent } from './user-products/user-products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import {Ng2SearchPipeModule} from "ng2-search-filter";
+import { CategoryProductsComponent } from './category-products/category-products.component';
+import {UiSwitchModule} from "ngx-toggle-switch";
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -15,14 +18,17 @@ import {Ng2SearchPipeModule} from "ng2-search-filter";
     ProductsComponent,
     ProductFormComponent,
     UserProductsComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    CategoryProductsComponent,
+    CartComponent
   ],
     imports: [
         CommonModule,
         MarketplaceRoutingModule,
         ReactiveFormsModule,
         FormsModule,
-      Ng2SearchPipeModule
+        Ng2SearchPipeModule,
+        UiSwitchModule
 
     ]
 })
