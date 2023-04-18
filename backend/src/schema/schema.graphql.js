@@ -41,6 +41,15 @@ const typeDefs = gql`
     ranching
   }
 
+  type Badge{
+    id:ID
+    image: String
+    name: String
+    description:String
+    createdAt: DateTime
+    updatedAt:DateTime
+  }
+
   type Comment {
     id: ID!
     content: String
@@ -104,6 +113,7 @@ const typeDefs = gql`
     location: String
     email_change_option: Boolean
     likedPost:[Post]
+    badges:[Badge]
   }
 
   type Product {
@@ -358,6 +368,12 @@ const typeDefs = gql`
       reviewExist: Boolean!
       message: String!
   }
+
+  type badgeResponse{
+    name:String
+    image:String
+  }
+
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -388,6 +404,8 @@ const typeDefs = gql`
     getAllComment(postId: ID!): [Comment!]!
     getCommentById(id: ID!): Comment!
     getCommentPerUser(userId:ID!):[Comment!]!
+
+    getAllbadges:[Badge!]!
   }
 
   type Mutation {
@@ -446,6 +464,8 @@ const typeDefs = gql`
     addComment(input: commentInput, postId: ID!, userId: ID!): Comment!
     modifyComment(id: ID!, input: commentInput!): Comment!
     deleteComment(id: ID!): Comment!
+
+    assignBadges(userId:ID!):badgeResponse!
   }
 
   input CreateProductInput {
