@@ -23,8 +23,8 @@
 				</div>
 			</div>
 		</section>
-    <section class="shop-one" *ngIf="(recommendedproductsList | filter:searchText)?.length > 0">
-        <div class="container">
+    <section class="shop-one" [class.hidden]="(recommendedproductsList | filter:searchText)?.length === 0">
+      <div class="container">
           <div class="row">
             <div class="col-lg-3">
               <div class="shop-one__sidebar">
@@ -51,7 +51,7 @@
               <div class="row">
                 <div class="col-lg-12 shop-one__sorter">
                   <label for="sortProducts">Sort by:</label>
-                  <select class="shop-one__product-sorter" name="sortProducts" id="sortProducts">
+                  <select class="shop-one__product-sorter" name="sortRecommendedProducts" id="sortRecommendedProducts">
                     <option value="priceAsc" selected>Price: Low to High</option>
                     <option value="priceDesc">Price: High to Low</option>
                   </select>
@@ -86,8 +86,8 @@
       <div class="row">
         <div class="col-lg-12 text-center">
           <div class="news-sidebar__btn">
-            <p class="shop-one__product-count" *ngIf="numberOfRecommendedProductsToShow < (recommendedproductsList| filter:searchText)?.length">Showing 1–{{numberOfRecommendedProductsToShow}} of {{(recommendedproductsList| filter:searchText).length}} results</p>
-            <p class="shop-one__product-count" *ngIf="numberOfRecommendedProductsToShow > (recommendedproductsList| filter:searchText)?.length">Showing 1–{{(recommendedproductsList| filter:searchText).length}} of {{(recommendedproductsList| filter:searchText).length}} results</p>
+            <p class="shop-one__product-count" *ngIf="numberOfRecommendedProductsToShow < (recommendedproductsList| filter:searchText)?.length">Showing 1–{{numberOfRecommendedProductsToShow}} of {{(recommendedproductsList| filter:searchText)?.length}} results</p>
+            <p class="shop-one__product-count" *ngIf="numberOfRecommendedProductsToShow > (recommendedproductsList| filter:searchText)?.length">Showing 1–{{(recommendedproductsList| filter:searchText)?.length}} of {{(recommendedproductsList| filter:searchText)?.length}} results</p>
             <a (click)="showMoreProducts()" class="thm-btn">load more</a>
           </div>
         </div><!-- /.col-lg-12 text-center -->
