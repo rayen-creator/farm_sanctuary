@@ -17,6 +17,10 @@ const users = gql`
       image
       two_FactAuth_Option,
       email_change_option
+      badges{
+        name
+        image
+      }
     }
   }
 `;
@@ -42,6 +46,10 @@ const user = gql`
       email_change_option,
       likedPost{
         id
+      },
+      badges{
+        name
+        image
       }
     }
   }

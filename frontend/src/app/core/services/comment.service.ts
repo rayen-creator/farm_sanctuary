@@ -58,15 +58,7 @@ export class CommentService {
           variables: { userId }
         }
       ]
-    }).subscribe({
-      next: (res) => {
-
-      },
-      error: (error) => {
-        throw error;
-
-      }
-    })
+    });
   }
   updateComment(newcomment: Comment, id: any, postId: any) {
     const input = {
