@@ -35,6 +35,7 @@ import { RecommendProductComponent } from './recommend-product/recommend-product
 import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
 import {Ng2SearchPipeModule} from "ng2-search-filter";
 
+import { CropReFormComponent } from './cropRecommandation/crop-re-form/crop-re-form.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import {Ng2SearchPipeModule} from "ng2-search-filter";
     ViewProfileComponent,
     RealtimechatComponent,
     RecommendProductComponent,
-    CategoryRecommendedProductsComponent
+    CategoryRecommendedProductsComponent,
+    CropReFormComponent
   ],
   imports: [
     CommonModule,

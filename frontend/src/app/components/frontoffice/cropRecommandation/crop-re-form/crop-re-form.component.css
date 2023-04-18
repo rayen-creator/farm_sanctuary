@@ -1,0 +1,81 @@
+body{
+    margin-top:60px;
+  margin-bottom: 150px;
+    background: #f6f9fc;
+}
+/* .container {
+    background-color: #34B982;
+} */
+.account-block {
+    padding: 0;
+    background-image: url(~src/assets/images/auth_img/farmer.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    position: relative;
+}
+.account-block .overlay {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.account-block .account-testimonial {
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    bottom: 3rem;
+    left: 0;
+    right: 0;
+}
+
+.text-theme {
+    color: #34B982 !important;
+}
+
+.btn-theme {
+    background-color: #34B982;
+    border-color: #34B982;
+    color: #fff;
+}
+.text-primary{
+    color: #34B982 !important;
+
+}
+.text{
+    color: #0E4F55;
+
+}
+.error-msg {
+  display: block;
+  margin-top: 5px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  font-weight: 400;
+}
+.error-msg {
+  display: block;
+  margin-top: 5px;
+  color: red;
+  font-size: 12px;
+}
+.error-msg2 {
+  display: block;
+  margin-top: 5px;
+  color: red;
+  font-size: 20px;
+}
+
+:host ::ng-deep .iti {
+  width: 100%;
+}
