@@ -58,7 +58,7 @@ import { RealtimechatComponent } from './realtimechat/realtimechat.component';
     MyarticlesComponent,
     CommentComponent,
     ViewProfileComponent,
-    RealtimechatComponent
+    RealtimechatComponent,
   ],
   imports: [
     CommonModule,

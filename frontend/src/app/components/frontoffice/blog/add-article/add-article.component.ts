@@ -2,8 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import Quill from 'quill';
+import { Subscription } from 'rxjs';
+import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { BadgeService } from 'src/app/core/services/badge.service';
 import { PostService } from 'src/app/core/services/post.service';
 import { Customvalidator } from 'src/app/core/utils/custom-validator';
+import jwt_decode from "jwt-decode";
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-article',
@@ -15,8 +22,22 @@ export class AddArticleComponent implements OnInit {
   safeHtml: SafeHtml;
   articleForm:FormGroup;
   selectedFile: File;
-
-  constructor(private sanitizer: DomSanitizer,private fb:FormBuilder,private postService:PostService) { }
+  private tokenSubs: Subscription;
+  decodedToken: DecodedToken;
+  userId: string;
+  constructor(
+    private sanitizer: DomSanitizer,
+    private fb:FormBuilder,
+    private postService:PostService,
+    private badgeService:BadgeService,
+    private toastr: ToastrService,
+    private router: Router,
+    private auth: AuthService) {
+      this.tokenSubs = this.auth.getToken().subscribe((token) => {
+        this.decodedToken = jwt_decode(token) as DecodedToken;
+        this.userId = this.decodedToken.id;
+      });
+     }
 
   ngOnInit(): void { 
     // Initialize the form using FormBuilder
@@ -56,7 +77,18 @@ export class AddArticleComponent implements OnInit {
   }
 
   onFormSubmit(articleForm:any) {
-    this.postService.addPost(articleForm,this.selectedFile);
+    this.postService.addPost(articleForm,this.selectedFile).subscribe({
+      next: () => {
+        this.toastr.success('Post added successfully', 'Success', {
+          progressBar: true
+        }); this.router.navigate(['/myarticles']);
+        this.badgeService.assignBadges(this.userId);
+
+      },
+      error: (error) => {
+        throw error;
+      }
+    });
   }
 
   Valid(controlname: any, articleForm: any) {
