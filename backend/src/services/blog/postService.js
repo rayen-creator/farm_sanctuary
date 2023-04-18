@@ -18,10 +18,15 @@ async function addPost(input, file) {
   return await post.save(post);
 }
 async function getAllpost() {
-  return await Post.find().populate({
-    path: "user",
-    model: "Users",
-  });
+  return await Post.find()
+    .populate({
+      path: "user",
+      model: "Users",
+    })
+    .populate({
+      path: "comments",
+      model: "Comments",
+    });
 }
 
 async function getpostById(id) {
@@ -32,10 +37,15 @@ async function getpostById(id) {
 }
 
 async function getPostsByUser(userId) {
-  return await Post.find({ user: userId }).populate({
-    path: "user",
-    model: "Users",
-  });
+  return await Post.find({ user: userId })
+    .populate({
+      path: "user",
+      model: "Users",
+    })
+    .populate({
+      path: "comments",
+      model: "Comments",
+    });
 }
 
 async function likePost(userId, postId) {
@@ -47,9 +57,12 @@ async function likePost(userId, postId) {
       { _id: postId },
       { $set: { likes: post.likes + 1 } }
     );
-    const assignLikeToUser = await User.updateOne({_id :userId}, {
-      $push: { likedPost: post._id },
-    });
+    const assignLikeToUser = await User.updateOne(
+      { _id: userId },
+      {
+        $push: { likedPost: post._id },
+      }
+    );
     return post;
   }
 }
@@ -61,9 +74,12 @@ async function dislikePost(userId, postId) {
       { _id: postId },
       { $set: { likes: post.likes - 1 } }
     );
-    const assignLikeToUser = await User.updateOne({_id :userId}, {
-      $pull:  { likedPost: post._id },
-    });
+    const assignLikeToUser = await User.updateOne(
+      { _id: userId },
+      {
+        $pull: { likedPost: post._id },
+      }
+    );
     return post;
   }
 }
@@ -102,5 +118,5 @@ module.exports = {
   getpostById,
   getPostsByUser,
   likePost,
-  dislikePost
+  dislikePost,
 };
