@@ -24,7 +24,7 @@ import { FeedbackListComponent } from './Feedbacks/feedback-list/feedback-list.c
     DeliveryAgentComponent,
     AdminDashboardComponent,
     DeliveryAgentEditComponent,
-    FeedbackListComponent
+    FeedbackListComponent,
   ],
   imports: [
     CommonModule,

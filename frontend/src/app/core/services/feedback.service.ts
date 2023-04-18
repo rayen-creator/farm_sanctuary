@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -7,8 +7,8 @@ import Swal from 'sweetalert2';
 import { AuthService } from './auth.service';
 import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
 import jwt_decode from "jwt-decode";
-import { createFeedback, getFeedbackPerUser , feedbacks} from '../graphql/queries/graphql.queries.feedback';
-import { map } from 'rxjs/operators';
+import { createFeedback, getFeedbackPerUser , feedbacks, deleteFeedback} from '../graphql/queries/graphql.queries.feedback';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -90,12 +90,24 @@ export class FeedbackService {
         return feedbacks as Feedback[];
       }))
   }
-
-   getFeedbacks() {
-    return this.apollo.watchQuery({
-      query: feedbacks
-    }).valueChanges;
+  getFeedbacks(): Observable<Feedback[]> {
+    // @ts-ignore
+    return this.appolo
+      .watchQuery({
+        query: feedbacks,
+      }).valueChanges.pipe(
+        // @ts-ignore
+        map((res) => res.data.getFeedbacks as Feedback[]),
+        catchError((err) => {
+          console.log(err);
+          return of([]);
+        })
+      );
   }
+
+  
+
+  
 
 
 

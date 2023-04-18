@@ -16,6 +16,11 @@ async function  getFiveStarFeedbacks() {
   return Feedback.find({ rating: 5 });
 }
 
+async function  getOneStarFeedbacks() {
+  return Feedback.find({ rating: 1 });
+}
+
+
 
 
 async function createFeedback(input) {
@@ -43,8 +48,19 @@ async function updateFeedback(id, input) {
     category:input.category,
   };
 
+
   return await Feedback.findByIdAndUpdate(id, updatedFeedback, { new: true });
 }
+
+
+async function deleteFeedback(id) {
+  const feedback = await Feedback.findById({ _id: id });
+  if (!feedback) {
+      return null;
+  }
+  return await feedback.remove();
+}
+
 
 
 
@@ -55,5 +71,7 @@ module.exports = {
   getFeedbacks,
   createFeedback,
   getFeedbackPerUser,
-  getFiveStarFeedbacks
+  getFiveStarFeedbacks, 
+  getOneStarFeedbacks, 
+  deleteFeedback
 };

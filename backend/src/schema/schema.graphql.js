@@ -43,6 +43,8 @@ const typeDefs = gql`
     category: Category!
     rating: Int
     createdAt:DateTime
+    user: User
+
   }
 
   input FeedbackInput {
@@ -338,6 +340,8 @@ const typeDefs = gql`
     getProduct(id: ID!): Product!
     getProductsByUser(userId: ID!): [Product!]!
     getFiveStarFeedbacks: [Feedback!]!
+    getOneStarFeedbacks: [Feedback!]!
+
 
 
 
@@ -373,6 +377,7 @@ const typeDefs = gql`
     updateLocation(input: AgentLocationInput!): deliveryAgent!
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!): loginDriverResponse!
+    deleteFeedback(id: ID!): Feedback
 
     createFeedback(input: FeedbackInput!): Feedback! 
     

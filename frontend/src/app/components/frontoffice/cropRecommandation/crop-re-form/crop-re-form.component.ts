@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PredictionService } from 'src/app/core/services/prediction.service';
 
@@ -19,13 +19,13 @@ export class CropReFormComponent implements OnInit {
     constructor(private predictionService: PredictionService, private fb : FormBuilder) {}
     ngOnInit(): void {
       this.myForm = this.fb.group({
-        N: ['', Validators.required],
-        P: ['', Validators.required],
-        K: ['', Validators.required],
-        temperature: ['', Validators.required],
-        humidity: ['', Validators.required],
-        ph: ['', Validators.required],
-        rainfall: ['', Validators.required]
+      N: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]+$/)]),
+      P: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]+$/)]),
+      K: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]+$/)]),
+      temperature: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)]),
+      humidity: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)]),
+      ph: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)]),
+      rainfall: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)])
       });
     }
     
