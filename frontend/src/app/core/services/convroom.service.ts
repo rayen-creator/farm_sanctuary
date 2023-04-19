@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment';
 })
 export class ConvroomService {
   private socket: Socket;
-  API_URL=environment.CHAT_APP_URL
 
   constructor(private http: HttpClient) {
     // Connect to Socket.io server

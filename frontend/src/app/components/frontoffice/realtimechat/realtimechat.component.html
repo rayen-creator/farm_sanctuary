@@ -77,8 +77,8 @@
                 <div class="chat">
                   
                   <li class="clearfix" *ngFor="let message of  myobj ">
-                    <div [ngClass]="{'message other-message float-right':   message.key === 'user2',
-              'message my-message':   message.key === 'user1'     }">{{message.value}}
+                    <div [ngClass]="{'message other-message float-right':   message.key === 'user1',
+              'message my-message':   message.key === 'user2'     }">{{message.value}}
                     </div>
                   </li>
                 </div>

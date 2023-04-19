@@ -139,6 +139,7 @@ export class RealtimechatComponent implements OnInit {
       next: (response:any) => {
        
         if (response.room == null) {
+          
         } else {
         this.convrname = response.room;
        

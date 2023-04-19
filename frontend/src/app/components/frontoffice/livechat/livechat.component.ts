@@ -139,15 +139,18 @@ export class LivechatComponent implements OnInit {
       next: (response:any) => {
        
         if (response.room == null) {
+          console.log("room doesnt exist",response.room)
         } else {
         this.convrname = response.room;
-       
+        console.log("convrname1", this.convrname)
         }
       }, error: (err) => {
         throw err;
       }
     });
     this.message.ConvName = this.convrname;
+    console.log("message convrname",  this.message)
+
     this.message.UserM1 = this.userId;
     this.message.UserM2 = this.id;
     this.message.messageUser1 = this.messageContent;
