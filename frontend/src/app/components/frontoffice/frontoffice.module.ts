@@ -69,7 +69,7 @@ import { LivechatComponent } from './livechat/livechat.component';
     RealtimechatComponent,
     RecommendProductComponent,
     CategoryRecommendedProductsComponent,
-    CropReFormComponent,,
+    CropReFormComponent,
     ConversationRoomComponent,
     ConversationSidebarComponent,
     LivechatComponent
