@@ -28,7 +28,7 @@ createBadges = async (req, res, next) => {
   const badges = [
     {
       name: "discussion dynamo",
-      description: "For users whose posts have received at least 50 comments",
+      description: "For users whose posts have received at least 6 comments",
       image: discussion_dynamo,
 
       createdAt: new Date(),
@@ -36,14 +36,14 @@ createBadges = async (req, res, next) => {
     {
       name: "garden guru",
       description:
-        "For users who have received a total of 200 likes on their articles",
+        "For users who have received a total of 2 likes on their articles",
       image: garden_guru,
       createdAt: new Date(),
     },
     {
       name: "green thumb",
       description:
-        "For users who have received a total of 50 likes on their articles.",
+        "For users who have received a total of 4 likes on their articles.",
       image: green_thumb,
 
       createdAt: new Date(),
@@ -51,7 +51,7 @@ createBadges = async (req, res, next) => {
     {
       name: "harvest master",
       description:
-        "For users who have posted at least 20 articles on your blog.",
+        "For users who have posted at least 5 articles on your blog.",
       image: harvest_master,
 
       createdAt: new Date(),
@@ -59,7 +59,7 @@ createBadges = async (req, res, next) => {
     {
       name: "seed sower",
       description:
-        "For users who have posted at least 5 articles on your blog.",
+        "For users who have posted at least 2 articles on your blog.",
       image: seed_sower,
 
       createdAt: new Date(),
