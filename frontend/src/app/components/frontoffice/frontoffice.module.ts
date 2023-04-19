@@ -31,6 +31,11 @@ import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
 import { CommentComponent } from './blog/comment/comment.component';
 import { ViewProfileComponent } from './blog/view-profile/view-profile.component';
 import { RealtimechatComponent } from './realtimechat/realtimechat.component';
+import { RecommendProductComponent } from './recommend-product/recommend-product.component';
+import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
+import {Ng2SearchPipeModule} from "ng2-search-filter";
+
+import { CropReFormComponent } from './cropRecommandation/crop-re-form/crop-re-form.component';
 
 
 @NgModule({
@@ -59,6 +64,9 @@ import { RealtimechatComponent } from './realtimechat/realtimechat.component';
     CommentComponent,
     ViewProfileComponent,
     RealtimechatComponent,
+    RecommendProductComponent,
+    CategoryRecommendedProductsComponent,
+    CropReFormComponent,
   ],
   imports: [
     CommonModule,
@@ -68,7 +76,8 @@ import { RealtimechatComponent } from './realtimechat/realtimechat.component';
     UiSwitchModule,
     GoogleSigninButtonModule,
     Ng2TelInputModule,
-    QuillModule
+    QuillModule,
+    Ng2SearchPipeModule
   ]
 })
 export class FrontofficeModule { }

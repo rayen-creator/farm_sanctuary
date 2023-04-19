@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  API_URL:"http://localhost:3000/graphql"
+  API_URL:"http://localhost:3000/graphql",
+  flask : 'http://127.0.0.1:5000'
+
+  
 };
 
 

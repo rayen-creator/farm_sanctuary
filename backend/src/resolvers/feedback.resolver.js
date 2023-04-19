@@ -35,6 +35,13 @@ const feedbackResolver = {
       }catch(error){
         throw new UserInputError(error.message);
       }
+    },
+    async getOneStarFeedbacks(){
+      try{
+        return await feedbackService.getOneStarFeedbacks();
+      }catch(error){
+        throw new UserInputError(error.message);
+      }
     }
 
   },
@@ -47,6 +54,17 @@ const feedbackResolver = {
         throw new UserInputError(error.message);
       }
     },
+    async deleteFeedback(_, { id }) {
+      try {
+          const feedback = await feedbackService.deleteFeedback(id);
+          if (!feedback) {
+              throw new UserInputError('feedback not found');
+          }
+          return feedback
+      } catch (error) {
+          throw new UserInputError(error.message);
+      }
+  },
   },
 };
 

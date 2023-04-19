@@ -26,7 +26,7 @@ import { AvailableBadgesComponent } from './dashboard/available-badges/available
     AdminDashboardComponent,
     DeliveryAgentEditComponent,
     FeedbackListComponent,
-    AvailableBadgesComponent
+    AvailableBadgesComponent,
   ],
   imports: [
     CommonModule,
