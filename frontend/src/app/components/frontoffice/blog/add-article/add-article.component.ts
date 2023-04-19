@@ -79,6 +79,7 @@ export class AddArticleComponent implements OnInit {
   onFormSubmit(articleForm:any) {
     this.postService.addPost(articleForm,this.selectedFile).subscribe({
       next: () => {
+        console.log("wtf");
         this.toastr.success('Post added successfully', 'Success', {
           progressBar: true
         }); this.router.navigate(['/myarticles']);
