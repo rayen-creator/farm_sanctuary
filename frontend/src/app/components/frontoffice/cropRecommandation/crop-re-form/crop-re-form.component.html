@@ -10,7 +10,11 @@
                     <div class="account-testimonial">
                       <h4 class="text-white mb-4">
                         This crop recommendation model 
-                      </h4>
+                        <button class="text-danger"(click)="downloadPdfFile()">Download Our guide for more</button>
+
+                      </h4> 
+
+              
                       <p class="lead text-white">
                         helps you choose the best seed to Grow in your farm.
                       </p>
@@ -35,7 +39,9 @@
                               <span class="error" *ngIf="myForm.controls.N.errors?.required">N is required.</span>
                               <span class="error" *ngIf="myForm.controls.N.errors?.pattern">N must be an Integer.</span>
                               </span>
-                            </div>
+                          </div>
+                        
+                          
                           
                           <div class="form-group">
                             <label for="P">P:</label>
@@ -51,7 +57,7 @@
                             <input type="number" formControlName="K" name="K" class="form-control" step="1" required>
                             <span class="text-danger error-msg" *ngIf="myForm.controls.K.invalid && (myForm.controls.K.dirty || myForm.controls.K.touched)">
                               <span class="error" *ngIf="myForm.controls.K.errors?.required">K is required.</span>
-                              <span class="error" *ngIf="myForm.controls.K.errors?.pattern">K must be a Float or Int  for example: 8.5 or 8</span>
+                              <span class="error" *ngIf="myForm.controls.K.errors?.pattern">K must be a number.</span>
                             </span>
                           </div>
                           
@@ -60,7 +66,7 @@
                             <input type="number" formControlName="temperature" name="temperature" class="form-control" step="0.1" required>
                             <span class="text-danger error-msg" *ngIf="myForm.controls.temperature.invalid && (myForm.controls.temperature.dirty || myForm.controls.temperature.touched)">
                               <span class="error" *ngIf="myForm.controls.temperature.errors?.required">Temperature is required.</span>
-                              <span class="error" *ngIf="myForm.controls.temperature.errors?.pattern">Temperature must be Float or Int  for example: 8.5 or 8</span>
+                              <span class="error" *ngIf="myForm.controls.temperature.errors?.pattern">Temperature must be a number.</span>
                             </span>
                           </div>
                           
@@ -69,7 +75,7 @@
                             <input type="number" formControlName="humidity" name="humidity" class="form-control" step="0.1" required>
                             <span class="text-danger error-msg" *ngIf="myForm.controls.humidity.invalid && (myForm.controls.humidity.dirty || myForm.controls.humidity.touched)">
                               <span class="error" *ngIf="myForm.controls.humidity.errors?.required">Humidity is required.</span>
-                              <span class="error" *ngIf="myForm.controls.humidity.errors?.pattern">Humidity Float or Int  for example: 8.5 or 8</span>
+                              <span class="error" *ngIf="myForm.controls.humidity.errors?.pattern">Humidity must be a number.</span>
                             </span>
                           </div>
                           <div class="form-group">
@@ -77,7 +83,7 @@
                             <input type="number" formControlName="ph" name="ph" class="form-control" step="0.1" required>
                             <span class="text-danger error-msg" *ngIf="myForm.controls.ph.invalid && (myForm.controls.ph.dirty || myForm.controls.ph.touched)">
                               <span class="error" *ngIf="myForm.controls.ph.errors?.required">pH is required.</span>
-                              <span class="error" *ngIf="myForm.controls.ph.errors?.pattern">pH must be a Float or Int  for example: 8.5 or 8</span>
+                              <span class="error" *ngIf="myForm.controls.ph.errors?.pattern">pH must be a number.</span>
                             </span>
                           </div>
                           
@@ -87,7 +93,7 @@
                             <input type="number" formControlName="rainfall" name="rainfall" class="form-control" step="0.1" required>
                             <span class="text-danger error-msg" *ngIf="myForm.controls.rainfall.invalid && (myForm.controls.rainfall.dirty || myForm.controls.rainfall.touched)">
                               <span class="error" *ngIf="myForm.controls.rainfall.errors?.required">Rainfall is required.</span>
-                              <span class="error" *ngIf="myForm.controls.rainfall.errors?.pattern">Rainfall must be a Float or Int  for example: 8.5 or 8</span>
+                              <span class="error" *ngIf="myForm.controls.rainfall.errors?.pattern">Rainfall must be a number.</span>
                             </span>
                           </div>
                           
