@@ -89,19 +89,66 @@
           />
         </div>
         <hr />
+        <span *ngIf="user.badges.length > 0">
+          <h4>Achievement ( {{ user.badges.length }} )</h4>
 
-        <h4>Achievement ( {{user.badges.length}} )</h4>
-        <div class="d-flex" >
-          <span *ngFor="let b of user.badges">
-            <img src="data:image/png;base64,{{b.image}}" id="badge" />
+          <div class="d-flex">
+            <span *ngFor="let b of user.badges">
+              <button
+                type="submit"
+                (click)="getBadgeByid(b.id)"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                <img src="data:image/png;base64,{{ b.image }}" id="badge" />
+              </button>
+              <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        {{ badge.name }}
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col">
+                          <img src="data:image/png;base64,{{ badge.image }}" id="badge" />
 
-          </span>
-
-          <!-- <img src="assets/badges/discussion_dynamo.png" id="badge" /> -->
-          <!-- <img src="assets/badges/garden_guru.png" id="badge" />
-          <img src="assets/badges/green_thumb.png" id="badge" />
-          <img src="assets/badges/harvest_master.png" id="badge" /> -->
-        </div>
+                        </div>
+                        <div class="col">
+                          <p>{{ badge.description }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                     
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </span>
+          </div>
+        </span>
       </div>
     </div>
   </div>
