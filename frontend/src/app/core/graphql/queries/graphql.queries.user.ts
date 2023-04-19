@@ -48,8 +48,10 @@ const user = gql`
         id
       },
       badges{
+        id
         name
         image
+        description
       }
     }
   }

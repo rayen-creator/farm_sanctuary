@@ -1,9 +1,11 @@
 import { Apollo } from 'apollo-angular';
-import { assignBadges, getAllbadges } from './../graphql/queries/badge.graphql.queries';
+import { assignBadges, getAllbadges, getBadgeById } from './../graphql/queries/badge.graphql.queries';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { Badge } from '../models/badge';
 import { ToastrService } from 'ngx-toastr';
+import { query } from '@angular/animations';
+import { user } from '../graphql/queries/graphql.queries.user';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +27,15 @@ export class BadgeService {
     )
   }
   assignBadges(userId: string) {
+    const id=userId;
     return this.apollo.mutate({
       mutation: assignBadges,
-      variables: { userId: userId }
+      variables: { userId: userId }, refetchQueries: [
+        {
+          query: user,
+          variables: { id:id }
+        }
+      ]
     }).subscribe({
       next: (res: any) => {
         console.log("result", res);
@@ -35,7 +43,7 @@ export class BadgeService {
         const result = res.data.assignBadges;
         const badgeName = result.name;
         const badgeImg = `<img class="badge-img" src="data:image/png;base64,${result.image}">`;
-        const toastContent = badgeImg + '<span class="title_toast"> new achievement unlocked !</span>'; 
+        const toastContent = badgeImg + '<span class="title_toast"> new achievement unlocked !</span>';
 
         if (badgeName) {
           this.toastr.show(toastContent, badgeName, {
@@ -48,5 +56,17 @@ export class BadgeService {
 
       }
     })
+  }
+
+  getBadgeById(id:any) {
+    return this.apollo.watchQuery({
+      query: getBadgeById,
+      variables: { id: id }
+    }).valueChanges.pipe(
+      map((res: any) => {
+        const badge = res.data.getBadgeById as Badge;
+        return badge;
+      })
+    )
   }
 }
