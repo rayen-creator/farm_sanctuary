@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './auth.service';
-import { addPost, deletePost, getAllPost, getPostsByUser, getpostById, likePost } from '../graphql/queries/post.queries';
+import { addPost, deletePost, dislikePost, getAllPost, getPostsByUser, getpostById, likePost, modifyPost } from '../graphql/queries/post.queries';
 import { Subscription, map } from 'rxjs';
 import { Post } from '../models/post';
 import { DecodedToken } from '../graphql/graphqlResponse/decodedToken';
 import jwt_decode from "jwt-decode";
+import { user } from '../graphql/queries/graphql.queries.user';
 
 @Injectable({
   providedIn: 'root'
@@ -28,13 +29,13 @@ export class PostService {
   }
 
   addPost(post: Post, selectedFile: File) {
-
+    const userId = this.userId;
     const input = {
       image: post.image,
       title: post.title,
       text: post.text,
       topic: post.topic,
-      user: this.userId,
+      user: userId,
     }
     return this.apollo.mutate({
       mutation: addPost,
@@ -44,20 +45,19 @@ export class PostService {
       }, refetchQueries: [
         {
           query: getAllPost
+        },
+        {
+          query: user,
+          variables: { userId }
+        },
+        {
+          query: getPostsByUser,
+          variables: { userId }
         }
       ], context: {
         useMultipart: true
       }
-    }).subscribe({
-      next: () => {
-        this.toastr.success('Post added successfully', 'Success', {
-          progressBar: true
-        }); this.router.navigate(['/myarticles']);
-      },
-      error: (error) => {
-        throw error;
-      }
-    })
+    });
   }
 
   getAllposts() {
@@ -71,7 +71,7 @@ export class PostService {
     )
   }
 
-  getPostperUser(userId:any) {
+  getPostperUser(userId: any) {
     // const userId = this.userId;
     return this.apollo.watchQuery({
       query: getPostsByUser,
@@ -91,35 +91,75 @@ export class PostService {
     }).valueChanges.pipe(
       map((res: any) => {
         const posts = res.data.getpostById;
-        console.log("ss",res.data);
         return posts as Post;
       })
     )
   }
 
-  updatePost() {
-
-  }
-  addLikeToPost(postId:any){
-    const userId=this.userId;
+  updatePost(id: any, post: Post, selectedFile: File) {
     return this.apollo.mutate({
-      mutation:likePost,
-      variables:{
-        userId:userId,
-        postId:postId
-      },refetchQueries: [
+      mutation: modifyPost,
+      variables: { id, post, selectedFile },
+      refetchQueries: [
+        {
+          query: getpostById,
+          variables: { id }
+        },
         {
           query: getAllPost
+        },
+        {
+          query: getPostsByUser,
+          variables: { userId: this.userId }
         }
       ]
     }).subscribe({
       next: () => {
-
-      },
-      error:()=>{
-        
+        this.toastr.success('Post updated successfully', 'Success', {
+          progressBar: true
+        }); this.router.navigate(['/myarticles']);
+      }, error: (err) => {
+        throw err;
       }
     })
+  }
+  addLikeToPost(postId: any) {
+    const userId = this.userId;
+    const id = userId;
+    return this.apollo.mutate({
+      mutation: likePost,
+      variables: {
+        userId: userId,
+        postId: postId
+      }, refetchQueries: [
+        {
+          query: getAllPost
+        },
+        {
+          query: user,
+          variables: { id: id }
+        }
+      ]
+    });
+  }
+  dislikePost(postId: any) {
+    const userId = this.userId;
+    const id = userId;
+    return this.apollo.mutate({
+      mutation: dislikePost,
+      variables: {
+        userId: userId,
+        postId: postId
+      }, refetchQueries: [
+        {
+          query: getAllPost
+        },
+        {
+          query: user,
+          variables: { id }
+        }
+      ]
+    });
   }
 
   deletePost(id: any) {
@@ -130,7 +170,11 @@ export class PostService {
       variables: { id }, refetchQueries: [
         { query: getpostById, variables: { userId } },
         { query: getAllPost },
-        { query: getPostsByUser, variables: { userId } }
+        { query: getPostsByUser, variables: { userId } },
+        {
+          query: user,
+          variables: { userId }
+        }
       ]
     }).subscribe({
       next: () => {

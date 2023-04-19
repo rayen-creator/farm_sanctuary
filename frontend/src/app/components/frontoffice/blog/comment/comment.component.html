@@ -15,7 +15,7 @@
                 <button class="thm-btn mx-1" *ngIf="!isEditmode && comment.user.id==userId" (click)="editcomment(comment.id)" >Edit</button>
 
                 <button class="thm-btn mx-1" *ngIf="isEditmode" (click)="cancelEdit()" >Cancel</button>
-               <button class="thm-btn danger" *ngIf="comment.user.id==userId " (click)="deleteComment(comment.id)">Delete</button>
+               <button class="thm-btn danger" *ngIf="comment.user.id==userId " (click)="deleteComment(comment.id,comment.user.id)">Delete</button>
         
           </div>
         </div>

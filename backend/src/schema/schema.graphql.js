@@ -41,6 +41,15 @@ const typeDefs = gql`
     ranching
   }
 
+  type Badge{
+    id:ID
+    image: String
+    name: String
+    description:String
+    createdAt: DateTime
+    updatedAt:DateTime
+  }
+
   type Comment {
     id: ID!
     content: String
@@ -69,8 +78,10 @@ const typeDefs = gql`
     subject: String!
     content: String!
     category: Category!
-    rating: Int!
-    createdAt: DateTime
+    rating: Int
+    createdAt:DateTime
+    user: User
+
   }
 
   input FeedbackInput {
@@ -104,6 +115,7 @@ const typeDefs = gql`
     location: String
     email_change_option: Boolean
     likedPost:[Post]
+    badges:[Badge]
   }
 
   type Product {
@@ -195,6 +207,25 @@ const typeDefs = gql`
     password: String!
   }
 
+
+  type RecommendedProduct {
+    id: ID!
+    title: String!
+    price: Float!
+    image: String!
+    url: String!
+    category: String!
+  }
+
+  enum recommendedproductCategory {
+    Inputs
+    Workshop
+    Tyres
+  }
+  
+  
+  
+
   input signinInput {
     email: String!
     password: String!
@@ -272,29 +303,25 @@ const typeDefs = gql`
   }
 
   type RecommendedProduct {
-    title: String
-    price: String
-    imageUrl: String
-    url: String
-    rating: String
-  }
-
-  type FarmProd {
-    title: String
-    price: Float
-    image: String
-    description: String
-    rating: Int
-    recommendedProducts: [RecommendedProduct]
-  }
-
-  input ProductInput {
+    id: ID!
     title: String!
     price: Float!
     image: String!
-    description: String!
-    rating: Float!
+    url: String!
+    category: String!
   }
+
+  enum recommendedproductCategory {
+    Inputs
+    Workshop
+    Tyres
+  }
+
+  
+
+
+  
+
 
   type UpdatepwdResponse {
     message: String!
@@ -358,6 +385,13 @@ const typeDefs = gql`
       reviewExist: Boolean!
       message: String!
   }
+
+  type badgeResponse{
+    name:String
+    image:String
+    description:String
+  }
+
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -373,12 +407,17 @@ const typeDefs = gql`
     getProducts: [Product!]!
     getProduct(id: ID!): Product!
     getProductsByUser(userId: ID!): [Product!]!
+
     getProductsByCategory(category: productCategory!): [Product!]!
-    
+        getOneStarFeedbacks: [Feedback!]!
+
+
     
    
     
-    getRecommendedProductById(asin: String!): RecommendedProduct!
+    products(url: String!): [RecommendedProduct!]!
+    getRecommendedProducts: [RecommendedProduct!]!
+    getRecommendedProductsByCategory(category: recommendedproductCategory!): [RecommendedProduct!]!
     getFarmProducts: [Product!]!
 
     getAllPost: [Post!]!
@@ -388,6 +427,10 @@ const typeDefs = gql`
     getAllComment(postId: ID!): [Comment!]!
     getCommentById(id: ID!): Comment!
     getCommentPerUser(userId:ID!):[Comment!]!
+
+    getAllbadges:[Badge!]!
+
+    getBadgeById(id:ID!):Badge!
   }
 
   type Mutation {
@@ -416,10 +459,10 @@ const typeDefs = gql`
     updateLocation(input: AgentLocationInput!): deliveryAgent!
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!): loginDriverResponse!
+    deleteFeedback(id: ID!): Feedback
 
     createFeedback(input: FeedbackInput!): Feedback!
 
-    createFarmProd(input: ProductInput!): Product!
 
     createProduct(
       input: CreateProductInput!
@@ -438,13 +481,16 @@ const typeDefs = gql`
     ): addReviewResponse!
 
     addPost(input: postInput!, file: Upload): Post
-    modifyPost(id: ID!, input: postInput!): Post
+    modifyPost(id: ID!, input: postInput!,file: Upload): Post
     deletePost(id: ID!): Post
     likePost(userId:ID!, postId:ID!):Post
+    dislikePost(userId:ID!, postId:ID!):Post
 
     addComment(input: commentInput, postId: ID!, userId: ID!): Comment!
     modifyComment(id: ID!, input: commentInput!): Comment!
     deleteComment(id: ID!): Comment!
+
+    assignBadges(userId:ID!):badgeResponse!
   }
 
   input CreateProductInput {

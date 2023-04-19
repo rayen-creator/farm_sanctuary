@@ -40,15 +40,15 @@
 							<div class="testimonials-one__single-client-info">
 								<div class="testimonials-one__single-client-info-img">
 									<div class="testimonials-one__single-client-info-img-inner">
-										<img src="assets/images/testimonial/testimonials-v1-img1.jpg" alt="" />
+										<img src="{{feedback.user.image}}" alt="" style="width: 100px;height: 100px;"/>
 									</div>
 									<div class="icon">
 										<span class="icon-right-quotation-mark"></span>
 									</div>
 								</div>
 								<div class="testimonials-one__single-client-info-title">
-									<h4>{{feedback.subject}}</h4>
-									<p>{{feedback.category}}</p>
+									<h4>{{feedback.user.username}}</h4>
+									<p>{{feedback.user.role}}</p>
                                     <div class="stars">
                                         <span *ngFor="let star of getStarsArray(feedback.rating)">
                                           <i class="fa fa-star" [ngClass]="{'checked': star === 1}"></i>

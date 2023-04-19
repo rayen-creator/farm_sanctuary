@@ -21,10 +21,15 @@ import { DetailBlogComponent } from './blog/detail-blog/detail-blog.component';
 import { LatestnewsComponent } from './blog/latestnews/latestnews.component';
 import { FeedbackListPerUserComponent } from './feedbacks/feedback-list-per-user/feedback-list-per-user.component';
 import { AddArticleComponent } from './blog/add-article/add-article.component';
+import { CropReFormComponent } from './cropRecommandation/crop-re-form/crop-re-form.component';
+
 import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
 import { AuthGuard } from 'src/app/core/helpers/auth.guard';
 import { roles } from 'src/app/core/models/role';
 import { RealtimechatComponent } from './realtimechat/realtimechat.component';
+import { RecommendProductComponent } from './recommend-product/recommend-product.component';
+import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
+
 import {  ConversationRoomComponent} from './conversation-room/conversation-room.component';
 import { LivechatComponent } from './livechat/livechat.component';
 
@@ -50,11 +55,18 @@ const routes: Routes = [
       { path: 'detailnews/:id', component: DetailBlogComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
       { path: 'marketplace', loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) },
       { path: 'feedbacklist', component: FeedbackListPerUserComponent },
-      { path: 'addarticle', component: AddArticleComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
-      { path: 'testimonials', component: TestimonialsComponent },
+      { path: 'addarticle', component: AddArticleComponent },
+      { path: 'testimonials', component: TestimonialsComponent},
       { path: 'myarticles', component: MyarticlesComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
       { path: 'viewprofile/:id', component: ViewProfileComponent },
+      { path: 'myprofile/:id', component: ViewProfileComponent },
       { path: 'Messages/:id', component: RealtimechatComponent },
+      { path: 'recommendedproducts', component: RecommendProductComponent},
+      { path: 'recommendedproducts/:category', component: CategoryRecommendedProductsComponent },
+      { path: 'croprecommendation', component: CropReFormComponent }
+
+
+,
       { path: 'Messages', component: ConversationRoomComponent },
       { path: 'chat/:id', component: LivechatComponent }
     ]

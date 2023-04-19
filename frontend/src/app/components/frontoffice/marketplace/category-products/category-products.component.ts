@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component} from '@angular/core';
 import {Product} from "../../../../core/models/product";
 import {ProductService} from "../../../../core/services/product.service";
-import {ActivatedRoute, Router} from "@angular/router";
-
+import {ActivatedRoute} from "@angular/router";
+import {CartService} from "../../../../core/services/cart.service";
+import {ToastrService} from "ngx-toastr";
 @Component({
   selector: 'app-category-products',
   templateUrl: './category-products.component.html',
   styleUrls: ['./category-products.component.css']
 })
-export class CategoryProductsComponent implements OnInit {
+export class CategoryProductsComponent implements AfterContentInit {
   public categoryProductsList: Product[];
   public visibleProducts: Product[];
   public numberOfProductsToShow = 9;
 
   searchText: any;
    category: any;
-  constructor(private productService: ProductService,private currentRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
+  constructor(private productService: ProductService,private currentRoute: ActivatedRoute,  private cartService: CartService, private toastr: ToastrService) { }
+
+  ngAfterContentInit(): void {
     this.category = this.currentRoute.snapshot.params['category'];
     this.getAllCategoryProducts();
     this.setupSorting();
@@ -29,6 +31,7 @@ export class CategoryProductsComponent implements OnInit {
         console.log(this.categoryProductsList);
         this.sortByPopularity();
         this.visibleProducts = this.categoryProductsList.slice(0, this.numberOfProductsToShow);
+
       },
       error: (err) => {
         console.log(err);
@@ -51,7 +54,8 @@ export class CategoryProductsComponent implements OnInit {
   }
 
   setupSorting() {
-    const selectElement = document.getElementById('sortProducts') as HTMLSelectElement;
+    const selectElement = document.getElementById('sortCatProducts') as HTMLSelectElement;
+    console.log(selectElement)
     selectElement.addEventListener('change', () => {
       const sortCriteria = selectElement.value;
       if (sortCriteria === 'priceAsc') {
@@ -83,5 +87,10 @@ export class CategoryProductsComponent implements OnInit {
       sortedProducts.sort((a, b) => b.rating.count - a.rating.count);
       this.categoryProductsList = sortedProducts;
     }
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    this.toastr.success('Product added to cart', 'success');
   }
 }

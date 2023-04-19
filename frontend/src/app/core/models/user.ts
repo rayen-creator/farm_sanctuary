@@ -1,6 +1,7 @@
 import { roles } from './role';
 import { genders } from './gender';
 import { Post } from './post';
+import { Badge } from './badge';
 
 export type User = {
   id: string;
@@ -19,4 +20,5 @@ export type User = {
   two_FactAuth_Option:boolean;
   email_change_option: boolean;
   likedPost:Post[];
+  badges:Badge[];
 };

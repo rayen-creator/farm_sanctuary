@@ -1,4 +1,3 @@
-import { ContactComponent } from './../../../components/frontoffice/shared/contact/contact.component';
 import { gql } from "apollo-angular";
 
 export const getAllComment = gql`

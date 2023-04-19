@@ -52,17 +52,13 @@ export class CommentService {
         {
           query: getpostById,
           variables: { postId: postId }
+        },
+        {
+          query: getCommentPerUser,
+          variables: { userId }
         }
       ]
-    }).subscribe({
-      next: (res) => {
-
-      },
-      error: (error) => {
-        throw error;
-
-      }
-    })
+    });
   }
   updateComment(newcomment: Comment, id: any, postId: any) {
     const input = {
@@ -81,7 +77,7 @@ export class CommentService {
       ]
     });
   }
-  deleteComment(id: any, postId: any) {
+  deleteComment(id: any, postId: any, userId: any) {
     return this.apollo.mutate({
       mutation: deleteComment,
       variables: { id },
@@ -96,6 +92,9 @@ export class CommentService {
         {
           query: getpostById,
           variables: { postId: postId }
+        }, {
+          query: getCommentPerUser,
+          variables: { userId }
         }
       ]
     }).subscribe({

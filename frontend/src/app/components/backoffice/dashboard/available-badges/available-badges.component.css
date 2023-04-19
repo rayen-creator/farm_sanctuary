@@ -1,0 +1,57 @@
+.cards .card {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #299B63;
+}
+.desc {
+    font-size: 13px;
+    /* font-weight: 500; */
+    /* color: #299B63; */
+}
+.badge {
+    /* border-radius: 50%; */
+    /* background-color: #f8f8f8; */
+    /* border: solid 1px #b1aeae;  */
+    /* margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px; */
+    height: 240px;
+    width: 240px;
+    overflow: hidden; /* Ensure that any image exceeding the container size is hidden */
+
+  }
+
+  
+  .badge img {
+    width: 100%; /* Ensure that the image fills the entire container width */
+    height: 100%; /* Ensure that the image fills the entire container height */
+    object-fit: cover; /* Ensure that the image is scaled to cover the entire container */
+    object-position: center center; /* Position the image at the center of the container */
+  }
+
+
+.card-name {
+    color: #888;
+    font-weight: 400;
+}
+
+.cards {
+    width: auto;
+    padding: 35px 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+}

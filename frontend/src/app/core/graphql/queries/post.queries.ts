@@ -85,8 +85,8 @@ mutation addPost($input:postInput!,$file: Upload) {
 } `;
 
 export const modifyPost = gql`
-mutation modifyPost($id:ID!,$input:postInput!) {
-    modifyPost(id:$id,input:$input) {
+mutation modifyPost($id:ID!,$input:postInput!,$file: Upload) {
+    modifyPost(id:$id,input:$input,file: $file) {
         image
         title
         text
@@ -115,6 +115,19 @@ mutation deletePost($id:ID!) {
 export const likePost = gql`
 mutation likePost($userId:ID!, $postId:ID!) {
     likePost(userId:$userId,postId:$postId) {
+        image
+        title
+        text
+        likes
+        topic
+        createdAt
+        updatedAt
+      
+  }
+} `;
+export const dislikePost = gql`
+mutation dislikePost($userId:ID!, $postId:ID!) {
+    dislikePost(userId:$userId,postId:$postId) {
         image
         title
         text

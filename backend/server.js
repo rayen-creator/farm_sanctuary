@@ -16,16 +16,14 @@ const agentResolver = require("./src/resolvers/deliveryAgent.resolver");
 const productResolver = require("./src/resolvers/product.resolver");
 const feedbackResolver = require("./src/resolvers/feedback.resolver");
 const { GraphQLUpload, graphqlUploadExpress } = require("graphql-upload");
-const reProdresolvers = require("./src/resolvers/recProduct.resolver");
+const recommendedproductresolvers = require("./src/resolvers/RecommendedProduct.resolver");
 const postResolver = require("./src/resolvers/post.resolver");
 const commentResolver = require("./src/resolvers/comment.resolver");
+const createBadgesMiddleware = require("./src/middleware/initilize_badges");
+const badgeResolver=require("./src/resolvers/badge.resolver");
+
 
 app.use(morgan("dev"));
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-// parse application/json
-app.use(bodyParser.json());
 
 app.use(
   cors({
@@ -33,8 +31,14 @@ app.use(
   })
 );
 
-// Add the middleware function to the middleware stack
-// app.use(verifyToken());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+// parse application/json
+app.use(bodyParser.json());
+
+//Initialize badges
+// app.use(createBadgesMiddleware.createBadges);
+createBadgesMiddleware.createBadges();
 
 const server = new ApolloServer({
   typeDefs,
@@ -43,17 +47,20 @@ const server = new ApolloServer({
     authResolver,
     feedbackResolver,
     agentResolver,
-    reProdresolvers,
     productResolver,
     postResolver,
-    commentResolver
+    commentResolver,
+    badgeResolver,,
+    recommendedproductresolvers
   ],
 });
 
 async function startApolloServer() {
   app.use(graphqlUploadExpress());
+
   await server.start();
   server.applyMiddleware({ app });
+  
 }
 
 startApolloServer();

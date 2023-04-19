@@ -31,6 +31,11 @@ import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
 import { CommentComponent } from './blog/comment/comment.component';
 import { ViewProfileComponent } from './blog/view-profile/view-profile.component';
 import { RealtimechatComponent } from './realtimechat/realtimechat.component';
+import { RecommendProductComponent } from './recommend-product/recommend-product.component';
+import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
+import {Ng2SearchPipeModule} from "ng2-search-filter";
+
+import { CropReFormComponent } from './cropRecommandation/crop-re-form/crop-re-form.component';
 import { ConversationRoomComponent } from './conversation-room/conversation-room.component';
 import { ConversationSidebarComponent } from './conversation-sidebar/conversation-sidebar.component';
 import { LivechatComponent } from './livechat/livechat.component';
@@ -62,6 +67,9 @@ import { LivechatComponent } from './livechat/livechat.component';
     CommentComponent,
     ViewProfileComponent,
     RealtimechatComponent,
+    RecommendProductComponent,
+    CategoryRecommendedProductsComponent,
+    CropReFormComponent,,
     ConversationRoomComponent,
     ConversationSidebarComponent,
     LivechatComponent
@@ -74,7 +82,8 @@ import { LivechatComponent } from './livechat/livechat.component';
     UiSwitchModule,
     GoogleSigninButtonModule,
     Ng2TelInputModule,
-    QuillModule
+    QuillModule,
+    Ng2SearchPipeModule
   ]
 })
 export class FrontofficeModule { }
