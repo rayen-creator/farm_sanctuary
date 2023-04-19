@@ -74,7 +74,6 @@ export class AuthService {
           const userfound = loginresponse.signin.userfound;
 
           if (!userfound) {
-            console.log('userfound should be false ' + !userfound);
 
             this.toastr.error('User not found', 'Error', {
               progressBar: true,
@@ -83,7 +82,6 @@ export class AuthService {
             return;
           }
           if (!IspassowrdValid) {
-            console.log('isvalidpwd should be false ' + !IspassowrdValid);
             this.toastr.error('password invalid please try again ', 'Error', {
               progressBar: true,
               closeButton: true,
@@ -321,7 +319,6 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log('Set Timer :', duration);
 
     this.tokenTimer = setTimeout(() => {
       this.logout();
@@ -364,9 +361,7 @@ export class AuthService {
         next: (rest) => {
           const response = rest.data as VerifyOTPResponse;
           const statusCode = response.verifyOTP.statusCode;
-          console.log('response', response);
 
-          console.log('statuscode', statusCode);
           if (statusCode) {
             this.toastr.success(
               'Two factor authentification complete welcomeback !',

@@ -60,10 +60,8 @@ export class DetailBlogComponent implements OnInit {
             const currentPost = user.likedPost.find((idPost) => idPost.id == this.id);
             if (currentPost) {
               this.isLiked = false;
-              console.log("isLiked false", currentPost)
             } else {
               this.isLiked = true;
-              console.log("isLiked true", currentPost)
 
             }
           },

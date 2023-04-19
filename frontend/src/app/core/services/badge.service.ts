@@ -38,7 +38,6 @@ export class BadgeService {
       ]
     }).subscribe({
       next: (res: any) => {
-        console.log("result", res);
 
         const result = res.data.assignBadges;
         const badgeName = result.name;

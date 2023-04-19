@@ -119,10 +119,19 @@ async function deletePost(id) {
       const deletedcomments = await Comment.findByIdAndDelete(commentId);
     }
   }
+  //delete liked post by user
+  const users = await User.find({ likedPost: post._id });
+  for (const user of users) {
+    await User.updateOne(
+      { _id: user._id },
+      { $pull: { likedPost: post._id } }
+    );
+  }
 
   await post.remove();
   return post;
 }
+
 
 module.exports = {
   addPost,
