@@ -13,12 +13,11 @@ import { UserService } from 'src/app/core/services/user.service';
 import { User } from 'src/app/core/models/user';
 
 @Component({
-  selector: 'app-realtimechat',
-  templateUrl: './realtimechat.component.html',
-  styleUrls: ['./realtimechat.component.css']
+  selector: 'app-livechat',
+  templateUrl: './livechat.component.html',
+  styleUrls: ['./livechat.component.css']
 })
-export class RealtimechatComponent implements OnInit {
-  @Input() reciverUserId: string;
+export class LivechatComponent implements OnInit {
   mymap  = new Map()
   myobj :  Conversation[] = []
   messages = new Map();
@@ -43,8 +42,10 @@ export class RealtimechatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.UserService.getUserById(this.reciverUserId).subscribe({
+   this.id=this.activatedRoute.snapshot.params['id'];
+    this.UserService.getUserById(this.id).subscribe({
       next: (response:User) => {
+        console.log("user1",response)
         this.ReciverUser = response
 
       }
@@ -55,7 +56,7 @@ export class RealtimechatComponent implements OnInit {
           for (const innerArray of msg) {
             const key = innerArray[0].key; // using dot notation
             const value = innerArray[0]["value"]; // using bracket notation
-            
+           
             this.newMsg.key = key;
             this.newMsg.value = value;
             this.myobj.push( this.newMsg)
@@ -75,7 +76,7 @@ export class RealtimechatComponent implements OnInit {
     });
    
     // check if room exist and get it 
-    this.RoomService.getroombyuser12(this.reciverUserId, this.userId).subscribe({
+    this.RoomService.getroombyuser12(this.id, this.userId).subscribe({
       next: (response:any) => {
         this.convrname = response.room;
       
@@ -84,7 +85,6 @@ export class RealtimechatComponent implements OnInit {
         } else {
           this.chatService.joinChat(response.room).subscribe({
             next: (response:any) => {
-              
               if (response.list == null){
               
               }else{
@@ -121,9 +121,9 @@ export class RealtimechatComponent implements OnInit {
   createRoom() {
     this.room.ConvName = this.randomString();
     this.room.User1 = this.userId;
-    this.room.User2 = this.reciverUserId;
+    this.room.User2 = this.id;
    
-    this.RoomService.addroom(this.room, this.reciverUserId, this.userId).subscribe({
+    this.RoomService.addroom(this.room, this.id, this.userId).subscribe({
       next:(response)=>{
       },error:(err)=>{
         throw err;
@@ -135,7 +135,7 @@ export class RealtimechatComponent implements OnInit {
 
 
   sendMessage(): void {
-    this.RoomService.getroombyuser12(this.reciverUserId, this.userId).subscribe({
+    this.RoomService.getroombyuser12(this.id, this.userId).subscribe({
       next: (response:any) => {
        
         if (response.room == null) {
@@ -149,7 +149,7 @@ export class RealtimechatComponent implements OnInit {
     });
     this.message.ConvName = this.convrname;
     this.message.UserM1 = this.userId;
-    this.message.UserM2 = this.reciverUserId;
+    this.message.UserM2 = this.id;
     this.message.messageUser1 = this.messageContent;
     this.chatService.sendMessage(this.convrname, this.userId, this.message).subscribe({
       next:(response)=>{
@@ -163,6 +163,7 @@ export class RealtimechatComponent implements OnInit {
    
   }
 }
+
 
 
 

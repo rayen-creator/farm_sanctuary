@@ -200,11 +200,6 @@ body{
     float: right
 }
 
-.float-left {
-    float: left
-}
-
-
 .clearfix:after {
     visibility: hidden;
     display: block;

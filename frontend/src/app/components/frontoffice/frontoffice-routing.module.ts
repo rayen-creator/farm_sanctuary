@@ -25,6 +25,8 @@ import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
 import { AuthGuard } from 'src/app/core/helpers/auth.guard';
 import { roles } from 'src/app/core/models/role';
 import { RealtimechatComponent } from './realtimechat/realtimechat.component';
+import {  ConversationRoomComponent} from './conversation-room/conversation-room.component';
+import { LivechatComponent } from './livechat/livechat.component';
 
 
 const routes: Routes = [
@@ -52,7 +54,9 @@ const routes: Routes = [
       { path: 'testimonials', component: TestimonialsComponent },
       { path: 'myarticles', component: MyarticlesComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
       { path: 'viewprofile/:id', component: ViewProfileComponent },
-      { path: 'chat/:id', component: RealtimechatComponent }
+      { path: 'Messages/:id', component: RealtimechatComponent },
+      { path: 'Messages', component: ConversationRoomComponent },
+      { path: 'chat/:id', component: LivechatComponent }
     ]
   },
 

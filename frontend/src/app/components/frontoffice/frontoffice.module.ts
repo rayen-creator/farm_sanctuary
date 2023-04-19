@@ -31,6 +31,9 @@ import { MyarticlesComponent } from './blog/myarticles/myarticles.component';
 import { CommentComponent } from './blog/comment/comment.component';
 import { ViewProfileComponent } from './blog/view-profile/view-profile.component';
 import { RealtimechatComponent } from './realtimechat/realtimechat.component';
+import { ConversationRoomComponent } from './conversation-room/conversation-room.component';
+import { ConversationSidebarComponent } from './conversation-sidebar/conversation-sidebar.component';
+import { LivechatComponent } from './livechat/livechat.component';
 
 
 @NgModule({
@@ -58,7 +61,10 @@ import { RealtimechatComponent } from './realtimechat/realtimechat.component';
     MyarticlesComponent,
     CommentComponent,
     ViewProfileComponent,
-    RealtimechatComponent
+    RealtimechatComponent,
+    ConversationRoomComponent,
+    ConversationSidebarComponent,
+    LivechatComponent
   ],
   imports: [
     CommonModule,

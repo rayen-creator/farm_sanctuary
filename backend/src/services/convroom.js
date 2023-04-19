@@ -1,6 +1,23 @@
 const Room = require("../models/Convroom");
 
 module.exports = {
+    getAllRooms: async (req, res) => {
+      const { User1_param } = req.params;
+      try {
+        const rooms = await Room.find(
+          { $or: [
+          {
+            User1: User1_param,
+          },
+          {
+            User2: User1_param,
+          },
+        ],});
+        res.status(200).json(rooms );
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    },
   getroombyuser12: async (req, res) => {
     const { User1_param, User2_param } = req.params;
     console.log(req.params);
@@ -70,4 +87,4 @@ module.exports = {
       res.status(500).json(ConvName);
     }
   },
-};
+}

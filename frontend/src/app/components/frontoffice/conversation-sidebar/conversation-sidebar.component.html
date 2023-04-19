@@ -1,0 +1,13 @@
+<div class="card chat-app">
+    <div id="plist" class="people-list">
+        <ul *ngFor="let user of ListUsers" (click)="onRoomClick(user.id)" class="list-unstyled chat-list mt-2 mb-0">
+            <li class="clearfix">
+                <img src="{{user.image}}" alt="avatar">
+                <div class="about">
+                    <div class="name">{{user.username}}</div>
+                </div>
+            </li>
+    
+        </ul>
+    </div>
+</div>
