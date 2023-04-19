@@ -1,0 +1,24 @@
+
+<div class="container">
+    <div class="card">
+          <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card chat-app">
+                
+            <app-conversation-sidebar (roomClicked)="onRoomClicked($event)"></app-conversation-sidebar>
+                <div class="chat">
+                    
+                    <div  *ngIf="selectedUserId!='' ">
+                    <app-realtimechat [reciverUserId]="selectedUserId"></app-realtimechat>
+                    </div>
+                    <div *ngIf=" selectedUserId=='' || selectedUserId==null ">
+                        no chat found
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+  
+</div>

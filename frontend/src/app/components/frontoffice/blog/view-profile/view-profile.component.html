@@ -28,7 +28,7 @@
                   </li>
                   <li>
                     <a
-                      href="javascript:void(0);"
+                    routerLink="/chat/{{user.id}}"
                       *ngIf="user.id != userId"
                       class="dropdown-item"
                       >Send message</a

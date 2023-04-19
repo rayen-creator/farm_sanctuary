@@ -1,38 +1,43 @@
 // Import required modules
 const express = require('express');
-const app = express();
+const cors = require('cors');
 const http = require('http');
+const mongoose = require('mongoose');
+const app = express();
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-// Connect to MongoDB
-const mongodbconnection = require("./src/db/index");
-const io = new Server(server);
-const mongoose = require('mongoose');
+const io = new Server(server,{
+  cors: {
+  
+    
+      origin: 'http://localhost:4200',
+      
+  }
+});
+
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const Message = require('./src/models/messages');
 
 // Use body-parser and cors middleware
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(
-  cors({
-    origin: "http://localhost:4200",
-  })
-);
 
-
+// Connect to MongoDB
+mongoose.connect('mongodb://127.0.0.1:27017/farm_sanctuaryDB', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected...'))
+  .catch(err => console.log(err));
 // Start the server
-server.listen(3001, () => {
-  console.log('listening on *:3001');
-});
+
 const MessageRoute = require('./src/routes/routechat')
 app.use('/Message', MessageRoute)
 const roomRoute = require('./src/routes/routeroom')
 app.use('/Room', roomRoute)
 
-
+server.listen(3001, () => {
+  console.log('listening on *:3001');
+});
 // Set up Socket.io connection
 io.on('connection', (socket) => {
   var username ='';
@@ -71,7 +76,7 @@ io.on('connection', (socket) => {
   socket.on('newMessage',function(data) {
     console.log('newMessage triggered')
 
-    const messageData = JSON.stringify(data)
+    
     const messageContent = data.messageContent
     const userName = data.userName;
     const roomName = data.conversationName

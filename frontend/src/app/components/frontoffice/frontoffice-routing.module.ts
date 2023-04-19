@@ -30,6 +30,8 @@ import { RealtimechatComponent } from './realtimechat/realtimechat.component';
 import { RecommendProductComponent } from './recommend-product/recommend-product.component';
 import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
 
+import {  ConversationRoomComponent} from './conversation-room/conversation-room.component';
+import { LivechatComponent } from './livechat/livechat.component';
 
 
 const routes: Routes = [
@@ -58,13 +60,15 @@ const routes: Routes = [
       { path: 'myarticles', component: MyarticlesComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
       { path: 'viewprofile/:id', component: ViewProfileComponent },
       { path: 'myprofile/:id', component: ViewProfileComponent },
-      { path: 'chat', component: RealtimechatComponent },
+      { path: 'Messages/:id', component: RealtimechatComponent },
       { path: 'recommendedproducts', component: RecommendProductComponent},
       { path: 'recommendedproducts/:category', component: CategoryRecommendedProductsComponent },
       { path: 'croprecommendation', component: CropReFormComponent }
 
 
-
+,
+      { path: 'Messages', component: ConversationRoomComponent },
+      { path: 'chat/:id', component: LivechatComponent }
     ]
   },
 

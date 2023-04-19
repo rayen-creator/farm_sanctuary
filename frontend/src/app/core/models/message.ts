@@ -1,7 +1,7 @@
 import {User} from "./user";
 export class Message {
-  User1: String;
-  User2: String;
-  messageUser1: { [key: string]: any }[];
+  UserM1: string;
+  UserM2: string;
+  messageUser1: string ;
   ConvName: string;
 }

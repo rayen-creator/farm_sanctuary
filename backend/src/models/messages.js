@@ -12,7 +12,7 @@ const MessageSchema = new Schema({
     messageUser1: [Map],
    
     ConvName: {
-        type:  mongoose.Schema.Types.ObjectId,
+        type:  String,
         ref : 'ConvName',
       },
     
