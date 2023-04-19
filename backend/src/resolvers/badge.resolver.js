@@ -9,6 +9,13 @@ const badgeResolver = {
         throw Error(error);
       }
     },
+    async getBadgeById(_,{id}) {
+      try {
+        return await badgeService.getBadgeById(id);
+      } catch (error) {
+        throw Error(error);
+      }
+    },
   },
   Mutation: {
     async assignBadges(_, { userId }) {

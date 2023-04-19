@@ -372,6 +372,7 @@ const typeDefs = gql`
   type badgeResponse{
     name:String
     image:String
+    description:String
   }
 
   type Query {
@@ -406,6 +407,8 @@ const typeDefs = gql`
     getCommentPerUser(userId:ID!):[Comment!]!
 
     getAllbadges:[Badge!]!
+
+    getBadgeById(id:ID!):Badge!
   }
 
   type Mutation {
