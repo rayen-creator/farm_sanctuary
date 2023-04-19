@@ -57,16 +57,7 @@ export class PostService {
       ], context: {
         useMultipart: true
       }
-    }).subscribe({
-      next: () => {
-        this.toastr.success('Post added successfully', 'Success', {
-          progressBar: true
-        }); this.router.navigate(['/myarticles']);
-      },
-      error: (error) => {
-        throw error;
-      }
-    })
+    });
   }
 
   getAllposts() {

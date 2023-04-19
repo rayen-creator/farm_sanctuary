@@ -13,6 +13,7 @@ import { DeliveryAgentComponent } from './delivery-agent/delivery-agent.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { DeliveryAgentEditComponent } from './delivery-agent-edit/delivery-agent-edit.component';
 import { FeedbackListComponent } from './Feedbacks/feedback-list/feedback-list.component';
+import { AvailableBadgesComponent } from './dashboard/available-badges/available-badges.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { FeedbackListComponent } from './Feedbacks/feedback-list/feedback-list.c
     AdminDashboardComponent,
     DeliveryAgentEditComponent,
     FeedbackListComponent,
+    AvailableBadgesComponent,
   ],
   imports: [
     CommonModule,

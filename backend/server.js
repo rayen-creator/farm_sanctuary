@@ -19,6 +19,9 @@ const { GraphQLUpload, graphqlUploadExpress } = require("graphql-upload");
 const recommendedproductresolvers = require("./src/resolvers/RecommendedProduct.resolver");
 const postResolver = require("./src/resolvers/post.resolver");
 const commentResolver = require("./src/resolvers/comment.resolver");
+const createBadgesMiddleware = require("./src/middleware/initilize_badges");
+const badgeResolver=require("./src/resolvers/badge.resolver");
+
 
 app.use(morgan("dev"));
 
@@ -33,8 +36,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
-// Add the middleware function to the middleware stack
-// app.use(verifyToken());
+//Initialize badges
+// app.use(createBadgesMiddleware.createBadges);
+createBadgesMiddleware.createBadges();
 
 const server = new ApolloServer({
   typeDefs,
@@ -46,14 +50,17 @@ const server = new ApolloServer({
     productResolver,
     postResolver,
     commentResolver,
+    badgeResolver,,
     recommendedproductresolvers
   ],
 });
 
 async function startApolloServer() {
   app.use(graphqlUploadExpress());
+
   await server.start();
   server.applyMiddleware({ app });
+  
 }
 
 startApolloServer();

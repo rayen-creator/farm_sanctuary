@@ -10,55 +10,58 @@ import { CommentService } from 'src/app/core/services/comment.service';
 import { PostService } from 'src/app/core/services/post.service';
 import { UserService } from 'src/app/core/services/user.service';
 import jwt_decode from "jwt-decode";
+import { Badge } from 'src/app/core/models/badge';
+import { BadgeService } from 'src/app/core/services/badge.service';
 
 @Component({
   selector: 'app-view-profile',
   templateUrl: './view-profile.component.html',
   styleUrls: ['./view-profile.component.css']
 })
-export class ViewProfileComponent implements OnInit , OnDestroy {
+export class ViewProfileComponent implements OnInit, OnDestroy {
   id: string;
   user: User;
-  posts:Post[];
-  comments:Comment[];
+  posts: Post[];
+  comments: Comment[];
   private tokenSubs: Subscription;
-  private userSubs:Subscription;
-  private postSubs:Subscription;
-  private commentSubs:Subscription;
-
+  private userSubs: Subscription;
+  private postSubs: Subscription;
+  private commentSubs: Subscription;
+  badge: Badge;
   token: string;
   decodedToken: DecodedToken;
   userId: string;
-  constructor(private activatedRoute: ActivatedRoute, 
+  constructor(private activatedRoute: ActivatedRoute,
     private userService: UserService,
-    private postService:PostService,
-    private commentService:CommentService,
-    private auth: AuthService,) { }
+    private postService: PostService,
+    private commentService: CommentService,
+    private auth: AuthService,
+    private badgeService: BadgeService) { }
  
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.userSubs=this.userService.getUserById(this.id).subscribe({
+    this.userSubs = this.userService.getUserById(this.id).subscribe({
       next: (res) => {
-        this.user = res;
+        this.user = res; 
       }, error: (err) => {
         throw err;
       }
     });
 
-    this.postSubs=this.postService.getPostperUser(this.id).subscribe({
+    this.postSubs = this.postService.getPostperUser(this.id).subscribe({
       next: (res) => {
-        this.posts=res;
+        this.posts = res;
       },
-      error:(err)=>{
+      error: (err) => {
         throw err;
       }
     });
-   this.commentSubs= this.commentService.getCommentPerUser(this.id).subscribe({
-      next :(res)=>{
-        this.comments=res;
+    this.commentSubs = this.commentService.getCommentPerUser(this.id).subscribe({
+      next: (res) => {
+        this.comments = res;
       },
-      error:(err)=>{
+      error: (err) => {
         throw err;
       }
     });
@@ -69,10 +72,20 @@ export class ViewProfileComponent implements OnInit , OnDestroy {
     });
   }
 
+  getBadgeByid(id: string) {
+    console.log("id",id);
+    this.badgeService.getBadgeById(id).subscribe({
+      next: (badge) => {
+        this.badge = badge;
+      }, error: (err) => {
+        throw err;
+      }
+    })
+  }
   ngOnDestroy(): void {
-   this.userSubs.unsubscribe();
-   this.commentSubs.unsubscribe();
-   this.postSubs.unsubscribe();
-   this.tokenSubs.unsubscribe();
+    this.userSubs.unsubscribe();
+    this.commentSubs.unsubscribe();
+    this.postSubs.unsubscribe();
+    this.tokenSubs.unsubscribe();
   }
 }

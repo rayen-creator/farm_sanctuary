@@ -53,10 +53,15 @@ async function updateEmail(input) {
   };
 }
 async function getUser(id) {
-  return User.findById(id).populate({
-    path: "likedPost",
-    model: "Posts",
-  });
+  return User.findById(id)
+    .populate({
+      path: "likedPost",
+      model: "Posts",
+    })
+    .populate({
+      path: "badges",
+      model: "Badges",
+    });
 }
 
 async function getUsers() {

@@ -1,5 +1,6 @@
 const Post = require("../../models/posts");
 const User = require("../../models/user");
+const Comment = require("../../models/comment");
 const uploadImage = require("../utils/imageUpload");
 
 async function addPost(input, file) {
@@ -18,10 +19,15 @@ async function addPost(input, file) {
   return await post.save(post);
 }
 async function getAllpost() {
-  return await Post.find().populate({
-    path: "user",
-    model: "Users",
-  });
+  return await Post.find()
+    .populate({
+      path: "user",
+      model: "Users",
+    })
+    .populate({
+      path: "comments",
+      model: "Comments",
+    });
 }
 
 async function getpostById(id) {
@@ -32,10 +38,15 @@ async function getpostById(id) {
 }
 
 async function getPostsByUser(userId) {
-  return await Post.find({ user: userId }).populate({
-    path: "user",
-    model: "Users",
-  });
+  return await Post.find({ user: userId })
+    .populate({
+      path: "user",
+      model: "Users",
+    })
+    .populate({
+      path: "comments",
+      model: "Comments",
+    });
 }
 
 async function likePost(userId, postId) {
@@ -47,9 +58,12 @@ async function likePost(userId, postId) {
       { _id: postId },
       { $set: { likes: post.likes + 1 } }
     );
-    const assignLikeToUser = await User.updateOne({_id :userId}, {
-      $push: { likedPost: post._id },
-    });
+    const assignLikeToUser = await User.updateOne(
+      { _id: userId },
+      {
+        $push: { likedPost: post._id },
+      }
+    );
     return post;
   }
 }
@@ -61,9 +75,12 @@ async function dislikePost(userId, postId) {
       { _id: postId },
       { $set: { likes: post.likes - 1 } }
     );
-    const assignLikeToUser = await User.updateOne({_id :userId}, {
-      $pull:  { likedPost: post._id },
-    });
+    const assignLikeToUser = await User.updateOne(
+      { _id: userId },
+      {
+        $pull: { likedPost: post._id },
+      }
+    );
     return post;
   }
 }
@@ -84,14 +101,27 @@ async function modifyPost(id, input, file) {
 }
 
 async function deletePost(id) {
-  const post = await Post.findById(id).populate({
-    path: "user",
-    model: "Users",
-  });
+  const post = await Post.findById(id)
+    .populate({
+      path: "user",
+      model: "Users",
+    })
+    .populate({
+      path: "comments",
+      model: "Comments",
+    });
   if (!post) {
     return null;
   }
-  return await post.remove();
+  if (post.comments.length > 0) {
+    // Delete all comments associated with the post
+    for (const commentId of post.comments) {
+      const deletedcomments = await Comment.findByIdAndDelete(commentId);
+    }
+  }
+
+  await post.remove();
+  return post;
 }
 
 module.exports = {
@@ -102,5 +132,5 @@ module.exports = {
   getpostById,
   getPostsByUser,
   likePost,
-  dislikePost
+  dislikePost,
 };

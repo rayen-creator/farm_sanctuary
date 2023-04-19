@@ -1,18 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import {  Subscription } from 'rxjs';
 import { Comment } from 'src/app/core/models/comment';
 import { Post } from 'src/app/core/models/post';
 import { CommentService } from 'src/app/core/services/comment.service';
 import { PostService } from 'src/app/core/services/post.service';
-import Swal from 'sweetalert2';
 import jwt_decode from "jwt-decode";
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
-import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/core/services/user.service';
 import { User } from 'src/app/core/models/user';
+import { BadgeService } from 'src/app/core/services/badge.service';
 
 @Component({
   selector: 'app-detail-blog',
@@ -40,8 +39,8 @@ export class DetailBlogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private commentService: CommentService,
     private auth: AuthService,
-    private toastr: ToastrService,
-    private userSerivce: UserService
+    private userSerivce: UserService,
+    private badgeService:BadgeService
   ) {
     this.tokenSubs = this.auth.getToken().subscribe((token) => {
       this.decodedToken = jwt_decode(token) as DecodedToken;
@@ -61,10 +60,10 @@ export class DetailBlogComponent implements OnInit {
             const currentPost = user.likedPost.find((idPost) => idPost.id == this.id);
             if (currentPost) {
               this.isLiked = false;
-              console.log("isLiked false",currentPost)
+              console.log("isLiked false", currentPost)
             } else {
               this.isLiked = true;
-              console.log("isLiked true",currentPost)
+              console.log("isLiked true", currentPost)
 
             }
           },
@@ -107,7 +106,16 @@ export class DetailBlogComponent implements OnInit {
   }
 
   addComment(form: any) {
-    this.commentService.addComment(form, this.id);
+    this.commentService.addComment(form, this.id).subscribe({
+      next:()=>{
+        this.badgeService.assignBadges(this.userId);
+
+      },
+      error:(err)=>{
+        throw err;
+      }
+    });
+
     this.commentForm.controls['content'].setValue(null);
   }
 
@@ -124,6 +132,7 @@ export class DetailBlogComponent implements OnInit {
       this.postService.addLikeToPost(this.id).subscribe({
         next: () => {
           this.isLiked = false;
+          this.badgeService.assignBadges(this.userId);
         },
         error: (err) => {
           throw err;

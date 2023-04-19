@@ -66,7 +66,7 @@ import { CropReFormComponent } from './cropRecommandation/crop-re-form/crop-re-f
     RealtimechatComponent,
     RecommendProductComponent,
     CategoryRecommendedProductsComponent,
-    CropReFormComponent
+    CropReFormComponent,
   ],
   imports: [
     CommonModule,

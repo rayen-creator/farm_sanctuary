@@ -57,6 +57,7 @@ const routes: Routes = [
       { path: 'testimonials', component: TestimonialsComponent},
       { path: 'myarticles', component: MyarticlesComponent, canActivate: [AuthGuard], data: { roles: [roles.FARMER] } },
       { path: 'viewprofile/:id', component: ViewProfileComponent },
+      { path: 'myprofile/:id', component: ViewProfileComponent },
       { path: 'chat', component: RealtimechatComponent },
       { path: 'recommendedproducts', component: RecommendProductComponent},
       { path: 'recommendedproducts/:category', component: CategoryRecommendedProductsComponent },
