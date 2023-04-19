@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +17,7 @@ export class CropReFormComponent implements OnInit {
 
 
   
-    constructor(private predictionService: PredictionService, private fb : FormBuilder) {}
+    constructor(private predictionService: PredictionService, private fb : FormBuilder, private http: HttpClient) {}
     ngOnInit(): void {
       this.myForm = this.fb.group({
       N: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]+$/)]),
@@ -57,6 +58,24 @@ export class CropReFormComponent implements OnInit {
       });
       
     }
+    getPdfFile() {          
+      return this.http.get('/assets/guideToAIModel.pdf', { responseType: 'blob' });
+    }
+
+    downloadPdfFile() {
+      this.getPdfFile().subscribe((response: Blob) => {
+        const url = URL.createObjectURL(response);
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = 'file.pdf';
+        a.click();
+        URL.revokeObjectURL(url);
+        a.remove(); // Remove the temporary element created
+      });
+    }
+    
     
   }
   
