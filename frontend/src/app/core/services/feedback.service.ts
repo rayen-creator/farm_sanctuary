@@ -49,7 +49,6 @@ export class FeedbackService {
 
   createFeedback(feedback: any) {
 
-    console.log("userId", this.userId);
     const input = {
       title: feedback.title,
       subject: feedback.subject,

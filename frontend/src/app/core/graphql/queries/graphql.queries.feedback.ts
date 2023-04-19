@@ -11,7 +11,8 @@ export const feedbacks = gql`
         createdAt
         user{
             id 
-            username 
+            username
+            image
         }
       }
     }

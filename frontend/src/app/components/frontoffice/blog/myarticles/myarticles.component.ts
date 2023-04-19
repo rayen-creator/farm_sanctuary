@@ -31,7 +31,6 @@ export class MyarticlesComponent implements OnInit, OnDestroy {
     this.PostService.getPostperUser(this.userId).subscribe({
       next: (posts: any) => {
         this.posts = posts;
-        console.log("posts", this.posts);
       },
       error: (err) => {
         throw err;

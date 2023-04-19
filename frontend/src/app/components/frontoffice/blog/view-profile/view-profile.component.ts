@@ -73,7 +73,6 @@ export class ViewProfileComponent implements OnInit, OnDestroy {
   }
 
   getBadgeByid(id: string) {
-    console.log("id",id);
     this.badgeService.getBadgeById(id).subscribe({
       next: (badge) => {
         this.badge = badge;

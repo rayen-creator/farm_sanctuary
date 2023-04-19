@@ -51,8 +51,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onCell1CountryChange(event: any) {
-    console.log(event.dialCode);
-    console.log(event.name);
+    // console.log(event.dialCode);
+    // console.log(event.name);
     return this.country = event.name;
   }
 
@@ -61,7 +61,6 @@ export class RegisterComponent implements OnInit {
     let newUser = this.registerForm.value;
     newUser.role = this.accountType
     newUser.location =this.country ?? 'Tunisia';
-    console.log("country regsitred",this.country);
     if (newUser.username != "" && newUser.email != "" && newUser.password != "" && newUser.phone != "" && newUser.gender != "") {
 
       this.authservice.register(newUser).subscribe({

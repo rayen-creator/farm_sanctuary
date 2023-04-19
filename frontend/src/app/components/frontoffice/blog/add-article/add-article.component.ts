@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import Quill from 'quill';
 import { Subscription } from 'rxjs';
 import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
@@ -19,14 +18,12 @@ import { Router } from '@angular/router';
 })
 export class AddArticleComponent implements OnInit {
   blogText: string = '';
-  safeHtml: SafeHtml;
   articleForm:FormGroup;
   selectedFile: File;
   private tokenSubs: Subscription;
   decodedToken: DecodedToken;
   userId: string;
   constructor(
-    private sanitizer: DomSanitizer,
     private fb:FormBuilder,
     private postService:PostService,
     private badgeService:BadgeService,
@@ -79,7 +76,6 @@ export class AddArticleComponent implements OnInit {
   onFormSubmit(articleForm:any) {
     this.postService.addPost(articleForm,this.selectedFile).subscribe({
       next: () => {
-        console.log("wtf");
         this.toastr.success('Post added successfully', 'Success', {
           progressBar: true
         }); this.router.navigate(['/myarticles']);
@@ -95,12 +91,6 @@ export class AddArticleComponent implements OnInit {
   Valid(controlname: any, articleForm: any) {
     return Customvalidator.Valid(controlname, articleForm)
 
-  }
-
-  onBlogTextChanged() {
-    console.log('onBlogTextChanged() called'); // Add this line
-
-    this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.blogText);
   }
 
 }
