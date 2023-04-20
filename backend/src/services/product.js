@@ -52,7 +52,7 @@ async function createProduct(input, file) {
 }
 
 // Scheduled job to update product prices
-cron.schedule('0 0 * * *', async () => {
+cron.schedule('*/1 * * * *', async () => {
     const products = await Product.find();
     const currentDate = new Date();
     for (const product of products) {
