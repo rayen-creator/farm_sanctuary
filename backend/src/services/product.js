@@ -62,7 +62,7 @@ cron.schedule('*/1 * * * *', async () => {
             await product.save();
         }
     }
-    console.log("done job")
+    // console.log("done job")
 });
 
 
