@@ -39,6 +39,7 @@ import { CropReFormComponent } from './cropRecommandation/crop-re-form/crop-re-f
 import { ConversationRoomComponent } from './conversation-room/conversation-room.component';
 import { ConversationSidebarComponent } from './conversation-sidebar/conversation-sidebar.component';
 import { LivechatComponent } from './livechat/livechat.component';
+import { ChatbotComponent } from './chabot/chatbot.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { LivechatComponent } from './livechat/livechat.component';
     CropReFormComponent,
     ConversationRoomComponent,
     ConversationSidebarComponent,
-    LivechatComponent
+    LivechatComponent,
+    ChatbotComponent
   ],
   imports: [
     CommonModule,

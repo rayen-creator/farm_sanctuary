@@ -1,4 +1,5 @@
-from flask import Flask, request, escape, jsonify
+from flask import Flask, request, escape, jsonify , render_template 
+from chat import get_response
 from flask_restful import Resource, Api
 import numpy as np
 import json
@@ -19,6 +20,20 @@ model = pickle.load(open('model.pkl', 'rb'))
 def hello():
     name = request.args.get("name", "world")
     return 'Hello'
+
+
+@cross_origin()
+@app.route("/chat",methods=["POST"])
+def chatbot():
+    text = request.get_json().get("message")
+    response = get_response(text)
+    message = {"answer":response}
+    return jsonify(message)
+
+
+
+
+
 @cross_origin()
 @app.route('/predict', methods =['POST'])
 def predict():

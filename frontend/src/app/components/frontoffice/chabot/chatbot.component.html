@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="chatbox">
+      <div class="chatbox__support" #chatBox>
+        <div class="chatbox__header">
+          <div class="chatbox__image--header">
+            <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+          </div>
+          <div class="chatbox__content--header">
+            <h4 class="chatbox__heading--header">Chat support</h4>
+            <p class="chatbox__description--header">Hi. My name is Sam. How can I help you?</p>
+          </div>
+        </div>
+        <div class="chatbox__messages" #messagesContainer>
+          <div *ngFor="let message of messages; let i=index" class="messages__item" [ngClass]="{ 'messages__item--operator': message.name === 'Sam', 'messages__item--visitor': message.name === 'User' }">
+            {{ message.message }}
+          </div>
+        </div>
+        <div class="chatbox__footer">
+          <input type="text" placeholder="Write a message..." #inputField (keydown.enter)="onSendButton(chatBox)">
+          <button class="chatbox__send--footer send__button" (click)="onSendButton(chatBox)">Send</button>
+        </div>
+        
+      </div>
+      <div class="chatbox__button">
+        <button (click)="toggleState(chatBox)"><img src="../../../../assets/images/chatbot/chatbox-icon.svg" /></button>
+      </div>
+    </div>
+  </div>
+  
