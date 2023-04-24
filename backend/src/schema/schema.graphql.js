@@ -74,6 +74,40 @@ const typeDefs = gql`
     user: User!
   }
 
+  type CartItem {
+    name: String!
+    price: Float!
+    total: Float!
+    image: String!
+    unit: String!
+    quantity: Int!
+  }
+
+  type Order {
+    id: ID!
+    cartItems: [CartItem!]!
+    totalPrice: Float!
+    user: User!
+    isDelivered: Boolean!
+    createdAt: DateTime
+    updatedAt: DateTime
+  }
+
+  input CartItemInput {
+    name: String!
+    price: Float!
+    total: Float!
+    image: String!
+    unit: String!
+    quantity: Int!
+  }
+
+  input CreateOrderInput {
+    cartItems: [CartItemInput!]!
+    totalPrice: Float!
+    userId: ID!
+  }
+
   input FeedbackInput {
     title: String!
     subject: String!
@@ -407,6 +441,10 @@ const typeDefs = gql`
     getAllComment(postId: ID!): [Comment!]!
     getCommentById(id: ID!): Comment!
     getCommentPerUser(userId:ID!):[Comment!]!
+
+    getOrder(id: ID!): Order
+    getOrdersByUser(userId: ID!): [Order!]!
+    getOrders: [Order!]!
   }
 
   type Mutation {
@@ -464,6 +502,11 @@ const typeDefs = gql`
     addComment(input: commentInput, postId: ID!, userId: ID!): Comment!
     modifyComment(id: ID!, input: commentInput!): Comment!
     deleteComment(id: ID!): Comment!
+
+
+    createOrder(input: CreateOrderInput!): Order!
+    updateOrderDeliveryStatus(id: ID!, isDelivered: Boolean!): Order!
+    deleteOrder(id: ID!): Order!
   }
 
   input CreateProductInput {
