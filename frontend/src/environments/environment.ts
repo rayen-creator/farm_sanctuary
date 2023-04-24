@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  API_URL:"http://localhost:3000/graphql"
+  API_URL:"http://localhost:3000/graphql",
+  Client_ID:
+    'AcWiTYtpDY9Edk0bd2ZqG2DWGtjPPeGAqY7gyl2ZAQsJPZ15D6iV8Z_2b4U7S-RwbScLFg_oyh_lgsJq',
 };
 
 
