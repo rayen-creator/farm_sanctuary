@@ -1,8 +1,11 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    }
+ *{
+    position: sticky;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 1px;
+    z-index: 2;
+
+  }
     
     body {
     font-family: 'Nunito', sans-serif;
@@ -76,19 +79,18 @@
     }
     
     .messages__item {
-    background: orange;
-    max-width: 60.6%;
-    width: fit-content;
-    }
-    
-    .messages__item--operator {
-    margin-left: auto;
-    }
-    
-    .messages__item--visitor {
-    margin-right: auto;
-    }
-    
+        background: orange;
+        max-width: 60.6%;
+        width: fit-content;
+      }
+      
+      .messages__item--operator {
+        margin-left: auto;
+      }
+      
+      .messages__item--visitor {
+        margin-right: auto;
+      }
     /* FOOTER */
     .chatbox__footer {
     position: sticky;
