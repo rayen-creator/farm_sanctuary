@@ -83,14 +83,47 @@ export class ChatbotComponent implements OnInit {
   public updateChatText(chatbox: HTMLElement | null): void {
     let html = '';
     this.messages.slice().reverse().forEach(function (item, index) {
-      if (item.name === 'Sam') {
-        html += '<div class="messages__item messages__item--visitor">' + item.message + '</div>';
-      } else {
-        html += '<div class="messages__item messages__item--operator">' + item.message + '</div>';
-      }
+      html += `
+        <div class="messages__item ${item.name === 'Sam' ? 'messages__item--visitor' : 'messages__item--operator'}">
+          <div class="messages__content">
+            ${item.message}
+          </div>
+        </div>
+      `;
     });
-
+  
     const chatmessage = chatbox?.querySelector('.chatbox__messages');
     chatmessage!.innerHTML = html;
+  
+    // Get all the chat messages
+    const messages = chatmessage?.querySelectorAll('.messages__item .messages__content');
+  
+    // Loop through each message and apply the appropriate styles
+    messages?.forEach(message => {
+      const parent = message.parentNode as HTMLElement;
+      if (parent.classList.contains('messages__item--operator')) {
+        message.setAttribute('style', 'background-color: lightgreen; color: #333333; border-radius: 20px 20px 0px 20px; margin-left: 10px; padding: 10px; font-size: 16px;');
+      } else if (parent.classList.contains('messages__item--visitor')) {
+        message.setAttribute('style', 'background-color: #008000; color: white; border-radius: 20px 20px 20px 0px; margin-right: 10px; padding: 10px; font-size: 16px;');
+      }
+    });
+  
+    // Apply the chatbox styles
+    if (chatmessage) {
+      chatmessage.setAttribute('style', 'margin-top: auto; display: flex; overflow-y: scroll; flex-direction: column-reverse; padding: 20px;');
+    }
+    const messagesItems = chatmessage?.querySelectorAll('.messages__item');
+    messagesItems?.forEach(message => {
+      message.setAttribute('style', 'display: flex; align-items: center; margin-bottom: 10px; max-width: 100%;');
+      const operator = message.querySelector('.messages__item--operator .messages__content');
+      const visitor = message.querySelector('.messages__item--visitor .messages__content');
+      if (operator) {
+        operator.setAttribute('style', 'background-color: lightgreen; color: #333333; border-radius: 20px 20px 0px 20px; margin-left: auto; padding: 10px; font-size: 16px;');
+      }
+      if (visitor) {
+        visitor.setAttribute('style', 'background-color: #008000; color: white; border-radius: 20px 20px 20px 0px; margin-right: auto; padding: 10px; font-size: 16px;');
+      }
+    });
   }
+  
 }

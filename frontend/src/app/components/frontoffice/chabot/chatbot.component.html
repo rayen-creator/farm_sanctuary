@@ -11,10 +11,13 @@
           </div>
         </div>
         <div class="chatbox__messages">
-  <div *ngFor="let message of messages; let i=index" class="messages__item" [ngClass]="{ 'messages__item--operator': message.name === 'Chatbot', 'messages__item--visitor': message.name === 'User' }">
-        {{ message.message }}
-      </div>
-    </div>
+          <div *ngFor="let message of messages.slice().reverse()" class="messages__item" [ngClass]="{ 'messages__item--operator': message.name === 'Sam', 'messages__item--visitor': message.name === 'User' }">
+            <div class="messages__content">
+              {{ message.message }}
+            </div>
+          </div>
+        </div>
+        
         <div class="chatbox__footer">
           <input type="text" placeholder="Write a message..." #inputField (keydown.enter)="onSendButton(chatBox)">
           <button class="chatbox__send--footer send__button" (click)="onSendButton(chatBox)">Send</button>
