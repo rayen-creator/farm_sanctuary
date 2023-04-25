@@ -20,7 +20,10 @@ async function createOrder(input) {
         user: input.userId,
         isDelivered: false
     });
-    return await order.save(order);
+     await order.save(order);
+    return {
+        message: "order added !",
+    };
 
 }
 
@@ -41,5 +44,6 @@ module.exports = {
     getOrders,
     getOrdersByUser,
     createOrder,
-    updateOrderDeliveryStatus
+    updateOrderDeliveryStatus,
+    deleteOrder
 };

@@ -504,7 +504,7 @@ const typeDefs = gql`
     deleteComment(id: ID!): Comment!
 
 
-    createOrder(input: CreateOrderInput!): Order!
+    createOrder(input: CreateOrderInput!): createProductResponse!
     updateOrderDeliveryStatus(id: ID!, isDelivered: Boolean!): Order!
     deleteOrder(id: ID!): Order!
   }
