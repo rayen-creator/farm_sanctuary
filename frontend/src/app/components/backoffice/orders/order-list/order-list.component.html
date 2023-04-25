@@ -62,7 +62,7 @@
                     <p class="mb-0 text-sm">{{datePipe.transform(u.updatedAt, 'medium') }}</p>
                   </td>
                   <td>
-                    <span class="mb-0 text-sm">{{u.totalPrice}}</span>
+                    <span class="mb-0 text-sm">${{u.totalPrice}}</span>
                   </td>
 
                   <td *ngIf="u.isDelivered == false">
