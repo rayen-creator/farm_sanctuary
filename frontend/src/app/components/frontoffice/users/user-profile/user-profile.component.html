@@ -95,63 +95,54 @@
                       separateDialCode: true
                     }"
                     (countryChange)="onCell1CountryChange($event)"
-
                   />
                   <span
-                  class="text-danger error-msg error-msg"
-                  *ngIf="
-                    (userForm.controls['phone'].invalid &&
-                    userForm.controls['phone'].dirty) ||
-                    userForm.controls['phone'].touched
-                  "
-                >
-                  <span
+                    class="text-danger error-msg error-msg"
                     *ngIf="
-                    userForm.controls['phone'].hasError('required')
+                      (userForm.controls['phone'].invalid &&
+                        userForm.controls['phone'].dirty) ||
+                      userForm.controls['phone'].touched
                     "
-                    class="error"
-                    >this field is required !</span
                   >
-                  <span
-                    *ngIf="
-                    userForm.controls['phone'].hasError('pattern')
-                    "
-                    class="error"
-                    >phone should be digits
+                    <span
+                      *ngIf="userForm.controls['phone'].hasError('required')"
+                      class="error"
+                      >this field is required !</span
+                    >
+                    <span
+                      *ngIf="userForm.controls['phone'].hasError('pattern')"
+                      class="error"
+                      >phone should be digits
+                    </span>
+                    <span
+                      *ngIf="userForm.controls['phone'].hasError('minlength')"
+                      class="error"
+                      >phone should't be less than 8 digits
+                    </span>
+                    <span
+                      *ngIf="userForm.controls['phone'].hasError('maxlength')"
+                      class="error"
+                      >phone should't be more than 15 digits
+                    </span>
                   </span>
-                  <span
-                    *ngIf="
-                    userForm.controls['phone'].hasError('minlength')
-                    "
-                    class="error"
-                    >phone should't be less than 8 digits
-                  </span>
-                  <span
-                    *ngIf="
-                    userForm.controls['phone'].hasError('maxlength')
-                    "
-                    class="error"
-                    >phone should't be more than 15 digits
-                  </span>
-                </span>
                 </div>
               </div>
-                <div class="form-group row mb-3" style="margin-top: 20px">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Gender</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    <select
-                      class="form-control"
-                      formControlName="gender"
-                      id="gender"
-                      name="gender"
-                    >
-                      <option value="MALE">Male</option>
-                      <option value="FEMALE">Female</option>
-                    </select>
-                  </div>
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Gender</h6>
                 </div>
+                <div class="col-sm-9 text-secondary">
+                  <select
+                    class="form-control"
+                    formControlName="gender"
+                    id="gender"
+                    name="gender"
+                  >
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                  </select>
+                </div>
+              </div>
 
               <div class="form-group row mb-3" style="margin-top: 20px">
                 <div class="col-sm-3">
@@ -198,19 +189,14 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Two factor authentification</h6>
                 </div>
-                <!-- <ui-switch checked></ui-switch> -->
                 <div class="col-sm-9 text-secondary">
                   <ui-switch
                     [checked]="false"
                     formControlName="two_FactAuth_Option"
                   ></ui-switch>
-
-                  <!-- <div class="btn-group btn-toggle">
-                    <button class="btn btn-xs btn-default">ON</button>
-                  <button class="btn btn-xs btn-success active">OFF</button>
-                  </div> -->
                 </div>
               </div>
+             <app-facial-recognition-button></app-facial-recognition-button>
               <h5 style="color: #5c962f">change password</h5>
               <div class="form-group row mb-3" style="margin-top: 20px">
                 <div class="col-sm-3">
