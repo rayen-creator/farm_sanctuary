@@ -222,10 +222,32 @@ const typeDefs = gql`
     Workshop
     Tyres
   }
-  
-  
-  
 
+  type Notification {
+    id: ID!
+    createdAt: DateTime!
+    content: String!
+    type: NotificationType!
+    recipient: User!
+    status: NotificationStatus!
+  }
+
+  enum NotificationType {
+    PAIEMENT
+    PRODUCT
+    DELIVERY
+  }
+
+  enum NotificationStatus {
+    UNREAD
+    READ
+  }
+
+
+
+  
+  
+  
   input signinInput {
     email: String!
     password: String!
@@ -431,6 +453,9 @@ const typeDefs = gql`
     getAllbadges:[Badge!]!
 
     getBadgeById(id:ID!):Badge!
+
+    notifications: [Notification!]!
+
   }
 
   type Mutation {
@@ -491,6 +516,12 @@ const typeDefs = gql`
     deleteComment(id: ID!): Comment!
 
     assignBadges(userId:ID!):badgeResponse!
+
+    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
+    markNotificationAsRead(id: ID!): Notification!
+    deleteNotification(id: ID!): Notification!
+
+
   }
 
   input CreateProductInput {

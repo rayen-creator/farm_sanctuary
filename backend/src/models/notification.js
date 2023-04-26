@@ -12,7 +12,7 @@ const notificationSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['paiement', 'product', 'delivery'],
+    enum: ['PAIEMENT', 'PRODUCT', 'DELIVERY'],
     required: true
   },
   recipient: {
@@ -22,8 +22,8 @@ const notificationSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['unread', 'read'],
-    default: 'unread',
+    enum: ['UNREAD', 'READ'],
+    default: 'UNREAD',
     required: true
   }
 });
