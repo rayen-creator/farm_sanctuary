@@ -1,32 +1,32 @@
-<div class="container">
-    <div class="chatbox">
-      <div class="chatbox__support" #chatBox>
-        <div class="chatbox__header">
-          <div class="chatbox__image--header">
-            <img src="https://img.icons8.com/color/48/000000/robot-2.png" alt="image">
-          </div>
-          <div class="chatbox__content--header">
-            <h4 class="chatbox__heading--header">Chat support</h4>
-            <p class="chatbox__description--header">Chat support, How can I help you?</p>
-          </div>
+<div class="chatbox-container">
+  <div class="chatbox">
+    <div class="chatbox__support" #chatBox>
+      <div class="chatbox__header">
+        <div class="chatbox__image--header">
+          <img src="https://img.icons8.com/color/48/000000/robot-2.png" alt="image">
         </div>
-        <div class="chatbox__messages">
-          <div *ngFor="let message of messages.slice().reverse()" class="messages__item" [ngClass]="{ 'messages__item--operator': message.name === 'Sam', 'messages__item--visitor': message.name === 'User' }">
-            <div class="messages__content">
-              {{ message.message }}
-            </div>
-          </div>
+        <div class="chatbox__content--header">
+          <h4 class="chatbox__heading--header">Chat support</h4>
+          <p class="chatbox__description--header">Chat support, How can I help you?</p>
         </div>
-        
-        <div class="chatbox__footer">
-          <input type="text" placeholder="Write a message..." #inputField (keydown.enter)="onSendButton(chatBox)">
-          <button class="chatbox__send--footer send__button" (click)="onSendButton(chatBox)">Send</button>
-        </div>
-        
       </div>
-      <div class="chatbox__button">
-        <button (click)="toggleState(chatBox)"><img src="../../../../assets/images/chatbot/chatbox-icon.svg" /></button>
+      <div class="chatbox__messages">
+        <div *ngFor="let message of messages.slice().reverse()" class="messages__item" [ngClass]="{ 'messages__item--operator': message.name === 'Sam', 'messages__item--visitor': message.name === 'User' }">
+          <div class="messages__content">
+            {{ message.message }}
+          </div>
+        </div>
       </div>
+      
+      <div class="chatbox__footer">
+        <input type="text" placeholder="Write a message..." #inputField (keydown.enter)="onSendButton(chatBox)">
+        <button class="chatbox__send--footer send__button" (click)="onSendButton(chatBox)">Send</button>
+      </div>
+      
+    </div>
+    <div class="chatbox__button">
+      <button (click)="toggleState(chatBox)"><img src="../../../../assets/images/chatbot/chatbox-icon.svg" /></button>
     </div>
   </div>
-  
+</div>
+

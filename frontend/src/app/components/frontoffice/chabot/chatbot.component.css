@@ -6,7 +6,11 @@
     z-index: 2;
 
   }
-    
+  .chatbox-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
     body {
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
