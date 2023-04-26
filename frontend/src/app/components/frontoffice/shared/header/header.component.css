@@ -78,4 +78,23 @@
   opacity: 1;
 }
 
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-cart a, .search-cart li {
+  margin-right: 2px; /* adjust as needed */
+}
+
+.search-cart a:last-child, .search-cart li:last-child {
+  margin-right: 0;
+}
 

@@ -11,6 +11,7 @@ import {CartService} from "../../../../core/services/cart.service";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  notificationCount = 5;
   username: string;
   img: string;
   role: string;
@@ -77,5 +78,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   loggingout() {
     this.auth.logout();
+  }
+  
+  clearNotificationCount(): void {
+    this.notificationCount = 0;
   }
 }

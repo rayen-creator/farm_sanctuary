@@ -174,20 +174,31 @@
 
           <div class="main-header--one__bottom-right clearfix">
             <div class="search-cart">
-              <a
-                routerLink="addfeedback"
-                class="search search-toggler"
-                *ngIf="userIsAuthenticated"
-                ><span class="bx bx-message-dots"></span
-              ></a>
-              <a href="#" class="search search-toggler"
-                ><span class="icon-magnifying-glass"></span
-              ></a>
-              <a routerLink="marketplace/cart" class="cart mini-cart__toggler">
-                <span class="icon-shopping-cart"></span>
-                <span class="badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
-              </a>
+              <div class="icon-container">
+                <a routerLink="addfeedback" class="search search-toggler" *ngIf="userIsAuthenticated">
+                  <span class="bx bx-message-dots"></span>
+                </a>
+                <a href="#" class="search search-toggler">
+                  <span class="icon-magnifying-glass"></span>
+                </a>
+                <a routerLink="marketplace/cart" class="cart mini-cart__toggler">
+                  <span class="icon-shopping-cart"></span>
+                  <span class="badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+                </a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="#" id="notification-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="clearNotificationCount()">
+                    <i class="fa fa-bell"></i>
+                    <span class="badge">{{ notificationCount }}</span>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="notification-dropdown">
+                    <li><a class="dropdown-item" href="#">Notification 1</a></li>
+                    <li><a class="dropdown-item" href="#">Notification 2</a></li>
+                    <li><a class="dropdown-item" href="#">Notification 3</a></li>
+                  </ul>
+                </li>
+              </div>
             </div>
+  
             <div class="contact-box" *ngIf="userIsAuthenticated">
               <div class="text">
                 <div class="dropdown-avatar">
