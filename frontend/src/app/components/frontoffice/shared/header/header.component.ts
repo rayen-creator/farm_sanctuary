@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import jwt_decode from "jwt-decode";
 import {CartService} from "../../../../core/services/cart.service";
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { Notification } from 'src/app/core/models/notification';
 
 @Component({
   selector: 'app-header',
@@ -74,8 +75,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   getNotifications() {
     this.notificationService.getNotifications().subscribe((notifications) => {
-      this.notificationCount = notifications.filter((notification) => notification.status === 'UNREAD').length;
+      this.notificationCount = notifications?.filter(notification => notification.status === 'UNREAD').length;
+      this.notifications = notifications
     });
+    
 
   }
 

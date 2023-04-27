@@ -3,9 +3,6 @@ export interface Notification {
   createdAt: Date;
   content: string;
   type: 'PAIEMENT' | 'PRODUCT' | 'DELIVERY';
-  recipient: {
-    _id: string;
-    username: string;
-  };
+  recipient: string;
   status: 'UNREAD' | 'READ';
 }

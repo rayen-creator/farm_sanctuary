@@ -101,3 +101,26 @@ a#notification-dropdown {
   margin-right: 0;
 }
 
+.dropdown-menu {
+  width: 300px;
+}
+
+.dropdown-item {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-header {
+  font-weight: 500;
+  color: #6c757d;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.text-muted {
+  font-size: 0.8rem;
+}

@@ -10,19 +10,22 @@ import { GET_NOTIFICATIONS } from '../graphql/queries/notification.queries';
 })
 export class NotificationService {
   constructor(private apollo: Apollo) {}
+        
 
-  getNotifications(): Observable<Notification[]> {
-    // @ts-ignore
-    return this.appolo
-      .watchQuery({
-        query: GET_NOTIFICATIONS,
-      }).valueChanges.pipe(
-        // @ts-ignore
-        map((res) => res.data.getNotifications as Notification[]),
-        catchError((err) => {
-          console.log(err);
-          return of([]);
-        })
-      );
-  }
-}
+        getNotifications(): Observable<Notification[]> {
+          return this.apollo
+            .watchQuery({
+              query: GET_NOTIFICATIONS,
+            }).valueChanges.pipe(
+              map((res) => {
+                // @ts-ignore
+                const notifications = res.data.notifications as Notification[];
+                console.log(notifications);
+                return notifications;
+              }),
+              catchError((err) => {
+                console.log(err);
+                return of([]);
+              })
+            );
+        }}
