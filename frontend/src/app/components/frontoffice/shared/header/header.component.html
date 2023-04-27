@@ -188,14 +188,29 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link" href="#" id="notification-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="clearNotificationCount()">
                     <i class="fa fa-bell"></i>
-                    <span class="badge">{{ notificationCount }}</span>
+                    <span class="badge" *ngIf="cartItemCount && notificationCount">{{ notificationCount }}</span>
                   </a>
-                  <ul class="dropdown-menu" aria-labelledby="notification-dropdown">
-                    <li><a class="dropdown-item" href="#">Notification 1</a></li>
-                    <li><a class="dropdown-item" href="#">Notification 2</a></li>
-                    <li><a class="dropdown-item" href="#">Notification 3</a></li>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notification-dropdown">
+                    <li *ngFor="let notification of notifications">
+                      <a class="dropdown-item" href="#">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="border-bottom">
+                              <h6 class="mb-0">{{ notification.content }}</h6>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="mt-2">
+                              <small class="text-muted">{{ notification.createdAt | date: 'medium' }}</small>
+                              <span class="float-end"><small class="text-muted">{{ notification.status }}</small></span>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
                   </ul>
                 </li>
+                
               </div>
             </div>
   

@@ -31,6 +31,9 @@
   /* Set the direction of the items to be displayed vertically */
   flex-direction: column;
 }
+a#notification-dropdown {
+  padding-right: 7px;
+}
 
 .dropdown-avatar:hover .dropdown-content {
   display: flex; /* Display the dropdown content as flex */
