@@ -392,6 +392,11 @@ const typeDefs = gql`
     description:String
   }
 
+  input faceIDInput{
+    id:String
+    faceImage:String
+  }
+
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -491,6 +496,8 @@ const typeDefs = gql`
     deleteComment(id: ID!): Comment!
 
     assignBadges(userId:ID!):badgeResponse!
+
+    addFaceID(input:faceIDInput!):User
   }
 
   input CreateProductInput {

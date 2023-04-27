@@ -49,7 +49,13 @@ const authResolver = {
       try {
         return await authService.verifyOTP(input);
       } catch (error) {
-        console.log("moshkla");
+        throw new Error(error);
+      }
+    },
+    async addFaceID(_, { input }) {
+      try {
+        return await authService.addFaceID(input);
+      } catch (error) {
         throw new Error(error);
       }
     },

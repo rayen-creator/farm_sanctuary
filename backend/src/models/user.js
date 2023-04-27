@@ -63,6 +63,7 @@ const userSchema = new mongoose.Schema({
       ref: "Badge",
     },
   ],
+  faceID: String,
 });
 
 const User = mongoose.model("Users", userSchema);
