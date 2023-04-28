@@ -78,3 +78,12 @@ export const SEND_OTP_MUTATION = gql`
     }
   }
 `;
+
+export const addFaceID=gql`
+mutation addFaceID($input:faceIDInput!){
+  addFaceID(input:$input){
+    id
+    username
+  }
+}
+`;

@@ -1,5 +1,7 @@
+import { FacialRecognitionService } from './../../../../core/services/facial-recognition.service';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {  ToastrService } from 'ngx-toastr';
 import { WebcamImage } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 
@@ -11,25 +13,29 @@ import { Observable, Subject } from 'rxjs';
 export class FacialRecognitionButtonComponent implements OnInit {
   selectedFile: any;
   imagePreview: string;
-  webcamImageCaptured:boolean=false;
-  public webcamImage: WebcamImage  ;
+  webcamImageCaptured: boolean = false;
+  public webcamImage: WebcamImage;
   private trigger: Subject<void> = new Subject<void>();
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(
+    private sanitizer: DomSanitizer,
+    private FacialRecognitionService: FacialRecognitionService,
+    private toaster:ToastrService
+  ) { }
 
   ngOnInit(): void {
   }
   triggerSnapshot(): void {
     this.trigger.next();
-   }
-   handleImage(webcamImage: WebcamImage): void {
-    console.info('Saved webcam image', webcamImage);
-    this.webcamImageCaptured=true;
+  }
+  handleImage(webcamImage: WebcamImage): void {
+    // console.info('Saved webcam image', webcamImage.imageAsDataUrl);
+    this.webcamImageCaptured = true;
     this.webcamImage = webcamImage;
-   }
-    
-   public get triggerObservable(): Observable<void> {
+  }
+
+  public get triggerObservable(): Observable<void> {
     return this.trigger.asObservable();
-   }
+  }
   sanitizeImageUrl(imageUrl: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
@@ -44,5 +50,33 @@ export class FacialRecognitionButtonComponent implements OnInit {
     };
     reader.readAsDataURL(this.selectedFile);
     // call your service method to update user image
+  }
+  saveChanges() {
+    if (this.selectedFile != "" && this.selectedFile != null) {
+      const reader = new FileReader();
+      reader.readAsDataURL(this.selectedFile);
+      reader.onload = () => {
+        this.FacialRecognitionService.addFaceID("641fcf09ecdf08ba462128d3", reader.result).subscribe({
+          next:()=>{
+            this.toaster.success("picture saved !","success")
+          },
+          error:(err)=>{
+            throw err;
+          }
+        })
+
+      };
+    }else if (this.webcamImageCaptured){
+      this.FacialRecognitionService.addFaceID("641fcf09ecdf08ba462128d3",this.webcamImage.imageAsDataUrl).subscribe({
+        next:()=>{
+          this.toaster.success("picture saved !","success")
+        },
+        error:(err)=>{
+          throw err;
+
+        }
+      })
+    }
+
   }
 }
