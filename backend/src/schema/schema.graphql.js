@@ -466,6 +466,11 @@ const typeDefs = gql`
     description:String
   }
 
+  input faceIDInput{
+    id:String
+    faceImage:String
+  }
+
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -576,8 +581,17 @@ const typeDefs = gql`
     updateOrderDeliveryStatus(id: ID!, isDelivered: Boolean!): Order!
     updateOrderConfirmationStatus(id: ID!, isConfirmed: Boolean!): Order!
     deleteOrder(id: ID!): Order!
+    add(input:eventInput):event
   }
-
+  type event{
+    id: ID!
+    title: String
+  description: String
+  }
+input eventInput{
+  title: String
+  description: String
+}
   input CreateProductInput {
     name: String!
     description: String!

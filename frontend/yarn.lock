@@ -5740,6 +5740,13 @@ ngx-toggle-switch@^2.0.5:
   resolved "https://registry.yarnpkg.com/ngx-toggle-switch/-/ngx-toggle-switch-2.0.5.tgz#ed9de38b4f52763612f1d00be55df73370e7d020"
   integrity sha512-2hrVr8S7JLdrg8XeaI/0GHGocRCDZCQ6u+GFjyhqMzCyTF8aOu3gzs0/tVPjME/xlG1lelnNKeTSdSg/dVleUA==
 
+ngx-webcam@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/ngx-webcam/-/ngx-webcam-0.4.1.tgz#2493b7a5b2b3acd9590c4384255f269fefc678a8"
+  integrity sha512-8WoC8GWHaN5tH+4zO0/gfUigVKg/jX7JShAewpumJIgJXFmlKhSPnPjewNNxv7OTQiOOb+5Mh6lhTo52VLlY9A==
+  dependencies:
+    tslib "^2.3.0"
+
 nice-napi@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nice-napi/-/nice-napi-1.0.2.tgz#dc0ab5a1eac20ce548802fc5686eaa6bc654927b"
