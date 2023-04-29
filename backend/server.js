@@ -1,3 +1,4 @@
+
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -8,6 +9,8 @@ const typeDefs = require("./src/schema/schema.graphql");
 const cors = require("cors");
 //mongodbconnection
 const mongodbconnection = require("./src/db/index");
+//test api cal
+
 //all resolvers
 const authResolver = require("./src/resolvers/auth.resolver");
 const userResolver = require("./src/resolvers/user.resolver");

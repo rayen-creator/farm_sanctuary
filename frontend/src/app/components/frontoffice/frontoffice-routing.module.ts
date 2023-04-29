@@ -32,6 +32,7 @@ import { CategoryRecommendedProductsComponent } from './category-recommended-pro
 
 import {  ConversationRoomComponent} from './conversation-room/conversation-room.component';
 import { LivechatComponent } from './livechat/livechat.component';
+import { MapComponent } from './map/map.component';
 
 
 const routes: Routes = [
@@ -68,6 +69,7 @@ const routes: Routes = [
 
 ,
       { path: 'Messages', component: ConversationRoomComponent },
+      { path: 'Map', component: MapComponent },
       { path: 'chat/:id', component: LivechatComponent }
     ]
   },
