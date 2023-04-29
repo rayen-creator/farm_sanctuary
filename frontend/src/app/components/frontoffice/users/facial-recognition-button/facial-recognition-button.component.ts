@@ -56,26 +56,11 @@ export class FacialRecognitionButtonComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsDataURL(this.selectedFile);
       reader.onload = () => {
-        this.FacialRecognitionService.addFaceID("641fcf09ecdf08ba462128d3", reader.result).subscribe({
-          next:()=>{
-            this.toaster.success("picture saved !","success")
-          },
-          error:(err)=>{
-            throw err;
-          }
-        })
+       
 
       };
     }else if (this.webcamImageCaptured){
-      this.FacialRecognitionService.addFaceID("641fcf09ecdf08ba462128d3",this.webcamImage.imageAsDataUrl).subscribe({
-        next:()=>{
-          this.toaster.success("picture saved !","success")
-        },
-        error:(err)=>{
-          throw err;
-
-        }
-      })
+     
     }
 
   }

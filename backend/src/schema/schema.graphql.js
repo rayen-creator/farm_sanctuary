@@ -497,7 +497,6 @@ const typeDefs = gql`
 
     assignBadges(userId:ID!):badgeResponse!
 
-    addFaceID(input:faceIDInput!):User
   }
 
   input CreateProductInput {

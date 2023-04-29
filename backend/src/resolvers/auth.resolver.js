@@ -52,13 +52,6 @@ const authResolver = {
         throw new Error(error);
       }
     },
-    async addFaceID(_, { input }) {
-      try {
-        return await authService.addFaceID(input);
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
   },
 };
 

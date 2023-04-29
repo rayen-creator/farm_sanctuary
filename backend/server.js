@@ -32,11 +32,11 @@ app.use(
 );
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.json());
+
 //Initialize badges
-// app.use(createBadgesMiddleware.createBadges);
 createBadgesMiddleware.createBadges();
 
 const server = new ApolloServer({

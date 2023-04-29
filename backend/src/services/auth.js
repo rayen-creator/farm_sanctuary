@@ -404,16 +404,7 @@ async function verifyOTP(input) {
   }
 }
 
-async function addFaceID(input) {
-  const user = await User.findById(input.id);
-  if (user) {
-    const addFaceID = await User.updateOne(
-      { email: user.email },
-      { faceID: input.faceImage }
-    );
-    return user;
-  }
-}
+
 module.exports = {
   signin,
   signup,
@@ -422,5 +413,4 @@ module.exports = {
   checkresettoken,
   sendOTPVerificationEmail,
   verifyOTP,
-  addFaceID
 };
