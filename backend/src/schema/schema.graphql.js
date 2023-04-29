@@ -229,7 +229,7 @@ const typeDefs = gql`
     content: String!
     type: NotificationType!
     recipient: User!
-    status: NotificationStatus!
+    seen: Boolean!
   }
 
   enum NotificationType {
@@ -238,10 +238,7 @@ const typeDefs = gql`
     DELIVERY
   }
 
-  enum NotificationStatus {
-    UNREAD
-    READ
-  }
+  
 
 
 

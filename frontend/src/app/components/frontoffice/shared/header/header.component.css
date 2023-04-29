@@ -118,8 +118,8 @@ a#notification-dropdown {
   overflow: hidden; /* Hide any content that exceeds the container */
 }
 
-.notification-item .notification-content {
-  font-weight: bold; /* Add bold font weight to the notification content */
+.dropdown-item .notification-content {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Add bold font weight to the notification content */
 }
 
 .notification-item .notification-date {
@@ -146,4 +146,17 @@ a#notification-dropdown {
 .dropdown-item.text-center:hover {
   background-color: transparent; /* Remove the background color on hover */
   text-decoration: underline; /* Add underline on hover */
+}
+
+.notification-content-and-status {
+  display: flex;
+  align-items: center;
+}
+
+.notification-status {
+  margin-right: 5px;
+}
+
+.notification-content {
+  flex: 1;
 }

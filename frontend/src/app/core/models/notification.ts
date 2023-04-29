@@ -1,8 +1,8 @@
-export interface Notification {
+export class Notification {
   _id: string;
   createdAt: Date;
   content: string;
   type: 'PAIEMENT' | 'PRODUCT' | 'DELIVERY';
   recipient: string;
-  status: 'UNREAD' | 'READ';
+  seen: Boolean;
 }

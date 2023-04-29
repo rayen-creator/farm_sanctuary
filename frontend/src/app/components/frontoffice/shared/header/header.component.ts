@@ -75,7 +75,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   getNotifications() {
     this.notificationService.getNotifications().subscribe((notifications) => {
-      this.notificationCount = notifications?.filter(notification => notification.status === 'UNREAD').length;
+      this.notificationCount = notifications?.filter(notification=> notification.seen === false).length;
       this.notifications = notifications
     });
     

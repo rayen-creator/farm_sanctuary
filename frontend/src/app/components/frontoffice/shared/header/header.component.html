@@ -195,13 +195,18 @@
                     <div *ngIf="notifications.length === 0" class="dropdown-item text-center">No notifications</div>
                     <ng-container *ngFor="let notification of notifications">
                       <a class="dropdown-item notification-item" href="#">
-                        <div class="notification-content">{{ notification.content }}</div>
+                        <div class="notification-content-and-status">
+                          <div class="notification-status">
+                            <i class="fa" [ngClass]="{'fa-envelope-open fa-x0': notification.seen, 'fa-envelope fa-0x': !notification.seen}"></i>
+                          </div>
+                          <div class="notification-content">{{ notification.content }}</div>
+                        </div>
                         <div class="notification-date">{{ notification.createdAt | date: 'MMM d, y' }}</div>
                       </a>
                     </ng-container>
                     <a class="dropdown-item text-center" href="#">View all notifications</a>
                   </div>
-                </li>
+                  
                 
                 
               </div>

@@ -11,7 +11,7 @@ export const CREATE_NOTIFICATION = gql`
       recipient {
         id
       }
-      status
+      seen
     }
   }
 `;
@@ -26,7 +26,7 @@ export const MARK_NOTIFICATION_AS_READ = gql`
       recipient {
         id
       }
-      status
+      seen
     }
   }
 `;
@@ -41,7 +41,7 @@ export const GET_NOTIFICATIONS = gql`
       recipient {
         id
       }
-      status
+      seen
     }
   }
 `;
@@ -56,7 +56,7 @@ export const DELETE_NOTIFICATION = gql`
       recipient {
         id
       }
-      status
+      seen
     }
   }
 `;
