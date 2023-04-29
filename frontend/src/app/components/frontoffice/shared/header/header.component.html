@@ -188,26 +188,21 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link" href="#" id="notification-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="clearNotificationCount()">
                     <i class="fa fa-bell"></i>
-                    <span class="badge badge-pill badge-danger" *ngIf="cartItemCount && notificationCount">{{ notificationCount }}</span>
+                    <span class="badge badge-pill badge-danger" *ngIf="notificationCount">{{ notificationCount }}</span>
                   </a>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notification-dropdown">
+                  <div class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notification-dropdown">
                     <h6 class="dropdown-header">Notifications</h6>
                     <div *ngIf="notifications.length === 0" class="dropdown-item text-center">No notifications</div>
                     <ng-container *ngFor="let notification of notifications">
-                      <a class="dropdown-item" href="#">
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="mb-2">{{ notification.content }}</div>
-                            <div class="mt-1">
-                              <small class="text-muted">{{ notification.createdAt | date: 'MMM d, y' }}</small>
-                            </div>
-                          </div>
-                        </div>
+                      <a class="dropdown-item notification-item" href="#">
+                        <div class="notification-content">{{ notification.content }}</div>
+                        <div class="notification-date">{{ notification.createdAt | date: 'MMM d, y' }}</div>
                       </a>
                     </ng-container>
                     <a class="dropdown-item text-center" href="#">View all notifications</a>
                   </div>
                 </li>
+                
                 
               </div>
             </div>
