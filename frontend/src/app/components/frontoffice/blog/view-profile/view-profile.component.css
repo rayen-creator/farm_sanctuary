@@ -1,23 +1,44 @@
+.vertical-line {
+    border-left: 1px solid rgb(201, 199, 199);
+    height: 500px;
+    /* adjust as needed */
+    margin: 0 10px;
+    /* adjust as needed */
+}
 
-/***********************/
-body{
-    color: #6F8BA4;
-    margin-top:20px;
+
+#badge {
+  border-radius: 50%;
+  border: solid 2px #f3eeee; 
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 110px;
+  width: 110px;
 }
+
+
 .section {
-    padding: 100px 0;
-    position: relative;
+  padding: 100px 0;
+  position: relative;
 }
+
 .gray-bg {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
+
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
+
 img {
-    vertical-align: middle;
-    border-style: none;
+  border-radius: 50%;
+
+  vertical-align: middle;
+  border-style: none;
 }
+
 /* About Me 
 ---------------------*/
 .about-text h3 {
@@ -25,42 +46,50 @@ img {
   font-weight: 700;
   margin: 0 0 6px;
 }
+
 @media (max-width: 767px) {
   .about-text h3 {
     font-size: 35px;
   }
 }
+
 .about-text h6 {
   font-weight: 600;
   margin-bottom: 15px;
 }
+
 @media (max-width: 767px) {
   .about-text h6 {
     font-size: 18px;
   }
 }
+
 .about-text p {
   font-size: 18px;
   max-width: 450px;
 }
+
 .about-text p mark {
   font-weight: 600;
-  color: #20247b;
+  color: #467a4a;
 }
 
 .about-list {
   padding-top: 10px;
 }
+
 .about-list .media {
   padding: 5px 0;
 }
+
 .about-list label {
-  color: #20247b;
+  color: #467a4a;
   font-weight: 600;
   width: 88px;
   margin: 0;
   position: relative;
 }
+
 .about-list label:after {
   content: "";
   position: absolute;
@@ -69,7 +98,7 @@ img {
   right: 11px;
   width: 1px;
   height: 12px;
-  background: #20247b;
+  background: #467a4a;
   -moz-transform: rotate(15deg);
   -o-transform: rotate(15deg);
   -ms-transform: rotate(15deg);
@@ -78,6 +107,7 @@ img {
   margin: auto;
   opacity: 0.5;
 }
+
 .about-list p {
   margin: 0;
   font-size: 15px;
@@ -88,38 +118,48 @@ img {
     margin-top: 30px;
   }
 }
-
+.counter{
+  min-width: 90%;
+  min-height:150px ;
+  text-align: center;
+}
 .about-section .counter {
   padding: 22px 20px;
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
 }
+
 .about-section .counter .count-data {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 .about-section .counter .count {
   font-weight: 700;
-  color: #20247b;
+  color: #467a4a;
   margin: 0 0 5px;
 }
+
 .about-section .counter p {
   font-weight: 600;
   margin: 0;
 }
+
 mark {
-    background-image: linear-gradient(rgba(252, 83, 86, 0.6), rgba(252, 83, 86, 0.6));
-    background-size: 100% 3px;
-    background-repeat: no-repeat;
-    background-position: 0 bottom;
-    background-color: transparent;
-    padding: 0;
-    color: currentColor;
+  background-image: linear-gradient(rgba(252, 83, 86, 0.6), rgba(252, 83, 86, 0.6));
+  background-size: 100% 3px;
+  background-repeat: no-repeat;
+  background-position: 0 bottom;
+  background-color: transparent;
+  padding: 0;
+  color: currentColor;
 }
+
 .theme-color {
-    color: #fc5356;
+  color: #fc5356;
 }
+
 .dark-color {
-    color: #20247b;
+  color:#467a4a;
 }

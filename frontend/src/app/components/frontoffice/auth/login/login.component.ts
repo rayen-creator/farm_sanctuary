@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      console.log(this.user)
     });
     this.loginform = this.formBuilder.group({
       email: ['', Validators.required],
@@ -35,7 +34,6 @@ export class LoginComponent implements OnInit {
   login(form: any) {
     if (form.email != "" && form.password != "") {
       this.authservice.login(form)
-      console.log("Login form", form);
 
     } else {
       Customvalidator.validateAllFormFields(this.loginform);

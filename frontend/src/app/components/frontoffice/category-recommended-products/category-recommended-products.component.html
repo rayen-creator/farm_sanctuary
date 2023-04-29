@@ -13,10 +13,8 @@
     </div>
   </div>
 </section>
-<section
-  class="shop-one"
-  *ngIf="(categoryRecommendedProductsList | filter : searchText)?.length > 0"
->
+<section class="shop-one" [class.hidden]="(categoryRecommendedProductsList | filter:searchText)?.length === 0">
+
   <div class="container">
     <div class="row">
       <div class="col-lg-3">
@@ -80,13 +78,11 @@
 
             <select
               class="shop-one__product-sorter"
-              name="sortProducts"
-              id="sortProducts"
+              name="sortCategoryRecommendedProducts"
+              id="sortCategoryRecommendedProducts"
             >
-              <option value="popularity" selected>Sort by Popular</option>
               <option value="priceAsc">Sort by Price asc</option>
               <option value="priceDesc">Sort by Price desc</option>
-              <option value="country">Sort by country</option>
             </select>
           </div>
           <!-- /.col-lg-12 -->

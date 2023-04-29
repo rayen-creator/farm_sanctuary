@@ -20,9 +20,7 @@ module.exports = {
           ],
         });
         let createdMsg
-
         if(Exit){
-            console.log(Exit);
             if (User1_param1 == Exit.User1)
             {
                 await Message.findOneAndUpdate({ ConvName: Exit.ConvName},{$push : {  messageUser1:map2.set("user1",req.body.messageUser1) }}  , {new: true}) 
@@ -30,6 +28,13 @@ module.exports = {
                {
                 await Message.findOneAndUpdate({ ConvName: Exit.ConvName},{$push : { messageUser1:map2.set("user2", req.body.messageUser1) }}  , {new: true})
               }
+              var list = []
+              const iterator1 = map2.values();
+              const  mapIter= map2.keys();
+              list.push({key : mapIter.next().value, value :iterator1.next().value})
+              return  res.send(
+                list
+              )
 }else{
    const createdMsg = Message.create({
         User1: req.body.UserM1,
@@ -47,16 +52,25 @@ module.exports = {
     
     showmessage: async (req, res) => {
       var list = []
-      var conv = await Message.findOne({ConvName : req.body.ConvName})
-  
-      if(conv?.messageUser1 != null){
-        conv.messageUser1.forEach((element )=>{
-        for (const [key, value] of element) {
-                  list.push({key : key, value :value})
-                }
-              });
-            
-               res.send(list)
+      const ConvName = req.params;
+      console.log(req.params) 
+      var conv = await Message.findOne(ConvName)
+      if(conv){
+        if(conv?.messageUser1 != null){
+          conv.messageUser1.forEach((element )=>{
+          for (const [key, value] of element) {
+                    list.push({key : key, value :value})
+                  }
+                });
+              
+                return res.status(200).json({
+                  list :list,
+                });
+        } ;
+      }else{
+        return res.status(200).json({
+          list: null,
+        });
       } 
   }
 }

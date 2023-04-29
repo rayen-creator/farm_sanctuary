@@ -41,6 +41,15 @@ const typeDefs = gql`
     ranching
   }
 
+  type Badge{
+    id:ID
+    image: String
+    name: String
+    description:String
+    createdAt: DateTime
+    updatedAt:DateTime
+  }
+
   type Comment {
     id: ID!
     content: String
@@ -69,9 +78,47 @@ const typeDefs = gql`
     subject: String!
     content: String!
     category: Category!
-    rating: Int!
-    createdAt: DateTime
+    rating: Int
+    createdAt:DateTime
     user: User!
+
+  }
+
+  type CartItem {
+    name: String!
+    price: Float!
+    total: Float!
+    image: String!
+    unit: String!
+    quantity: Int!
+  }
+
+  type Order {
+    id: ID!
+    cartItems: [CartItem!]!
+    totalPrice: Float!
+    user: User!
+    farmer: User!
+    isDelivered: Boolean!
+    createdAt: DateTime
+    updatedAt: DateTime
+    isConfirmed: Boolean!
+  }
+
+  input CartItemInput {
+    name: String!
+    price: Float!
+    total: Float!
+    image: String!
+    unit: String!
+    quantity: Int!
+  }
+
+  input CreateOrderInput {
+    cartItems: [CartItemInput!]!
+    totalPrice: Float!
+    userId: ID!
+    farmerId: ID!
   }
 
   type CartItem {
@@ -142,6 +189,7 @@ const typeDefs = gql`
     location: String
     email_change_option: Boolean
     likedPost:[Post]
+    badges:[Badge]
   }
 
   type Product {
@@ -411,6 +459,13 @@ const typeDefs = gql`
       reviewExist: Boolean!
       message: String!
   }
+
+  type badgeResponse{
+    name:String
+    image:String
+    description:String
+  }
+
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -428,7 +483,9 @@ const typeDefs = gql`
     getProductsByUser(userId: ID!): [Product!]!
 
     getProductsByCategory(category: productCategory!): [Product!]!
-    
+        getOneStarFeedbacks: [Feedback!]!
+
+
     
    
     
@@ -444,6 +501,10 @@ const typeDefs = gql`
     getAllComment(postId: ID!): [Comment!]!
     getCommentById(id: ID!): Comment!
     getCommentPerUser(userId:ID!):[Comment!]!
+
+    getAllbadges:[Badge!]!
+
+    getBadgeById(id:ID!):Badge!
 
     getOrder(id: ID!): Order
     getOrdersByUser(userId: ID!): [Order!]!
@@ -477,6 +538,7 @@ const typeDefs = gql`
     updateLocation(input: AgentLocationInput!): deliveryAgent!
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!): loginDriverResponse!
+    deleteFeedback(id: ID!): Feedback
 
     createFeedback(input: FeedbackInput!): Feedback!
 
@@ -506,6 +568,8 @@ const typeDefs = gql`
     addComment(input: commentInput, postId: ID!, userId: ID!): Comment!
     modifyComment(id: ID!, input: commentInput!): Comment!
     deleteComment(id: ID!): Comment!
+
+    assignBadges(userId:ID!):badgeResponse!
 
 
     createOrder(input: CreateOrderInput!): createProductResponse!

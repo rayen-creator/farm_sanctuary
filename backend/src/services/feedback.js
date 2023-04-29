@@ -17,6 +17,12 @@ async function  getFiveStarFeedbacks() {
 }
 
 
+async function  getOneStarFeedbacks() {
+  return Feedback.find({ rating: 1 });
+}
+
+
+
 
 async function createFeedback(input) {
   const feedback = new Feedback({
@@ -32,11 +38,25 @@ async function createFeedback(input) {
   return await feedback.save(feedback);
 }
 
+async function deleteFeedback(id) {
+  const feedback = await Feedback.findById({ _id: id });
+  if (!feedback) {
+      return null;
+  }
+  return await feedback.remove();
+}
+
+
+
+
+
 
 module.exports = {
   getFeedback,
   getFeedbacks,
   createFeedback,
   getFeedbackPerUser,
-  getFiveStarFeedbacks
+  getFiveStarFeedbacks, 
+  getOneStarFeedbacks, 
+  deleteFeedback
 };

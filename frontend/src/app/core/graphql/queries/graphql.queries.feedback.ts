@@ -2,15 +2,16 @@ import { gql } from "apollo-angular";
 export const feedbacks = gql`
 {
     getFeedbacks {
-        category,
-        content,
-        id,
-        rating,
-        subject,
-        title,
-        user {
-            username,
-            role,
+        id
+        title
+        subject
+        content
+        rating
+        category
+        createdAt
+        user{
+            id 
+            username
             image
         }
       }
@@ -24,6 +25,7 @@ export const createFeedback = gql`
         content
         rating
         category
+        
     }
 }
 `;
@@ -35,7 +37,7 @@ export const getFeedbacksFiveStars = gql`
         subject,
         content, 
         rating,
-        category,
+        category
         user {
             username,
             role,
@@ -45,6 +47,18 @@ export const getFeedbacksFiveStars = gql`
     }
     }
     `;
+export const getFeedbacksOneStar = gql`
+query{
+getOneStarFeedbacks{
+    title,
+    subject,
+    content, 
+    rating,
+    category
+
+}
+}
+`;
 
 
 export const getFeedbackPerUser = gql`
@@ -59,4 +73,18 @@ query getFeedbackPerUser($userId:ID!){
         createdAt
       }
 }`;
+export const deleteFeedback = gql`
+mutation deleteFeedback($id: ID!) {
+  deleteFeedback(id: $id) {
+    id
+    title
+    subject
+    content
+    rating
+    category
+    createdAt
+  }
+}
+`;
+
 

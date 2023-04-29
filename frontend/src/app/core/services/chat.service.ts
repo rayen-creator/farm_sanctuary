@@ -1,45 +1,63 @@
+import { Conversation } from 'src/app/core/models/conversation';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { io, Socket } from 'socket.io-client';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap, BehaviorSubject, catchError, throwError } from 'rxjs';
+import { Message } from '../models/message';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
   private socket: Socket;
+  private _refreshrequired = new Subject<void>();
+  private _messages = new BehaviorSubject<Conversation[]>([]);
+  public messages$ = this._messages.asObservable();
+  listUpdated = new Subject<any[]>();
 
   constructor(private http: HttpClient) {
     // Connect to Socket.io server
     this.socket = io('http://localhost:3001');
   }
 
-  joinChat(conversationName: string, userName: string): Observable<any> {
-    // Join the chat room
-    this.socket.emit('subscribe', { conversationName: conversationName, userName: userName });
+  get Refreshrequired() {
+    return this._refreshrequired;
+  }
 
+  joinChat(conversationName: string): Observable<Conversation[]> {
     // Fetch existing chat history
-    return this.http.get(`http://localhost:3001/Message?roomName=${conversationName}`);
+    return this.http.get<Conversation[]>(`http://localhost:3001/Message/showmessage/${conversationName}`).pipe(
+      tap((messages: Conversation[]) => {
+        // Save the messages to the messages property
+        this._messages.next(messages);
+      })
+    );
   }
 
-  leaveChat(conversationName: string, userName: string): void {
-    // Leave the chat room
-    this.socket.emit('unsubscribe', { conversationName: conversationName, userName: userName });
-  }
-
-  sendMessage(conversationName: string, userName: string, messageContent: string): void {
+  
+  sendMessage(conversationName: string, userid: string, messageContent: Message): Observable<any> {
     // Send a new message
-    const chatData = { conversationName: conversationName, userName: userName, messageContent: messageContent };
-    this.socket.emit('newMessage', chatData);
+    return this.http.post(`http://localhost:3001/Message/addmessage/${userid}/${conversationName}`, messageContent).pipe(
+      catchError((error) => {
+        console.error('Error sending message:', error);
+        return throwError(error);
+      }),
+      tap((response: any) => {
+        // Convert response to a Message object
+        const newMessage: Conversation = response;
+        // Add the new message to the messages property
+        const currentMessages = this._messages.getValue();
+        if (Array.isArray(currentMessages)) {
+          this._messages.next([...currentMessages, newMessage]);
+        } else {
+          this._messages.next([newMessage]);
+        }
+        this.Refreshrequired.next();
+      })
+    );
   }
 
-  getMessages(): Observable<any> {
-    // Listen for new messages
-    return new Observable<any>((observer) => {
-      this.socket.on('updateChat', (data: any) => {
-        const message = JSON.parse(data);
-        observer.next(message);
-      });
-    });
+  getMessage(){
+    return this._messages.asObservable();
   }
 }

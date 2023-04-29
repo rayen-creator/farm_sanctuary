@@ -1,0 +1,28 @@
+<div class="cards">
+  <div class="card" *ngFor="let b of badges">
+    <div class="card-content">
+      <div class="title">{{ b.name | uppercase }}</div>
+      <div class="card-name">
+        <div class="row">
+          <div class="col">
+            <div class="badge">
+                <img
+                src="data:image/png;base64,{{ b.image }}"
+              />
+            </div>
+           
+            
+          </div>
+          <div class="col">
+            <div class="desc">
+              {{ b.description }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="icon-box">
+      <i class="fas fa-user"></i>
+    </div> -->
+  </div>
+</div>

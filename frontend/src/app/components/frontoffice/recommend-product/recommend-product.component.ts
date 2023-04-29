@@ -1,5 +1,5 @@
 import { recommendedProductService } from './../../../core/services/recommendedProduct.service';
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component} from '@angular/core';
 import { RecommendedProduct } from 'src/app/core/models/recommandedprod';
 
 @Component({
@@ -7,14 +7,14 @@ import { RecommendedProduct } from 'src/app/core/models/recommandedprod';
   templateUrl: './recommend-product.component.html',
   styleUrls: ['./recommend-product.component.css']
 })
-export class RecommendProductComponent implements OnInit {
+export class RecommendProductComponent implements AfterContentInit {
   public recommendedproductsList: RecommendedProduct[];
   public visibleRecommendedProducts: RecommendedProduct[];
   public numberOfRecommendedProductsToShow = 9;
   searchText: any;
   constructor(private recommendedProductService: recommendedProductService) { }
 
-  ngOnInit(): void {
+  ngAfterContentInit(): void {
     this.getAllRecommendedProducts();
     this.setupSorting();
   }
@@ -33,20 +33,25 @@ export class RecommendProductComponent implements OnInit {
 
 
   setupSorting() {
-    const selectElement = document.getElementById('sortProducts') as HTMLSelectElement;
-    if (selectElement) {
-      selectElement.addEventListener('change', () => {
-        const sortCriteria = selectElement.value;
-        if (sortCriteria === 'priceAsc') {
-          this.recommendedproductsList.sort((a, b) => Number(a.price) - Number(b.price));
-        } else if (sortCriteria === 'priceDesc') {
-          this.recommendedproductsList.sort((a, b) => Number(b.price) - Number(a.price));
-        } else {
-          // sort by any other criteria
-        }
-      });
-    }
+    const selectElement = document.getElementById('sortRecommendedProducts') as HTMLSelectElement;
+    console.log(selectElement)
+    selectElement.addEventListener('change', () => {
+      const sortCriteria = selectElement.value;
+      if (sortCriteria === 'priceAsc') {
+        const sortedProducts = [...this.recommendedproductsList];
+        sortedProducts.sort((a, b) => Number(a.price) - Number(b.price));
+        this.recommendedproductsList = sortedProducts;
+      } else if (sortCriteria === 'priceDesc') {
+        const sortedProducts = [...this.recommendedproductsList];
+        sortedProducts.sort((a, b) => Number(b.price) - Number(a.price));
+        this.recommendedproductsList = sortedProducts;
+      }else {
+        // sort by any other criteria
+      }
+      this.visibleRecommendedProducts = this.recommendedproductsList.slice(0, this.numberOfRecommendedProductsToShow);
+    });
   }
+  
   
 
   showMoreProducts() {
