@@ -27,7 +27,7 @@ import { OrderListComponent } from './orders/order-list/order-list.component';
     AdminDashboardComponent,
     DeliveryAgentEditComponent,
     FeedbackListComponent,
-    AvailableBadgesComponent,,
+    AvailableBadgesComponent,
     OrderListComponent
   ],
   imports: [
@@ -36,7 +36,7 @@ import { OrderListComponent } from './orders/order-list/order-list.component';
     FormsModule,
     NgApexchartsModule,
     ReactiveFormsModule,
-    
+
   ]
 })
 export class BackofficeModule { }
