@@ -6,8 +6,8 @@ import {
   createOrder,
   deleteOrder,
   order,
-  orders,
-  ordersByUser,
+  orders, ordersByFarmer,
+  ordersByUser, updateOrderConfirmationStatus,
   updateOrderDeliveryStatus
 } from "../graphql/queries/graphql.queries.order";
 import {Router} from "@angular/router";
@@ -79,6 +79,20 @@ export class OrderService {
       })
     );
   }
+
+  getOrderByFarmer(farmerId: string): Observable<Order[]> {
+    return this.appolo.watchQuery({
+      query: ordersByFarmer,
+      variables: { farmerId },
+    }).valueChanges.pipe(
+      map((res) => {
+
+        // @ts-ignore
+        const orders = res.data.getOrdersByFarmer;
+        return orders as Order[];
+      })
+    );
+  }
   createOrder(cartItems: CartItem[], totalPrice: number) {
     this.tokenSubs = this.auth.getToken().subscribe((token) => {
       this.token = token
@@ -132,6 +146,31 @@ export class OrderService {
         refetchQueries: [
           {
             query: orders
+          }]
+      })
+      .subscribe({
+        next: (res) => {
+          //get the response
+          const order = res.data as Order;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+  updateOrderConfirmationStatus(id: string, isConfirmed: boolean, farmerId: string): Observable<Order> {
+    // @ts-ignore
+    return this.appolo
+      .mutate({
+        mutation: updateOrderConfirmationStatus,
+        variables: {
+          id,
+          isConfirmed
+        },
+        refetchQueries: [
+          {
+            query: ordersByFarmer,
+            variables: {farmerId}
           }]
       })
       .subscribe({

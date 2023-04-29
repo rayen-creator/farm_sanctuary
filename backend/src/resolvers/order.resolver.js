@@ -30,6 +30,13 @@ const orderResolver = {
                 throw error;
             }
         },
+        async getOrdersByFarmer(_, { farmerId }) {
+            try {
+                return await orderService.getOrdersByFarmer(farmerId);
+            } catch (error) {
+                throw error;
+            }
+        },
     },
 
     Mutation: {
@@ -47,6 +54,14 @@ const orderResolver = {
                 throw new UserInputError(error.message);
             }
         },
+        async updateOrderConfirmationStatus(_, { id, isConfirmed }) {
+            try {
+                return await orderService.updateOrderConfirmationStatus(id, isConfirmed);
+            } catch (error) {
+                throw new UserInputError(error.message);
+            }
+        },
+
         async deleteOrder(_, { id }) {
             try {
                 const order = await orderService.deleteOrder(id);

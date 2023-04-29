@@ -7,7 +7,10 @@ export interface Order {
   cartItems: CartItem[];
   totalPrice: number;
   user: User;
+  farmer: User;
   isDelivered: boolean;
   createdAt: Date;
   updatedAt: Date;
+  isConfirmed: boolean;
+
 }

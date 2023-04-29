@@ -19,6 +19,12 @@ const orders = gql`
         phone
 location
       }
+      farmer {
+        username
+        email
+        phone
+        location
+      }
       isDelivered
       createdAt
       updatedAt
@@ -43,7 +49,14 @@ const order = gql`
         username
         email
       }
+      farmer {
+        username
+        email
+        phone
+        location
+      }
       isDelivered
+      isConfirmed
       createdAt
       updatedAt
     }
@@ -67,7 +80,46 @@ const ordersByUser = gql`
         username
         email
       }
+      farmer {
+        username
+        email
+        phone
+        location
+      }
       isDelivered
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+const ordersByFarmer = gql`
+  query getOrdersByFarmer($farmerId: ID!) {
+    getOrdersByFarmer(farmerId: $farmerId) {
+      id,
+      cartItems {
+        name
+        price
+        total
+        image
+        unit
+        quantity
+      }
+      totalPrice
+      user {
+        username
+        email
+        phone
+        location
+      }
+      farmer {
+        username
+        email
+        phone
+        location
+      }
+      isDelivered
+      isConfirmed
       createdAt
       updatedAt
     }
@@ -84,6 +136,26 @@ const createOrder = gql`
 const updateOrderDeliveryStatus = gql`
   mutation updateOrderDeliveryStatus($id: ID!, $isDelivered: Boolean!) {
     updateOrderDeliveryStatus(id: $id, isDelivered: $isDelivered) {
+      id
+      cartItems {
+        name
+        price
+        total
+        image
+        unit
+        quantity
+      }
+      totalPrice
+      isDelivered
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+const updateOrderConfirmationStatus = gql`
+  mutation updateOrderDeliveryStatus($id: ID!, $isConfirmed: Boolean!) {
+    updateOrderConfirmationStatus(id: $id, isConfirmed: $isConfirmed) {
       id
       cartItems {
         name
@@ -127,4 +199,4 @@ const deleteOrder = gql`
   }
 `;
 
-export { orders, order, ordersByUser, createOrder, updateOrderDeliveryStatus, deleteOrder };
+export { orders, order, ordersByUser, createOrder, updateOrderDeliveryStatus, deleteOrder, updateOrderConfirmationStatus, ordersByFarmer };

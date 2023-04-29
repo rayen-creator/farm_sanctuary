@@ -88,9 +88,11 @@ const typeDefs = gql`
     cartItems: [CartItem!]!
     totalPrice: Float!
     user: User!
+    farmer: User!
     isDelivered: Boolean!
     createdAt: DateTime
     updatedAt: DateTime
+    isConfirmed: Boolean!
   }
 
   input CartItemInput {
@@ -106,6 +108,7 @@ const typeDefs = gql`
     cartItems: [CartItemInput!]!
     totalPrice: Float!
     userId: ID!
+    farmerId: ID!
   }
 
   input FeedbackInput {
@@ -444,6 +447,7 @@ const typeDefs = gql`
 
     getOrder(id: ID!): Order
     getOrdersByUser(userId: ID!): [Order!]!
+    getOrdersByFarmer(farmerId: ID!): [Order!]!
     getOrders: [Order!]!
   }
 
@@ -506,6 +510,7 @@ const typeDefs = gql`
 
     createOrder(input: CreateOrderInput!): createProductResponse!
     updateOrderDeliveryStatus(id: ID!, isDelivered: Boolean!): Order!
+    updateOrderConfirmationStatus(id: ID!, isConfirmed: Boolean!): Order!
     deleteOrder(id: ID!): Order!
   }
 

@@ -17,6 +17,11 @@ const OrderSchema = new mongoose.Schema({
         required: true,
         ref: "User",
     },
+    farmer: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "User",
+    },
     isDelivered: { type: Boolean, default: false },
     createdAt: {
         type: Date,
@@ -26,6 +31,9 @@ const OrderSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    isConfirmed: {
+        type: Boolean, default: false
+    }
 });
 
 const Order = mongoose.model("Order", OrderSchema);
