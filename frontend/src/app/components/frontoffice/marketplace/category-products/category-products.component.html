@@ -10,7 +10,7 @@
     </div>
   </div>
 </section>
-<section class="shop-one" [class.hidden]="(categoryProductsList | filter:searchText)?.length > 0">
+<section class="shop-one" [hidden]="(categoryProductsList | filter:searchText)?.length === 0">
   <div class="container">
     <div class="row">
       <div class="col-lg-3">
@@ -94,7 +94,7 @@
   </div><!-- /.container -->
 </section>
 
-<section class="shop-one" [class.hidden]="(categoryProductsList | filter:searchText)?.length === 0">
+<section class="shop-one" [hidden]="(categoryProductsList | filter:searchText)?.length > 0">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6">

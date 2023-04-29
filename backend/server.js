@@ -22,6 +22,7 @@ const commentResolver = require("./src/resolvers/comment.resolver");
 const createBadgesMiddleware = require("./src/middleware/initilize_badges");
 const badgeResolver=require("./src/resolvers/badge.resolver");
 
+const orderResolver = require("./src/resolvers/order.resolver");
 
 app.use(morgan("dev"));
 
@@ -50,8 +51,9 @@ const server = new ApolloServer({
     productResolver,
     postResolver,
     commentResolver,
-    badgeResolver,,
-    recommendedproductresolvers
+    badgeResolver,
+    recommendedproductresolvers,
+    orderResolver
   ],
 });
 
