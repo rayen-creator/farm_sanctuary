@@ -496,9 +496,17 @@ const typeDefs = gql`
     deleteComment(id: ID!): Comment!
 
     assignBadges(userId:ID!):badgeResponse!
-
+    add(input:eventInput):event
   }
-
+  type event{
+    id: ID!
+    title: String
+  description: String
+  }
+input eventInput{
+  title: String
+  description: String
+}
   input CreateProductInput {
     name: String!
     description: String!
