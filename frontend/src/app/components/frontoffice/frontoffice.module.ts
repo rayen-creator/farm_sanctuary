@@ -40,6 +40,7 @@ import { ConversationRoomComponent } from './conversation-room/conversation-room
 import { ConversationSidebarComponent } from './conversation-sidebar/conversation-sidebar.component';
 import { LivechatComponent } from './livechat/livechat.component';
 import { ChatbotComponent } from './chabot/chatbot.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { ChatbotComponent } from './chabot/chatbot.component';
     ConversationRoomComponent,
     ConversationSidebarComponent,
     LivechatComponent,
-    ChatbotComponent
+    ChatbotComponent,
+    NotificationComponent
   ],
   imports: [
     CommonModule,

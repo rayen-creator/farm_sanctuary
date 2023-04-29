@@ -134,7 +134,7 @@ a#notification-dropdown {
 .dropdown-header {
   text-transform: uppercase; /* Convert the dropdown header text to uppercase */
   font-size: 0.8rem; /* Decrease the font size of the dropdown header */
-  color: #999; /* Use a lighter color for the dropdown header */
+  color: green; /* Use a lighter color for the dropdown header */
 }
 
 .dropdown-item.text-center {

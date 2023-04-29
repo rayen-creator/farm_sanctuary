@@ -116,6 +116,7 @@ const typeDefs = gql`
     email_change_option: Boolean
     likedPost:[Post]
     badges:[Badge]
+    notifications:[Notification]
   }
 
   type Product {
