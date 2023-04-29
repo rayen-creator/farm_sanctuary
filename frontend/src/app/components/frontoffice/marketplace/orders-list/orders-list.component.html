@@ -1,0 +1,133 @@
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+<body>
+<div class="main-content" >
+  <div class="container ">
+    <!-- Table -->
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <h3 class="mb-0">Orders</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Client Name</th>
+                <th scope="col">Client Email</th>
+                <th scope="col">Client Phone</th>
+                <th scope="col">Location</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Updated At</th>
+                <th scope="col">Items</th>
+                <th scope="col">Total</th>
+                <th scope="col">Status</th>
+                <th scope="col">Confirmation</th>
+                <th scope="col">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <ng-container *ngFor="let u of filteredItems ; let i = index">
+                <tr>
+                  <th scope="row">
+                    <span class="mb-0 text-sm">{{u.id}}</span>
+                  </th>
+                  <td>
+                    <span class="mb-0 text-sm">{{u.user.username}}</span>
+
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">{{u.user.email}}</span>
+
+                  </td>
+                  <td>
+                        <span class="badge ">
+
+                          <i class="bg-info rounded-pill">{{u.user.phone}}</i>
+                        </span>
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">{{u.user.location}}</span>
+                  </td>
+
+
+                  <td>
+                    <span class="mb-0 text-sm">Created At:</span>
+                    <p class="mb-0 text-sm">{{datePipe.transform(u.createdAt, 'medium') }}</p>
+
+                  </td>
+                  <td>
+
+                    <span class="mb-0 text-sm" >Updated At:</span>
+                    <p class="mb-0 text-sm">{{datePipe.transform(u.updatedAt, 'medium') }}</p>
+                  </td>
+                  <td>
+                    <ul> <!-- new table data cell for cart items -->
+                      <li *ngFor="let item of u.cartItems">{{item.name}} x {{item.quantity}}</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">${{u.totalPrice}}</span>
+                  </td>
+
+                  <td *ngIf="u.isDelivered == false">
+                    <span class="mb-0 text-sm" style="color: #ff0505">Not delivered</span>
+                  </td>
+                  <td *ngIf="u.isDelivered == true">
+                    <span class="mb-0 text-sm" style="color: #2dc20e">Delivered</span>
+                  </td>
+                  <td *ngIf="u.isConfirmed == false">
+                    <span class="mb-0 text-sm" style="color: #ff0505">Not confirmed</span>
+                  </td>
+                  <td *ngIf="u.isConfirmed == true">
+                    <span class="mb-0 text-sm" style="color: #2dc20e">Confirmed</span>
+                  </td>
+                  <td class="text-right">
+                    <div class="dropdown">
+                      <a  class="btn bg-gradient-primary dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                        <a class="dropdown-item" (click)="updateOrderConfirmationStatus(u.id)" >Confirm</a>
+
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer py-4">
+            <nav aria-label="...">
+              <ul class="pagination justify-content-end mb-0">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="setPage(currentPage - 1)">
+                    <i class="fas fa-angle-left"></i>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+                  <a class="page-link" (click)="setPage(page)">{{page}}</a>
+                </li>
+
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="setPage(currentPage + 1)">
+                    <i class="fas fa-angle-right"></i>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+</body>

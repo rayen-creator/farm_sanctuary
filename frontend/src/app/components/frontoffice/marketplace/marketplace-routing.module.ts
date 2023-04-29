@@ -6,6 +6,9 @@ import {UserProductsComponent} from "./user-products/user-products.component";
 import {ProductDetailsComponent} from "./product-details/product-details.component";
 import {CategoryProductsComponent} from "./category-products/category-products.component";
 import {CartComponent} from "./cart/cart.component";
+import {PayementComponent} from "./payement/payement.component";
+import {SuccessComponent} from "./success/success.component";
+import {OrdersListComponent} from "./orders-list/orders-list.component";
 
 const routes: Routes = [
   { path: '', component: ProductsComponent },
@@ -15,6 +18,9 @@ const routes: Routes = [
   { path: 'product/:id', component: ProductDetailsComponent},
   { path: 'product/:id/edit', component: ProductFormComponent},
   { path: 'cart', component: CartComponent},
+  { path: 'payment', component: PayementComponent},
+  { path: 'success', component: SuccessComponent},
+  { path: 'orders', component: OrdersListComponent},
 
 ];
 
