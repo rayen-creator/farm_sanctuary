@@ -16,19 +16,29 @@ async function getOrdersByFarmer(farmerId) {
     return await Order.find({ farmer: farmerId }).populate([{path: "user", model: "Users"},{path: "farmer", model: "Users"}]);
 }
 async function createOrder(input) {
+    const [latitude, longitude] = input.location.coordinates;
+
     const order = new Order({
         cartItems: input.cartItems,
         totalPrice: input.totalPrice,
         user: input.userId,
         farmer: input.farmerId,
         isDelivered: false,
-        isconfirmed: false
+        isConfirmed: false,
+        location: {
+            type: "Point",
+            coordinates: input.location.coordinates,
+            latitude: latitude,
+            longitude: longitude,
+            address: input.location.address,
+        },
     });
-     await order.save(order);
-    return {
-        message: "order added !",
-    };
 
+    await order.save();
+
+    return {
+        message: "Order added!",
+    };
 }
 
 async function updateOrderDeliveryStatus(id, isDelivered) {

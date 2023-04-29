@@ -103,6 +103,15 @@ const typeDefs = gql`
     createdAt: DateTime
     updatedAt: DateTime
     isConfirmed: Boolean!
+    location: Location
+  }
+
+  type Location {
+    type: String!
+    coordinates: [Float!]!
+    latitude: Float!
+    longitude: Float!
+    address: String!
   }
 
   input CartItemInput {
@@ -119,43 +128,13 @@ const typeDefs = gql`
     totalPrice: Float!
     userId: ID!
     farmerId: ID!
+    location: LocationInput!
   }
 
-  type CartItem {
-    name: String!
-    price: Float!
-    total: Float!
-    image: String!
-    unit: String!
-    quantity: Int!
-  }
-
-  type Order {
-    id: ID!
-    cartItems: [CartItem!]!
-    totalPrice: Float!
-    user: User!
-    farmer: User!
-    isDelivered: Boolean!
-    createdAt: DateTime
-    updatedAt: DateTime
-    isConfirmed: Boolean!
-  }
-
-  input CartItemInput {
-    name: String!
-    price: Float!
-    total: Float!
-    image: String!
-    unit: String!
-    quantity: Int!
-  }
-
-  input CreateOrderInput {
-    cartItems: [CartItemInput!]!
-    totalPrice: Float!
-    userId: ID!
-    farmerId: ID!
+  input LocationInput {
+    type: String!
+    coordinates: [Float!]!
+    address: String!
   }
 
   input FeedbackInput {
