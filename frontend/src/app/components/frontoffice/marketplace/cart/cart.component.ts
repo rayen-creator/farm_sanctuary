@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CartService} from "../../../../core/services/cart.service";
 import Swal from "sweetalert2";
 import {CartItem} from "../../../../core/models/cartItem";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -13,7 +14,7 @@ export class CartComponent implements OnInit {
  cartProducts: CartItem[];
   cartTotal = 0;
 
-  constructor( private cartService: CartService) {}
+  constructor( private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
     this.cartProducts = this.cartService.getItems();
@@ -45,8 +46,12 @@ export class CartComponent implements OnInit {
   updateQuantity(product: any, modifier: number) {
     if (product.quantity + modifier > 0) {
       product.quantity += modifier;
-      product.total = product.quantity * product.price
-      this.cartService.cartUpdated.next()
+      product.total = product.quantity * product.price;
+
+      // Update cart data in local storage
+      localStorage.setItem('cart', JSON.stringify(this.cartService.cartItems));
+
+      this.cartService.cartUpdated.next();
     }
   }
 
@@ -67,4 +72,9 @@ export class CartComponent implements OnInit {
     });
 
   }
+
+  checkout() {
+    localStorage.setItem('cart_total', JSON.stringify(this.cartTotal))
+    this.router.navigate(['marketplace/payment'])
+}
 }

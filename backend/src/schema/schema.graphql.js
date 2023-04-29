@@ -80,8 +80,82 @@ const typeDefs = gql`
     category: Category!
     rating: Int
     createdAt:DateTime
-    user: User
+    user: User!
 
+  }
+
+  type CartItem {
+    name: String!
+    price: Float!
+    total: Float!
+    image: String!
+    unit: String!
+    quantity: Int!
+  }
+
+  type Order {
+    id: ID!
+    cartItems: [CartItem!]!
+    totalPrice: Float!
+    user: User!
+    farmer: User!
+    isDelivered: Boolean!
+    createdAt: DateTime
+    updatedAt: DateTime
+    isConfirmed: Boolean!
+  }
+
+  input CartItemInput {
+    name: String!
+    price: Float!
+    total: Float!
+    image: String!
+    unit: String!
+    quantity: Int!
+  }
+
+  input CreateOrderInput {
+    cartItems: [CartItemInput!]!
+    totalPrice: Float!
+    userId: ID!
+    farmerId: ID!
+  }
+
+  type CartItem {
+    name: String!
+    price: Float!
+    total: Float!
+    image: String!
+    unit: String!
+    quantity: Int!
+  }
+
+  type Order {
+    id: ID!
+    cartItems: [CartItem!]!
+    totalPrice: Float!
+    user: User!
+    farmer: User!
+    isDelivered: Boolean!
+    createdAt: DateTime
+    updatedAt: DateTime
+    isConfirmed: Boolean!
+  }
+
+  input CartItemInput {
+    name: String!
+    price: Float!
+    total: Float!
+    image: String!
+    unit: String!
+    quantity: Int!
+  }
+
+  input CreateOrderInput {
+    cartItems: [CartItemInput!]!
+    totalPrice: Float!
+    userId: ID!
+    farmerId: ID!
   }
 
   input FeedbackInput {
@@ -436,6 +510,11 @@ const typeDefs = gql`
     getAllbadges:[Badge!]!
 
     getBadgeById(id:ID!):Badge!
+
+    getOrder(id: ID!): Order
+    getOrdersByUser(userId: ID!): [Order!]!
+    getOrdersByFarmer(farmerId: ID!): [Order!]!
+    getOrders: [Order!]!
   }
 
   type Mutation {
@@ -496,6 +575,12 @@ const typeDefs = gql`
     deleteComment(id: ID!): Comment!
 
     assignBadges(userId:ID!):badgeResponse!
+
+
+    createOrder(input: CreateOrderInput!): createProductResponse!
+    updateOrderDeliveryStatus(id: ID!, isDelivered: Boolean!): Order!
+    updateOrderConfirmationStatus(id: ID!, isConfirmed: Boolean!): Order!
+    deleteOrder(id: ID!): Order!
     add(input:eventInput):event
   }
   type event{

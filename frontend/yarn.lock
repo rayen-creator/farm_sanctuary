@@ -5714,6 +5714,13 @@ ng2-tel-input@^2.3.0:
   dependencies:
     intl-tel-input "^16.0.0"
 
+ngx-paypal@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-paypal/-/ngx-paypal-11.0.0.tgz#5926b9e65707f5d79170d743d5a40a6e19eb28f8"
+  integrity sha512-ABISig5C868S3KAylZr1iG9/ydjBDqqKOyuPBpaPeqDfkBz2kSZsgX+JXvrS4oT7C3SFf3NOrN3h1ECaltx1/g==
+  dependencies:
+    tslib "^2.3.0"
+
 ngx-quill@^20.0.1:
   version "20.0.1"
   resolved "https://registry.yarnpkg.com/ngx-quill/-/ngx-quill-20.0.1.tgz#b27f6f8b3302115cc316d53a19c7c89fade3a94e"

@@ -1,0 +1,26 @@
+<div class="container">
+  <h1 class="h3 mb-5 mt-3">Payment Page</h1>
+  <div class="row">
+    <!-- Left -->
+    <div class="col-lg-9">
+      <hr />
+      <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+    </div>
+
+    <!-- Right -->
+    <div class="col-lg-3">
+      <div class="card position-sticky top-0">
+        <div class="p-3 bg-light bg-opacity-10">
+          <h6 class="card-title mb-3">Order Summary</h6>
+          <div class="d-flex justify-content-between mb-1 small">
+            <span>Subtotal</span> <span>${{cartTotal}}</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between mb-4 small">
+            <span>TOTAL</span> <strong class="text-dark">${{cartTotal}}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
