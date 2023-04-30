@@ -40,6 +40,10 @@ const createNotification = async ({ content, type, recipient }) => {
   return notification.populate({ path: "recipient", model: "User" });
 };
 
+async function getNotificationsByUser(userId) {
+  const notifications = await Notification.find({ recipient: userId }).populate({path: "recipient", model: "Users"});
+  return notifications;
+}
 
 
 
@@ -62,4 +66,4 @@ const deleteNotification = async ({ id }) => {
 
 
 
-module.exports = { createNotification, markNotificationAsRead, getnotifications , deleteNotification };
+module.exports = { createNotification, markNotificationAsRead, getnotifications , deleteNotification , getNotificationsByUser};

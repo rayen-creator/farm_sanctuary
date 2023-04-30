@@ -1,10 +1,14 @@
-const { createNotification, markNotificationAsRead, getnotifications , deleteNotification } = require('../services/notification');
+const { createNotification, markNotificationAsRead, getnotifications , deleteNotification, getNotificationsByUser } = require('../services/notification');
 
 const resolvers = {
   Query: {
     notifications: async () => {
       const allNotifications = await getnotifications();
       return allNotifications;
+    },
+    getNotificationsByUser: async (_, { userId }) => {
+      const notificationByUser = await getNotificationsByUser(userId);
+      return notificationByUser;
     }
   },
   Mutation: {

@@ -453,7 +453,7 @@ const typeDefs = gql`
     getBadgeById(id:ID!):Badge!
 
     notifications: [Notification!]!
-    getNotifcationsByUser(userId:ID!):[Notification!]!
+    getNotificationsByUser(userId:ID!):[Notification!]!
 
   }
 
