@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DeliveryAgentEditComponent } from './delivery-agent-edit/delivery-agent-edit.component';
 import { FeedbackListComponent } from './Feedbacks/feedback-list/feedback-list.component';
 import { AvailableBadgesComponent } from './dashboard/available-badges/available-badges.component';
+import { OrderListComponent } from './orders/order-list/order-list.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { AvailableBadgesComponent } from './dashboard/available-badges/available
     DeliveryAgentEditComponent,
     FeedbackListComponent,
     AvailableBadgesComponent,
+    OrderListComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,7 @@ import { AvailableBadgesComponent } from './dashboard/available-badges/available
     FormsModule,
     NgApexchartsModule,
     ReactiveFormsModule,
-    
+
   ]
 })
 export class BackofficeModule { }

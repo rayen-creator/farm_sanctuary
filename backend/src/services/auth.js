@@ -30,7 +30,8 @@ async function signup(input) {
       usernameExists: false,
     };
   }
-  const defaultImage =  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+  const defaultImage =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png";
   const image = input.image || defaultImage;
   const user = new User({
     username: input.username,
@@ -44,9 +45,8 @@ async function signup(input) {
     createdAt: new Date(),
     updatedAt: new Date(),
     isBlocked: false,
-    two_FactAuth_Option:false,
-    location:input.location,
-
+    two_FactAuth_Option: false,
+    location: input.location,
   });
   await user.save(user);
   return {
@@ -68,7 +68,7 @@ async function signin(input) {
       expiresIn: 0,
       userfound: false,
       passwordIsValid: false,
-      user:null
+      user: null,
     };
   }
 
@@ -81,7 +81,7 @@ async function signin(input) {
       expiresIn: 0,
       userfound: true,
       passwordIsValid: false,
-      user:null
+      user: null,
     };
   }
 
@@ -98,7 +98,7 @@ async function signin(input) {
       expiresIn: process.env.JWT_EXPIRE_IN,
       userfound: true,
       passwordIsValid: true,
-      user : user
+      user: user,
     };
   } else {
     return {
@@ -107,7 +107,7 @@ async function signin(input) {
       expiresIn: process.env.JWT_EXPIRE_IN,
       userfound: true,
       passwordIsValid: true,
-      user : user
+      user: user,
     };
   }
 }
@@ -332,14 +332,11 @@ async function updatepwd(input) {
     };
   }
   //update pwd
-  const updatepwd={
+  const updatepwd = {
     password: bcrypt.hashSync(input.password, 8),
-    updatedAt:new Date(),
-  }
-  const update = await User.updateOne(
-    { email: user.email },
-    updatepwd
-  );
+    updatedAt: new Date(),
+  };
+  const update = await User.updateOne({ email: user.email }, updatepwd);
 
   if (!update) {
     return {
@@ -376,11 +373,11 @@ async function verifyOTP(input) {
     !user.two_FactAuth.code ||
     now > user.two_FactAuth.expiresAt
   ) {
-       // Clear OTP code and expiration time
-       await User.updateOne(
-        { email: user.email },
-        { $unset: { two_FactAuth: 1 } }
-      );
+    // Clear OTP code and expiration time
+    await User.updateOne(
+      { email: user.email },
+      { $unset: { two_FactAuth: 1 } }
+    );
     return { message: "OTP expired or not found", statusCode: false };
   }
 
@@ -406,6 +403,7 @@ async function verifyOTP(input) {
     return { message: "Invalid OTP", statusCode: false };
   }
 }
+
 
 module.exports = {
   signin,

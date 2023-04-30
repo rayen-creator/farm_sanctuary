@@ -80,8 +80,61 @@ const typeDefs = gql`
     category: Category!
     rating: Int
     createdAt:DateTime
-    user: User
+    user: User!
 
+  }
+
+  type CartItem {
+    name: String!
+    price: Float!
+    total: Float!
+    image: String!
+    unit: String!
+    quantity: Int!
+  }
+
+  type Order {
+    id: ID!
+    cartItems: [CartItem!]!
+    totalPrice: Float!
+    user: User!
+    farmer: User!
+    isDelivered: Boolean!
+    createdAt: DateTime
+    updatedAt: DateTime
+    isConfirmed: Boolean!
+    location: Location
+  }
+
+  type Location {
+    type: String!
+    coordinates: [Float!]!
+    latitude: Float!
+    longitude: Float!
+    address: String!
+  }
+
+  input CartItemInput {
+    name: String!
+    price: Float!
+    total: Float!
+    image: String!
+    unit: String!
+    quantity: Int!
+  }
+
+  input CreateOrderInput {
+    cartItems: [CartItemInput!]!
+    totalPrice: Float!
+    userId: ID!
+    farmerId: ID!
+    location: LocationInput!
+  }
+
+  input LocationInput {
+    type: String!
+    coordinates: [Float!]!
+    address: String!
   }
 
   input FeedbackInput {
@@ -412,6 +465,11 @@ const typeDefs = gql`
     description:String
   }
 
+  input faceIDInput{
+    id:String
+    faceImage:String
+  }
+
   type Query {
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -451,6 +509,11 @@ const typeDefs = gql`
     getAllbadges:[Badge!]!
 
     getBadgeById(id:ID!):Badge!
+
+    getOrder(id: ID!): Order
+    getOrdersByUser(userId: ID!): [Order!]!
+    getOrdersByFarmer(farmerId: ID!): [Order!]!
+    getOrders: [Order!]!
 
     notifications: [Notification!]!
     getNotificationsByUser(userId:ID!):[Notification!]!
@@ -516,13 +579,28 @@ const typeDefs = gql`
 
     assignBadges(userId:ID!):badgeResponse!
 
+
+    createOrder(input: CreateOrderInput!): createProductResponse!
+    updateOrderDeliveryStatus(id: ID!, isDelivered: Boolean!): Order!
+    updateOrderConfirmationStatus(id: ID!, isConfirmed: Boolean!): Order!
+    deleteOrder(id: ID!): Order!
+    add(input:eventInput):event
+  }
+  type event{
+    id: ID!
+    title: String
+  description: String
+
     createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
     markNotificationAsRead(id: ID!): Notification!
     deleteNotification(id: ID!): Notification!
 
 
   }
-
+input eventInput{
+  title: String
+  description: String
+}
   input CreateProductInput {
     name: String!
     description: String!
