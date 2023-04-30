@@ -13,6 +13,16 @@ const typeDefs = gql`
     TECHNICAL
     NON_TECHNICAL
     FUNCTIONAL
+  } 
+  enum eventType {
+    PLANTING
+  HARVESTING
+  FERTILISER_APPLICATION
+  LIVESTOCK_CARE
+  PEST_CONTROL
+  IRRIGATION
+  CROP_ROTATION
+
   }
 
   enum Unit {
@@ -112,6 +122,15 @@ const typeDefs = gql`
     latitude: Float!
     longitude: Float!
     address: String!
+  }
+  type Event{
+    id: ID!
+    title: String!
+   description: String! 
+   start:String!
+   end:String!
+   type: eventType!
+
   }
 
   input CartItemInput {
@@ -491,7 +510,8 @@ const typeDefs = gql`
 
 
     
-   
+    getEvents: [Event!]!
+    getEvent(id: ID!): Event!
     
     products(url: String!): [RecommendedProduct!]!
     getRecommendedProducts: [RecommendedProduct!]!
@@ -584,19 +604,25 @@ const typeDefs = gql`
     updateOrderDeliveryStatus(id: ID!, isDelivered: Boolean!): Order!
     updateOrderConfirmationStatus(id: ID!, isConfirmed: Boolean!): Order!
     deleteOrder(id: ID!): Order!
-    add(input:eventInput):event
+
+
+  createEvent(input: eventInput!): Event!
+  updateEvent(id: ID!, input: eventInput!): Event!
+  deleteEvent(id: ID!): Event!
+
+
+
     createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
     markNotificationAsRead(id: ID!): Notification!
     deleteNotification(id: ID!): Notification!
   }
-  type event{
-    id: ID!
-    title: String
-  description: String
-  }
+
 input eventInput{
-  title: String
-  description: String
+  title: String!
+   description: String! 
+   start:String!
+   end:String!
+   type: eventType!
 }
   input CreateProductInput {
     name: String!
