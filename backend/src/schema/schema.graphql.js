@@ -579,6 +579,9 @@ const typeDefs = gql`
 
     assignBadges(userId:ID!):badgeResponse!
 
+    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
+    markNotificationAsRead(id: ID!): Notification!
+    deleteNotification(id: ID!): Notification!
 
     createOrder(input: CreateOrderInput!): createProductResponse!
     updateOrderDeliveryStatus(id: ID!, isDelivered: Boolean!): Order!
@@ -586,16 +589,11 @@ const typeDefs = gql`
     deleteOrder(id: ID!): Order!
     add(input:eventInput):event
   }
+  
   type event{
     id: ID!
     title: String
   description: String
-
-    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
-    markNotificationAsRead(id: ID!): Notification!
-    deleteNotification(id: ID!): Notification!
-
-
   }
 input eventInput{
   title: String
