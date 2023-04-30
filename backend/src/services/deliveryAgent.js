@@ -18,25 +18,25 @@ async function loginDriver(input) {
       message: "User not found",
       userfound: false,
       passwordIsValid: false,
-      agent:null
+      agent: null,
     };
   }
 
   const passwordIsValid = bcrypt.compareSync(input.password, agent.password);
 
   if (!passwordIsValid) {
-     return {
+    return {
       message: "Auth failed ! Invalid Password!",
       userfound: true,
       passwordIsValid: false,
-      agent:null
+      agent: null,
     };
   }
   return {
-      message: "OK",
-      userfound: true,
-      passwordIsValid: true,
-      agent : agent
+    message: "OK",
+    userfound: true,
+    passwordIsValid: true,
+    agent: agent,
   };
 }
 async function getdeliveryAgent(id) {
@@ -188,15 +188,17 @@ async function updatedeliveryAgent(id, input) {
 }
 async function updateLocation(input) {
   const id = input.id;
-  const updatedAgent = {
-    longitude: input.longitude,
-    latitude: input.latitude,
-    updatedAt: new Date(),
-  };
+  if (id != "") {
+    const updatedAgent = {
+      longitude: input.longitude,
+      latitude: input.latitude,
+      updatedAt: new Date(),
+    };
 
-  return await Agent.findByIdAndUpdate({ _id: id }, updatedAgent, {
-    new: true,
-  });
+    return await Agent.findByIdAndUpdate({ _id: id }, updatedAgent, {
+      new: true,
+    });
+  }
 }
 
 async function deletedeliveryAgent(id) {

@@ -1,0 +1,109 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hey",
+        "How are you",
+        "Is anyone there?",
+        "Hello",
+        "Good day"
+      ],
+      "responses": [
+        "Hey :-)",
+        "Hello, thanks for visiting",
+        "Hi there, what can I do for you?",
+        "Hi there, how can I help?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye"],
+      "responses": [
+        "See you later, thanks for visiting",
+        "Have a nice day",
+        "Bye! Come back again soon."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Thank's a lot!"],
+      "responses": ["Happy to help!", "Any time!", "My pleasure"]
+    },
+    {
+      "tag": "payments",
+      "patterns": [
+        "Do you take credit cards?",
+        "Do you accept Mastercard?",
+        "Can I pay with Paypal?",
+        "Are you cash only?"
+      ],
+      "responses": [
+        "We accept VISA, Mastercard and Paypal",
+        "We accept most major credit cards, and Paypal"
+      ]
+    },
+    {
+      "tag": "delivery",
+      "patterns": [
+        "How long does delivery take?",
+        "How long does shipping take?",
+        "When do I get my delivery?"
+      ],
+      "responses": [
+        "Delivery takes 2-4 days",
+        "Shipping takes 2-4 days"
+      ]
+    },
+    {
+      "tag": "crops",
+      "patterns": [
+        "What categories of crops are available in the marketplace?",
+        "What are the different types of crops I can find in the marketplace?",
+        "Can you tell me about the crop categories available in the marketplace?"
+      ],
+      "responses": [
+        "There are several categories of crops available in the marketplace, including fruits, vegetables, grains, and herbs/spices.",
+        "You can find a wide variety of crops in the marketplace, including fruits like apples and oranges, vegetables like tomatoes and cucumbers, grains like wheat and rice, and herbs and spices like basil and cinnamon.",
+        "Some of the categories of crops available in the marketplace include fruits, vegetables, grains, and herbs/spices. You can find many different types of crops in each of these categories."
+      ]
+    },
+    {
+      "tag": "discounts",
+      "patterns": [
+        "Are there any discounts available on your app's marketplace?",
+        "Can I get a discount on products purchased through your app's marketplace?",
+        "Is there any special pricing for products on your app's marketplace?"
+      ],
+      "responses": [
+        "Yes, our app's marketplace offers various discounts and promotions throughout the year to encourage consumers to buy. Please check our app's marketplace regularly for the latest deals and promotions.",
+        "We often offer discounts and promotions on our app's marketplace to encourage consumers to buy. Please check our app's marketplace regularly for the latest deals and promotions.",
+        "Our app's marketplace offers various discounts and special pricing throughout the year to encourage consumers to buy. Please check our app's marketplace regularly for the latest deals and promotions."
+      ]
+    },
+    {
+      "tag": "farmer_features",
+      "patterns": [
+        "What farmer-specific features are available on your app?",
+        "Can farmers use your app for anything specific?",
+        "What tools do you offer for farmers on your app?"
+      ],
+      "responses": [
+        "The app has features for farmers such as viewing the latest agricultural news, adding and sharing articles, and accessing previously posted articles.",
+        "As a farmer, you can use our app to stay up-to-date on the latest agricultural news, share your own experiences and insights by adding articles, and easily access all of your previously posted articles.",
+        "We have developed several tools specifically for farmers on our app, including the ability to view the latest agricultural news, add articles to share your own experiences, and view all of your previously posted articles."
+      ]
+    },{
+      "tag":"mobileapp",
+      "patterns":[
+        "Are there mobile version for our app ?"
+      ],
+      "responses":[
+        "yes , we have a mobile version for our app"
+      ]
+    }
+  ]
+}
+
+  

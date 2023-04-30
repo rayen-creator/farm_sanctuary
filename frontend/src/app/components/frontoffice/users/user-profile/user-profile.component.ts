@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as bcrypt from 'bcryptjs'
 import { Apollo } from "apollo-angular";
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2'
@@ -18,12 +17,12 @@ import { Subscription } from "rxjs";
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
+
   user: User;
   userForm: FormGroup;
   usernameExist: Boolean
   imagePreview: string;
   pattern = "^[ a-zA-Z0-9][a-zA-Z0-9 ]*$";
-  // TWO_FA :boolean;
   selectedFile: File;
   private mySubscription: Subscription;
   disabledP: boolean = true;
@@ -33,8 +32,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   constructor(private currentRoute: ActivatedRoute,
     private router: Router, private apollo: Apollo, private sanitizer: DomSanitizer, private formBuilder: FormBuilder,
     private userService: UserService
-  ) {}
+  ) { }
 
+  
   sanitizeImageUrl(imageUrl: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
@@ -52,8 +52,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
           this.initForm()
         },
         error: (err) => {
-          console.log("err :" + err);
-          console.log(this.user);
+          throw err;
         },
       });
 
@@ -81,6 +80,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+
 
   handleFileInput(event: Event) {
     // @ts-ignore
@@ -112,21 +113,21 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         let newUser = this.userForm.value;
-        
+
         if (newUser.newpassword == '') {
           newUser.newpassword = this.user.password
         }
         const input = {
           username: newUser.username,
           email: newUser.email,
-          phone: Number(newUser.phone) ,
+          phone: Number(newUser.phone),
           password: newUser.newpassword,
           isActive: this.user.isActive,
           gender: newUser.gender,
           role: this.user.role,
           two_FactAuth_Option: newUser.two_FactAuth_Option,
           image: this.selectedFile,
-          location:this.country ?? 'Tunisia'
+          location: this.country ?? 'Tunisia'
         };
         console.log("after edit", input)
         let id = this.currentRoute.snapshot.params['id'];
@@ -152,8 +153,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
               if (!this.usernameExist) {
                 Swal.fire('Updated', 'User has been updated successfully.', 'success');
               }
-
-
             },
             error: (err) => {
               console.log('err :' + err);

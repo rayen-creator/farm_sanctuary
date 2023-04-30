@@ -33,8 +33,33 @@ const OrderSchema = new mongoose.Schema({
     },
     isConfirmed: {
         type: Boolean, default: false
+    },
+    location: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        },
+        latitude: {
+            type: Number,
+            required: true
+        },
+        longitude: {
+            type: Number,
+            required: true
+        },
+        address: {
+            type: String,
+            required: true
+        }
     }
 });
+
+OrderSchema.index({ location: '2dsphere' });
 
 const Order = mongoose.model("Order", OrderSchema);
 

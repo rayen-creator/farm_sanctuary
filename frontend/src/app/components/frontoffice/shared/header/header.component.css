@@ -31,6 +31,10 @@
   /* Set the direction of the items to be displayed vertically */
   flex-direction: column;
 }
+a#notification-dropdown {
+  padding-right: 7px;
+  
+}
 
 .dropdown-avatar:hover .dropdown-content {
   display: flex; /* Display the dropdown content as flex */
@@ -78,4 +82,82 @@
   opacity: 1;
 }
 
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
 
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-cart a, .search-cart li {
+  margin-right: 2px; /* adjust as needed */
+}
+
+.search-cart a:last-child, .search-cart li:last-child {
+  margin-right: 0;
+}
+
+
+
+.text-muted {
+  font-size: 0.8rem;
+}
+
+
+.notification-dropdown {
+  max-height: 300px; /* Set a maximum height for the dropdown */
+}
+
+.notification-item {
+  white-space: nowrap; /* Prevent line breaks in the notification content */
+  overflow: hidden; /* Hide any content that exceeds the container */
+}
+
+.dropdown-item .notification-content {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Add bold font weight to the notification content */
+}
+
+.notification-item .notification-date {
+  font-size: 1rem; /* Decrease the font size of the notification date */
+  color: #999; /* Use a lighter color for the notification date */
+}
+
+.notification-item:hover {
+  background-color: #f5f5f5; /* Add a light gray background color on hover */
+}
+
+.dropdown-header {
+  text-transform: uppercase; /* Convert the dropdown header text to uppercase */
+  font-size: 0.8rem; /* Decrease the font size of the dropdown header */
+  color: green; /* Use a lighter color for the dropdown header */
+}
+
+.dropdown-item.text-center {
+  padding: 10px;
+  font-size: 0.8rem; /* Decrease the font size of the "View all notifications" link */
+  color: rgb(21, 143, 21); /* Use the primary link color for the "View all notifications" link */
+  background-color: lightgreen;
+}
+
+.dropdown-item.text-center:hover {
+  background-color: transparent; /* Remove the background color on hover */
+  text-decoration: underline; /* Add underline on hover */
+}
+
+.notification-content-and-status {
+  display: flex;
+  align-items: center;
+}
+
+.notification-status {
+  margin-right: 5px;
+}
+
+.notification-content {
+  flex: 1;
+}
