@@ -40,6 +40,8 @@ import { LivechatComponent } from './livechat/livechat.component';
 import { FacialRecognitionButtonComponent } from './users/facial-recognition-button/facial-recognition-button.component';
 import { UiSwitchModule } from 'ngx-toggle-switch';
 import { WebcamModule } from 'ngx-webcam';
+import { ChatbotComponent } from './chabot/chatbot.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 @NgModule({
@@ -74,6 +76,8 @@ import { WebcamModule } from 'ngx-webcam';
     ConversationRoomComponent,
     ConversationSidebarComponent,
     LivechatComponent,
+    ChatbotComponent,
+    NotificationComponent,
     FacialRecognitionButtonComponent
   ],
   imports: [

@@ -63,6 +63,13 @@ const userSchema = new mongoose.Schema({
       ref: "Badge",
     },
   ],
+  notifications: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Notification",
+    },
+  ],
   faceID: String,
 });
 
