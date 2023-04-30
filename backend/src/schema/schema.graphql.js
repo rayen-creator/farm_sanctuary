@@ -585,17 +585,14 @@ const typeDefs = gql`
     updateOrderConfirmationStatus(id: ID!, isConfirmed: Boolean!): Order!
     deleteOrder(id: ID!): Order!
     add(input:eventInput):event
+    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
+    markNotificationAsRead(id: ID!): Notification!
+    deleteNotification(id: ID!): Notification!
   }
   type event{
     id: ID!
     title: String
   description: String
-
-    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
-    markNotificationAsRead(id: ID!): Notification!
-    deleteNotification(id: ID!): Notification!
-
-
   }
 input eventInput{
   title: String
