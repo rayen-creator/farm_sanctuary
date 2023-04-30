@@ -1,4 +1,5 @@
 const Agent = require("../models/deliveryAgent");
+const Order = require("../models/order");
 const bcrypt = require("bcryptjs");
 
 const fs = require("fs");
@@ -207,8 +208,21 @@ async function deletedeliveryAgent(id) {
   }
   return await agent.remove();
 }
+async function addOrder(id,orderid){
+  const ordertoadd = await Order.findById({ _id: orderid })
+  await Agent.findByIdAndUpdate(
+    { _id: id },
+    { $push: { orders: ordertoadd._id } },
+    { new: true }
+  );
+  return {
+    message: "order added to Agent  successfully"
+  };
+  
+}
 
 module.exports = {
+  addOrder,
   infomail,
   getdeliveryAgent,
   getdeliveryAgents,

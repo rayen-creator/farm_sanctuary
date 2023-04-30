@@ -42,7 +42,8 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
 import { WebcamModule } from 'ngx-webcam';
 import { ChatbotComponent } from './chabot/chatbot.component';
 import { NotificationComponent } from './notification/notification.component';
-
+import { MapComponent } from './map/map.component';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { NotificationComponent } from './notification/notification.component';
     LivechatComponent,
     ChatbotComponent,
     NotificationComponent,
-    FacialRecognitionButtonComponent
+    FacialRecognitionButtonComponent,
+    MapComponent
   ],
   imports: [
     CommonModule,

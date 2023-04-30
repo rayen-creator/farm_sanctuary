@@ -249,6 +249,7 @@ const typeDefs = gql`
     updatedAt: DateTime!
     longitude: String
     latitude: String
+    orders:[Order]
   }
   type loginDriverResponse {
     message: String!
@@ -318,6 +319,10 @@ const typeDefs = gql`
   type acilResponse {
     message: String!
   }
+
+  type addOrderResponse {
+    message: String!
+  }
   input ForgetpwdInput {
     email: String!
   }
@@ -373,6 +378,8 @@ const typeDefs = gql`
     fullName: String!
     email: String!
     phone: Int!
+
+   
   }
 
   type RecommendedProduct {
@@ -542,15 +549,14 @@ const typeDefs = gql`
 
     createdeliveryAgent(input: AgentInput!): DriverResponse!
     updatedeliveryAgent(id: ID!, input: AgentInput!): DriverResponse!
-
     updateLocation(input: AgentLocationInput!): deliveryAgent!
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!): loginDriverResponse!
+    addOrder(id: ID!,idorder: ID!): addOrderResponse
+
+
     deleteFeedback(id: ID!): Feedback
-
     createFeedback(input: FeedbackInput!): Feedback!
-
-
     createProduct(
       input: CreateProductInput!
       file: Upload
@@ -585,17 +591,14 @@ const typeDefs = gql`
     updateOrderConfirmationStatus(id: ID!, isConfirmed: Boolean!): Order!
     deleteOrder(id: ID!): Order!
     add(input:eventInput):event
+    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
+    markNotificationAsRead(id: ID!): Notification!
+    deleteNotification(id: ID!): Notification!
   }
   type event{
     id: ID!
     title: String
   description: String
-
-    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
-    markNotificationAsRead(id: ID!): Notification!
-    deleteNotification(id: ID!): Notification!
-
-
   }
 input eventInput{
   title: String

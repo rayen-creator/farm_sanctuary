@@ -34,6 +34,7 @@ import {  ConversationRoomComponent} from './conversation-room/conversation-room
 import { LivechatComponent } from './livechat/livechat.component';
 import { ChatbotComponent } from './chabot/chatbot.component';
 import { NotificationComponent } from './notification/notification.component';
+import { MapComponent } from './map/map.component';
 
 
 const routes: Routes = [
@@ -68,6 +69,7 @@ const routes: Routes = [
       { path: 'croprecommendation', component: CropReFormComponent },
       { path: 'Messages', component: ConversationRoomComponent },
       { path: 'chatbot', component: ChatbotComponent },
+      { path: 'Map', component: MapComponent },
       { path: 'chat/:id', component: LivechatComponent },
       { path: 'notifications',component: NotificationComponent}
     ]
