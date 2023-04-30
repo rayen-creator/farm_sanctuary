@@ -1,0 +1,67 @@
+
+<html>
+<body>
+
+	<div>
+
+
+		<div class="stricky-header stricked-menu main-menu">
+			<div class="sticky-header__content">
+
+			</div><!-- /.sticky-header__content -->
+		</div><!-- /.stricky-header -->
+
+		<!--Page Header Start-->
+		<section class="page-header clearfix"
+			style="background-image: url(assets/images/backgrounds/page-header-bg.jpg);">
+			<div class="container">
+				<div class="page-header__inner text-center clearfix">
+					<ul class="thm-breadcrumb">
+						<li><a href="index-main.html">Home</a></li>
+						<li routerLink="/notifications">Notifications</li>
+					</ul>
+					<h2>Notifications</h2>
+				</div>
+			</div>
+		</section>
+		<!--Page Header End-->
+
+		<section class="testimonials-page">
+
+			<div class="container">
+				
+				<div class="row">
+                   
+					<div class="col-md-6 col-lg-4" *ngFor="let notification of notifications">
+					
+						<!--Start Single Testimonials One-->
+						<div class="testimonials-one__single">
+							Notification
+							<p class="testimonials-one__single-text">{{notification.content}}.</p>
+							<div class="testimonials-one__single-client-info">
+								<div class="testimonials-one__single-client-info-img">
+								Notification Type: {{notification.type}}
+								Seen : {{notification.seen}}
+									<div class="icon">
+										<span class="icon-right-quotation-mark"></span>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						<!--Start Single Testimonials One-->
+					</div><!-- /.col-md-6 -->
+					
+				</div><!-- /.row -->
+			</div><!-- /.container -->
+      
+		</section><!-- /.testimonials-page -->
+
+
+
+    </div>
+</body>
+
+
+<!-- Mirrored from layerdrops.com/agriox/testimonials.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Feb 2023 19:11:01 GMT -->
+</html>

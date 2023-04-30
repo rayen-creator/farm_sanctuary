@@ -4,6 +4,8 @@ import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken'
 import { AuthService } from 'src/app/core/services/auth.service';
 import jwt_decode from "jwt-decode";
 import {CartService} from "../../../../core/services/cart.service";
+import { NotificationService } from 'src/app/core/services/notification.service';
+import { Notification } from 'src/app/core/models/notification';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +13,8 @@ import {CartService} from "../../../../core/services/cart.service";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  notifications: Notification[] = [];
+  notificationCount: number = 0;
   username: string;
   img: string;
   role: string;
@@ -23,12 +27,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private tokenSubs: Subscription;
   private imgSubs: Subscription;
   cartItemCount: number;
-  constructor(private auth: AuthService,  private cartService: CartService) { }
+  constructor(private auth: AuthService,  private cartService: CartService , private notificationService: NotificationService) { }
 
   ngOnInit(): void {
+    this.getNotifications();
     this.cartItemCount = this.cartService.getItems().length;
     this.cartService.cartUpdated.subscribe(() => {
       this.cartItemCount = this.cartService.getItems().length;
+
+    
     });
     this.userIsAuthenticated = this.auth.isUserAuth();
     this.authListenerSubs = this.auth.getAuthStatusListener().subscribe({
@@ -66,6 +73,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
+  getNotifications() {
+    this.notificationService.getNotifications().subscribe((notifications) => {
+      this.notificationCount = notifications?.filter(notification=> notification.seen === false).length;
+      this.notifications = notifications
+    });
+    
+
+  }
+
 
 
   ngOnDestroy(): void {
@@ -78,4 +94,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loggingout() {
     this.auth.logout();
   }
+  
+  clearNotificationCount() {
+    this.notificationCount = 0;
+  }
+
 }

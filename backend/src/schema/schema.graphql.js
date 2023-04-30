@@ -169,6 +169,7 @@ const typeDefs = gql`
     email_change_option: Boolean
     likedPost:[Post]
     badges:[Badge]
+    notifications:[Notification]
   }
 
   type Product {
@@ -275,10 +276,29 @@ const typeDefs = gql`
     Workshop
     Tyres
   }
-  
-  
+
+  type Notification {
+    id: ID!
+    createdAt: DateTime!
+    content: String!
+    type: NotificationType!
+    recipient: User!
+    seen: Boolean!
+  }
+
+  enum NotificationType {
+    PAIEMENT
+    PRODUCT
+    DELIVERY
+  }
+
   
 
+
+
+  
+  
+  
   input signinInput {
     email: String!
     password: String!
@@ -494,6 +514,10 @@ const typeDefs = gql`
     getOrdersByUser(userId: ID!): [Order!]!
     getOrdersByFarmer(farmerId: ID!): [Order!]!
     getOrders: [Order!]!
+
+    notifications: [Notification!]!
+    getNotifcationsByUser(userId:ID!):[Notification!]!
+
   }
 
   type Mutation {
@@ -566,6 +590,12 @@ const typeDefs = gql`
     id: ID!
     title: String
   description: String
+
+    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
+    markNotificationAsRead(id: ID!): Notification!
+    deleteNotification(id: ID!): Notification!
+
+
   }
 input eventInput{
   title: String
