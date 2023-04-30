@@ -56,7 +56,7 @@
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6">
         <div class="text-center">
-          <img src="assets/empty-cart.png" alt="No products found" style="max-width: 100%;">
+          <img src="assets/emptyCart.png" alt="No products found" style="max-width: 100%;">
           <a routerLink="/marketplace" class="btn btn-success mt-3 rounded-pill" style="margin-bottom: 50px"> <i class="fa fa-arrow-left mr-2"></i> Back to the Fields </a>
         </div>
       </div>
@@ -93,7 +93,7 @@
         </ul><!-- /.list-unstyled proceed-to-checkout__ -->
         <div class="proceed-to-checkout__buttons">
           <a (click)="clearCart()" class="thm-btn proceed-to-checkout__checkout-btn" style="cursor: pointer">Clear</a>
-          <a href="checkout.html" class="thm-btn ">Checkout</a>
+          <a (click)="checkout()" class="thm-btn " style="cursor: pointer">Checkout</a>
         </div><!-- /.proceed-to-checkout__buttons -->
       </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->

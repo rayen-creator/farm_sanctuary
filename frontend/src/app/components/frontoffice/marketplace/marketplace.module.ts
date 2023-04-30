@@ -11,6 +11,10 @@ import {Ng2SearchPipeModule} from "ng2-search-filter";
 import { CategoryProductsComponent } from './category-products/category-products.component';
 import {UiSwitchModule} from "ngx-toggle-switch";
 import { CartComponent } from './cart/cart.component';
+import { PayementComponent } from './payement/payement.component';
+import {NgxPayPalModule} from "ngx-paypal";
+import { SuccessComponent } from './success/success.component';
+import { OrdersListComponent } from './orders-list/orders-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,10 @@ import { CartComponent } from './cart/cart.component';
     UserProductsComponent,
     ProductDetailsComponent,
     CategoryProductsComponent,
-    CartComponent
+    CartComponent,
+    PayementComponent,
+    SuccessComponent,
+    OrdersListComponent
   ],
     imports: [
         CommonModule,
@@ -28,7 +35,8 @@ import { CartComponent } from './cart/cart.component';
         ReactiveFormsModule,
         FormsModule,
         Ng2SearchPipeModule,
-        UiSwitchModule
+        UiSwitchModule,
+        NgxPayPalModule
 
     ]
 })

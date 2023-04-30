@@ -49,7 +49,6 @@ const authResolver = {
       try {
         return await authService.verifyOTP(input);
       } catch (error) {
-        console.log("moshkla");
         throw new Error(error);
       }
     },

@@ -22,8 +22,8 @@ const commentResolver = require("./src/resolvers/comment.resolver");
 const createBadgesMiddleware = require("./src/middleware/initilize_badges");
 const badgeResolver=require("./src/resolvers/badge.resolver");
 const notificationResolver=require("./src/resolvers/notification.resolver");
-
-
+const orderResolver = require("./src/resolvers/order.resolver");
+const eventResolver=require('./src/resolvers/event.resolver');
 
 app.use(morgan("dev"));
 
@@ -39,7 +39,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //Initialize badges
-// app.use(createBadgesMiddleware.createBadges);
 createBadgesMiddleware.createBadges();
 
 const server = new ApolloServer({
@@ -54,7 +53,9 @@ const server = new ApolloServer({
     commentResolver,
     badgeResolver,
     recommendedproductresolvers,
-    notificationResolver
+    notificationResolver,
+    orderResolver,
+    eventResolver
   ],
 });
 

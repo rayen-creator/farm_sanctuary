@@ -78,7 +78,7 @@ const agentResolver = {
         throw new AgentInputError(error.message);
       }
     },
-    async updateLocation(_, {  input }) {
+    async updateLocation(_, { input }) {
         try {
           const agent = await agentService.updateLocation( input);
           if (!agent) {

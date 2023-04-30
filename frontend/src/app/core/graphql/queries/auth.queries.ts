@@ -78,3 +78,4 @@ export const SEND_OTP_MUTATION = gql`
     }
   }
 `;
+

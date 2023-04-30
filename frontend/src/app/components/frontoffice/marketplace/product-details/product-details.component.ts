@@ -5,7 +5,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../../core/services/auth.service";
 import Swal from "sweetalert2";
-import {Feedback} from "../../../../core/models/feedback";
 import {DecodedToken} from "../../../../core/graphql/graphqlResponse/decodedToken";
 import {Subscription} from "rxjs";
 import jwt_decode from "jwt-decode";

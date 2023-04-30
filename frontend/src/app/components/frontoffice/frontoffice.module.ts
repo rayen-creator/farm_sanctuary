@@ -14,7 +14,6 @@ import { RegistermainpageComponent } from './auth/registermainpage/registermainp
 import { ErrorresetpwdComponent } from './auth/errorresetpwd/errorresetpwd.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import {FormsModule} from "@angular/forms";
-import { UiSwitchModule } from 'ngx-toggle-switch';
 import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
 import { FeedbackFormComponent } from './feedbacks/feedback-form/feedback-form';
 import {Ng2TelInputModule} from 'ng2-tel-input';
@@ -34,11 +33,13 @@ import { RealtimechatComponent } from './realtimechat/realtimechat.component';
 import { RecommendProductComponent } from './recommend-product/recommend-product.component';
 import { CategoryRecommendedProductsComponent } from './category-recommended-products/category-recommended-products.component';
 import {Ng2SearchPipeModule} from "ng2-search-filter";
-
 import { CropReFormComponent } from './cropRecommandation/crop-re-form/crop-re-form.component';
 import { ConversationRoomComponent } from './conversation-room/conversation-room.component';
 import { ConversationSidebarComponent } from './conversation-sidebar/conversation-sidebar.component';
 import { LivechatComponent } from './livechat/livechat.component';
+import { FacialRecognitionButtonComponent } from './users/facial-recognition-button/facial-recognition-button.component';
+import { UiSwitchModule } from 'ngx-toggle-switch';
+import { WebcamModule } from 'ngx-webcam';
 import { ChatbotComponent } from './chabot/chatbot.component';
 import { NotificationComponent } from './notification/notification.component';
 
@@ -76,7 +77,8 @@ import { NotificationComponent } from './notification/notification.component';
     ConversationSidebarComponent,
     LivechatComponent,
     ChatbotComponent,
-    NotificationComponent
+    NotificationComponent,
+    FacialRecognitionButtonComponent
   ],
   imports: [
     CommonModule,
@@ -87,7 +89,8 @@ import { NotificationComponent } from './notification/notification.component';
     GoogleSigninButtonModule,
     Ng2TelInputModule,
     QuillModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    WebcamModule
   ]
 })
 export class FrontofficeModule { }

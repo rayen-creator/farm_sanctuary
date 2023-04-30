@@ -70,6 +70,7 @@ const userSchema = new mongoose.Schema({
       ref: "Notification",
     },
   ],
+  faceID: String,
 });
 
 const User = mongoose.model("Users", userSchema);
