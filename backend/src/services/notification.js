@@ -41,6 +41,8 @@ const createNotification = async ({ content, type, recipient }) => {
 };
 
 
+
+
 const markNotificationAsRead = async ({ id }) => {
   const notification = await Notification.findByIdAndUpdate(id, { status: 'READ' }, { new: true });
   return notification;

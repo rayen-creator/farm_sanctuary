@@ -141,6 +141,7 @@ a#notification-dropdown {
   padding: 10px;
   font-size: 0.8rem; /* Decrease the font size of the "View all notifications" link */
   color: rgb(21, 143, 21); /* Use the primary link color for the "View all notifications" link */
+  background-color: lightgreen;
 }
 
 .dropdown-item.text-center:hover {

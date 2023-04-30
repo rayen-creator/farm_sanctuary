@@ -11,28 +11,24 @@ import { ApolloQueryResult } from '@apollo/client/core';
   styleUrls: ['./notification.component.css']
 })
 export class NotificationComponent implements OnInit {
-  notifications : Notification[]=[];  
+  notifications : Notification[]=[];
+  notificationCount: Number
+    
 
   constructor(private notificationservice : NotificationService , private apollo : Apollo) { 
   }
 
   ngOnInit(): void {
-    this.getNotifcations();
+    this.getNotifications();
   }
 
-  getNotifcations(): void {
-    this.apollo
-      .watchQuery<{ getNotifications: Notification[] }>({
-        query: GET_NOTIFICATIONS,
-      })
-      .valueChanges.subscribe({
-        next: (result: ApolloQueryResult<{ getNotifications: Notification[] }>) => {
-          this.notifications = result.data.getNotifications.map(notification => ({
-            ...notification,
-          }));
-        },
-        error: (err) => console.log(err),
-      });
+  getNotifications() {
+    this.notificationservice.getNotifications().subscribe((notifications) => {
+      this.notificationCount = notifications?.filter(notification=> notification.seen === false).length;
+      this.notifications = notifications
+    });
+    
+
   }
 
 
