@@ -7,6 +7,8 @@ const eventResolver = {
         const event = new Event({
           title: input.title,
           description: input.description,
+          start:input.start, 
+          end:input.end,
         });
 
         return await event.save(event);
