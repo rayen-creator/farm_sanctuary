@@ -97,8 +97,8 @@ const typeDefs = gql`
     id: ID!
     cartItems: [CartItem!]!
     totalPrice: Float!
-    user: User!
-    farmer: User!
+    user: User
+    farmer: User
     isDelivered: Boolean!
     createdAt: DateTime
     updatedAt: DateTime
@@ -465,7 +465,7 @@ const typeDefs = gql`
       reviewExist: Boolean!
       message: String!
   }
-
+  
   type badgeResponse{
     name:String
     image:String
@@ -483,6 +483,7 @@ const typeDefs = gql`
 
     getdeliveryAgent(id: ID!): deliveryAgent!
     getdeliveryAgents: [deliveryAgent!]!
+    getOrdersbyAgent(id: ID!):[Order]
 
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
@@ -553,8 +554,7 @@ const typeDefs = gql`
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!): loginDriverResponse!
     addOrder(id: ID!,idorder: ID!): addOrderResponse
-
-
+   
     deleteFeedback(id: ID!): Feedback
     createFeedback(input: FeedbackInput!): Feedback!
     createProduct(

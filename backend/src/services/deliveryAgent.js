@@ -39,6 +39,27 @@ async function loginDriver(input) {
     agent: agent,
   };
 }
+async function getOrdersbyAgent(id) {
+  const agent = await Agent.findById(id).populate({
+    path: "orders",
+    model: "Order",
+  });
+
+  const orders = [];
+
+  for (const order of agent.orders) {
+    const orderDetails = await Order.findById(order).populate({
+      path: "user",
+      model: "Users",
+    }).populate({
+      path: "farmer",
+      model: "Users",
+    });
+    orders.push(orderDetails);
+  }
+
+  return orders;
+}
 async function getdeliveryAgent(id) {
   return Agent.findById({ _id: id });
 }
@@ -208,20 +229,20 @@ async function deletedeliveryAgent(id) {
   }
   return await agent.remove();
 }
-async function addOrder(id,orderid){
-  const ordertoadd = await Order.findById({ _id: orderid })
+async function addOrder(id, orderid) {
+  const ordertoadd = await Order.findById({ _id: orderid });
   await Agent.findByIdAndUpdate(
     { _id: id },
     { $push: { orders: ordertoadd._id } },
     { new: true }
   );
   return {
-    message: "order added to Agent  successfully"
+    message: "order added to Agent  successfully",
   };
-  
 }
 
 module.exports = {
+  getOrdersbyAgent,
   addOrder,
   infomail,
   getdeliveryAgent,
