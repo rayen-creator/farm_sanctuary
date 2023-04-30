@@ -9,9 +9,13 @@ const deliveryAgentSchema = new mongoose.Schema(
     phone: Number,
     longitude: String,
     latitude: String,
-    image: String
-
-    
+    image: String,
+    orders: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order",
+      },
+    ],
     
 
   },

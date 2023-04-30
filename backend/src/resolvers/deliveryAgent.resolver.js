@@ -89,7 +89,16 @@ const agentResolver = {
           throw new AgentInputError(error.message);
         }
       },
+      async addOrder(_, {id, idorder }){
+        try{
+          return await agentService.addOrder(id, idorder);
+        }catch(error){
+          throw new AgentInputError(error.message);
+        }
+    
+      },
   },
+  
 };
 
 module.exports = agentResolver;

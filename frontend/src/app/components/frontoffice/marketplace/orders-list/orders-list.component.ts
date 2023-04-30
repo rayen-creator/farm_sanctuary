@@ -25,7 +25,7 @@ export class OrdersListComponent implements OnInit {
   totalPages: number;
   pages: number[];
   visibleOrderList: Order[];
-
+  myOrder: Order;
   token: string;
   decodedToken: DecodedToken;
   userId: string;
@@ -85,8 +85,10 @@ export class OrdersListComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.orderService.updateOrderConfirmationStatus(id, true, this.userId);
-
+        this.orderService.getOrder(id).subscribe((order)=> {
+        this.myOrder =   order;})
       };
+      console.log(this.myOrder)
 
     });
   }
