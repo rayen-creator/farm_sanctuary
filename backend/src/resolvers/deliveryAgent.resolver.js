@@ -16,6 +16,13 @@ const agentResolver = {
         throw new AgentInputError(error.message);
       }
     },
+    async getAvailableAgent(){
+      try {
+        return await agentService.getAvailableAgent();
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
     async getOrdersbyAgent(_, { id }) {
       try {
         return await agentService.getOrdersbyAgent(id);

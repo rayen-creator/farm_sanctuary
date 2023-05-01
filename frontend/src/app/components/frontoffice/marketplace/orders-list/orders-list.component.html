@@ -19,6 +19,8 @@
                 <th scope="col">Client Email</th>
                 <th scope="col">Client Phone</th>
                 <th scope="col">Location</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Updated At</th>
                 <th scope="col">Items</th>
                 <th scope="col">Total</th>
                 <th scope="col">Status</th>
@@ -51,8 +53,16 @@
                   </td>
 
 
-                
-                  
+                  <td>
+                    <span class="mb-0 text-sm">Created At:</span>
+                    <p class="mb-0 text-sm">{{datePipe.transform(u.createdAt, 'medium') }}</p>
+
+                  </td>
+                  <td>
+
+                    <span class="mb-0 text-sm" >Updated At:</span>
+                    <p class="mb-0 text-sm">{{datePipe.transform(u.updatedAt, 'medium') }}</p>
+                  </td>
                   <td>
                     <ul> <!-- new table data cell for cart items -->
                       <li *ngFor="let item of u.cartItems">{{item.name}} x {{item.quantity}}</li>

@@ -39,6 +39,16 @@ async function loginDriver(input) {
     agent: agent,
   };
 }
+
+async function getAvailableAgent() {
+  const agents = await Agent.find().populate("orders");
+  
+  
+  const sortedAgents = agents.sort((a, b) => a.orders.length - b.orders.length);
+ 
+  return sortedAgents[sortedAgents.length - 1];
+}
+
 async function getOrdersbyAgent(id) {
   const agent = await Agent.findById(id).populate({
     path: "orders",
@@ -241,6 +251,7 @@ async function addOrder(id, orderid) {
   };
 }
 
+
 module.exports = {
   getOrdersbyAgent,
   addOrder,
@@ -252,4 +263,5 @@ module.exports = {
   deletedeliveryAgent,
   updateLocation,
   loginDriver,
+  getAvailableAgent,
 };

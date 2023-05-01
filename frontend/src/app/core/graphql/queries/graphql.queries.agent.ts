@@ -34,6 +34,32 @@ const getdeliveryAgent  = gql`
     }
     }
 `;
+const getAvailableAgent  = gql`
+  query getAvailableAgent
+{
+  getAvailableAgent {
+    id
+    login
+    phone
+    fullName
+    email
+    longitude
+    latitude
+    createdAt
+    updatedAt
+    image
+    orders
+
+    }
+    }
+`;
+const addOrder = gql`
+mutation addOrder($id:ID!,$idorder:ID!) {
+  createdeliveryAgent(id:$id,idorder:$idorder) {
+    message
+  }
+}
+`;
 
 const deletedeliveryAgent = gql`
   mutation deletedeliveryAgent($id: ID!) {
@@ -81,4 +107,4 @@ const updatedeliveryAgent = gql`
     }
   }
   `;
-export {infomail ,createdeliveryAgent,getdeliveryAgent,Agents,deletedeliveryAgent,updatedeliveryAgent}
+export {addOrder,infomail ,createdeliveryAgent,getdeliveryAgent,Agents,deletedeliveryAgent,updatedeliveryAgent}

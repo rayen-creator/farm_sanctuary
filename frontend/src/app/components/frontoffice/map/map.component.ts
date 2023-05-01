@@ -1,3 +1,4 @@
+import { MapService } from './../../../core/services/map.service';
 import { Component, OnInit,AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
@@ -28,7 +29,7 @@ export class MapComponent implements OnInit,AfterViewInit {
 
     tiles.addTo(this.map);
   }
-  constructor() { }
+  constructor(MapService: MapService) { }
 
   ngOnInit(): void {
   }
