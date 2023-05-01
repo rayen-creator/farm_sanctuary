@@ -16,9 +16,13 @@ const resolvers = {
       const newNotification = await createNotification({ content, type, recipient });
       return newNotification;
     },
-    markNotificationAsRead: async (_, { id }) => {
-      const updatedNotification = await markNotificationAsRead({ id });
-      return updatedNotification;
+    markNotificationAsRead: async (_, { userId, id }) => {
+      try {
+        const notification = await markNotificationAsRead({ userId, id });
+        return notification;
+      } catch (error) {
+        throw new Error(error.message);
+      }
     },
     deleteNotification:async(_,{id})=>{
         const deletedNotification = await deleteNotification({ id });

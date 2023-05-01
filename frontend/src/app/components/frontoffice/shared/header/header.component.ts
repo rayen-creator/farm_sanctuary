@@ -27,10 +27,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private tokenSubs: Subscription;
   private imgSubs: Subscription;
   cartItemCount: number;
-  constructor(private auth: AuthService,  private cartService: CartService , private notificationService: NotificationService) { }
+  constructor(private auth: AuthService,  private cartService: CartService , private notificationService: NotificationService) {
+    this.tokenSubs = this.auth.getToken().subscribe((token) => {
+      this.decodedToken = jwt_decode(token) as DecodedToken;
+      this.userId = this.decodedToken.id;
+    });
+   }
 
   ngOnInit(): void {
-    this.getNotifications();
+    this.getNotificationsByUser();
     this.cartItemCount = this.cartService.getItems().length;
     this.cartService.cartUpdated.subscribe(() => {
       this.cartItemCount = this.cartService.getItems().length;
@@ -73,8 +78,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
-  getNotifications() {
-    this.notificationService.getNotifications().subscribe((notifications) => {
+  getNotificationsByUser() {
+    this.notificationService.getNotificationsByUser(this.userId).subscribe((notifications) => {
       this.notificationCount = notifications?.filter(notification=> notification.seen === false).length;
       this.notifications = notifications
     });

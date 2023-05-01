@@ -47,8 +47,11 @@ async function getNotificationsByUser(userId) {
 
 
 
-const markNotificationAsRead = async ({ id }) => {
-  const notification = await Notification.findByIdAndUpdate(id, { status: 'READ' }, { new: true });
+const markNotificationAsRead = async ({ userId, id }) => {
+  const notification = await Notification.findOneAndUpdate({ _id: id, userId }, { seen: true } , {new : true});
+  if (!notification) {
+    throw new Error('Notification not found');
+  }
   return notification;
 };
 
