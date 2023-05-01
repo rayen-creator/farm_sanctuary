@@ -1,6 +1,5 @@
-
-import {CartItem} from "./cartItem";
-import {User} from "./user";
+import { CartItem } from "./cartItem";
+import { User } from "./user";
 
 export interface Order {
   id: string;
@@ -12,5 +11,11 @@ export interface Order {
   createdAt: Date;
   updatedAt: Date;
   isConfirmed: boolean;
-
+  location: {
+    city: string;
+    houseStreetnumber: string;
+    state: string;
+    country: string;
+    codePostal: number;
+  };
 }
