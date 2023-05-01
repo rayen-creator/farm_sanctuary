@@ -97,21 +97,21 @@ const typeDefs = gql`
     id: ID!
     cartItems: [CartItem!]!
     totalPrice: Float!
-    user: User!
-    farmer: User!
+    user: User
+    farmer: User
     isDelivered: Boolean!
     createdAt: DateTime
     updatedAt: DateTime
     isConfirmed: Boolean!
-    location: Location
+    location: Location!
   }
 
   type Location {
-    type: String!
-    coordinates: [Float!]!
-    latitude: Float!
-    longitude: Float!
-    address: String!
+    codePostal: String
+  country: String
+  state: String
+  houseStreetnumber: String
+  city: String
   }
 
   input CartItemInput {
@@ -124,17 +124,19 @@ const typeDefs = gql`
   }
 
   input CreateOrderInput {
-    cartItems: [CartItemInput!]!
-    totalPrice: Float!
-    userId: ID!
-    farmerId: ID!
-    location: LocationInput!
+    cartItems: [CartItemInput!]
+    totalPrice: Float
+    userId: ID
+    farmerId: ID
+    location: LocationInput
   }
 
   input LocationInput {
-    type: String!
-    coordinates: [Float!]!
-    address: String!
+    codePostal: String!
+    country: String!
+   state: String!
+   houseStreetnumber: String!
+   city: String!
   }
 
   input FeedbackInput {
@@ -293,13 +295,7 @@ const typeDefs = gql`
     DELIVERY
   }
 
-  
 
-
-
-  
-  
-  
   input signinInput {
     email: String!
     password: String!
@@ -397,12 +393,6 @@ const typeDefs = gql`
     Tyres
   }
 
-  
-
-
-  
-
-
   type UpdatepwdResponse {
     message: String!
     updateStatus: Boolean!
@@ -465,7 +455,7 @@ const typeDefs = gql`
       reviewExist: Boolean!
       message: String!
   }
-
+  
   type badgeResponse{
     name:String
     image:String
@@ -476,13 +466,25 @@ const typeDefs = gql`
     id:String
     faceImage:String
   }
+  type getcordResponse {
+  latitude: Float
+  longitude: Float
+  address: String
+  }
+ 
+
 
   type Query {
+    
+    getcord(address: String!): getcordResponse
     getUser(id: ID!): User!
     getUsers: [User!]!
 
     getdeliveryAgent(id: ID!): deliveryAgent!
     getdeliveryAgents: [deliveryAgent!]!
+    getOrdersbyAgent(id: ID!):[Order]
+
+    getAvailableAgent: deliveryAgent!
 
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
@@ -495,10 +497,6 @@ const typeDefs = gql`
 
     getProductsByCategory(category: productCategory!): [Product!]!
         getOneStarFeedbacks: [Feedback!]!
-
-
-    
-   
     
     products(url: String!): [RecommendedProduct!]!
     getRecommendedProducts: [RecommendedProduct!]!
@@ -553,8 +551,7 @@ const typeDefs = gql`
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!): loginDriverResponse!
     addOrder(id: ID!,idorder: ID!): addOrderResponse
-
-
+   
     deleteFeedback(id: ID!): Feedback
     createFeedback(input: FeedbackInput!): Feedback!
     createProduct(
