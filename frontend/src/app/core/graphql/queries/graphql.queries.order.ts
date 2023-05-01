@@ -25,6 +25,13 @@ location
         phone
         location
       }
+      location{
+        codePostal,
+        state,
+        houseStreetnumber,
+        country,
+        city
+      }
       isDelivered
       createdAt
       updatedAt
@@ -54,6 +61,13 @@ const order = gql`
         email
         phone
         location
+      }
+      location{
+        codePostal,
+        state,
+        houseStreetnumber,
+        country,
+        city
       }
       isDelivered
       isConfirmed
@@ -86,6 +100,13 @@ const ordersByUser = gql`
         phone
         location
       }
+      location{
+        codePostal,
+        state,
+        houseStreetnumber,
+        country,
+        city
+      }
       isDelivered
       createdAt
       updatedAt
@@ -117,6 +138,13 @@ const ordersByFarmer = gql`
         email
         phone
         location
+      }
+      location{
+        codePostal,
+        state,
+        houseStreetnumber,
+        country,
+        city
       }
       isDelivered
       isConfirmed

@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private usernameSubs: Subscription;
   private tokenSubs: Subscription;
   private imgSubs: Subscription;
+  private roleSubs: Subscription;
   cartItemCount: number;
   constructor(private auth: AuthService,  private cartService: CartService , private notificationService: NotificationService) { }
 
@@ -35,7 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.cartService.cartUpdated.subscribe(() => {
       this.cartItemCount = this.cartService.getItems().length;
 
-    
+
     });
     this.userIsAuthenticated = this.auth.isUserAuth();
     this.authListenerSubs = this.auth.getAuthStatusListener().subscribe({
@@ -69,8 +70,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       error: () => {
         this.img = "";
       }
+    });
+    this.roleSubs = this.auth.getRole().subscribe({
+      next: (role) => {
+        this.role = role;
+        console.log(this.role)
+      },
+      error: () => {
+        this.role = "";
+      }
     })
-
   }
 
   getNotifications() {
@@ -78,7 +87,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.notificationCount = notifications?.filter(notification=> notification.seen === false).length;
       this.notifications = notifications
     });
-    
+
 
   }
 
@@ -94,7 +103,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loggingout() {
     this.auth.logout();
   }
-  
+
   clearNotificationCount() {
     this.notificationCount = 0;
   }
