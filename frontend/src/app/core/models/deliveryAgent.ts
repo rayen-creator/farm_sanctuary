@@ -1,3 +1,5 @@
+import { Order } from "./order";
+
 export type Agent = {
   'id': string;
   'login': string
@@ -10,5 +12,6 @@ export type Agent = {
   'createdAt': Date
   'updatedAt': Date
   'image':string
+  'orders': Order[]
 
 }

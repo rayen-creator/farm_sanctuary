@@ -39,23 +39,13 @@ const getAvailableAgent  = gql`
 {
   getAvailableAgent {
     id
-    login
-    phone
-    fullName
-    email
-    longitude
-    latitude
-    createdAt
-    updatedAt
-    image
-    orders
 
     }
     }
 `;
 const addOrder = gql`
 mutation addOrder($id:ID!,$idorder:ID!) {
-  createdeliveryAgent(id:$id,idorder:$idorder) {
+  addOrder(id:$id,idorder:$idorder) {
     message
   }
 }
@@ -107,4 +97,4 @@ const updatedeliveryAgent = gql`
     }
   }
   `;
-export {addOrder,infomail ,createdeliveryAgent,getdeliveryAgent,Agents,deletedeliveryAgent,updatedeliveryAgent}
+export {getAvailableAgent,addOrder,infomail ,createdeliveryAgent,getdeliveryAgent,Agents,deletedeliveryAgent,updatedeliveryAgent}
