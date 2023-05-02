@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 async function getcord(address) {
-
+  console.log("address back:",address)
         const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address}`);
         const data = await response.json();
         if (data.length === 0) {
