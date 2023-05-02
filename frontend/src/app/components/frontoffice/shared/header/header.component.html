@@ -160,9 +160,9 @@
           </div>
 
           <div class="main-header--one__bottom-right clearfix">
-            <div class="search-cart">
+            <div class="search-cart" *ngIf="userIsAuthenticated">
               <div class="icon-container">
-                <a routerLink="addfeedback" class="search search-toggler" *ngIf="userIsAuthenticated">
+                <a routerLink="addfeedback" class="search search-toggler" >
                   <span class="bx bx-message-dots"></span>
                 </a>
                 <a routerLink="marketplace/cart" class="cart mini-cart__toggler">
