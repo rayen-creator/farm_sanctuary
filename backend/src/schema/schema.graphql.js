@@ -274,11 +274,7 @@ const typeDefs = gql`
     category: String!
   }
 
-  enum recommendedproductCategory {
-    Inputs
-    Workshop
-    Tyres
-  }
+ 
 
   type Notification {
     id: ID!
@@ -378,14 +374,7 @@ const typeDefs = gql`
    
   }
 
-  type RecommendedProduct {
-    id: ID!
-    title: String!
-    price: Float!
-    image: String!
-    url: String!
-    category: String!
-  }
+  
 
   enum recommendedproductCategory {
     Inputs
@@ -521,7 +510,7 @@ const typeDefs = gql`
     getOrders: [Order!]!
 
     notifications: [Notification!]!
-    getNotifcationsByUser(userId:ID!):[Notification!]!
+    getNotificationsByUser(userId:ID!):[Notification!]!
 
   }
 
@@ -582,16 +571,18 @@ const typeDefs = gql`
 
     assignBadges(userId:ID!):badgeResponse!
 
+    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
+    markNotificationAsRead(userId:ID!,id: ID!): Notification!
+    deleteNotification(id: ID!): Notification!
 
     createOrder(input: CreateOrderInput!): createProductResponse!
     updateOrderDeliveryStatus(id: ID!, isDelivered: Boolean!): Order!
     updateOrderConfirmationStatus(id: ID!, isConfirmed: Boolean!): Order!
     deleteOrder(id: ID!): Order!
     add(input:eventInput):event
-    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
-    markNotificationAsRead(id: ID!): Notification!
-    deleteNotification(id: ID!): Notification!
+   
   }
+  
   type event{
     id: ID!
     title: String
