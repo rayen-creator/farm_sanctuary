@@ -14,7 +14,7 @@ const createNotification = async ({ content, type, recipient }) => {
 
   // Check if the recipient is a farmer
   const recipientUser = await User.findById(recipient);
-  if (recipientUser.role === "FARMER") {
+
     // Check if the product belongs to the recipient farmer and is not sold
     const product = await Product.findOne({
       _id: content,
@@ -36,8 +36,8 @@ const createNotification = async ({ content, type, recipient }) => {
       recipientUser.notifications.push(farmerNotification._id);
       await recipientUser.save();
     }
-  }
-  return notification.populate({ path: "recipient", model: "User" });
+
+  return notification.populate({ path: "recipient", model: "Users" });
 };
 
 async function getNotificationsByUser(userId) {
@@ -48,7 +48,7 @@ async function getNotificationsByUser(userId) {
 
 
 const markNotificationAsRead = async ({ userId, id }) => {
-  const notification = await Notification.findOneAndUpdate({ _id: id, userId }, { seen: true } , {new : true});
+  const notification = await Notification.findOneAndUpdate({ _id: id, recipient:userId }, { seen: true } , {new : true});
   if (!notification) {
     throw new Error('Notification not found');
   }
