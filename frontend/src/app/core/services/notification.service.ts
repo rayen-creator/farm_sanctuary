@@ -1,3 +1,4 @@
+import { getNotificationsByUser } from './../graphql/queries/notification.queries';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { Observable, catchError, of } from 'rxjs';
@@ -10,7 +11,18 @@ import { GET_NOTIFICATIONS } from '../graphql/queries/notification.queries';
 })
 export class NotificationService {
   constructor(private apollo: Apollo) {}
-        
+        getNotificationsByUser(userId: any) {
+          // const userId = this.userId;
+          return this.apollo.watchQuery({
+            query: getNotificationsByUser,
+            variables: { userId }
+          }).valueChanges.pipe(
+            map((res: any) => {
+              const posts = res.data.getNotificationsByUser;
+              return posts as Notification[];
+            })
+          )
+        }
 
         getNotifications(): Observable<Notification[]> {
           return this.apollo
@@ -19,7 +31,7 @@ export class NotificationService {
             }).valueChanges.pipe(
               map((res) => {
                 // @ts-ignore
-                const notifications = res.data.notifications as Notification[];
+                const notifications = res.data.notification as Notification[];
                 console.log(notifications);
                 return notifications;
               }),
@@ -28,4 +40,9 @@ export class NotificationService {
                 return of([]);
               })
             );
-        }}
+        }
+        
+      
+      
+      
+      }

@@ -40,11 +40,18 @@ const createNotification = async ({ content, type, recipient }) => {
   return notification.populate({ path: "recipient", model: "User" });
 };
 
+async function getNotificationsByUser(userId) {
+  const notifications = await Notification.find({ recipient: userId }).populate({path: "recipient", model: "Users"});
+  return notifications;
+}
 
 
 
-const markNotificationAsRead = async ({ id }) => {
-  const notification = await Notification.findByIdAndUpdate(id, { status: 'READ' }, { new: true });
+const markNotificationAsRead = async ({ userId, id }) => {
+  const notification = await Notification.findOneAndUpdate({ _id: id, userId }, { seen: true } , {new : true});
+  if (!notification) {
+    throw new Error('Notification not found');
+  }
   return notification;
 };
 
@@ -62,4 +69,4 @@ const deleteNotification = async ({ id }) => {
 
 
 
-module.exports = { createNotification, markNotificationAsRead, getnotifications , deleteNotification };
+module.exports = { createNotification, markNotificationAsRead, getnotifications , deleteNotification , getNotificationsByUser};
