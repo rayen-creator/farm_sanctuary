@@ -27,6 +27,7 @@ const badgeResolver=require("./src/resolvers/badge.resolver");
 const notificationResolver=require("./src/resolvers/notification.resolver");
 const orderResolver = require("./src/resolvers/order.resolver");
 const eventResolver=require('./src/resolvers/event.resolver');
+const mapResolver = require("./src/resolvers/map.resolver");
 
 app.use(morgan("dev"));
 
@@ -58,7 +59,8 @@ const server = new ApolloServer({
     recommendedproductresolvers,
     notificationResolver,
     orderResolver,
-    eventResolver
+    eventResolver,
+    mapResolver
   ],
 });
 

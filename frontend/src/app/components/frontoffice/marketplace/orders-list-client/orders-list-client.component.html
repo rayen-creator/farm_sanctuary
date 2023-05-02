@@ -15,16 +15,11 @@
               <thead class="thead-light">
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Client Name</th>
-                <th scope="col">Client Email</th>
-                <th scope="col">Client Phone</th>
                 <th scope="col">Location</th>
                 <th scope="col">Created At</th>
-                <th scope="col">Updated At</th>
                 <th scope="col">Items</th>
                 <th scope="col">Total</th>
                 <th scope="col">Status</th>
-                <th scope="col">Confirmation</th>
                 <th scope="col">Action</th>
               </tr>
               </thead>
@@ -34,22 +29,9 @@
                   <th scope="row">
                     <span class="mb-0 text-sm">{{u.id}}</span>
                   </th>
-                  <td>
-                    <span class="mb-0 text-sm">{{u.user.username}}</span>
 
-                  </td>
                   <td>
-                    <span class="mb-0 text-sm">{{u.user.email}}</span>
-
-                  </td>
-                  <td>
-                        <span class="badge ">
-
-                          <i class="bg-info rounded-pill">{{u.user.phone}}</i>
-                        </span>
-                  </td>
-                  <td>
-                    <span class="mb-0 text-sm">{{u.user.location}}</span>
+                    <span class="mb-0 text-sm">{{u.location.houseStreetnumber}}, {{u.location.city}}, {{u.location.state}}, {{u.location.codePostal}}, {{u.location.country}}</span>
                   </td>
 
 
@@ -58,11 +40,7 @@
                     <p class="mb-0 text-sm">{{datePipe.transform(u.createdAt, 'medium') }}</p>
 
                   </td>
-                  <td>
 
-                    <span class="mb-0 text-sm" >Updated At:</span>
-                    <p class="mb-0 text-sm">{{datePipe.transform(u.updatedAt, 'medium') }}</p>
-                  </td>
                   <td>
                     <ul> <!-- new table data cell for cart items -->
                       <li *ngFor="let item of u.cartItems">{{item.name}} x {{item.quantity}}</li>
@@ -78,20 +56,14 @@
                   <td *ngIf="u.isDelivered == true">
                     <span class="mb-0 text-sm" style="color: #2dc20e">Delivered</span>
                   </td>
-                  <td *ngIf="u.isConfirmed == false">
-                    <span class="mb-0 text-sm" style="color: #ff0505">Not confirmed</span>
-                  </td>
-                  <td *ngIf="u.isConfirmed == true">
-                    <span class="mb-0 text-sm" style="color: #2dc20e">Confirmed</span>
-                  </td>
                   <td class="text-right">
                     <div class="dropdown">
                       <a  class="btn bg-gradient-primary dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
                         <i class="fas fa-ellipsis-v"></i>
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
-                        <a class="dropdown-item" (click)="updateOrderConfirmationStatus(u.id)" >Confirm</a>
-
+                        <a class="dropdown-item" (click)="updateOrderConfirmationStatus(u.id)" >Track order</a>
+                        
                       </div>
                     </div>
                   </td>

@@ -34,6 +34,22 @@ const getdeliveryAgent  = gql`
     }
     }
 `;
+const getAvailableAgent  = gql`
+  query getAvailableAgent
+{
+  getAvailableAgent {
+    id
+
+    }
+    }
+`;
+const addOrder = gql`
+mutation addOrder($id:ID!,$idorder:ID!) {
+  addOrder(id:$id,idorder:$idorder) {
+    message
+  }
+}
+`;
 
 const deletedeliveryAgent = gql`
   mutation deletedeliveryAgent($id: ID!) {
@@ -81,4 +97,4 @@ const updatedeliveryAgent = gql`
     }
   }
   `;
-export {infomail ,createdeliveryAgent,getdeliveryAgent,Agents,deletedeliveryAgent,updatedeliveryAgent}
+export {getAvailableAgent,addOrder,infomail ,createdeliveryAgent,getdeliveryAgent,Agents,deletedeliveryAgent,updatedeliveryAgent}

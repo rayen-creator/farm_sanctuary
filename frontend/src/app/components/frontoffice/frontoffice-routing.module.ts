@@ -69,7 +69,7 @@ const routes: Routes = [
       { path: 'croprecommendation', component: CropReFormComponent },
       { path: 'Messages', component: ConversationRoomComponent },
       { path: 'chatbot', component: ChatbotComponent },
-      { path: 'Map', component: MapComponent },
+      { path: 'Map/:id', component: MapComponent },
       { path: 'chat/:id', component: LivechatComponent },
       { path: 'notifications',component: NotificationComponent}
     ]

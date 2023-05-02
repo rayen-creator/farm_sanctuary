@@ -1,3 +1,4 @@
+import { AgentService } from './../../../../core/services/agent.service';
 import { Component, OnInit } from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {Order} from "../../../../core/models/order";
@@ -9,6 +10,8 @@ import {DecodedToken} from "../../../../core/graphql/graphqlResponse/decodedToke
 import {Subscription} from "rxjs";
 import jwt_decode from "jwt-decode";
 import {AuthService} from "../../../../core/services/auth.service";
+import { Agent } from 'src/app/core/models/deliveryAgent';
+
 
 @Component({
   selector: 'app-orders-list',
@@ -29,9 +32,12 @@ export class OrdersListComponent implements OnInit {
   token: string;
   decodedToken: DecodedToken;
   userId: string;
+  AvailableAgent : Agent;
   private tokenSubs: Subscription;
   searchText = '';
-  constructor(private apollo: Apollo, public datePipe: DatePipe, private orderService: OrderService, private auth: AuthService) { }
+  constructor(private apollo: Apollo, public datePipe: DatePipe,
+     private orderService: OrderService, private auth: AuthService,
+     private AgentService: AgentService) { }
 
   ngOnInit(): void {
     this.tokenSubs = this.auth.getToken().subscribe((token) => {
@@ -85,13 +91,23 @@ export class OrdersListComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.orderService.updateOrderConfirmationStatus(id, true, this.userId);
-        this.orderService.getOrder(id).subscribe((order)=> {
-        this.myOrder =   order;})
-      };
-      console.log(this.myOrder)
+        
+          this.AgentService.getAvailableAgent().subscribe((agent =>{
+            console.log("available agent id", agent.id)
+            console.log("order id id", id)
+            this.AgentService.addOrdertoagent(id,agent.id)
+      
+          }))
+          
 
-    });
+        }
+      }
+    )
   }
+
+
+  
+  
 
 
   deleteOrder(id: string) {

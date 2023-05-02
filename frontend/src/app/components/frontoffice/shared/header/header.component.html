@@ -112,7 +112,8 @@
                       <li><a routerLink="recommendedproducts">Recommended Farming Products</a></li>
 
                       <li><a href="checkout.html">Checkout</a></li>
-                      <li><a routerLink="marketplace/orders">Orders</a></li>
+                      <li *ngIf="role === 'FARMER'"><a routerLink="marketplace/orders">Orders</a></li>
+                      <li *ngIf="role === 'CLIENT'"><a routerLink="marketplace/myOrders">Orders</a></li>
                     </ul>
                   </li>
                   <li class="dropdown">
@@ -190,12 +191,12 @@
                     </ng-container>
                     <a class="dropdown-item text-center" routerLink="/notifications">View all notifications</a>
                   </div>
-                  
-                
-                
+
+
+
               </div>
             </div>
-  
+
             <div class="contact-box" *ngIf="userIsAuthenticated">
               <div class="text">
                 <div class="dropdown-avatar">
