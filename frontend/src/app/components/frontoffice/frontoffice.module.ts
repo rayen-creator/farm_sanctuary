@@ -44,6 +44,7 @@ import { ChatbotComponent } from './chabot/chatbot.component';
 import { NotificationComponent } from './notification/notification.component';
 import { MapComponent } from './map/map.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import { FacialLoginComponent } from './auth/facial-login/facial-login.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
     ChatbotComponent,
     NotificationComponent,
     FacialRecognitionButtonComponent,
-    MapComponent
+    MapComponent,
+    FacialLoginComponent
   ],
   imports: [
     CommonModule,

@@ -240,9 +240,12 @@ async function deletedeliveryAgent(id) {
   return await agent.remove();
 }
 async function addOrder(id, orderid) {
-  const ordertoadd = await Order.findById({ _id: orderid });
+  console.log("iduser",id)
+  console.log("idorddr",orderid)
+  const ordertoadd = await Order.findById({ _id: id });
+  console.log("the order :",ordertoadd)
   await Agent.findByIdAndUpdate(
-    { _id: id },
+    { _id: orderid },
     { $push: { orders: ordertoadd._id } },
     { new: true }
   );

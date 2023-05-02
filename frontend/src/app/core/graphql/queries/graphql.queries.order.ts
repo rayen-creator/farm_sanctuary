@@ -56,12 +56,6 @@ const order = gql`
         username
         email
       }
-      farmer {
-        username
-        email
-        phone
-        location
-      }
       location{
         codePostal,
         state,

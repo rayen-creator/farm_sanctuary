@@ -11,7 +11,8 @@ export class MapService {
 
   getcord(address:String) {
     return this.appolo.watchQuery({
-      query: getcord
+      query: getcord,
+      variables: { address }
     }).valueChanges.pipe(
       map((res: any) => {
         const cord = res.data.getcord;
