@@ -201,7 +201,7 @@
                           <div class="notification-status">
                             <i class="fa" [ngClass]="{'fa-envelope-open fa-x0': notification.seen, 'fa-envelope fa-0x': !notification.seen}"></i>
                           </div>
-                          <div class="notification-content">{{ notification.content }}</div>
+                          <div class="notification-content" style="max-width: 300px; overflow-wrap: break-word; height: 3em; overflow: auto;">{{ notification.content }}</div>
                         </div>
                         <div class="notification-date">{{ notification.createdAt | date: 'MMM d, y' }}</div>
                       </a>
