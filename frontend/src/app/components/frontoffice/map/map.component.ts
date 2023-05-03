@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/core/services/user.service';
 
 
 import { Component, OnInit, AfterViewInit } from '@angular/core';
@@ -9,6 +10,9 @@ import 'leaflet-routing-machine';
 import { Order } from 'src/app/core/models/order';
 import { OrderService } from 'src/app/core/services/order.service';
 import { MapService } from 'src/app/core/services/map.service';
+import { Agent } from 'src/app/core/models/deliveryAgent';
+import { AgentService } from 'src/app/core/services/agent.service';
+import { User } from 'src/app/core/models/user';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -19,13 +23,35 @@ export class MapComponent implements OnInit, AfterViewInit {
   private map: L.Map;
   idoforder: any;
   theorder: Order;
+  thefarmer: User;
+  theagent :any;
   address: string;
   lat: any;
   att: any;
 
   constructor(private route: ActivatedRoute, private orderService: OrderService,
-    private mapService: MapService) {}
-  ngOnInit() {}
+   private userService :UserService, private mapService: MapService,private agentService :AgentService) {}
+  ngOnInit() {
+    this.idoforder = this.route.snapshot.paramMap.get('id');
+
+    this.orderService.getOrder(this.idoforder).subscribe({
+      next: (order) => {
+        this.theorder = order;
+       
+        this.agentService.getAgentbyOrder(order.id).subscribe({
+          next: (id) =>{
+          
+            this.theagent = id.fullName;
+            
+          }
+
+        })
+      }, error: (err) => {
+        console.log('err0', err);
+        throw err;
+      }
+    })
+  }
   private initMap(): void {
     var baseLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

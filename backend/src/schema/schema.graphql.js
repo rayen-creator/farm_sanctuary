@@ -473,6 +473,8 @@ const typeDefs = gql`
     getdeliveryAgents: [deliveryAgent!]!
     getOrdersbyAgent(id: ID!):[Order]
 
+    getAgentbyOrder(id: ID!): deliveryAgent!
+    
     getAvailableAgent: deliveryAgent!
 
     getFeedback(id: ID!): Feedback!

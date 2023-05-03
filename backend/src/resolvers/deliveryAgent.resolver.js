@@ -16,6 +16,17 @@ const agentResolver = {
         throw new AgentInputError(error.message);
       }
     },
+    async getAgentbyOrder(_, { id }) {
+      try {
+        const agent = await agentService.getAgentbyOrder(id);
+        if (!agent) {
+          throw new AgentInputError("User not found");
+        }
+        return agent;
+      } catch (error) {
+        throw new AgentInputError(error.message);
+      }
+    },
     async getAvailableAgent(){
       try {
         return await agentService.getAvailableAgent();
