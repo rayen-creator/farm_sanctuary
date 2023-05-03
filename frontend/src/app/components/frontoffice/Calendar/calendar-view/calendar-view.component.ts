@@ -130,25 +130,25 @@ export class CalendarViewComponent implements OnInit {
     const eventType = info.event.extendedProps.type;
     switch (eventType) {
       case 'PLANTING':
-        info.el.style.backgroundColor = 'blue';
+        info.el.style.backgroundColor ='#DC982C';
         break;
       case 'HARVESTING':
-        info.el.style.backgroundColor = 'green';
+        info.el.style.backgroundColor = '#35BB84';
         break;
       case 'FERTILISER_APPLICATION':
-        info.el.style.backgroundColor = 'yellow';
+        info.el.style.backgroundColor = '#EDE683';
         break;
       case 'LIVESTOCK_CARE':
-        info.el.style.backgroundColor = 'purple';
+        info.el.style.backgroundColor = '#9A97FF';
         break;
       case 'PEST_CONTROL':
-        info.el.style.backgroundColor = 'orange';
+        info.el.style.backgroundColor = 'F51720';
         break;
       case 'IRRIGATION':
-        info.el.style.backgroundColor = 'pink';
+        info.el.style.backgroundColor = '#008BA0';
         break;
       case 'CROP_ROTATION':
-        info.el.style.backgroundColor = 'brown';
+        info.el.style.backgroundColor = '#E8B36E';
         break;
       default:
         info.el.style.backgroundColor = 'gray';
