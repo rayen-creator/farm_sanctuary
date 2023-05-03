@@ -1,8 +1,69 @@
+<div class="container-fluid">
 
-<div class="container-fluid m-5" style=" height: 500px">
-  <div  class="map-container">
-    <div class="map-frame">
-      <div id="map"></div>
+  <div class="container">
+   
+    <!-- Main content -->
+    <div class="row">
+      <div class="col-lg-8">
+        <!-- Details -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="container-fluid m-5" style=" height: 421.2px">
+              <div  class="map-container">
+                <div class="map-frame">
+                  <div id="map"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Payment -->
+       
+      </div>
+      <div class="col-lg-4">
+        <!-- Customer Notes -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5> Order #{{theorder.id}}</h5>
+            <br>
+            <h1 class="h5 mb-0"><a href="#" class="text-muted"></a> Items :</h1>
+            <br>
+              <ul> <!-- new table data cell for cart items -->
+                <li *ngFor="let item of theorder.cartItems">
+                 <h6>
+                 
+                  {{item.name}} x {{item.quantity}}
+                 </h6> 
+                </li>
+              </ul>
+              <br>
+              <h5> Total :  ${{theorder.totalPrice}}</h5>
+          </div>
+        </div>
+        <div class="card mb-4">
+          <!-- Shipping information -->
+          <div class="card-body">
+            <h3 class="h6">Shipping Information</h3>
+            <strong>Delivery Agent : </strong>
+            <span><a href="#" class="text-decoration-underline" target="_blank">{{theagent}}</a> <i class="bi bi-box-arrow-up-right"></i> </span>
+            <hr>
+            <h3 class="h6">Address</h3>
+            <address> 
+              
+              {{theorder.location.houseStreetnumber}} {{theorder.location.city}}, {{theorder.location.state}}, {{theorder.location.codePostal}}, {{theorder.location.country}}<br>
+            </address>
+          </div>
+          <div class="form-group m-1">
+            <button
+              type="submit"
+             style="margin-left: 10px;"  class="thm-btn "
+              routerLink= "/marketplace/myOrders"
+            >
+              Go Back
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+    </div>
