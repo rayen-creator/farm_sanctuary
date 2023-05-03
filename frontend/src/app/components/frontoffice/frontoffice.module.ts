@@ -42,6 +42,9 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
 import { WebcamModule } from 'ngx-webcam';
 import { ChatbotComponent } from './chabot/chatbot.component';
 import { NotificationComponent } from './notification/notification.component';
+import { CalendarViewComponent } from './Calendar/calendar-view/calendar-view.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { AddEventComponent } from './Calendar/add-event/add-event.component';
 
 
 @NgModule({
@@ -78,7 +81,9 @@ import { NotificationComponent } from './notification/notification.component';
     LivechatComponent,
     ChatbotComponent,
     NotificationComponent,
-    FacialRecognitionButtonComponent
+    FacialRecognitionButtonComponent,
+    CalendarViewComponent,
+    AddEventComponent
   ],
   imports: [
     CommonModule,
@@ -90,7 +95,8 @@ import { NotificationComponent } from './notification/notification.component';
     Ng2TelInputModule,
     QuillModule,
     Ng2SearchPipeModule,
-    WebcamModule
+    WebcamModule,
+    FullCalendarModule
   ]
 })
 export class FrontofficeModule { }
