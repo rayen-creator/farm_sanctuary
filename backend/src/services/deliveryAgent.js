@@ -49,8 +49,8 @@ async function getAvailableAgent() {
   return sortedAgents[sortedAgents.length - 1];
 }
 
-async function getOrdersbyAgent(id) {
-  const agent = await Agent.findById(id).populate({
+async function getOrdersbyAgent(input) {
+  const agent = await Agent.findById(input.id).populate({
     path: "orders",
     model: "Order",
   });

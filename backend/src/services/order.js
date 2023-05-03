@@ -25,32 +25,23 @@ async function getOrdersByFarmer(farmerId) {
   ]);
 }
 async function createOrder(input) {
-    console.log("input",input.location.city)
-//   const newOrder = new Order(input);
+  const order = new Order({
+    cartItems: input.cartItems,
+    totalPrice: input.totalPrice,
+    user: input.userId,
+    farmer: input.farmerId,
+    isDelivered: false,
+    isConfirmed: false,
+    location: {
+      city: input.location.city,
+      houseStreetnumber: input.location.houseStreetnumber,
+      state: input.location.state,
+      country: input.location.country,
+      codePostal: input.location.codePostal,
+    },
+  });
+  await order.save();
 
-//   await newOrder.save();
-
-//   return {
-//     message: "Order added!",
-//   };
-      const order = new Order({
-          cartItems: input.cartItems,
-          totalPrice: input.totalPrice,
-          user: input.userId,
-          farmer: input.farmerId,
-          isDelivered: false,
-          isConfirmed: false,
-          location: {
-              city: input.location.city,
-              houseStreetnumber: input.location.houseStreetnumber,
-              state: input.location.state,
-              country: input.location.country,
-              codePostal:input.location.codePostal,
-          },
-      });
-  console.log("order",order)
-      await order.save();
-      
   return {
     message: "Order added!",
   };
