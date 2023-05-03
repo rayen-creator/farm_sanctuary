@@ -159,6 +159,11 @@
                   <span class="icon-shopping-cart"></span>
                   <span class="badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
                 </a>
+                <a routerLink="calendar" >
+          <span class="icon-agriculture"></span>
+
+                  <span class="badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+                </a>
                 <li class="nav-item dropdown">
                   <a class="nav-link" href="#" id="notification-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="clearNotificationCount()">
                     <i class="fa fa-bell"></i>
@@ -173,7 +178,7 @@
                           <div class="notification-status">
                             <i class="fa" [ngClass]="{'fa-envelope-open fa-x0': notification.seen, 'fa-envelope fa-0x': !notification.seen}"></i>
                           </div>
-                          <div class="notification-content">{{ notification.content }}</div>
+                          <div class="notification-content" style="max-width: 300px; overflow-wrap: break-word; height: 3em; overflow: auto;">{{ notification.content }}</div>
                         </div>
                         <div class="notification-date">{{ notification.createdAt | date: 'MMM d, y' }}</div>
                       </a>

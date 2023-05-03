@@ -48,6 +48,11 @@ async function getAvailableAgent() {
  
   return sortedAgents[sortedAgents.length - 1];
 }
+async function getAgentbyOrder(id) {
+  console.log("id :",id)
+  const agent = await Agent.findOne({ orders: id }).populate('orders');
+  return agent;
+}
 
 async function getOrdersbyAgent(input) {
   const agent = await Agent.findById(input.id).populate({
@@ -267,4 +272,5 @@ module.exports = {
   updateLocation,
   loginDriver,
   getAvailableAgent,
+  getAgentbyOrder
 };

@@ -34,6 +34,7 @@ import {  ConversationRoomComponent} from './conversation-room/conversation-room
 import { LivechatComponent } from './livechat/livechat.component';
 import { ChatbotComponent } from './chabot/chatbot.component';
 import { NotificationComponent } from './notification/notification.component';
+import { CalendarViewComponent } from './Calendar/calendar-view/calendar-view.component';
 import { MapComponent } from './map/map.component';
 
 
@@ -71,7 +72,9 @@ const routes: Routes = [
       { path: 'chatbot', component: ChatbotComponent },
       { path: 'Map/:id', component: MapComponent },
       { path: 'chat/:id', component: LivechatComponent },
-      { path: 'notifications',component: NotificationComponent}
+      { path: 'notifications',component: NotificationComponent},
+      { path: 'calendar', component: CalendarViewComponent}
+
     ]
   },
 
