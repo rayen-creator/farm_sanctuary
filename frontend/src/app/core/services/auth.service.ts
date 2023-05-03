@@ -124,7 +124,8 @@ export class AuthService {
             const expirationDate = new Date(
               now.getTime() + expireInDuration * 1000
             );
-            if(this.role==roles.ADMIN){
+            if(this.roleUser.value==roles.ADMIN){
+              console.log("admin login !");
               this.saveAuthData(token, username, expirationDate, role,img);
               this.router.navigate(['/admin']);
               return;
@@ -308,7 +309,10 @@ export class AuthService {
       this.role=role as roles;
       this.authStatusListener.next(true);
 
-      if(this.role==roles.ADMIN){
+      if(this.roleUser.value==roles.ADMIN){
+        console.log("roleUser",this.roleUser.value);
+        console.log("auto login !");
+
         this.router.navigate(['/admin']);
       }
     }

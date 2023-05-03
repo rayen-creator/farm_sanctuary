@@ -1,34 +1,43 @@
-import { roles } from './../models/role';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { nextTick } from 'process';
+import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private auth: AuthService, private router: Router) { }
+  roleUser: Subscription;
+  userRole: string;
+
+  constructor(private auth: AuthService, private router: Router) {
+    this.roleUser = this.auth.getRole().subscribe({
+      next: (role) => {
+        this.userRole = role;
+      },
+      error: (err) => {
+        throw err;
+      }
+    });
+
+  }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const userRole = this.auth.getRole();
-
-    if (userRole) {
+    if (this.userRole) {
       // check if route is restricted by role
-      if (route.data['roles'] && route.data['roles'].indexOf(userRole) === -1) {
+      if (route.data['roles'] && route.data['roles'].indexOf(this.userRole) === -1) {
         // role not authorised so redirect to home page
         this.router.navigate(['/']);
         return false;
       }
-
       // authorised so return true
       return true;
     }
     this.router.navigate(['/login']);
     return false;
-   
+
   }
 
 }
