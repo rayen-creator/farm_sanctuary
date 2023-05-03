@@ -34,9 +34,9 @@ const agentResolver = {
         throw new Error(error.message);
       }
     },
-    async getOrdersbyAgent(_, { id }) {
+    async getOrdersbyAgent(_, { input }) {
       try {
-        return await agentService.getOrdersbyAgent(id);
+        return await agentService.getOrdersbyAgent(input);
       } catch (error) {
         throw new Error(error.message);
       }

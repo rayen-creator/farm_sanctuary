@@ -42,8 +42,6 @@ const OrderSchema = new mongoose.Schema({
   },
 });
 
-// OrderSchema.index({ location: "2dsphere" });
-
 const Order = mongoose.model("Order", OrderSchema);
 
 module.exports = Order;

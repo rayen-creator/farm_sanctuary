@@ -132,11 +132,11 @@ const typeDefs = gql`
   }
 
   input LocationInput {
-    codePostal: String!
-    country: String!
-   state: String!
-   houseStreetnumber: String!
-   city: String!
+    codePostal: String
+    country: String
+   state: String
+   houseStreetnumber: String
+   city: String
   }
 
   input FeedbackInput {
@@ -461,6 +461,9 @@ const typeDefs = gql`
   address: String
   }
  
+ input InputOrdersbyAgent{
+  id: ID!
+ }
 
 
   type Query {
@@ -471,7 +474,7 @@ const typeDefs = gql`
 
     getdeliveryAgent(id: ID!): deliveryAgent!
     getdeliveryAgents: [deliveryAgent!]!
-    getOrdersbyAgent(id: ID!):[Order]
+    getOrdersbyAgent(input: InputOrdersbyAgent!):[Order]
 
     getAgentbyOrder(id: ID!): deliveryAgent!
     
