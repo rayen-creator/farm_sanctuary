@@ -41,19 +41,19 @@ export class FacialLoginComponent implements OnInit {
   }
 
   handleImage(webcamImage: WebcamImage): void {
-    const response = {
+    const request = {
       img_base64: webcamImage.imageAsBase64,
       login: "mohsen"
     }
-    console.info('Saved webcam image', webcamImage.imageAsDataUrl);
     this.webcamImage = webcamImage;
-    this.FacialRecognitionService.checkFaceID(response).subscribe({
-      next: () => {
-        console.log("processing ! ..")
+    this.FacialRecognitionService.checkFaceID(request).subscribe({
+      next: (response) => {
+
+        console.log("response facial login",response)
       },
       error: (err) => {
         throw err;
-      }
+      } 
     })
   }
 
