@@ -46,6 +46,10 @@ import { MapComponent } from './map/map.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import { FacialLoginComponent } from './auth/facial-login/facial-login.component';
 import { HomeComponent } from './shared/home/home.component';
+import { CalendarViewComponent } from './Calendar/calendar-view/calendar-view.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { AddEventComponent } from './Calendar/add-event/add-event.component';
+
 
 @NgModule({
   declarations: [
@@ -83,6 +87,8 @@ import { HomeComponent } from './shared/home/home.component';
     ChatbotComponent,
     NotificationComponent,
     FacialRecognitionButtonComponent,
+    CalendarViewComponent,
+    AddEventComponent,
     MapComponent,
     FacialLoginComponent
   ],
@@ -96,7 +102,8 @@ import { HomeComponent } from './shared/home/home.component';
     Ng2TelInputModule,
     QuillModule,
     Ng2SearchPipeModule,
-    WebcamModule
+    WebcamModule,
+    FullCalendarModule
   ]
 })
 export class FrontofficeModule { }

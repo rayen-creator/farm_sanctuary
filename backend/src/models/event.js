@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const eventType = Object.freeze({
-  planting: 'planting',
-  harvesting: 'harvesting',
-  fertilizer_application: 'fertilizer_application',
-  livestock_care:'livestock_care',
-  Pest_Control:'Pest_Control',
-  irrigation:'irrigation',
-  crop_rotation:'crop_rotation'
+  PLANTING: 'PLANTING',
+  HARVESTING: 'HARVESTING',
+  FERTILISER_APPLICATION: 'FERTILISER_APPLICATION',
+  LIVESTOCK_CARE:'LIVESTOCK_CARE',
+  PEST_CONTROL:'PEST_CONTROL',
+  IRRIGATION:'IRRIGATION',
+  CROP_ROTATION:'CROP_ROTATION'
   
 });
 
