@@ -33,7 +33,7 @@
 }
 a#notification-dropdown {
   padding-right: 7px;
-  
+
 }
 
 .dropdown-avatar:hover .dropdown-content {
@@ -86,7 +86,7 @@ a#notification-dropdown {
   display: flex;
   justify-content: center;
   align-items: center;
-} 
+}
 
 .icon-container {
   display: flex;
@@ -119,7 +119,7 @@ a#notification-dropdown {
 }
 
 .dropdown-item .notification-content {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Add bold font weight to the notification content */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: medium/* Add bold font weight to the notification content */
 }
 
 .notification-item .notification-date {
@@ -159,5 +159,9 @@ a#notification-dropdown {
 }
 
 .notification-content {
-  flex: 1;
+  max-width: 300px;
+  overflow-wrap: break-word;
+  line-height: 1.5em;
+  max-height: 4.5em;
+  overflow: auto;
 }
