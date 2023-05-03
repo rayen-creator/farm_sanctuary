@@ -7,7 +7,6 @@ from datetime import datetime
 from service.facial_recognition import recognize_face_service, uploadService
 
 app = Flask(__name__)
-CORS(app)
 CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
 
 model = pickle.load(open('model/model.pkl', 'rb'))

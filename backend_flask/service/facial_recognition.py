@@ -1,22 +1,27 @@
-from flask import  request, jsonify
+from bson import ObjectId
+from flask import request, jsonify
 import datetime
 import re
 import base64
 import face_recognition
 import os
 from datetime import datetime
-
+from db.index import dbConnect
+from model.user import User
 UPLOAD_FOLDER = "./temp/"
 FACES_FOLDER = "./faces/"
+
 
 def uploadService():
     file = request.files['image']
     file.save(os.path.join(FACES_FOLDER, file.filename))
-    return jsonify({'message':'Image saved successfully'})
+    return jsonify({'message': 'Image saved successfully'})
+
 
 def recognize_face_service():
     data_json = request.get_json()
-    img_decoded = base64.b64decode(re.sub("data:image/jpeg;base64,", "", data_json["img_base64"]))
+    img_decoded = base64.b64decode(
+        re.sub("data:image/jpeg;base64,", "", data_json["img_base64"]))
 
     img_name = str(datetime.now().strftime("%m-%d-%Y-%H-%M-%S")) + ".jpg"
     unknown_image_path = os.path.join(UPLOAD_FOLDER, img_name)
@@ -32,27 +37,30 @@ def recognize_face_service():
 
     try:
         unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
-        results = face_recognition.compare_faces([person_encoding], unknown_encoding)
+        results = face_recognition.compare_faces(
+            [person_encoding], unknown_encoding)
     except IndexError:
         os.remove(unknown_image_path)
 
         return jsonify({
             "valid": False,
             "message": "No face found",
-            "login": data_json["login"]
         })
     if True in results:
         print(unknown_image_path)
         os.remove(unknown_image_path)
         print("User valid")
-        return {
-            "valid": True, 
-            "message": "User valid", 
-            "login": data_json["login"]}, 200, {"Content-Type": "application/json"}
+        collection=dbConnect()
+        loggedInUser=collection['users'].find_one({'username':data_json["login"]})
+        user = User(loggedInUser)
+        json_data = user.to_json()
+
+        return jsonify({
+                "valid": True,
+                "message": "User valid",
+                "user": json_data,
+            })
     else:
         os.remove(unknown_image_path)
         print("User invalid")
-        return {"valid": False, "message": "User invalid", "login": data_json["login"]}, 200, {"Content-Type": "application/json"}
-
-
-
+        return jsonify({"valid": False, "message": "User invalid", "login": data_json["login"]})
