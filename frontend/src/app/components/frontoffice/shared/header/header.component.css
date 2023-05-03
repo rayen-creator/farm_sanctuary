@@ -1,3 +1,31 @@
+.logo img {
+  height: 77px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .logo img {
+    max-width: 100px;
+
+    /* width: 77px; */
+    height: 67px;
+  }
+}
+
+@media (min-width: 992px) {
+  .logo img {
+    height: 100px;
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .logo img {
+    height: 100px;
+    max-width: 400px;
+  }
+}
+
 
 .avatar {
   vertical-align: middle;
