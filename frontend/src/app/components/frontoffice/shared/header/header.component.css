@@ -159,5 +159,9 @@ a#notification-dropdown {
 }
 
 .notification-content {
-  flex: 1;
+  max-width: 300px;
+  overflow-wrap: break-word;
+  line-height: 1.5em;
+  max-height: 4.5em;
+  overflow: auto;
 }
