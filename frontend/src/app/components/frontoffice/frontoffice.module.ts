@@ -45,11 +45,13 @@ import { NotificationComponent } from './notification/notification.component';
 import { MapComponent } from './map/map.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import { FacialLoginComponent } from './auth/facial-login/facial-login.component';
+import { HomeComponent } from './shared/home/home.component';
 
 @NgModule({
   declarations: [
     FrontofficeComponent,
     HeaderComponent,
+    HomeComponent,
     FooterComponent,
     NotfoundComponent,
     LoginComponent,
