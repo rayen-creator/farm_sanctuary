@@ -15,6 +15,7 @@ import { PayementComponent } from './payement/payement.component';
 import {NgxPayPalModule} from "ngx-paypal";
 import { SuccessComponent } from './success/success.component';
 import { OrdersListComponent } from './orders-list/orders-list.component';
+import { OrdersListClientComponent } from './orders-list-client/orders-list-client.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { OrdersListComponent } from './orders-list/orders-list.component';
     CartComponent,
     PayementComponent,
     SuccessComponent,
-    OrdersListComponent
+    OrdersListComponent,
+    OrdersListClientComponent
   ],
     imports: [
         CommonModule,

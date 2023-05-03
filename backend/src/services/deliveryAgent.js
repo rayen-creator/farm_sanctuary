@@ -1,4 +1,5 @@
 const Agent = require("../models/deliveryAgent");
+const Order = require("../models/order");
 const bcrypt = require("bcryptjs");
 
 const fs = require("fs");
@@ -37,6 +38,42 @@ async function loginDriver(input) {
     passwordIsValid: true,
     agent: agent,
   };
+}
+
+async function getAvailableAgent() {
+  const agents = await Agent.find().populate("orders");
+  
+  
+  const sortedAgents = agents.sort((a, b) => a.orders.length - b.orders.length);
+ 
+  return sortedAgents[sortedAgents.length - 1];
+}
+async function getAgentbyOrder(id) {
+  console.log("id :",id)
+  const agent = await Agent.findOne({ orders: id }).populate('orders');
+  return agent;
+}
+
+async function getOrdersbyAgent(input) {
+  const agent = await Agent.findById(input.id).populate({
+    path: "orders",
+    model: "Order",
+  });
+
+  const orders = [];
+
+  for (const order of agent.orders) {
+    const orderDetails = await Order.findById(order).populate({
+      path: "user",
+      model: "Users",
+    }).populate({
+      path: "farmer",
+      model: "Users",
+    });
+    orders.push(orderDetails);
+  }
+
+  return orders;
 }
 async function getdeliveryAgent(id) {
   return Agent.findById({ _id: id });
@@ -207,8 +244,25 @@ async function deletedeliveryAgent(id) {
   }
   return await agent.remove();
 }
+async function addOrder(id, orderid) {
+  console.log("iduser",id)
+  console.log("idorddr",orderid)
+  const ordertoadd = await Order.findById({ _id: id });
+  console.log("the order :",ordertoadd)
+  await Agent.findByIdAndUpdate(
+    { _id: orderid },
+    { $push: { orders: ordertoadd._id } },
+    { new: true }
+  );
+  return {
+    message: "order added to Agent  successfully",
+  };
+}
+
 
 module.exports = {
+  getOrdersbyAgent,
+  addOrder,
   infomail,
   getdeliveryAgent,
   getdeliveryAgents,
@@ -217,4 +271,6 @@ module.exports = {
   deletedeliveryAgent,
   updateLocation,
   loginDriver,
+  getAvailableAgent,
+  getAgentbyOrder
 };

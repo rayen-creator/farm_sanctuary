@@ -6,6 +6,9 @@ import {
 import {Router} from "@angular/router";
 import {environment} from "../../../../../environments/environment";
 import {CartService} from "../../../../core/services/cart.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {OrderService} from "../../../../core/services/order.service";
+import {CartItem} from "../../../../core/models/cartItem";
 @Component({
   selector: 'app-payement',
   templateUrl: './payement.component.html',
@@ -14,14 +17,29 @@ import {CartService} from "../../../../core/services/cart.service";
 export class PayementComponent implements OnInit {
 cartTotal!: any
   showSuccess!: any;
+  orderForm: FormGroup;
+  cartProducts: CartItem[];
 
   public payPalConfig ? : IPayPalConfig;
-  constructor(private router: Router, private cartService: CartService) { }
+  constructor(private router: Router, private cartService: CartService,  private formBuilder: FormBuilder, private orderService : OrderService) { }
 
   ngOnInit(): void {
+    this.initForm()
     this.initConfig();
     this.cartTotal = JSON.parse(localStorage.getItem('cart_total') as any) || []
     console.log(this.cartTotal)
+  }
+
+  private initForm() {
+    this.orderForm = this.formBuilder.group({
+      codePostal:["", [Validators.required]],
+      country: ["", [Validators.required]],
+      state: ["", [Validators.required]],
+      houseStreetnumber:["", [Validators.required]],
+      city: ["", [Validators.required]],
+
+      }
+    )
   }
   private initConfig(): void {
     this.payPalConfig = {
@@ -82,6 +100,8 @@ cartTotal!: any
           data
         );
         if (data.status === 'COMPLETED') {
+          this.cartProducts = this.cartService.getItems();
+          this.orderService.createOrder(this.cartProducts, this.cartTotal,this.orderForm.value)
           this.router.navigate(['/marketplace/success']);
           this.cartService.clearCart()
         }

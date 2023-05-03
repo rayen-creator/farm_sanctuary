@@ -37,19 +37,16 @@ export class OrderService {
 
 
 
-  getOrder(id: string): Observable<Order> {
-    // @ts-ignore
+  getOrder(id: string){
     return this.appolo
       .watchQuery({
         query: order,
         variables: {id},
       }).valueChanges.pipe(
-        // @ts-ignore
-        map((res) => res.data.getOrder as Order),
-        catchError((err) => {
-          console.log(err);
-          return of(null);
-        })
+        map((res:any) =>{
+          const order= res.data.getOrder as Order
+          return order;
+        } )
       );
   }
 
@@ -93,7 +90,7 @@ export class OrderService {
       })
     );
   }
-  createOrder(cartItems: CartItem[], totalPrice: number) {
+  createOrder(cartItems: CartItem[], totalPrice: number, location: any) {
     this.tokenSubs = this.auth.getToken().subscribe((token) => {
       this.token = token
       this.decodedToken = jwt_decode(this.token) as DecodedToken;
@@ -102,7 +99,9 @@ export class OrderService {
     const input = {
       cartItems: cartItems,
       totalPrice: totalPrice,
-      userId: this.userId
+      userId: this.userId,
+      farmerId: "641b200da38bfe5417ef4c20",
+      location: location
     };
 
     return this.appolo

@@ -1,10 +1,84 @@
 <div class="container">
   <h1 class="h3 mb-5 mt-3">Payment Page</h1>
   <div class="row">
+    <div class="row">
+      <div class="col-lg-9">
+        <h3 class="checkout__title">Billing Details</h3><!-- /.checkout__title -->
+        <div class="comment-one__form">
+          <div class="row">
+            <form *ngIf="orderForm" [formGroup]="orderForm">
+            <div class="col-md-9">
+              <div class="comment-form__input-box">
+                <select name="country" class="custom-select-box" class="form-control"
+                        formControlName="country" >
+                  <option value="" disabled selected>Select your country</option>
+                  <option value="USA">USA</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Tunisia">Tunisia</option>
+                  <option value="France">France</option>
+                </select>
+              </div><!-- /.comment-form__input-box -->
+            </div><!-- /.col-md-12 -->
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="orderForm.controls['country'].invalid  && orderForm.controls['country'].touched">
+                        <span *ngIf="orderForm.controls['country'].hasError('required')" class="error">This field is required!</span>
+              </span>
+            <div class="col-md-9">
+              <div class="comment-form__input-box">
+                <input type="text" placeholder="State" class="form-control"
+                       formControlName="state">
+              </div><!-- /.comment-form__input-box -->
+            </div><!-- /.col-md-12 -->
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="orderForm.controls['state'].invalid  && orderForm.controls['state'].touched">
+                        <span *ngIf="orderForm.controls['state'].hasError('required')" class="error">This field is required!</span>
+              </span>
+            <div class="col-md-9">
+              <div class="comment-form__input-box">
+                <input type="text" placeholder="city" class="form-control"
+                       formControlName="city">
+              </div><!-- /.comment-form__input-box -->
+            </div><!-- /.col-md-12 -->
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="orderForm.controls['city'].invalid  && orderForm.controls['city'].touched">
+                        <span *ngIf="orderForm.controls['city'].hasError('required')" class="error">This field is required!</span>
+              </span>
+            <div class="col-md-9">
+              <div class="comment-form__input-box">
+                <input type="text" placeholder="Zip Code" class="form-control"
+                       formControlName="codePostal">
+              </div><!-- /.comment-form__input-box -->
+            </div><!-- /.col-md-12 -->
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="orderForm.controls['codePostal'].invalid  && orderForm.controls['codePostal'].touched">
+                        <span *ngIf="orderForm.controls['codePostal'].hasError('required')" class="error">This field is required!</span>
+              </span>
+            <div class="col-md-9">
+              <div class="comment-form__input-box">
+                <input type="text" placeholder="Street Number" class="form-control"
+                       formControlName="houseStreetnumber">
+              </div><!-- /.comment-form__input-box -->
+            </div><!-- /.col-md-12 -->
+              <span
+                class="text-danger error-msg error-msg"
+                *ngIf="orderForm.controls['houseStreetnumber'].invalid  && orderForm.controls['houseStreetnumber'].touched">
+                        <span *ngIf="orderForm.controls['houseStreetnumber'].hasError('required')" class="error">This field is required!</span>
+              </span>
+            </form>
+          </div><!-- /.row -->
+        </div><!-- /.comment-one__form -->
+      </div><!-- /.col-lg-6 -->
+
+    </div>
     <!-- Left -->
-    <div class="col-lg-9">
+    <div class="col-lg-6">
       <hr />
-      <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+      <ngx-paypal [config]="payPalConfig"  [hidden]="orderForm.invalid"></ngx-paypal>
     </div>
 
     <!-- Right -->

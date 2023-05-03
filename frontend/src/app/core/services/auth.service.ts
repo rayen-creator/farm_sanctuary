@@ -41,6 +41,7 @@ export class AuthService {
 
   private usernameSubject = new BehaviorSubject<string>('');
   private imgUser=new BehaviorSubject<string>('');
+  private roleUser=new BehaviorSubject<string>('');
 
   responseMessage: any;
   public token= new BehaviorSubject<string>('');
@@ -114,6 +115,7 @@ export class AuthService {
             //behaviour subject username
             this.usernameSubject.next(username);
             this.imgUser.next(img);
+            this.roleUser.next(role);
             //behaviour subject role
             // this.roleSubject.next(role);
             this.role=role ;
@@ -122,7 +124,8 @@ export class AuthService {
             const expirationDate = new Date(
               now.getTime() + expireInDuration * 1000
             );
-            if(this.role==roles.ADMIN){
+            if(this.roleUser.value==roles.ADMIN){
+              console.log("admin login !");
               this.saveAuthData(token, username, expirationDate, role,img);
               this.router.navigate(['/admin']);
               return;
@@ -176,7 +179,7 @@ export class AuthService {
   }
 
   getRole() {
-    return this.role;
+    return this.roleUser.asObservable();
   }
   getUsername() {
     return this.usernameSubject.asObservable();
@@ -302,10 +305,14 @@ export class AuthService {
       this.setAuthTimer(expiresIn / 1000);
       this.usernameSubject.next(username ?? '');
       this.imgUser.next(img ?? '');
+      this.roleUser.next(role ?? '');
       this.role=role as roles;
       this.authStatusListener.next(true);
 
-      if(this.role==roles.ADMIN){
+      if(this.roleUser.value==roles.ADMIN){
+        console.log("roleUser",this.roleUser.value);
+        console.log("auto login !");
+
         this.router.navigate(['/admin']);
       }
     }
