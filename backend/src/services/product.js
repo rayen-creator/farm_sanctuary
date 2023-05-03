@@ -86,7 +86,7 @@ cron.schedule('*/1 * * * *', async () => {
         }
     }
 
-    console.log('done job');
+    // console.log('done job');
 });
 
 
