@@ -60,7 +60,7 @@ def recognize_face_service():
         payload = {
         'exp': JWT_EXPIRE_IN,
         'iat': datetime.utcnow(),
-        'sub': user._id
+        'id': user._id
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm=JWT_ALGORITHM)
 
