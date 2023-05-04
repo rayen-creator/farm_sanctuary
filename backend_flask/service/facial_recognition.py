@@ -1,13 +1,16 @@
-from bson import ObjectId
 from flask import request, jsonify
-import datetime
 import re
 import base64
 import face_recognition
 import os
 from datetime import datetime
+import jwt
+from config.jwt_config import JWT_EXPIRE_IN
+from config.jwt_config import JWT_ALGORITHM, SECRET_KEY
 from db.index import dbConnect
 from model.user import User
+from datetime import datetime, timedelta
+
 UPLOAD_FOLDER = "./temp/"
 FACES_FOLDER = "./faces/"
 
@@ -48,18 +51,32 @@ def recognize_face_service():
         })
     if True in results:
         os.remove(unknown_image_path)
-        collection=dbConnect()
-        loggedInUser=collection['users'].find_one({'username':data_json["login"]})
+        collection = dbConnect()
+        loggedInUser = collection['users'].find_one(
+            {'username': data_json["login"]})
         user = User(loggedInUser)
         json_data = user.to_json()
-        #generate token 
-        #expiration date 24H
-        return jsonify({
-                "valid": True,
-                "message": "User valid",
-                "user": json_data,
-            })
+        # generate token
+        payload = {
+        'exp': JWT_EXPIRE_IN,
+        'iat': datetime.utcnow(),
+        'sub': user._id
+        }
+        token = jwt.encode(payload, SECRET_KEY, algorithm=JWT_ALGORITHM)
+
+        # return jsonify({'token': token.decode('UTF-8')})
+        # expiration date 24H
+        print("User valid")
+
+        return {
+            "valid": True,
+            "message": "User valid",
+            "token":token,
+            "expireIn":JWT_EXPIRE_IN,
+            "user": json_data, }, 200, {"Content-Type": "application/json"}
     else:
         os.remove(unknown_image_path)
         print("User invalid")
-        return jsonify({"valid": False, "message": "User invalid", "login": data_json["login"]})
+        return {
+            "valid": False,
+            "message": "User invalid" }, 200, {"Content-Type": "application/json"}
