@@ -1,0 +1,4 @@
+SECRET_KEY = 'your-secret-key'
+JWT_ALGORITHM = 'HS256'
+# JWT_EXPIRATION_DELTA = 24 * 60 * 60  # 24 hours
+JWT_EXPIRE_IN= 86400 # 24 hours
