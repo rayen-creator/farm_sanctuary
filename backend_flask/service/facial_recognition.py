@@ -47,14 +47,13 @@ def recognize_face_service():
             "message": "No face found",
         })
     if True in results:
-        print(unknown_image_path)
         os.remove(unknown_image_path)
-        print("User valid")
         collection=dbConnect()
         loggedInUser=collection['users'].find_one({'username':data_json["login"]})
         user = User(loggedInUser)
         json_data = user.to_json()
-
+        #generate token 
+        #expiration date 24H
         return jsonify({
                 "valid": True,
                 "message": "User valid",
