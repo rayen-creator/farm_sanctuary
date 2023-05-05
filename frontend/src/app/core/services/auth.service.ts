@@ -252,7 +252,14 @@ export class AuthService {
   isUserAuth() {
     return this.isUserAuthenticated;
   }
-
+  updateUserData(
+    username: string,
+  ) {
+    localStorage.setItem('username', username);
+    this.usernameSubject.next(username);
+    // this.imgUser.next(img);
+    // localStorage.setItem('img', img);
+  }
   //check if the link is valid
   isresettokenValid(email: string, resettoken: string) {
     const input = {
