@@ -8,34 +8,18 @@
               <h3 class="dark-color">{{ user.username | uppercase }}</h3>
             </div>
             <div class="col">
-              <div class="dropdown">
-                <a
-                  class="btn bg-gradient-primary dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a
-                      routerLink="/profile/{{ user.id }}"
-                      *ngIf="user.id == userId"
-                      class="dropdown-item"
-                      >Edit profile</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                    routerLink="/chat/{{user.id}}"
-                      *ngIf="user.id != userId"
-                      class="dropdown-item"
-                      >Send message</a
-                    >
-                  </li>
-                </ul>
-              </div>
+              <a
+                routerLink="/profile/{{ user.id }}"
+                *ngIf="user.id == userId"
+                class="btn btn-outline-info"
+                >Edit profile</a
+              >
+              <a
+                routerLink="/chat/{{ user.id }}"
+                *ngIf="user.id != userId"
+                class="btn btn-outline-info"
+                >Send message</a
+              >
             </div>
           </div>
           <h6 class="theme-color lead">{{ user.role }}</h6>
@@ -125,24 +109,16 @@
                     <div class="modal-body">
                       <div class="row">
                         <div class="col">
-                          <img src="data:image/png;base64,{{ badge.image }}" id="badge" />
-
+                          <img
+                            src="data:image/png;base64,{{ badge.image }}"
+                            id="badge"
+                          />
                         </div>
                         <div class="col">
                           <p>{{ badge.description }}</p>
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                     
-                    </div> -->
                   </div>
                 </div>
               </div>
