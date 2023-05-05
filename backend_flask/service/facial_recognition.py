@@ -9,7 +9,7 @@ from config.jwt_config import JWT_EXPIRE_IN
 from config.jwt_config import JWT_ALGORITHM, SECRET_KEY
 from db.index import dbConnect
 from model.user import User
-from datetime import datetime, timedelta
+from datetime import datetime
 
 UPLOAD_FOLDER = "./temp/"
 FACES_FOLDER = "./faces/"
@@ -17,7 +17,12 @@ FACES_FOLDER = "./faces/"
 
 def uploadService():
     file = request.files['image']
-    file.save(os.path.join(FACES_FOLDER, file.filename))
+    filepath = os.path.join(FACES_FOLDER, file.filename)
+
+    if os.path.exists(filepath):
+        os.remove(filepath)
+
+    file.save(filepath)
     return jsonify({'message': 'Image saved successfully'})
 
 
@@ -44,7 +49,6 @@ def recognize_face_service():
             [person_encoding], unknown_encoding)
     except IndexError:
         os.remove(unknown_image_path)
-
         return jsonify({
             "valid": False,
             "message": "No face found",
@@ -58,25 +62,21 @@ def recognize_face_service():
         json_data = user.to_json()
         # generate token
         payload = {
-        'exp': JWT_EXPIRE_IN,
-        'iat': datetime.utcnow(),
-        'id': user._id
+            'exp': JWT_EXPIRE_IN,
+            'iat': datetime.utcnow(),
+            'id': user._id
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm=JWT_ALGORITHM)
-
-        # return jsonify({'token': token.decode('UTF-8')})
-        # expiration date 24H
         print("User valid")
-
         return {
             "valid": True,
             "message": "User valid",
-            "token":token,
-            "expireIn":JWT_EXPIRE_IN,
+            "token": token,
+            "expireIn": JWT_EXPIRE_IN,
             "user": json_data, }, 200, {"Content-Type": "application/json"}
     else:
         os.remove(unknown_image_path)
         print("User invalid")
         return {
             "valid": False,
-            "message": "User invalid" }, 200, {"Content-Type": "application/json"}
+            "message": "User invalid"}, 200, {"Content-Type": "application/json"}

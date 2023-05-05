@@ -3,7 +3,7 @@ import { sendmailResponse } from './../graphql/graphqlResponse/sendmailResponse'
 import { checkresettoken, sendmail } from '../graphql/queries/auth.queries';
 import { LoginResponse } from '../graphql/graphqlResponse/loginResponse';
 import { Injectable } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
+import { Apollo } from 'apollo-angular';
 import { BehaviorSubject, Subject } from 'rxjs';
 import {
   login,
@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { checkresettokenResponse } from '../graphql/graphqlResponse/checktokenResponse';
 import {
-
   SendOTPMutationResponse,
   VerifyOTPResponse,
 } from '../graphql/graphqlResponse/twoFactorAuthResponse';
@@ -29,22 +28,15 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  // public username: string;
+
   public usernameExists: boolean;
   public emailExists: boolean;
-
   private tokenTimer: any;
-
-  // Assure l'envoie d'un paramètre aux autres components
-  //Un Subject est à la fois un observable ET un observateur.
-  //On peut donc subscribe dessus, mais également lui envoyer des valeurs :
   private authStatusListener = new Subject<boolean>();
   private isUserAuthenticated = false;
-
   private usernameSubject = new BehaviorSubject<string>('');
   private imgUser = new BehaviorSubject<string>('');
   private roleUser = new BehaviorSubject<string>('');
-
   responseMessage: any;
   public token = new BehaviorSubject<string>('');
   public role: roles;
@@ -53,22 +45,25 @@ export class AuthService {
     private appolo: Apollo,
     private router: Router,
     private toastr: ToastrService,
-    private http: HttpClient
+    private http: HttpClient,
   ) { }
 
   loginFaceID(faceLogin: any) {
     return this.http.post(`${environment.flask}/recognize_face`, faceLogin).subscribe({
+
       next: (response: any) => {
+
         const isValid = response['valid'] as boolean;
         if (isValid) {
-
           const userObj = JSON.parse(response.user) as User; // parse user string into an object
           const username = userObj.username;
           const isActive = userObj.isActive;
           const isBlocked = userObj.isBlocked;
           const role = userObj.role;
           const image = userObj.image;
-          const two_FactAuth_Option=userObj.two_FactAuth_Option;
+          const two_FactAuth_Option = userObj.two_FactAuth_Option;
+          const token = response['token'];
+          const expireIn = response['expireIn'];
 
           if (isBlocked) {
             this.toastr.error(
@@ -81,26 +76,35 @@ export class AuthService {
             );
             return;
           }
+          this.token.next(token);
           this.usernameSubject.next(username);
           this.imgUser.next(image);
           this.roleUser.next(role);
           this.authStatusListener.next(true);
+
           const now = new Date();
-          // const expirationDate = new Date(
-          //   now.getTime() + expireInDuration * 1000
-          // );
+          const expirationDate = new Date(
+            now.getTime() + expireIn * 1000
+          );
+
           if (two_FactAuth_Option) {
             this.sendOTP(username);
-            // this.saveAuthData(token, username, expirationDate, role, img);
+            this.saveAuthData(token, username, expirationDate, role, image);
             this.router.navigate(['/twofactorauth']);
 
           } else {
-            // this.saveAuthData(token, username, expirationDate, role, img);
-            // this.toastr.success('Welcome back to your account', 'Logged In');
-            // this.router.navigate(['/home']);
+            this.saveAuthData(token, username, expirationDate, role, image);
+            this.toastr.success('Welcome back to your account', 'Logged In');
+            this.router.navigate(['/']);
           }
 
 
+        } else {
+          this.toastr.error("Face ID invalid", "login failed",
+            {
+              progressBar: true,
+              closeButton: true,
+            });
         }
 
 
@@ -174,7 +178,7 @@ export class AuthService {
             this.usernameSubject.next(username);
             this.imgUser.next(img);
             this.roleUser.next(role);
-            
+
             this.role = role;
             this.authStatusListener.next(true);
             const now = new Date();
