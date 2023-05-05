@@ -60,6 +60,7 @@ async function getOrdersbyAgent(input) {
     model: "Order",
   });
 
+
   const orders = [];
 
   for (const order of agent.orders) {
@@ -70,7 +71,10 @@ async function getOrdersbyAgent(input) {
       path: "farmer",
       model: "Users",
     });
-    orders.push(orderDetails);
+    if(!orderDetails.isDelivered){
+      orders.push(orderDetails);
+    }
+   
   }
 
   return orders;
