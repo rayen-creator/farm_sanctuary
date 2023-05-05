@@ -10,6 +10,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { UserUpdateResponse } from "../../../../core/graphql/graphqlResponse/userUpdateResponse";
 import { UserService } from "../../../../core/services/user.service";
 import { Subscription } from "rxjs";
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -31,7 +32,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   constructor(private currentRoute: ActivatedRoute,
     private router: Router, private apollo: Apollo, private sanitizer: DomSanitizer, private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private authService:AuthService
   ) { }
 
   
@@ -151,6 +153,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
               this.usernameExist = userUpdateReponse.updateUser.usernameExists;
               console.log(this.usernameExist)
               if (!this.usernameExist) {
+                this.authService.updateUserData(input.username)
                 Swal.fire('Updated', 'User has been updated successfully.', 'success');
               }
             },

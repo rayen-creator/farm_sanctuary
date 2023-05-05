@@ -1,66 +1,24 @@
-<div class="form-group row mb-3" style="margin-top: 20px">
-    <div class="col-sm-9 text-secondary">
-      <!-- Button trigger modal -->
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <webcam
+        [height]="300"
+        [width]="400"
+        [trigger]="triggerObservable"
+        (imageCapture)="handleImage($event)"
       >
-        <span class="fa fa-camera"></span>
-      </button>
+      </webcam>
     </div>
-  </div>
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">
-            Facial recognition login
-          </h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <div class="d-flex justify-content-center">
-            <div class="row">
-              <div class="col">
-                <webcam
-                  *ngIf="!imagePreview"
-                  [height]="300"
-                  [width]="400"
-                  [trigger]="triggerObservable"
-                  (imageCapture)="handleImage($event)"
-                >
-                </webcam>
-              </div>
-            </div>
-          </div>
-          <div class="mt-3">
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary"  (click)="triggerSnapshot()">Save changes</button>
-            </div>
-          </div>
-        </div>
+    <div class="col">
+      <div class="d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="triggerSnapshot()"
+        >
+          Login
+        </button>
       </div>
     </div>
   </div>
-  
+</div>

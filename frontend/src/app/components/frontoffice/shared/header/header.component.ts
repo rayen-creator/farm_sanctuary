@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, OnChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DecodedToken } from 'src/app/core/graphql/graphqlResponse/decodedToken';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -12,7 +12,7 @@ import { Notification } from 'src/app/core/models/notification';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy , OnChanges {
   notifications: Notification[] = [];
   notificationCount: number = 0;
   username: string;
@@ -34,6 +34,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.userId = this.decodedToken.id;
     });
    }
+  ngOnChanges(): void {
+    this.usernameSubs = this.auth.getUsername().subscribe({
+      next: (username) => {
+        this.username = username;
+      },
+      error: () => {
+        this.username = "";
+      }
+    });  }
 
   ngOnInit(): void {
     this.getNotificationsByUser();

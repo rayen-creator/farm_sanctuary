@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { WebcamImage } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { FacialRecognitionService } from 'src/app/core/services/facial-recognition.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class FacialLoginComponent implements OnInit {
   public webcamImage: WebcamImage;
   private trigger: Subject<void> = new Subject<void>();
   constructor(
-    private FacialRecognitionService: FacialRecognitionService,
+    private auth:AuthService,
     private toaster: ToastrService
   ) { }
 
@@ -46,15 +47,7 @@ export class FacialLoginComponent implements OnInit {
       login: "mohsen"
     }
     this.webcamImage = webcamImage;
-    this.FacialRecognitionService.checkFaceID(request).subscribe({
-      next: (response) => {
-
-        console.log("response facial login",response)
-      },
-      error: (err) => {
-        throw err;
-      } 
-    })
+    this.auth.loginFaceID(request);
   }
 
   public get triggerObservable(): Observable<void> {

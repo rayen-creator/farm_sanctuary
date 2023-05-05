@@ -40,58 +40,12 @@
           <div class="row">
             <div class="col">
               <webcam
-                *ngIf="!imagePreview"
                 [height]="300"
                 [width]="400"
                 [trigger]="triggerObservable"
                 (imageCapture)="handleImage($event)"
               >
               </webcam>
-              <img
-                *ngIf="!imagePreview && webcamImageCaptured"
-                [src]="webcamImage.imageAsDataUrl"
-                alt="webcamImage"
-                height="300px"
-                width="400px"
-              />
-              <img
-                *ngIf="imagePreview"
-                [src]="imagePreview"
-                alt="image"
-                height="300px"
-                width="400px"
-              />
-              <img
-                *ngIf="!imagePreview && !webcamImageCaptured"
-                src="assets/images/placeholder-img.png"
-                alt="image"
-                height="300px"
-                width="400px"
-              />
-              <div class="d-flex justify-content-center mt-2">
-                <button
-                  (click)="fileInput.click()"
-                  class="btn btn-outline-primary"
-                  style="margin: 10px"
-                >
-                  <i class="fa fa-fw fa-camera"></i>
-                  <span>upload Photo</span>
-                </button>
-                <button
-                  (click)="triggerSnapshot()"
-                  class="btn btn-outline-primary"
-                  style="margin: 10px"
-                >
-                  <i class="fa fa-fw fa-camera"></i>
-                  <span>Take Photo</span>
-                </button>
-                <input
-                  #fileInput
-                  (change)="handleFileInput($event)"
-                  style="display: none"
-                  type="file"
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -104,7 +58,14 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" (click)="saveChanges()">Save changes</button>
+            <button
+              (click)="triggerSnapshot()"
+              class="btn btn-outline-primary"
+              style="margin: 10px"
+            >
+              <i class="fa fa-fw fa-camera"></i>
+              <span>Take Photo</span>
+            </button>
           </div>
         </div>
       </div>

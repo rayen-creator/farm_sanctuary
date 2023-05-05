@@ -1,20 +1,28 @@
-from bson import ObjectId
 from flask import request, jsonify
-import datetime
 import re
 import base64
 import face_recognition
 import os
 from datetime import datetime
+import jwt
+from config.jwt_config import JWT_EXPIRE_IN
+from config.jwt_config import JWT_ALGORITHM, SECRET_KEY
 from db.index import dbConnect
 from model.user import User
+from datetime import datetime
+
 UPLOAD_FOLDER = "./temp/"
 FACES_FOLDER = "./faces/"
 
 
 def uploadService():
     file = request.files['image']
-    file.save(os.path.join(FACES_FOLDER, file.filename))
+    filepath = os.path.join(FACES_FOLDER, file.filename)
+
+    if os.path.exists(filepath):
+        os.remove(filepath)
+
+    file.save(filepath)
     return jsonify({'message': 'Image saved successfully'})
 
 
@@ -41,26 +49,34 @@ def recognize_face_service():
             [person_encoding], unknown_encoding)
     except IndexError:
         os.remove(unknown_image_path)
-
         return jsonify({
             "valid": False,
             "message": "No face found",
         })
     if True in results:
-        print(unknown_image_path)
         os.remove(unknown_image_path)
-        print("User valid")
-        collection=dbConnect()
-        loggedInUser=collection['users'].find_one({'username':data_json["login"]})
+        collection = dbConnect()
+        loggedInUser = collection['users'].find_one(
+            {'username': data_json["login"]})
         user = User(loggedInUser)
         json_data = user.to_json()
-
-        return jsonify({
-                "valid": True,
-                "message": "User valid",
-                "user": json_data,
-            })
+        # generate token
+        payload = {
+            'exp': JWT_EXPIRE_IN,
+            'iat': datetime.utcnow(),
+            'id': user._id
+        }
+        token = jwt.encode(payload, SECRET_KEY, algorithm=JWT_ALGORITHM)
+        print("User valid")
+        return {
+            "valid": True,
+            "message": "User valid",
+            "token": token,
+            "expireIn": JWT_EXPIRE_IN,
+            "user": json_data, }, 200, {"Content-Type": "application/json"}
     else:
         os.remove(unknown_image_path)
         print("User invalid")
-        return jsonify({"valid": False, "message": "User invalid", "login": data_json["login"]})
+        return {
+            "valid": False,
+            "message": "User invalid"}, 200, {"Content-Type": "application/json"}

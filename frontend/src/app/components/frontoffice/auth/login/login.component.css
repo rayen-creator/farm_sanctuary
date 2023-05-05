@@ -1,66 +1,141 @@
-body{
-    margin-top:20px;
-    background: #f6f9fc;
+
+#loading{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  }
+    
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+hr {
+  display: inline-block;
+  width: 40%;
+  margin: 0 5%;
+  border: none;
+  /* border-top: 2px solid #ccc; */
 }
+
+span {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 5%;
+  /* color: #ccc; */
+}
+
+.button {
+  /* display: inline-flex; */
+  margin-top: 5px;
+  display: block;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 5px;
+  background-color: #00bfff;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  transform: translateY(-0.1rem);
+  box-shadow: 0 0.4rem 0.7rem rgba(0, 0, 0, 0.3);
+}
+
+.button>i {
+  margin-right: 0.5rem;
+}
+
+body {
+  margin-top: 20px;
+  background: #f6f9fc;
+}
+
 /* .container {
     background-color: #34B982;
 } */
 .account-block {
-    padding: 0;
-    background-image: url(~src/assets/images/auth_img/login_bg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    position: relative;
+  padding: 0;
+  background-image: url(~src/assets/images/auth_img/login_bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  position: relative;
 }
+
 .account-block .overlay {
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.4);
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
 }
+
 .account-block .account-testimonial {
-    text-align: center;
-    color: #fff;
-    position: absolute;
-    margin: 0 auto;
-    padding: 0 1.75rem;
-    bottom: 3rem;
-    left: 0;
-    right: 0;
+  text-align: center;
+  color: #fff;
+  position: absolute;
+  margin: 0 auto;
+  padding: 0 1.75rem;
+  bottom: 3rem;
+  left: 0;
+  right: 0;
 }
 
 .text-theme {
-    color: #34B982 !important;
+  color: #34B982 !important;
 }
 
 .btn-theme {
-    background-color: #34B982;
-    border-color: #34B982;
-    color: #fff;
+  background-color: #34B982;
+  border-color: #34B982;
+  color: #fff;
 }
-.text-primary{
-    color: #34B982 !important;
+
+.text-primary {
+  color: #34B982 !important;
 
 }
-.text{
-    color: #0E4F55;
+
+.text {
+  color: #0E4F55;
 
 }
+
 .google-btn {
-  width: 184px;
+  display: block;
+  width: 100%;
+  /* width: 184px; */
   height: 42px;
   background-color: #ffffff;
   border-radius: 2px;
-  box-shadow: 0 3px 4px 0 rgba(0,0,0,.25);
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
   margin-left: 100px;
   margin-top: 20px;
 }
+
 .google-btn .google-icon-wrapper {
   position: absolute;
   margin-top: 1px;
@@ -70,6 +145,7 @@ body{
   border-radius: 2px;
   background-color: #fff;
 }
+
 .google-btn .google-icon {
   position: absolute;
   margin-top: 11px;
@@ -77,6 +153,7 @@ body{
   width: 18px;
   height: 18px;
 }
+
 .google-btn .btn-text {
   float: right;
   margin: 5px 25px 0 0;
@@ -87,10 +164,11 @@ body{
   align-items: center;
   justify-content: center;
 }
+
 .google-btn:hover {
   box-shadow: 0 0 6px #4285f4;
 }
+
 .google-btn:active {
   background: #1669F2;
 }
-
