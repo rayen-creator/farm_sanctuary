@@ -21,4 +21,8 @@ export type User = {
   email_change_option: boolean;
   likedPost:Post[];
   badges:Badge[];
+
+  birthday: Date;
+  bio: string;
+
 };

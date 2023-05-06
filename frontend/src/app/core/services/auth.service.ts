@@ -219,7 +219,9 @@ export class AuthService {
       isActive: false,
       gender: user.gender,
       role: user.role,
-      location: user.location
+      location: user.location,
+      birthday: user.birthday,
+      bio: user.bio
     };
 
     return this.appolo.mutate({
