@@ -143,7 +143,7 @@
             <div class="logo">
               <a routerLink="home">
                 <img
-                  src="assets/LogoFarmSanctuary-preview.png" 
+                  src="assets/LogoFarmSanctuary-preview.png"
                 />
               </a>
             </div>
@@ -174,11 +174,10 @@
                     <div *ngIf="notifications.length === 0" class="dropdown-item text-center">No notifications</div>
                     <ng-container *ngFor="let notification of notifications">
                       <a class="dropdown-item notification-item" routerLink="/notifications">
-                        <div class="notification-content-and-status">
-                          <div class="notification-status">
-                            <i class="fa" [ngClass]="{'fa-envelope-open fa-x0': notification.seen, 'fa-envelope fa-0x': !notification.seen}"></i>
+                        <div class="notification-content-and-status" style="width: 100%; display: flex; align-items: center;">
+                          <div class="notification-content" style="max-width: 500px; height: auto; overflow: auto; white-space: pre-wrap;">
+                            {{ notification.content }}
                           </div>
-                          <div class="notification-content" style="max-width: 300px; overflow-wrap: break-word; height: 3em; overflow: auto;">{{ notification.content }}</div>
                         </div>
                         <div class="notification-date">{{ notification.createdAt | date: 'MMM d, y' }}</div>
                       </a>
