@@ -1,12 +1,16 @@
 const Notification = require('../models/notification');
 const Product = require('../models/product');
 const User = require('../models/user');
+const createNotifications = require("../../seed");
+const cron = require("node-cron");
 
 const createNotification = async ({ content, type, recipient }) => {
   const notification = new Notification({ content, type, recipient });
   await notification.save();
   return notification.populate({path: "recipient", model: "Users"});
 };
+
+cron.schedule('0 8 * * *', createNotifications);
 
 // const createNotification = async ({ content, type, recipient }) => {
 //   const notification = new Notification({ content, type, recipient });

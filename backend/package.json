@@ -39,5 +39,8 @@
     "./package.json": "./package.json",
     "./processRequest.mjs": "./processRequest.mjs",
     "./Upload.mjs": "./Upload.mjs"
+  },
+  "scripts": {
+    "seed": "node seed.js"
   }
 }

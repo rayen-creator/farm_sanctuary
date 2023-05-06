@@ -313,6 +313,7 @@ const typeDefs = gql`
     PAIEMENT
     PRODUCT
     DELIVERY
+    AGRICULTURE_TIP
   }
 
 

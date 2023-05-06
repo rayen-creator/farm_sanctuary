@@ -138,7 +138,7 @@ a#notification-dropdown {
 
 
 .notification-dropdown {
-  max-height: 800px;
+  max-height: 400px;
   min-width: 500px/* Set a maximum height for the dropdown */
 }
 
