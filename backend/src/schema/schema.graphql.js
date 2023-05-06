@@ -192,6 +192,8 @@ const typeDefs = gql`
     likedPost:[Post]
     badges:[Badge]
     notifications:[Notification]
+    bio: String
+    birthday: DateTime
   }
 
   type Product {
@@ -249,6 +251,8 @@ const typeDefs = gql`
     image: Upload
     two_FactAuth_Option: Boolean
     location: String!
+    bio: String
+    birthday: DateTime
   }
   input twoFactorAuthUserInput {
     code: String!

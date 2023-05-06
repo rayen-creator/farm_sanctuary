@@ -71,6 +71,8 @@ const userSchema = new mongoose.Schema({
     },
   ],
   faceID: String,
+  bio: String,
+  birthday: Date,
 });
 
 const User = mongoose.model("Users", userSchema);
