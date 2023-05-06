@@ -41,6 +41,6 @@
     "./Upload.mjs": "./Upload.mjs"
   },
   "scripts": {
-    "seed": "node seed.js"
+    "tips": "node tips.js"
   }
 }
