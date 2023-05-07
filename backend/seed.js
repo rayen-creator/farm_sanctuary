@@ -17,8 +17,7 @@ async function createNotifications() {
     const randomTip = tips[Math.floor(Math.random() * tips.length)];
 
     // Get all users from the database
-    const users = await User.find();
-
+    const users = await User.find({ daily_tips_option: true });
     // Create a notification from the random tip for each user
     const notifications = users.map(user => {
         return new Notification({

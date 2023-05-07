@@ -196,6 +196,17 @@
                   ></ui-switch>
                 </div>
               </div>
+              <div class="form-group row mb-3" style="margin-top: 20px">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Daily tips</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <ui-switch
+                    [checked]="false"
+                    formControlName="daily_tips_option"
+                  ></ui-switch>
+                </div>
+              </div>
              <app-facial-recognition-button [username]="user.username"></app-facial-recognition-button>
               <h5 style="color: #5c962f">change password</h5>
               <div class="form-group row mb-3" style="margin-top: 20px">

@@ -62,6 +62,7 @@ export class AuthService {
           const role = userObj.role;
           const image = userObj.image;
           const two_FactAuth_Option = userObj.two_FactAuth_Option;
+          const daily_tips_option = userObj.daily_tips_option;
           const token = response['token'];
           const expireIn = response['expireIn'];
 
