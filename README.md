@@ -96,7 +96,7 @@ The goal of the web application is to promote sustainable agriculture, reduce wa
       <a href="https://www.mongodb.com/">
     <img src="https://github.com/devicons/devicon/blob/master/icons/mongodb/mongodb-original.svg" title="Mongodb" alt="Mongodb" width="150" height="150"/>
     </a>
-    
+    <img src="https://github.com/devicons/devicon/blob/master/icons/flask/flask-original-wordmark.svg" alt="flask" width="150" height="150" />
   
  
   </div>

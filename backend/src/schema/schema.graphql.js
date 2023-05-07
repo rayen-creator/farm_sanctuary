@@ -187,11 +187,14 @@ const typeDefs = gql`
     role: Role!
     image: String
     two_FactAuth_Option: Boolean
+    daily_tips_option: Boolean
     location: String
     email_change_option: Boolean
     likedPost:[Post]
     badges:[Badge]
     notifications:[Notification]
+    bio: String
+    birthday: DateTime
   }
 
   type Product {
@@ -248,7 +251,10 @@ const typeDefs = gql`
     role: Role!
     image: Upload
     two_FactAuth_Option: Boolean
+    daily_tips_option: Boolean
     location: String!
+    bio: String
+    birthday: DateTime
   }
   input twoFactorAuthUserInput {
     code: String!
@@ -309,6 +315,7 @@ const typeDefs = gql`
     PAIEMENT
     PRODUCT
     DELIVERY
+    AGRICULTURE_TIP
   }
 
 

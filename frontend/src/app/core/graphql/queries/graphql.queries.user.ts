@@ -16,6 +16,7 @@ const users = gql`
       role,
       image
       two_FactAuth_Option,
+      daily_tips_option,
       email_change_option
       badges{
         name
@@ -43,7 +44,9 @@ const user = gql`
       role,
       image ,
       two_FactAuth_Option,
+      daily_tips_option,
       email_change_option,
+      bio
       likedPost{
         id
       },

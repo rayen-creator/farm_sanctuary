@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { AuthService } from "../../../../core/services/auth.service";
 import { User } from "../../../../core/models/user";
 import { Customvalidator } from "../../../../core/utils/custom-validator";
@@ -21,8 +21,9 @@ export class RegisterComponent implements OnInit {
   usernameExist: Boolean
   emailExist: Boolean;
   country: string;
+  today: Date;
 
-  constructor(private authservice: AuthService, private formBuilder: FormBuilder, private currentRoute: ActivatedRoute,private router:Router) { }
+  constructor(private authservice: AuthService, private formBuilder: FormBuilder, private currentRoute: ActivatedRoute,private router:Router) {this.today = new Date();  }
 
   ngOnInit(): void {
     this.accountType = this.currentRoute.snapshot.params['accountType'];
@@ -32,8 +33,9 @@ export class RegisterComponent implements OnInit {
       phone: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(8), Validators.maxLength(15)]],
       gender: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
-      confirmPassword: ['', [Validators.required, Validators.pattern(this.registerForm?.get('password')?.value)]]
-
+      confirmPassword: ['', [Validators.required, Validators.pattern(this.registerForm?.get('password')?.value)]],
+        birthday: ['', [Validators.required, this.futureDateValidator]],
+        bio: ['', Validators.required]
     }
       , {
         validator: this.matchPassword.bind(this)
@@ -55,12 +57,21 @@ export class RegisterComponent implements OnInit {
     // console.log(event.name);
     return this.country = event.name;
   }
-
+  private futureDateValidator(control: AbstractControl): {[key: string]: any} | null {
+    const selectedDate = new Date(control.value);
+    const today = new Date();
+    if (selectedDate > today) {
+      return { 'futureDate': true };
+    }
+    return null;
+  }
 
   register() {
     let newUser = this.registerForm.value;
     newUser.role = this.accountType
     newUser.location =this.country ?? 'Tunisia';
+    newUser.birthday = new Date(newUser.birthday);
+
     if (newUser.username != "" && newUser.email != "" && newUser.password != "" && newUser.phone != "" && newUser.gender != "") {
 
       this.authservice.register(newUser).subscribe({
@@ -77,7 +88,7 @@ export class RegisterComponent implements OnInit {
             if (newUser.email != "" && newUser.password != "") {
               // this.authservice.login(newUser)
               this.router.navigate(['/login']);
-              
+
             }
           }
         },
