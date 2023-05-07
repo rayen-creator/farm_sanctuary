@@ -107,22 +107,23 @@ const typeDefs = gql`
     id: ID!
     cartItems: [CartItem!]!
     totalPrice: Float!
-    user: User!
-    farmer: User!
+    user: User
+    farmer: User
     isDelivered: Boolean!
     createdAt: DateTime
     updatedAt: DateTime
     isConfirmed: Boolean!
-    location: Location
+    location: Location!
   }
 
   type Location {
-    type: String!
-    coordinates: [Float!]!
-    latitude: Float!
-    longitude: Float!
-    address: String!
+    codePostal: String
+  country: String
+  state: String
+  houseStreetnumber: String
+  city: String
   }
+ 
   type Event{
     id: ID!
     title: String!
@@ -143,17 +144,19 @@ const typeDefs = gql`
   }
 
   input CreateOrderInput {
-    cartItems: [CartItemInput!]!
-    totalPrice: Float!
-    userId: ID!
-    farmerId: ID!
-    location: LocationInput!
+    cartItems: [CartItemInput!]
+    totalPrice: Float
+    userId: ID
+    farmerId: ID
+    location: LocationInput
   }
 
   input LocationInput {
-    type: String!
-    coordinates: [Float!]!
-    address: String!
+    codePostal: String
+    country: String
+   state: String
+   houseStreetnumber: String
+   city: String
   }
 
   input FeedbackInput {
@@ -268,6 +271,7 @@ const typeDefs = gql`
     updatedAt: DateTime!
     longitude: String
     latitude: String
+    orders:[Order]
   }
   type loginDriverResponse {
     message: String!
@@ -290,11 +294,7 @@ const typeDefs = gql`
     category: String!
   }
 
-  enum recommendedproductCategory {
-    Inputs
-    Workshop
-    Tyres
-  }
+ 
 
   type Notification {
     id: ID!
@@ -311,13 +311,7 @@ const typeDefs = gql`
     DELIVERY
   }
 
-  
 
-
-
-  
-  
-  
   input signinInput {
     email: String!
     password: String!
@@ -335,6 +329,10 @@ const typeDefs = gql`
     mailstatus: Boolean!
   }
   type acilResponse {
+    message: String!
+  }
+
+  type addOrderResponse {
     message: String!
   }
   input ForgetpwdInput {
@@ -392,28 +390,17 @@ const typeDefs = gql`
     fullName: String!
     email: String!
     phone: Int!
+
+   
   }
 
-  type RecommendedProduct {
-    id: ID!
-    title: String!
-    price: Float!
-    image: String!
-    url: String!
-    category: String!
-  }
+  
 
   enum recommendedproductCategory {
     Inputs
     Workshop
     Tyres
   }
-
-  
-
-
-  
-
 
   type UpdatepwdResponse {
     message: String!
@@ -477,7 +464,7 @@ const typeDefs = gql`
       reviewExist: Boolean!
       message: String!
   }
-
+  
   type badgeResponse{
     name:String
     image:String
@@ -488,13 +475,30 @@ const typeDefs = gql`
     id:String
     faceImage:String
   }
+  type getcordResponse {
+  latitude: Float
+  longitude: Float
+  address: String
+  }
+ 
+ input InputOrdersbyAgent{
+  id: ID!
+ }
+
 
   type Query {
+    
+    getcord(address: String!): getcordResponse
     getUser(id: ID!): User!
     getUsers: [User!]!
 
     getdeliveryAgent(id: ID!): deliveryAgent!
     getdeliveryAgents: [deliveryAgent!]!
+    getOrdersbyAgent(input: InputOrdersbyAgent!):[Order]
+
+    getAgentbyOrder(id: ID!): deliveryAgent!
+    
+    getAvailableAgent: deliveryAgent!
 
     getFeedback(id: ID!): Feedback!
     getFeedbacks: [Feedback!]!
@@ -536,7 +540,7 @@ const typeDefs = gql`
     getOrders: [Order!]!
 
     notifications: [Notification!]!
-    getNotifcationsByUser(userId:ID!):[Notification!]!
+    getNotificationsByUser(userId:ID!):[Notification!]!
 
   }
 
@@ -562,15 +566,13 @@ const typeDefs = gql`
 
     createdeliveryAgent(input: AgentInput!): DriverResponse!
     updatedeliveryAgent(id: ID!, input: AgentInput!): DriverResponse!
-
     updateLocation(input: AgentLocationInput!): deliveryAgent!
     deletedeliveryAgent(id: ID!): deliveryAgent!
     loginDriver(input: loginDriverInput!): loginDriverResponse!
+    addOrder(id: ID!,idorder: ID!): addOrderResponse
+   
     deleteFeedback(id: ID!): Feedback
-
     createFeedback(input: FeedbackInput!): Feedback!
-
-
     createProduct(
       input: CreateProductInput!
       file: Upload
@@ -599,6 +601,9 @@ const typeDefs = gql`
 
     assignBadges(userId:ID!):badgeResponse!
 
+    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
+    markNotificationAsRead(userId:ID!,id: ID!): Notification!
+    deleteNotification(id: ID!): Notification!
 
     createOrder(input: CreateOrderInput!): createProductResponse!
     updateOrderDeliveryStatus(id: ID!, isDelivered: Boolean!): Order!
@@ -612,9 +617,7 @@ const typeDefs = gql`
 
 
 
-    createNotification(content: String!, type: NotificationType!, recipient: ID!): Notification!
-    markNotificationAsRead(id: ID!): Notification!
-    deleteNotification(id: ID!): Notification!
+   
   }
 
 input eventInput{

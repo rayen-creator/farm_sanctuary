@@ -31,6 +31,7 @@ import {GoogleLoginProvider} from '@abacritt/angularx-social-login';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }), // ToastrModule added
+   
 
   ],
   providers: [

@@ -42,6 +42,10 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
 import { WebcamModule } from 'ngx-webcam';
 import { ChatbotComponent } from './chabot/chatbot.component';
 import { NotificationComponent } from './notification/notification.component';
+import { MapComponent } from './map/map.component';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import { FacialLoginComponent } from './auth/facial-login/facial-login.component';
+import { HomeComponent } from './shared/home/home.component';
 import { CalendarViewComponent } from './Calendar/calendar-view/calendar-view.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AddEventComponent } from './Calendar/add-event/add-event.component';
@@ -51,6 +55,7 @@ import { AddEventComponent } from './Calendar/add-event/add-event.component';
   declarations: [
     FrontofficeComponent,
     HeaderComponent,
+    HomeComponent,
     FooterComponent,
     NotfoundComponent,
     LoginComponent,
@@ -83,7 +88,9 @@ import { AddEventComponent } from './Calendar/add-event/add-event.component';
     NotificationComponent,
     FacialRecognitionButtonComponent,
     CalendarViewComponent,
-    AddEventComponent
+    AddEventComponent,
+    MapComponent,
+    FacialLoginComponent
   ],
   imports: [
     CommonModule,

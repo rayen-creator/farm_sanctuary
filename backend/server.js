@@ -1,3 +1,4 @@
+
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -8,6 +9,8 @@ const typeDefs = require("./src/schema/schema.graphql");
 const cors = require("cors");
 //mongodbconnection
 const mongodbconnection = require("./src/db/index");
+//test api cal
+
 //all resolvers
 const authResolver = require("./src/resolvers/auth.resolver");
 const userResolver = require("./src/resolvers/user.resolver");
@@ -24,6 +27,7 @@ const badgeResolver=require("./src/resolvers/badge.resolver");
 const notificationResolver=require("./src/resolvers/notification.resolver");
 const orderResolver = require("./src/resolvers/order.resolver");
 const eventResolver=require('./src/resolvers/event.resolver');
+const mapResolver = require("./src/resolvers/map.resolver");
 
 app.use(morgan("dev"));
 
@@ -55,7 +59,8 @@ const server = new ApolloServer({
     recommendedproductresolvers,
     notificationResolver,
     orderResolver,
-    eventResolver
+    eventResolver,
+    mapResolver
   ],
 });
 

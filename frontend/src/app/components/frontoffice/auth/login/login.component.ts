@@ -4,6 +4,7 @@ import { User } from 'src/app/core/models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Customvalidator } from 'src/app/core/utils/custom-validator';
 import { FacebookLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,9 +14,14 @@ export class LoginComponent implements OnInit {
   title = 'angular-google';
   user:any;
   loggedIn:any;
-  loginform: FormGroup
-  constructor(private authservice:AuthService,private formBuilder: FormBuilder, private authService: SocialAuthService) { }
-
+  loginform: FormGroup;
+  isCameraOn:boolean;
+  loading:boolean=false;
+  constructor(private authservice:AuthService,
+    private formBuilder: FormBuilder, 
+    private authService: SocialAuthService,
+    ) { }
+  
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
       this.user = user;
@@ -25,6 +31,7 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     })
+
   }
 
   Valid(controlname: any, loginform: any) {
@@ -38,6 +45,13 @@ export class LoginComponent implements OnInit {
     } else {
       Customvalidator.validateAllFormFields(this.loginform);
     }
+  }
+ 
+  CameraOn(){
+    this.isCameraOn=true;
+  }
+  CameraOff(){
+    this.isCameraOn=false;
   }
 
 

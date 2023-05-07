@@ -101,20 +101,6 @@
                       <li><a href="dairy-products.html">Dairy Products</a></li>
                     </ul>
                   </li>
-                  <!-- <li class="dropdown">
-                    <a href="#">Page</a>
-                    <ul>
-                      <li><a href="farmers.html">Farmers</a></li>
-                      <li><a href="team-details.html">Farmer Details</a></li>
-                      <li><a href="projects.html">Projects</a></li>
-                      <li>
-                        <a href="projects-details.html">Projects Details</a>
-                      </li>
-                      <li><a href="testimonials.html">Testimonials</a></li>
-                      <li><a href="faq.html">Faq</a></li>
-                      <li><a href="error.html">Error</a></li>
-                    </ul>
-                  </li> -->
                   <li class="dropdown">
                     <a routerLink="marketplace">Shop</a>
                     <ul>
@@ -126,7 +112,8 @@
                       <li><a routerLink="recommendedproducts">Recommended Farming Products</a></li>
 
                       <li><a href="checkout.html">Checkout</a></li>
-                      <li><a routerLink="marketplace/orders">Orders</a></li>
+                      <li *ngIf="role === 'FARMER'"><a routerLink="marketplace/orders">Orders</a></li>
+                      <li *ngIf="role === 'CLIENT'"><a routerLink="marketplace/myOrders">Orders</a></li>
                     </ul>
                   </li>
                   <li class="dropdown">
@@ -156,31 +143,17 @@
             <div class="logo">
               <a routerLink="home">
                 <img
-                  class="dark-logo"
-                  src="assets/LogoFarmSanctuary-preview.png"
-                  alt=""
-                  width="100%"
-                  height="100px"
-                />
-                <img
-                  class="light-logo"
-                  src="assets/LogoFarmSanctuary-preview.png"
-                  alt=""
-                  width="100%"
-                  height="100px"
+                  src="assets/LogoFarmSanctuary-preview.png" 
                 />
               </a>
             </div>
           </div>
 
           <div class="main-header--one__bottom-right clearfix">
-            <div class="search-cart">
+            <div class="search-cart" *ngIf="userIsAuthenticated">
               <div class="icon-container">
-                <a routerLink="addfeedback" class="search search-toggler" *ngIf="userIsAuthenticated">
+                <a routerLink="addfeedback" class="search search-toggler" >
                   <span class="bx bx-message-dots"></span>
-                </a>
-                <a href="#" class="search search-toggler">
-                  <span class="icon-magnifying-glass"></span>
                 </a>
                 <a routerLink="marketplace/cart" class="cart mini-cart__toggler">
                   <span class="icon-shopping-cart"></span>
@@ -205,19 +178,19 @@
                           <div class="notification-status">
                             <i class="fa" [ngClass]="{'fa-envelope-open fa-x0': notification.seen, 'fa-envelope fa-0x': !notification.seen}"></i>
                           </div>
-                          <div class="notification-content">{{ notification.content }}</div>
+                          <div class="notification-content" style="max-width: 300px; overflow-wrap: break-word; height: 3em; overflow: auto;">{{ notification.content }}</div>
                         </div>
                         <div class="notification-date">{{ notification.createdAt | date: 'MMM d, y' }}</div>
                       </a>
                     </ng-container>
                     <a class="dropdown-item text-center" routerLink="/notifications">View all notifications</a>
                   </div>
-                  
-                
-                
+
+
+
               </div>
             </div>
-  
+
             <div class="contact-box" *ngIf="userIsAuthenticated">
               <div class="text">
                 <div class="dropdown-avatar">

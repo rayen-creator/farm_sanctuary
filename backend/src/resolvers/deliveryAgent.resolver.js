@@ -1,19 +1,44 @@
-const { AgentInputError } = require('apollo-server-express');
-const agentService = require('../services/deliveryAgent');
+const { AgentInputError } = require("apollo-server-express");
+const agentService = require("../services/deliveryAgent");
 
 const agentResolver = {
-  DateTime: require('graphql-iso-date').GraphQLDateTime,
+  DateTime: require("graphql-iso-date").GraphQLDateTime,
 
   Query: {
     async getdeliveryAgent(_, { id }) {
       try {
         const agent = await agentService.getdeliveryAgent(id);
         if (!agent) {
-          throw new AgentInputError('User not found');
+          throw new AgentInputError("User not found");
         }
         return agent;
       } catch (error) {
         throw new AgentInputError(error.message);
+      }
+    },
+    async getAgentbyOrder(_, { id }) {
+      try {
+        const agent = await agentService.getAgentbyOrder(id);
+        if (!agent) {
+          throw new AgentInputError("User not found");
+        }
+        return agent;
+      } catch (error) {
+        throw new AgentInputError(error.message);
+      }
+    },
+    async getAvailableAgent(){
+      try {
+        return await agentService.getAvailableAgent();
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
+    async getOrdersbyAgent(_, { input }) {
+      try {
+        return await agentService.getOrdersbyAgent(input);
+      } catch (error) {
+        throw new Error(error.message);
       }
     },
     async getdeliveryAgents() {
@@ -26,7 +51,6 @@ const agentResolver = {
   },
 
   Mutation: {
-    
     async loginDriver(_, { input }) {
       try {
         return await agentService.loginDriver(input);
@@ -42,24 +66,20 @@ const agentResolver = {
         throw new AgentInputError(error.message);
       }
     },
-   
-    async infomail (_, {input}) {
+
+    async infomail(_, { input }) {
       try {
         return await agentService.infomail(input);
       } catch (error) {
-        
         throw new Error(error);
       }
     },
-  
 
-
-
-    async updatedeliveryAgent(_, {id, input }) {
+    async updatedeliveryAgent(_, { id, input }) {
       try {
-        const agent = await agentService.updatedeliveryAgent(id,input);
+        const agent = await agentService.updatedeliveryAgent(id, input);
         if (!agent) {
-          throw new AgentInputError('User not found');
+          throw new AgentInputError("User not found");
         }
         return agent;
       } catch (error) {
@@ -71,7 +91,7 @@ const agentResolver = {
       try {
         const agent = await agentService.deletedeliveryAgent(id);
         if (!agent) {
-          throw new AgentInputError('User not found');
+          throw new AgentInputError("User not found");
         }
         return agent;
       } catch (error) {
@@ -79,16 +99,23 @@ const agentResolver = {
       }
     },
     async updateLocation(_, { input }) {
-        try {
-          const agent = await agentService.updateLocation( input);
-          if (!agent) {
-            throw new AgentInputError('User not found');
-          }
-          return agent;
-        } catch (error) {
-          throw new AgentInputError(error.message);
+      try {
+        const agent = await agentService.updateLocation(input);
+        if (!agent) {
+          throw new AgentInputError("User not found");
         }
-      },
+        return agent;
+      } catch (error) {
+        throw new AgentInputError(error.message);
+      }
+    },
+    async addOrder(_, { id, idorder }) {
+      try {
+        return await agentService.addOrder(id, idorder);
+      } catch (error) {
+        throw new AgentInputError(error.message);
+      }
+    },
   },
 };
 
