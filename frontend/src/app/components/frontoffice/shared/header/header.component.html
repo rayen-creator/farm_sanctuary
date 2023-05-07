@@ -172,7 +172,7 @@
                   <div class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notification-dropdown">
                     <h6 class="dropdown-header">Notifications</h6>
                     <div *ngIf="notifications.length === 0" class="dropdown-item text-center">No notifications</div>
-                    <ng-container *ngFor="let notification of notifications">
+                    <ng-container *ngFor="let notification of notifications.slice(-6)">
                       <a class="dropdown-item notification-item" routerLink="/notifications">
                         <div class="notification-content-and-status" style="width: 100%; display: flex; align-items: center;">
                           <div class="notification-content" style="max-width: 500px; height: auto; overflow: auto; white-space: pre-wrap;">
