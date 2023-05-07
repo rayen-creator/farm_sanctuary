@@ -12,10 +12,10 @@ const scenarioEventType = Object.freeze({
 
 const scenarioEventSchema = new mongoose.Schema({
   title: String,
-  beforeDays: int,
-  order:int, 
-  AfterDays:int,
-  duration:int,
+  beforeDays: Number,
+  order:Number, 
+  AfterDays:Number,
+  duration:Number,
   type: {
     type: String,
     enum:scenarioEventType,
@@ -25,7 +25,6 @@ const scenarioEventSchema = new mongoose.Schema({
     required: true,
     ref: "Scenario"
 },
-
 });
 
 const Event = mongoose.model('scenarioEvents', scenarioEventSchema);
