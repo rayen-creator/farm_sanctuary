@@ -46,7 +46,10 @@ async function signup(input) {
     updatedAt: new Date(),
     isBlocked: false,
     two_FactAuth_Option: false,
+    daily_tips_option: false,
     location: input.location,
+    bio: input.bio,
+    birthday: new Date(input.birthday),
   });
   await user.save(user);
   return {

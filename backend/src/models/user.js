@@ -40,6 +40,7 @@ const userSchema = new mongoose.Schema({
   image: String,
   resetpwdToken: String,
   two_FactAuth_Option: Boolean,
+  daily_tips_option: Boolean,
   two_FactAuth: {
     code: String,
     expiresAt: Date,
@@ -71,6 +72,8 @@ const userSchema = new mongoose.Schema({
     },
   ],
   faceID: String,
+  bio: String,
+  birthday: Date,
 });
 
 const User = mongoose.model("Users", userSchema);

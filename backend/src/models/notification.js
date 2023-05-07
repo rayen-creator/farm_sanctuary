@@ -12,7 +12,7 @@
     },
     type: {
       type: String,
-      enum: ['PAIEMENT', 'PRODUCT', 'DELIVERY'],
+      enum: ['PAIEMENT', 'PRODUCT', 'DELIVERY', 'AGRICULTURE_TIP'],
       required: true
     },
     recipient: {

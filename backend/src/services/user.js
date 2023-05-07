@@ -92,9 +92,11 @@ async function updateUser(id, input, file) {
     role: input.role,
     gender: input.gender,
     two_FactAuth_Option: input.two_FactAuth_Option,
+    daily_tips_option: input.daily_tips_option,
     isBlocked: false,
     updatedAt: new Date(),
     location: input.location,
+    bio: input.bio
   };
 
   if (file) {
