@@ -31,6 +31,26 @@ const typeDefs = gql`
     LITRE
     COUNT
   }
+  type ScenarioEvent {
+  _id: ID!
+  title: String!
+  beforeDays: Int!
+  order: Int!
+  afterDays: Int!
+  duration: Int!
+  type: String!
+  scenario: Scenario!
+}
+
+input ScenarioEventInput {
+  title: String!
+  beforeDays: Int!
+  order: Int!
+  afterDays: Int!
+  duration: Int!
+  type: String!
+  scenario: ID!
+}
   enum productCategory {
     FRUITS
     VEGETABLES
@@ -133,6 +153,23 @@ const typeDefs = gql`
    type: eventType!
 
   }
+
+  type Scenario {
+  _id: ID!
+  label: String!
+  isActive: Boolean!
+  description: String
+}
+
+input ScenarioInput {
+  label: String!
+  isActive: Boolean!
+  description: String
+}
+
+
+
+
 
   input CartItemInput {
     name: String!
@@ -542,6 +579,12 @@ const typeDefs = gql`
     notifications: [Notification!]!
     getNotificationsByUser(userId:ID!):[Notification!]!
 
+
+    getScenario(id: ID!): Scenario
+  getScenarios: [Scenario]
+  scenarioEvents: [ScenarioEvent!]!
+  scenarioEvent(id: ID!): ScenarioEvent
+
   }
 
   type Mutation {
@@ -615,6 +658,13 @@ const typeDefs = gql`
   updateEvent(id: ID!, input: eventInput!): Event!
   deleteEvent(id: ID!): Event!
 
+
+  createScenario(input: ScenarioInput!): Scenario!
+  deleteScenario(id: ID!): Scenario
+  updateScenario(id: ID!, input: ScenarioInput!): Scenario!
+  createScenarioEvent(input: ScenarioEventInput!): ScenarioEvent
+  updateScenarioEvent(id: ID!, input: ScenarioEventInput!): ScenarioEvent
+  deleteScenarioEvent(id: ID!): ScenarioEvent
 
 
    
