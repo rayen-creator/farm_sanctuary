@@ -96,6 +96,7 @@ async function updateUser(id, input, file) {
     isBlocked: false,
     updatedAt: new Date(),
     location: input.location,
+    bio: input.bio
   };
 
   if (file) {

@@ -46,6 +46,7 @@ const user = gql`
       two_FactAuth_Option,
       daily_tips_option,
       email_change_option,
+      bio
       likedPost{
         id
       },
