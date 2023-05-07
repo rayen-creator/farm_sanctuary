@@ -18,7 +18,9 @@ const eventSchema = new mongoose.Schema({
   type: {
     type: String,
     enum:eventType,
-  }
+  }, 
+  scenarioLabel:String,
+  isAuto:Boolean,
 
 });
 
