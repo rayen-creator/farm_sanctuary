@@ -16,7 +16,6 @@ const scenarioEventSchema = new mongoose.Schema({
     required: true,
     ref: "Scenario"
 },
-
 });
 
 const ScenarioEvent=mongoose.model('ScenarioEvent', scenarioEventSchema);

@@ -36,7 +36,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     private authService:AuthService
   ) { }
 
-  
+
   sanitizeImageUrl(imageUrl: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
@@ -128,6 +128,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
           gender: newUser.gender,
           role: this.user.role,
           two_FactAuth_Option: newUser.two_FactAuth_Option,
+          daily_tips_option: newUser.daily_tips_option,
+          bio: newUser.bio,
           image: this.selectedFile,
           location: this.country ?? 'Tunisia'
         };
@@ -172,6 +174,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     let phone = null
     let gender = ""
     let two_FactAuth_Option;
+    let daily_tips_option;
+    let bio;
 
     const e = this.user
     username = e.username
@@ -179,6 +183,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     phone = e.phone
     gender = e.gender
     two_FactAuth_Option = e.two_FactAuth_Option
+    daily_tips_option = e.daily_tips_option
+    bio = e.bio
 
     console.log(e)
 
@@ -188,6 +194,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       phone: [phone, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(8), Validators.maxLength(15)]],
       gender: [gender, Validators.required],
       two_FactAuth_Option: [two_FactAuth_Option, Validators.required],
+        daily_tips_option: [daily_tips_option, Validators.required],
+        bio: [bio, Validators.required],
       currentpassword: [''],
       newpassword: ['', [Validators.minLength(6), Validators.maxLength(20)]],
       confirmNewPassword: ['', [Validators.pattern(this.userForm?.get('newpassword')?.value)]]

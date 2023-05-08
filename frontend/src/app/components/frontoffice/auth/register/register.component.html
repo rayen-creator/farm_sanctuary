@@ -179,9 +179,27 @@
                     </span>
                     <!-- <div class="form-control-group">
                       <label class="label" for="input-mobile">Mobile<span class="text-danger"> *</span></label>
-                      <input nbInput type="text" id="input-mobile" class="input-mobile" name="mobile" placeholder="Mobile" fullWidth fieldSize="large" formControlName="mobile" inputmode="numeric" digitOnly 
+                      <input nbInput type="text" id="input-mobile" class="input-mobile" name="mobile" placeholder="Mobile" fullWidth fieldSize="large" formControlName="mobile" inputmode="numeric" digitOnly
                         ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}">
             </div> -->
+                    <div class="form-group">
+                      <label for="birthday">Birthday</label><br />
+                      <input
+                        class="form-control"
+                        formControlName="birthday"
+                        id="birthday"
+                        name="birthday"
+                        type="date"
+                        max="{{today | date:'yyyy-MM-dd'}}"
+                      />
+                    </div>
+                    <span
+                      class="text-danger error-msg error-msg"
+                      *ngIf="registerForm.controls['birthday'].invalid  && registerForm.controls['birthday'].touched">
+                        <span *ngIf="registerForm.controls['birthday'].hasError('required')" class="error">This field is required!</span>
+                        <span *ngIf="registerForm.controls['birthday'].hasError('futureDate')" class="error">Birthday must be in the past</span>
+
+              </span>
                     <div class="form-group">
                       <label for="gender">Gender</label>
                       <select
@@ -254,7 +272,7 @@
                         >Password is required</span
                       >
                     </span>
-                    <div class="form-group mb-5">
+                    <div class="form-group">
                       <label for="confirmPassword">Confirm password</label>
                       <input
                         name="confirmPassword"
@@ -291,6 +309,36 @@
                         >
                       </span>
                     </div>
+                    <div class="form-group">
+                      <label for="bio">Bio</label>
+                      <textarea
+                        class="form-control"
+                        formControlName="bio"
+                        id="bio"
+                        name="bio"
+                        type="text"
+                        rows="4" cols="50"
+                      >
+                  </textarea>
+                    </div>
+                    <span
+                      class="text-danger error-msg error-msg"
+                      *ngIf="
+                          (registerForm.controls['bio'].invalid &&
+                            registerForm.controls['bio'].dirty) ||
+                          registerForm.controls['bio'].touched
+                        "
+                    >
+                        <span
+                          *ngIf="
+                            registerForm.controls['bio'].hasError(
+                              'required'
+                            )
+                          "
+                          class="error"
+                        >This field is required!</span
+                        >
+                      </span>
                     <span *ngIf="emailExist" class="error-msg2"
                       >Email already used!</span
                     >

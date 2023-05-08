@@ -138,7 +138,8 @@ a#notification-dropdown {
 
 
 .notification-dropdown {
-  max-height: 300px; /* Set a maximum height for the dropdown */
+  max-height: 400px;
+  min-width: 500px/* Set a maximum height for the dropdown */
 }
 
 .notification-item {
@@ -162,7 +163,7 @@ a#notification-dropdown {
 .dropdown-header {
   text-transform: uppercase; /* Convert the dropdown header text to uppercase */
   font-size: 0.8rem; /* Decrease the font size of the dropdown header */
-  color: green; /* Use a lighter color for the dropdown header */
+  color: #d34905; /* Use a lighter color for the dropdown header */
 }
 
 .dropdown-item.text-center {
@@ -182,14 +183,6 @@ a#notification-dropdown {
   align-items: center;
 }
 
-.notification-status {
-  margin-right: 5px;
-}
 
-.notification-content {
-  max-width: 300px;
-  overflow-wrap: break-word;
-  line-height: 1.5em;
-  max-height: 4.5em;
-  overflow: auto;
-}
+
+
