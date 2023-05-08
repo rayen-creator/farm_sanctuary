@@ -28,6 +28,9 @@ const notificationResolver=require("./src/resolvers/notification.resolver");
 const orderResolver = require("./src/resolvers/order.resolver");
 const eventResolver=require('./src/resolvers/event.resolver');
 const mapResolver = require("./src/resolvers/map.resolver");
+const scenarioResolver = require("./src/resolvers/scenario.resolver");
+const scenarioEventResolver = require("./src/resolvers/scenarioEvent.resolver");
+
 
 app.use(morgan("dev"));
 
@@ -60,7 +63,11 @@ const server = new ApolloServer({
     notificationResolver,
     orderResolver,
     eventResolver,
-    mapResolver
+    mapResolver, 
+    scenarioResolver, 
+    scenarioEventResolver,
+    
+
   ],
 });
 

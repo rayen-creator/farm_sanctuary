@@ -31,26 +31,43 @@ const typeDefs = gql`
     LITRE
     COUNT
   }
+  type Scenario {
+  id: ID!
+  label: String!
+  isActive: Boolean!
+  description: String
+
+}
+
+input ScenarioInput {
+  label: String!
+  isActive: Boolean!
+  description: String
+}
+
   type ScenarioEvent {
-  _id: ID!
+  id: ID!
   title: String!
   beforeDays: Int!
   order: Int!
   afterDays: Int!
   duration: Int!
-  type: String!
+  type: eventType! # use the eventType enum
   scenario: Scenario!
 }
 
+
+
 input ScenarioEventInput {
-  title: String!
-  beforeDays: Int!
-  order: Int!
-  afterDays: Int!
-  duration: Int!
-  type: String!
+  title: String
+  beforeDays: Int
+  order: Int
+  afterDays: Int
+  duration: Int
+  type: eventType # update the type to use the eventType enum
   scenario: ID!
 }
+
   enum productCategory {
     FRUITS
     VEGETABLES
@@ -144,28 +161,31 @@ input ScenarioEventInput {
   city: String
   }
  
-  type Event{
-    id: ID!
-    title: String!
-   description: String! 
-   start:String!
-   end:String!
-   type: eventType!
+  enum eventType {
+  PLANTING
+  HARVESTING
+  FERTILISER_APPLICATION
+  LIVESTOCK_CARE
+  PEST_CONTROL
+  IRRIGATION
+  CROP_ROTATION
+}
 
-  }
-
-  type Scenario {
+type Event {
   _id: ID!
-  label: String!
-  isActive: Boolean!
+  title: String!
   description: String
+  start: String!
+  end: String!
+  type: eventType! # use the eventType enum
+  scenarioLabel: String
+  isAuto: Boolean
 }
 
-input ScenarioInput {
-  label: String!
-  isActive: Boolean!
-  description: String
-}
+
+
+
+
 
 
 
@@ -580,9 +600,9 @@ input ScenarioInput {
     getNotificationsByUser(userId:ID!):[Notification!]!
 
 
-    getScenario(id: ID!): Scenario
-  getScenarios: [Scenario]
-  scenarioEvents: [ScenarioEvent!]!
+  #   getScenario(id: ID!): Scenario
+  # getScenarios: [Scenario]
+  # scenarioEvents: [ScenarioEvent!]!
   scenarioEvent(id: ID!): ScenarioEvent
 
   }
@@ -660,11 +680,13 @@ input ScenarioInput {
 
 
   createScenario(input: ScenarioInput!): Scenario!
-  deleteScenario(id: ID!): Scenario
-  updateScenario(id: ID!, input: ScenarioInput!): Scenario!
-  createScenarioEvent(input: ScenarioEventInput!): ScenarioEvent
-  updateScenarioEvent(id: ID!, input: ScenarioEventInput!): ScenarioEvent
-  deleteScenarioEvent(id: ID!): ScenarioEvent
+  createEventsFromScenario(id: ID!): [Event!]!
+
+  # createEventsFromScenario(id:ID):[Event]
+  # deleteScenario(id: ID!): Scenario
+  # createScenarioEvent(input: ScenarioEventInput!): ScenarioEvent
+  # updateScenarioEvent(id: ID!, input: ScenarioEventInput!): ScenarioEvent
+  # deleteScenarioEvent(id: ID!): ScenarioEvent
 
 
    
