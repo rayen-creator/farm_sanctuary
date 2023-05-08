@@ -4,6 +4,8 @@ import { User } from 'src/app/core/models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Customvalidator } from 'src/app/core/utils/custom-validator';
 import { FacebookLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,22 +13,31 @@ import { FacebookLoginProvider, SocialAuthService } from '@abacritt/angularx-soc
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  title = 'angular-google';
-  user:any;
-  loggedIn:any;
+  user: any;
+  loggedIn: any;
   loginform: FormGroup;
-  isCameraOn:boolean;
-  loading:boolean=false;
-  constructor(private authservice:AuthService,
-    private formBuilder: FormBuilder, 
-    private authService: SocialAuthService,
-    ) { }
-  
+  isCameraOn: boolean;
+  loading: boolean = false;
+
+  constructor(private authservice: AuthService,
+    private formBuilder: FormBuilder,
+    private googleAuth: SocialAuthService,
+    private router: Router
+  ) { }
+
   ngOnInit(): void {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-    });
+    this.googleAuth.authState.subscribe({
+      next: (user) => {
+        this.user = user;
+        this.loggedIn = (user != null);
+        this.authservice.googleLogin(user);
+        // console.log("user", user.photoUrl);
+        // console.log("loggedIn", this.loggedIn);
+      },
+      error: (error) => {
+        throw error;
+      }
+    })
     this.loginform = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -46,13 +57,15 @@ export class LoginComponent implements OnInit {
       Customvalidator.validateAllFormFields(this.loginform);
     }
   }
- 
-  CameraOn(){
-    this.isCameraOn=true;
+
+  CameraOn() {
+    this.isCameraOn = true;
   }
-  CameraOff(){
-    this.isCameraOn=false;
+  CameraOff() {
+    this.isCameraOn = false;
   }
 
-
+  onGoogleSignInClicked() {
+   
+  }
 }

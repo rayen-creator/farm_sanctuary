@@ -49,7 +49,7 @@ async function signup(input) {
     daily_tips_option: false,
     location: input.location,
     bio: input.bio,
-    birthday: new Date(input.birthday),
+    birthday: input.birthday ? new Date(input.birthday) : '',
   });
   await user.save(user);
   return {
