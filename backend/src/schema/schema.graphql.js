@@ -22,18 +22,19 @@ const typeDefs = gql`
     COUNT
   }
   type Scenario {
-  id: ID!
-  label: String!
-  isActive: Boolean!
-  description: String
+    id: ID!
+    label: String!
+    isActive: Boolean!
+    description: String
+    scenarioEvents: [ScenarioEvent!]!
+  }
 
-}
-
-input ScenarioInput {
-  label: String!
-  isActive: Boolean!
-  description: String
-}
+  input ScenarioInput {
+    label: String!
+    isActive: Boolean!
+    description: String
+    scenarioEvents: [ID!]
+  }
 
   type ScenarioEvent {
   id: ID!
