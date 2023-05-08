@@ -24,13 +24,15 @@ async function createScenario(input) {
 }
 
 // Service
-async function createEventsFromScenario(id) {
+async function createEventsFromScenario(label) {
     console.log("Step 1: Finding scenario by id and populating scenarioEvents");
-    const scenario = await Scenario.findById(id).populate({
+    const scenario = await Scenario.findOne({ label: label }).populate({
         path: "scenarioEvents",
         model: "ScenarioEvent",
     });
-
+    if (!scenario) {
+        throw new Error(`Scenario with label ${label} not found`);
+    }
     const scenarioEvents = scenario.scenarioEvents.sort((a, b) => a.order - b.order);
     const events = [];
     let previousEndDate = new Date();

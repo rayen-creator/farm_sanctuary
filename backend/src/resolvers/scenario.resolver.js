@@ -13,13 +13,13 @@ const scenarioResolvers = {
         throw new Error(err);
       }
     },
-    async createEventsFromScenario(_, { id }) {
+    async createEventsFromScenario(_, { label }) {
       try {
-        return await scenrioService.createEventsFromScenario(id);
+        return await scenrioService.createEventsFromScenario(label);
       } catch (error) {
-        throw Error(error);
+        throw new Error(error);
       }
-    },
+    }
   },
 };
 

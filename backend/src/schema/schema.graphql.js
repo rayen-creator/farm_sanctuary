@@ -674,7 +674,7 @@ type Event {
 
 
   createScenario(input: ScenarioInput!): Scenario!
-  createEventsFromScenario(id: ID!): [Event!]!
+    createEventsFromScenario(label: String!): [Event!]!
 
   # createEventsFromScenario(id:ID):[Event]
   # deleteScenario(id: ID!): Scenario
