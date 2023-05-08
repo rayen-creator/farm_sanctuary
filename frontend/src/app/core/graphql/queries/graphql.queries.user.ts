@@ -33,7 +33,6 @@ const user = gql`
       id,
       username,
       email,
-      password,
       phone,
       location,
       createdAt,
@@ -47,6 +46,7 @@ const user = gql`
       daily_tips_option,
       email_change_option,
       bio
+      birthday
       likedPost{
         id
       },

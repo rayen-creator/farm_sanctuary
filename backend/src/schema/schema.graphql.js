@@ -286,17 +286,17 @@ type Event {
   }
 
   input UserInput {
-    username: String!
-    email: String!
-    phone: Int!
-    password: String!
-    isActive: Boolean!
-    gender: Gender!
-    role: Role!
+    username: String
+    email: String
+    phone: Int
+    password: String
+    isActive: Boolean
+    gender: Gender
+    role: Role
     image: Upload
     two_FactAuth_Option: Boolean
     daily_tips_option: Boolean
-    location: String!
+    location: String
     bio: String
     birthday: DateTime
   }
@@ -602,7 +602,7 @@ type Event {
   }
 
   type Mutation {
-    signup(input: UserInput!): SignupResponse!
+    signup(input: UserInput): SignupResponse!
     signin(input: signinInput!): LoginResponse!
     sendmail(input: ForgetpwdInput!): ForgetpwdResponse!
     sendOTPVerificationEmail(input: twoFactorAuthInput!): twoFactorAuthResponse!
