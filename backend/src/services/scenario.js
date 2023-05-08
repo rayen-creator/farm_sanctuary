@@ -1,53 +1,66 @@
 const Scenario=require ("../models/scenario")
 
 async function getScenario(id) {
-    return await Scenario.findById(id);
+  console.log('id0',id);
+    return await Scenario.findById(id);;
 }
-
-
 
 async function getScenarios (){ 
     return await Scenario.find();
-    //  return await Scenario.find().populate({path: "user", model: "Users"});
 }
-
 
 async function createScenario(input){
-    const Scenario = new Scenario({
+    const scenario = new Scenario({
         label: input.label,
-        isActive: Boolean,
-        description:String,
-      
+        isActive: input.isActive,
+        description:input.description,
       });
 
-      return await Scenario.save(Scenario);
+      return await scenario.save();
 }
 
-async function deleteScenario(id){ 
-    const Scenario= await Scenario.findById({ _id: id });
-    if (!Scenario) {
-        return null;
-    }
-    return await Scenario.remove();
-}
+// Service
+async function createEventsFromScenario (id){
+    console.log("Step 1: Finding scenario by id and populating scenarioEvents");
+    const scenario = await Scenario.findById(id)
+    .populate({
+      path: "scenarioEvents",
+      model: "ScenarioEvent"
+    });
 
-async function updateScenario(id, input) {
-    const updatedScenario = {
-        label: String,
-        isActive: Boolean,
-        description:String,
-      
-    };
-    await Scenario.findByIdAndUpdate(id, updatedScenario);
-    return updatedScenario;
-  }
+    const scenarioEvents = scenario.scenarioEvents.sort((a, b) => a.order - b.order);
+    const events = [Event];
+    let previousEndDate = new Date();
   
-
+    console.log("Step 2: Creating events from scenario events");
+    for (let i = 0; i < scenarioEvents.length; i++) {
+      const scenarioEvent = scenarioEvents[i];
+      const event = new Event({
+        title: scenarioEvent.title,
+        description: scenarioEvent.description,
+        start: previousEndDate.toISOString(),
+        end: new Date(previousEndDate.getTime() + scenarioEvent.afterDays * 24 * 60 * 60 * 1000).toISOString(),
+        type: scenarioEvent.type,
+        scenarioLabel: scenario.label,
+        isAuto: true,
+      });
+      events.push(event);
+      previousEndDate = new Date(event.end);
+    }
+  
+    console.log("Step 3: Saving events");
+    await Promise.all(events.map((event) => event.save()));
+  
+    console.log("Step 4: Returning events");
+    return events;
+  };
+  
+ 
 module.exports ={
     getScenarios, 
     getScenario,
     createScenario,
-    deleteScenario, 
-    updateScenario
+    createEventsFromScenario,
+
 }
 

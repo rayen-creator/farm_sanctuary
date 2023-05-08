@@ -1,46 +1,25 @@
-const scenarioEvent = require("../models/scenarioEvent");
-
+const scenarioEventService=require("../services/scenarioEvent");
 const resolvers = {
   Query: {
-    async scenarioEvents() {
-      return await scenarioEvent.find().populate("scenario");
-    },
-    async scenarioEvent(parent, args) {
-      return await scenarioEvent.findById(args.id).populate("scenario");
+    // async scenarioEvents() {
+    // },
+    async scenarioEvent(_, {id}) {
+      try{
+        return await scenarioEventService.getScenarioEvents(id);
+      }catch(error){
+        throw Error(error);
+      }
     },
   },
   Mutation: {
-    async createScenarioEvent(parent, args) {
-      const { title, beforeDays, order, afterDays, duration, type, scenario } = args.input;
-      const newScenarioEvent = new scenarioEvent({
-        title,
-        beforeDays,
-        order,
-        afterDays,
-        duration,
-        type,
-        scenario,
-      });
-      await newScenarioEvent.save();
-      return newScenarioEvent;
-    },
-    async updateScenarioEvent(parent, args) {
-      const { title, beforeDays, order, afterDays, duration, type, scenario } = args.input;
-      const updatedScenarioEvent = {
-        title,
-        beforeDays,
-        order,
-        afterDays,
-        duration,
-        type,
-        scenario,
-      };
-      await scenarioEvent.findByIdAndUpdate(args.id, updatedScenarioEvent);
-      return updatedScenarioEvent;
-    },
-    async deleteScenarioEvent(parent, args) {
-      return await scenarioEvent.findByIdAndRemove(args.id);
-    },
+    // async createScenarioEvent(_, args) {
+     
+    // },
+    // async updateScenarioEvent(_, args) {
+     
+    // },
+    // async deleteScenarioEvent(_, args) {
+    // },
   },
 };
 

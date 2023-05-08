@@ -1,24 +1,15 @@
 const mongoose = require("mongoose");
-const scenarioEventType = Object.freeze({
-  PLANTING: 'PLANTING',
-  HARVESTING: 'HARVESTING',
-  FERTILISER_APPLICATION: 'FERTILISER_APPLICATION',
-  LIVESTOCK_CARE:'LIVESTOCK_CARE',
-  PEST_CONTROL:'PEST_CONTROL',
-  IRRIGATION:'IRRIGATION',
-  CROP_ROTATION:'CROP_ROTATION'
-  
-});
+const Event = require("./event"); // import the event model
 
 const scenarioEventSchema = new mongoose.Schema({
   title: String,
   beforeDays: Number,
+  afterDays:Number,
   order:Number, 
-  AfterDays:Number,
   duration:Number,
   type: {
     type: String,
-    enum:scenarioEventType,
+    enum: Object.values(Event.schema.path("type").enumValues) // use the enumValues from the Event model
   },
   scenario: {
     type: mongoose.Schema.Types.ObjectId,
@@ -27,5 +18,5 @@ const scenarioEventSchema = new mongoose.Schema({
 },
 });
 
-const Event = mongoose.model('scenarioEvents', scenarioEventSchema);
-module.exports = Event;
+const ScenarioEvent=mongoose.model('ScenarioEvent', scenarioEventSchema);
+module.exports=ScenarioEvent
