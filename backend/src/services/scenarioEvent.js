@@ -11,18 +11,16 @@ async function getScenarioEvents(id) {
 
 
 async function createscenarioEvent(input){
-    const scenarioEvent = new scenarioEvent({
+    const scenarioEvent = new ScenarioEvent({
         title: input.title,
 
         beforeDays: input.beforeDays,
         order:input.order, 
         afterDays:input.afterDays,
-        duration:input.AfterDays,
-        scenario:input.scenario,
         type:input.type,
       });
 
-      return await scenarioEvent.save(scenarioEvent);
+      return await scenarioEvent.save();
 }
 
   

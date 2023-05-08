@@ -13,16 +13,6 @@ const typeDefs = gql`
     TECHNICAL
     NON_TECHNICAL
     FUNCTIONAL
-  } 
-  enum eventType {
-    PLANTING
-  HARVESTING
-  FERTILISER_APPLICATION
-  LIVESTOCK_CARE
-  PEST_CONTROL
-  IRRIGATION
-  CROP_ROTATION
-
   }
 
   enum Unit {
@@ -51,9 +41,7 @@ input ScenarioInput {
   beforeDays: Int!
   order: Int!
   afterDays: Int!
-  duration: Int!
   type: eventType! # use the eventType enum
-  scenario: Scenario!
 }
 
 
@@ -63,9 +51,7 @@ input ScenarioEventInput {
   beforeDays: Int
   order: Int
   afterDays: Int
-  duration: Int
   type: eventType # update the type to use the eventType enum
-  scenario: ID!
 }
 
   enum productCategory {
@@ -691,7 +677,7 @@ type Event {
 
   # createEventsFromScenario(id:ID):[Event]
   # deleteScenario(id: ID!): Scenario
-  # createScenarioEvent(input: ScenarioEventInput!): ScenarioEvent
+  createScenarioEvent(input: ScenarioEventInput!): ScenarioEvent
   # updateScenarioEvent(id: ID!, input: ScenarioEventInput!): ScenarioEvent
   # deleteScenarioEvent(id: ID!): ScenarioEvent
 

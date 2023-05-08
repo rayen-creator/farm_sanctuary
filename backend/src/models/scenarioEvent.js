@@ -14,8 +14,7 @@ const scenarioEventSchema = new mongoose.Schema({
   title: String,
   beforeDays: Number,
   afterDays:Number,
-  order:Number, 
-  duration:Number,
+  order:Number,
   type: {
     type: String,
     enum:eventType,
