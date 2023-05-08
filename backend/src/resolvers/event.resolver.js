@@ -1,5 +1,6 @@
 const { UserInputError } = require("apollo-server-express");
-const eventService = require("../services/event").default;
+const eventService = require("../services/event");
+
 const eventResolver = {
   Query: {
     async getEvent(_, { id }) { 

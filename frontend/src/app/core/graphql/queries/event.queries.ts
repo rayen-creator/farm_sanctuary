@@ -3,7 +3,7 @@ import { gql } from 'apollo-angular';
 export const getEvents = gql`
   {
     getEvents {
-      id
+      _id
       title
       description
       start
