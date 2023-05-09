@@ -83,7 +83,7 @@
                     <a routerLink="home">Home</a>
                   </li>
                   <li><a routerLink="about">About</a></li>
-                  <li class="dropdown">
+                  <!-- <li class="dropdown">
                     <a href="#">Services</a>
                     <ul>
                       <li><a href="services.html">All Services</a></li>
@@ -100,33 +100,34 @@
                       </li>
                       <li><a href="dairy-products.html">Dairy Products</a></li>
                     </ul>
-                  </li>
+                  </li> -->
                   <li class="dropdown">
                     <a routerLink="marketplace">Shop</a>
                     <ul>
                       <li><a routerLink="marketplace">Products</a></li>
-                      <li>
-                        <a href="product-details.html">Product Details</a>
+                      <li *ngIf="role === 'CLIENT'">
+                        <a routerLink="marketplace/cart">Cart</a>
                       </li>
-                      <li><a routerLink="marketplace/cart">Cart</a></li>
-                      <li><a routerLink="recommendedproducts">Recommended Farming Products</a></li>
+                      <li *ngIf="role === 'FARMER'">
+                        <a routerLink="recommendedproducts"
+                          >Recommended Farming Products</a
+                        >
+                      </li>
 
-                      <li><a href="checkout.html">Checkout</a></li>
-                      <li *ngIf="role === 'FARMER'"><a routerLink="marketplace/orders">Orders</a></li>
-                      <li *ngIf="role === 'CLIENT'"><a routerLink="marketplace/myOrders">Orders</a></li>
+                      <li *ngIf="role === 'FARMER'">
+                        <a routerLink="marketplace/orders">Orders</a>
+                      </li>
+                      <li *ngIf="role === 'CLIENT'">
+                        <a routerLink="marketplace/myOrders">Orders</a>
+                      </li>
                     </ul>
                   </li>
-                  <li class="dropdown">
+                  <li *ngIf="role == 'FARMER'" class="dropdown">
                     <a routerLink="/latestnew">Blog</a>
                     <ul>
                       <li><a routerLink="/latestnew">News</a></li>
                       <li class="dropdown">
                         <a routerLink="/addarticle">add new article</a>
-                        <!-- <ul>
-                          <li><a href="news-2-col.html">News Two Col</a></li>
-                          <li><a href="news.html">News Three Col</a></li>
-                          <li><a href="news-4-col.html">News Four Col</a></li>
-                        </ul> -->
                       </li>
                       <li>
                         <a routerLink="/myarticles">myarticles</a>
@@ -142,9 +143,7 @@
           <div class="main-header--one__bottom-middel">
             <div class="logo">
               <a routerLink="home">
-                <img
-                  src="assets/LogoFarmSanctuary-preview.png"
-                />
+                <img src="assets/LogoFarmSanctuary-preview.png" />
               </a>
             </div>
           </div>
@@ -152,41 +151,97 @@
           <div class="main-header--one__bottom-right clearfix">
             <div class="search-cart" *ngIf="userIsAuthenticated">
               <div class="icon-container">
-                <a routerLink="addfeedback" class="search search-toggler" >
+                <a routerLink="addfeedback" class="search search-toggler">
                   <span class="bx bx-message-dots"></span>
                 </a>
-                <a routerLink="marketplace/cart" class="cart mini-cart__toggler">
+                <a *ngIf="role === 'CLIENT'"
+                  routerLink="marketplace/cart"
+                  class="cart mini-cart__toggler"
+                >
                   <span class="icon-shopping-cart"></span>
-                  <span class="badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+                  <span class="badge" *ngIf="cartItemCount > 0">{{
+                    cartItemCount
+                  }}</span>
                 </a>
-                <a routerLink="calendar" >
-          <span class="icon-agriculture"></span>
+                <a *ngIf="role === 'FARMER'" routerLink="calendar">
+                  <i class="fas fa-calendar-alt"></i>
 
-                  <span class="badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+                  <span class="badge" *ngIf="cartItemCount > 0">{{
+                    cartItemCount
+                  }}</span>
                 </a>
+                <a *ngIf="role === 'FARMER'" routerLink="croprecommendation">
+                  <span class="icon-agriculture"></span>
+                </a>
+               
+
                 <li class="nav-item dropdown">
-                  <a class="nav-link" href="#" id="notification-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="clearNotificationCount()">
+                  <a
+                    class="nav-link"
+                    href="#"
+                    id="notification-dropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    (click)="clearNotificationCount()"
+                  >
                     <i class="fa fa-bell"></i>
-                    <span class="badge badge-pill badge-danger" *ngIf="notificationCount">{{ notificationCount }}</span>
+                    <span
+                      class="badge badge-pill badge-danger"
+                      *ngIf="notificationCount"
+                      >{{ notificationCount }}</span
+                    >
                   </a>
-                  <div class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notification-dropdown">
+                  <div
+                    class="dropdown-menu dropdown-menu-end notification-dropdown"
+                    aria-labelledby="notification-dropdown"
+                  >
                     <h6 class="dropdown-header">Notifications</h6>
-                    <div *ngIf="notifications.length === 0" class="dropdown-item text-center">No notifications</div>
-                    <ng-container *ngFor="let notification of notifications.slice(-6)">
-                      <a class="dropdown-item notification-item" routerLink="/notifications">
-                        <div class="notification-content-and-status" style="width: 100%; display: flex; align-items: center;">
-                          <div class="notification-content" style="max-width: 500px; height: auto; overflow: auto; white-space: pre-wrap;">
+                    <div
+                      *ngIf="notifications.length === 0"
+                      class="dropdown-item text-center"
+                    >
+                      No notifications
+                    </div>
+                    <ng-container
+                      *ngFor="let notification of notifications.slice(-6)"
+                    >
+                      <a
+                        class="dropdown-item notification-item"
+                        routerLink="/notifications"
+                      >
+                        <div
+                          class="notification-content-and-status"
+                          style="
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                          "
+                        >
+                          <div
+                            class="notification-content"
+                            style="
+                              max-width: 500px;
+                              height: auto;
+                              overflow: auto;
+                              white-space: pre-wrap;
+                            "
+                          >
                             {{ notification.content }}
                           </div>
                         </div>
-                        <div class="notification-date">{{ notification.createdAt | date: 'MMM d, y' }}</div>
+                        <div class="notification-date">
+                          {{ notification.createdAt | date : "MMM d, y" }}
+                        </div>
                       </a>
                     </ng-container>
-                    <a class="dropdown-item text-center" routerLink="/notifications">View all notifications</a>
+                    <a
+                      class="dropdown-item text-center"
+                      routerLink="/notifications"
+                      >View all notifications</a
+                    >
                   </div>
-
-
-
+                </li>
               </div>
             </div>
 
@@ -195,20 +250,31 @@
                 <div class="dropdown-avatar">
                   <img class="avatar" src="{{ img }}" alt="Avatar" />
                   <div class="dropdown-content">
-                   <h5><i class='bx bx-user-circle' ></i> {{ username }}</h5>
-                    <hr class="dropdown-divider">
-                    <a routerLink="myprofile/{{ userId }}"><i class='bx bxs-user-circle'></i> Profile</a>
-                    <a routerLink="/marketplace/myProducts">My Products</a>
-                    <a routerLink="Messages" >Messages</a>
-                    <a routerLink="profile/{{ userId }}"><i class='bx bx-cog'></i> Settings</a>
-                    <hr class="dropdown-divider">
-                    <a (click)="loggingout()"><i class='bx bx-log-out'></i> Logout</a>
+                    <h5><i class="bx bx-user-circle"></i> {{ username }}</h5>
+                    <hr class="dropdown-divider" />
+                    <a routerLink="myprofile/{{ userId }}"
+                      ><i class="bx bxs-user-circle"></i> Profile</a
+                    >
+                    <a
+                      *ngIf="role === 'FARMER'"
+                      routerLink="/marketplace/myProducts"
+                      ><i class="fas fa-box"></i> Products</a
+                    >
+                    <a *ngIf="role === 'FARMER'" routerLink="Messages"
+                      ><i class="fas fa-inbox"></i> Messages</a
+                    >
+                    <a routerLink="profile/{{ userId }}"
+                      ><i class="bx bx-cog"></i> Settings</a
+                    >
+                    <hr class="dropdown-divider" />
+                    <a (click)="loggingout()"
+                      ><i class="bx bx-log-out"></i> Logout</a
+                    >
                   </div>
                 </div>
               </div>
             </div>
             <div class="contact-box" *ngIf="!userIsAuthenticated">
-
               <button class="btn btn-success" routerLink="login">
                 Sign in
               </button>

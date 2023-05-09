@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Event = require("./event"); // import the event model
 const eventType = Object.freeze({
   PLANTING: 'PLANTING',
   HARVESTING: 'HARVESTING',
@@ -7,22 +8,18 @@ const eventType = Object.freeze({
   PEST_CONTROL:'PEST_CONTROL',
   IRRIGATION:'IRRIGATION',
   CROP_ROTATION:'CROP_ROTATION'
-  
-});
 
-const eventSchema = new mongoose.Schema({
+});
+const scenarioEventSchema = new mongoose.Schema({
   title: String,
-  description: String,
-  start:String, 
-  end:String,
+  beforeDays: Number,
+  afterDays:Number,
+  order:Number,
   type: {
     type: String,
     enum:eventType,
-  }, 
-  scenarioLabel:String,
-  isAuto:Boolean,
-
+  },
 });
 
-const Event = mongoose.model('Events', eventSchema);
-module.exports = Event;
+const ScenarioEvent=mongoose.model('ScenarioEvent', scenarioEventSchema);
+module.exports=ScenarioEvent

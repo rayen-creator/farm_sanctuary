@@ -13,16 +13,6 @@ const typeDefs = gql`
     TECHNICAL
     NON_TECHNICAL
     FUNCTIONAL
-  } 
-  enum eventType {
-    PLANTING
-  HARVESTING
-  FERTILISER_APPLICATION
-  LIVESTOCK_CARE
-  PEST_CONTROL
-  IRRIGATION
-  CROP_ROTATION
-
   }
 
   enum Unit {
@@ -31,6 +21,40 @@ const typeDefs = gql`
     LITRE
     COUNT
   }
+  type Scenario {
+    id: ID!
+    label: String!
+    isActive: Boolean!
+    description: String
+    scenarioEvents: [ScenarioEvent!]!
+  }
+
+  input ScenarioInput {
+    label: String!
+    isActive: Boolean!
+    description: String
+    scenarioEvents: [ID!]
+  }
+
+  type ScenarioEvent {
+  id: ID!
+  title: String!
+  beforeDays: Int!
+  order: Int!
+  afterDays: Int!
+  type: eventType! # use the eventType enum
+}
+
+
+
+input ScenarioEventInput {
+  title: String
+  beforeDays: Int
+  order: Int
+  afterDays: Int
+  type: eventType # update the type to use the eventType enum
+}
+
   enum productCategory {
     FRUITS
     VEGETABLES
@@ -124,15 +148,35 @@ const typeDefs = gql`
   city: String
   }
  
-  type Event{
-    id: ID!
-    title: String!
-   description: String! 
-   start:String!
-   end:String!
-   type: eventType!
+  enum eventType {
+  PLANTING
+  HARVESTING
+  FERTILISER_APPLICATION
+  LIVESTOCK_CARE
+  PEST_CONTROL
+  IRRIGATION
+  CROP_ROTATION
+}
 
-  }
+type Event {
+  _id: ID!
+  title: String!
+  description: String
+  start: String!
+  end: String!
+  type: eventType! # use the eventType enum
+  scenarioLabel: String
+  isAuto: Boolean
+}
+
+
+
+
+
+
+
+
+
 
   input CartItemInput {
     name: String!
@@ -242,17 +286,17 @@ const typeDefs = gql`
   }
 
   input UserInput {
-    username: String!
-    email: String!
-    phone: Int!
-    password: String!
-    isActive: Boolean!
-    gender: Gender!
-    role: Role!
+    username: String
+    email: String
+    phone: Int
+    password: String
+    isActive: Boolean
+    gender: Gender
+    role: Role
     image: Upload
     two_FactAuth_Option: Boolean
     daily_tips_option: Boolean
-    location: String!
+    location: String
     bio: String
     birthday: DateTime
   }
@@ -583,13 +627,19 @@ const typeDefs = gql`
     notifications: [Notification!]!
     getNotificationsByUser(userId:ID!):[Notification!]!
 
+
+  #   getScenario(id: ID!): Scenario
+  # getScenarios: [Scenario]
+  # scenarioEvents: [ScenarioEvent!]!
+  scenarioEvent(id: ID!): ScenarioEvent
+
   }
 
   type Mutation {
 
     createCarbon(input: carbonInput!): carbonResponse!
 
-    signup(input: UserInput!): SignupResponse!
+    signup(input: UserInput): SignupResponse!
     signin(input: signinInput!): LoginResponse!
     sendmail(input: ForgetpwdInput!): ForgetpwdResponse!
     sendOTPVerificationEmail(input: twoFactorAuthInput!): twoFactorAuthResponse!
@@ -659,6 +709,15 @@ const typeDefs = gql`
   updateEvent(id: ID!, input: eventInput!): Event!
   deleteEvent(id: ID!): Event!
 
+
+  createScenario(input: ScenarioInput!): Scenario!
+    createEventsFromScenario(label: String!): [Event!]!
+
+  # createEventsFromScenario(id:ID):[Event]
+  # deleteScenario(id: ID!): Scenario
+  createScenarioEvent(input: ScenarioEventInput!): ScenarioEvent
+  # updateScenarioEvent(id: ID!, input: ScenarioEventInput!): ScenarioEvent
+  # deleteScenarioEvent(id: ID!): ScenarioEvent
 
 
    

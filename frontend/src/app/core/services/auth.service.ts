@@ -23,7 +23,6 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -48,6 +47,46 @@ export class AuthService {
     private http: HttpClient,
   ) { }
 
+  
+
+  googleLogin(user:any) {
+    const role=roles.CLIENT;
+    const input = {
+      username: user.name,
+      email: user.email,
+      password: user.id,
+      isActive: false,
+      role: role,
+      // location: user.location,
+      birthday: new Date(),
+      // bio: user.bio
+    };
+
+    return this.appolo.mutate({
+      mutation: signup,
+      variables: {
+        input: input,
+      },
+    }).subscribe({
+      next:(res)=>{
+        const now = new Date();
+        const expirationDate = new Date(
+          now.getTime() + 8600 * 1000
+        );
+        this.saveAuthData(
+          user.idToken, 
+          user.name,
+          expirationDate,
+          role,
+          user.photoUrl);
+          this.router.navigate(['/home']);
+
+      },error:(err)=>{
+        console.log("err",err)
+        throw err;
+      }
+    });
+    }
   loginFaceID(faceLogin: any) {
     return this.http.post(`${environment.flask}/recognize_face`, faceLogin).subscribe({
 

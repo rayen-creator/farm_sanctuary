@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -29,6 +28,9 @@ const orderResolver = require("./src/resolvers/order.resolver");
 const eventResolver=require('./src/resolvers/event.resolver');
 const mapResolver = require("./src/resolvers/map.resolver");
 const carbonResolver = require("./src/resolvers/CarbonEmissions.resolver");
+const scenarioResolver = require("./src/resolvers/scenario.resolver");
+const scenarioEventResolver = require("./src/resolvers/scenarioEvent.resolver");
+
 
 app.use(morgan("dev"));
 
@@ -62,7 +64,11 @@ const server = new ApolloServer({
     orderResolver,
     eventResolver,
     mapResolver,
-    carbonResolver
+    carbonResolver, 
+    scenarioResolver, 
+    scenarioEventResolver,
+    
+
   ],
 });
 

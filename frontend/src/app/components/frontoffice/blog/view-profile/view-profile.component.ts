@@ -71,7 +71,14 @@ export class ViewProfileComponent implements OnInit, OnDestroy {
       this.userId = this.decodedToken.id;
     });
   }
+  calculateAge(birthday: any) {
+   const brithDate=new Date(birthday);
+   const today=new Date();
 
+   const age=today.getFullYear()-brithDate.getFullYear();
+   console.log("d",today.getFullYear(),"m",brithDate.getFullYear())
+   return age;
+  }
   getBadgeByid(id: string) {
     this.badgeService.getBadgeById(id).subscribe({
       next: (badge) => {

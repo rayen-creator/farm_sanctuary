@@ -36,7 +36,7 @@ export class EventService {
     }, refetchQueries: [
       {
         query:getEvents,
-      }   
+      }
     ]
   }).subscribe({
     next: (result: any) => {
@@ -50,20 +50,20 @@ export class EventService {
   })
 }
 
-getEvents(): Observable<Event[]> {
-  // @ts-ignore
-  return this.apollo
-    .watchQuery({
-      query: getEvents,
-    }).valueChanges.pipe(
-      // @ts-ignore
-      map((res) => res.data.getEvents as Event[]),
-      catchError((err) => {
-        console.log(err);
-        return of([]);
-      })
-    );
-}
+  getEvents(): Observable<Event[]> {
+    // @ts-ignore
+    return this.apollo
+      .watchQuery({
+        query: getEvents,
+      }).valueChanges.pipe(
+        // @ts-ignore
+        map((res) => res.data.getEvents as Event[]),
+        catchError((err) => {
+          console.log(err);
+          return of([]);
+        })
+      );
+  }
 
 updateEvent(id: string, event: Event): Observable<Event> {
   const input = {

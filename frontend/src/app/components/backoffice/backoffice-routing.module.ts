@@ -11,7 +11,7 @@ import {OrderListComponent} from "./orders/order-list/order-list.component";
 const routes: Routes = [
   {
     path: '', component: BackofficeComponent, children: [
-      {path :'' , redirectTo : 'availablebadges' , pathMatch :'full'},
+      {path :'' , redirectTo : 'dashboard' , pathMatch :'full'},
       {path:'users', component: UserListComponent},
       {path:'dashboard',component:AdminDashboardComponent},
       {path:'delvery', component: DeliveryAgentComponent},
