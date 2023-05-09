@@ -36,6 +36,7 @@ import { ChatbotComponent } from './chabot/chatbot.component';
 import { NotificationComponent } from './notification/notification.component';
 import { CalendarViewComponent } from './Calendar/calendar-view/calendar-view.component';
 import { MapComponent } from './map/map.component';
+import { CarbonfootprintComponent } from './carbonfootprint/carbonfootprint.component';
 
 
 const routes: Routes = [
@@ -73,7 +74,8 @@ const routes: Routes = [
       { path: 'Map/:id', component: MapComponent },
       { path: 'chat/:id', component: LivechatComponent },
       { path: 'notifications',component: NotificationComponent},
-      { path: 'calendar', component: CalendarViewComponent}
+      { path: 'calendar', component: CalendarViewComponent},
+      { path: 'carbon', component: CarbonfootprintComponent}
 
     ]
   },

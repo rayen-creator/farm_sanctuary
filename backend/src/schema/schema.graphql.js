@@ -524,13 +524,11 @@ const typeDefs = gql`
     landsize: Float!
   }
   type carbonResponse{
+    carbon: carbon!
     message: String!
   } 
 
   type Query {
-    
-   
-
     getcord(address: String!): getcordResponse
     getUser(id: ID!): User!
     getUsers: [User!]!

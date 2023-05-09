@@ -255,6 +255,7 @@ async function createCarbon(input) {
   await carbon.save();
 
   return {
+    carbon : carbon,
     message: "carbon added!",
   };
 }
