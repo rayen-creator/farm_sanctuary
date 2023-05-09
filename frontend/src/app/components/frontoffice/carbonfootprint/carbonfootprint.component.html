@@ -1,0 +1,139 @@
+<section class="page-header clearfix" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg)">
+  <div class="container">
+    <div class="page-header__inner text-center clearfix">
+      <ul class="thm-breadcrumb">
+        <li><a routerLink="/home">Home</a></li>
+      </ul>
+      <h2>Calculate your carbon foot print</h2>
+    </div>
+  </div>
+</section>
+<div class="container py-5">
+
+  <div class="row">
+    <div class="col-md-12 col-md-offset-5">
+      <form [formGroup]="EnergyEmissions" id="msform">
+        <!-- progressbar -->
+        <ul id="progressbar">
+          <li [ngClass]="step>=1 ? 'active' : 'inactive'">Energy Emissions</li>
+          <li [ngClass]="step>=2 ? 'active' : 'inactive'">Electricity Emissions</li>
+          <li [ngClass]="step>=3 ? 'active' : 'inactive'">Fertilizer Emissions</li>
+
+        </ul>
+        <ul id="progressbar2">
+          <li [ngClass]="step>=4 ? 'active' : 'inactive'">Livestock Emissions</li>
+          <li [ngClass]="step==5 ? 'active' : 'inactive'">Crop Emissions</li>
+        </ul>
+        <!-- fieldsets -->
+
+        <fieldset *ngIf="step == 1">
+          <h2 class="fs-title">Energy Emissions</h2>
+          <input type="number" formControlName="dieseleconsumption" name="dieseleconsumption"
+            placeholder="Enter your diesele consumption">
+
+          <input type="number" formControlName="gasolineconsumption" name="gasolineconsumption"
+            placeholder="Enter your gasoline consumption" />
+
+
+          <input (click)="next()" type="button" name="next" class="next action-button" value="Next" />
+        </fieldset>
+      </form>
+      <form [formGroup]="ElectricityEmissions" id="msform">
+        <fieldset *ngIf="step == 2">
+          <h2 class="fs-title">Electricity Emissions</h2>
+          <label>Type of carbon </label>
+          <select formControlName="typeofcarbon" class="form-control">
+            <option value="coal" selected>coal </option>
+            <option value="natural gas">natural gas</option>
+            <option value="petroleum">petroleum</option>
+          </select>
+          <br>
+          <input type="number" formControlName="usageInKwh" name="subject"
+            placeholder="Enter your usage of electricity in Kwh" />
+
+          <input (click)="previous()" type="button" name="previous" class="previous action-button-previous"
+            value="Previous" />
+          <input (click)="next()" type="button" name="next" class="next action-button" value="Next" />
+        </fieldset>
+      </form>
+      <form [formGroup]="FertilizerEmissions" id="msform">
+        <fieldset *ngIf="step == 3">
+          <h2 class="fs-title">Fertilizer Emissions</h2>
+          <select formControlName="fertilizerType" class="form-control">
+            <option value="ammonium nitrate" selected>ammonium nitrate </option>
+            <option value="ammonium sulfate">ammonium sulfate</option>
+            <option value="potassium chloride">potassium chloride</option>
+            <option value="nitrogen-based">nitrogen-based</option>
+
+          </select>
+          <br>
+          <input type="number" formControlName="fertilizerConsumption" name="fertilizerConsumption"
+            placeholder="Enter your fertilizer consumption " />
+
+
+          <input (click)="previous()" type="button" name="previous" class="previous action-button-previous"
+            value="Previous" />
+          <input (click)="next()" type="button" name="next" class="next action-button" value="Next" />
+        </fieldset>
+      </form>
+      <form [formGroup]="LivestockEmissions" id="msform">
+        <fieldset *ngIf="step == 4">
+
+          <input type="number" formControlName="numBeefCattle" name="numBeefCattle" placeholder="beef cattle " />
+
+          <input type="number" formControlName="numDairyCattle" name="numDairyCattle" placeholder="dairy cattle" />
+
+          <input type="number" formControlName="numPigs" name="numPigs" placeholder="pigs" />
+
+          <input type="number" formControlName="numPoultry" name="numPoultry" placeholder="poultry" />
+
+          <input type="number" formControlName="numSheep" name="numSheep" placeholder="sheep" />
+
+          <input type="number" formControlName="numGoats" name="numGoats" placeholder="goats" />
+
+
+
+          <input (click)="previous()" type="button" name="previous" class="previous action-button-previous"
+            value="Previous" />
+          <input (click)="next()" type="button" name="next" class="next action-button" value="Next" />
+        </fieldset>
+      </form>
+
+      <form [formGroup]="CropEmissions" id="msform">
+        <fieldset *ngIf="step == 5">
+          <input type="number" formControlName="cropTransportDistance" name="cropTransportDistance"
+            placeholder="Entre the distance of transportation of the crop" />
+          <input type="number" formControlName="fuelused" name="fuelused"
+            placeholder="Entre how much fuel used in litre" />
+          <select formControlName="typeoffuel" class="form-control">
+            <option value="diesele" selected>diesele</option>
+            <option value="gasoline">gasoline</option>
+          </select>
+          <br>
+          <input type="number" formControlName="landsize" name="landsize" placeholder="Enter the size of your land" />
+          <input type="number" formControlName="cropProduction" name="cropProduction"
+            placeholder="Enter the wight of the produced crops in kg" />
+          <select formControlName="typeofcrop" class="form-control">
+            <option value="Cereals" selected>Cereals</option>
+            <option value="Barley">Barley</option>
+            <option value="Maize">Maize</option>
+            <option value="Wheat">Wheat</option>
+            <option value="Potatoes">Potatoes</option>
+            <option value="Tomatoes">Tomatoes</option>
+            <option value="Cabbage">Cabbage</option>
+          </select>
+
+          <input (click)="previous()" type="button" name="previous" class="previous action-button-previous" value="Previous" />
+          <input (click)="onSubmit()" type="submit" name="submit"  class="submit action-button" value="Submit" />
+        </fieldset>
+      </form>
+
+
+
+
+    </div>
+  </div>
+
+
+
+</div>
