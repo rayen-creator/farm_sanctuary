@@ -9,26 +9,26 @@
                     <div class="overlay rounded-right"></div>
                     <div class="account-testimonial">
                       <h4 class="text-white mb-4">
-                        This crop recommendation model 
+                        This crop recommendation model
                         <button class="text-danger"(click)="downloadPdfFile()">Download Our guide for more</button>
 
-                      </h4> 
+                      </h4>
 
-              
+
                       <p class="lead text-white">
                         helps you choose the best seed to Grow in your farm.
                       </p>
                     </div>
                   </div>
                 </div>
-              
+
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="mb-5">
                     <h3 class="h4 font-weight-bold text-theme">Crop Recommendation Model</h3>
                   </div>
 
-  
+
                         <!-- app.component.html -->
                         <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
                           <div class="form-group">
@@ -40,9 +40,9 @@
                               <span class="error" *ngIf="myForm.controls.N.errors?.pattern">N must be an Integer.</span>
                               </span>
                           </div>
-                        
-                          
-                          
+
+
+
                           <div class="form-group">
                             <label for="P">P:</label>
                             <input type="number" formControlName="P" name="P" class="form-control" step="1" required>
@@ -51,7 +51,7 @@
                               <span class="error" *ngIf="myForm.controls.P.errors?.pattern">P must be an Integer.</span>
                             </span>
                           </div>
-                          
+
                           <div class="form-group">
                             <label for="K">K:</label>
                             <input type="number" formControlName="K" name="K" class="form-control" step="1" required>
@@ -60,7 +60,7 @@
                               <span class="error" *ngIf="myForm.controls.K.errors?.pattern">K must be a number.</span>
                             </span>
                           </div>
-                          
+
                           <div class="form-group">
                             <label for="temperature">Temperature:</label>
                             <input type="number" formControlName="temperature" name="temperature" class="form-control" step="0.1" required>
@@ -69,7 +69,7 @@
                               <span class="error" *ngIf="myForm.controls.temperature.errors?.pattern">Temperature must be a number.</span>
                             </span>
                           </div>
-                          
+
                           <div class="form-group">
                             <label for="humidity">Humidity:</label>
                             <input type="number" formControlName="humidity" name="humidity" class="form-control" step="0.1" required>
@@ -86,7 +86,7 @@
                               <span class="error" *ngIf="myForm.controls.ph.errors?.pattern">pH must be a number.</span>
                             </span>
                           </div>
-                          
+
 
                           <div class="form-group">
                             <label for="rainfall">Rainfall:</label>
@@ -96,24 +96,24 @@
                               <span class="error" *ngIf="myForm.controls.rainfall.errors?.pattern">Rainfall must be a number.</span>
                             </span>
                           </div>
-                          
+
                           <br>
-                          <button class="btn btn-success forgot-link d-flex justify-content-start" 
+                          <button class="btn btn-success forgot-link d-flex justify-content-start"
                           type="submit"
                           [disabled]="!myForm.valid">
                     Submit
                   </button>
                                           </form>
-                        <br> 
-                        
-                        
+                        <br>
+
+
                          <div *ngIf="showResult">
                          <h3>Prediction result:</h3>
                          <p>{{ predictionResult }}</p>
                          </div>
-  
-                      
-                      
+
+
+
                         </div>
                       </div>
                     </div>
@@ -123,7 +123,7 @@
                 <!-- end card -->
               </div>
               <!-- end col -->
-            
+
             <!-- Row -->
           </div>
         </body>
