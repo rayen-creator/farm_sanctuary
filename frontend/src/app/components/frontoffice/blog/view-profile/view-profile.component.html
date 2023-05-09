@@ -24,20 +24,18 @@
           </div>
           <h6 class="theme-color lead">{{ user.role }}</h6>
           <p>
-            I <mark>design and develop</mark> services for customers of all
-            sizes, specializing in creating stylish, modern websites, web
-            services and online stores. My passion is to design digital user
-            experiences through the bold interface and meaningful interactions.
+          {{user.bio}}
+           <span *ngIf="!user.bio">No bio </span>
           </p>
           <div class="row about-list">
             <div class="col-md-6">
               <div class="media">
                 <label>Birthday</label>
-                <p>4th april 1998</p>
+                <p>{{user.birthday | date}}</p>
               </div>
               <div class="media">
                 <label>Age</label>
-                <p>22 Yr</p>
+                <p>{{calculateAge(user.birthday) }} Yr</p>
               </div>
               <div class="media">
                 <label>Country</label>
