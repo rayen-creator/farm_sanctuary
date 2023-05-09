@@ -536,9 +536,43 @@ type Event {
   id: ID!
  }
 
+ type carbon {
+    id: ID!
+    date: DateTime!
+    energy_emissions: Float!
+    Electricity_Emissions: Float!
+    fertilizer_emissions: Float!
+    livestock_emissions: Float!
+    crop_emissions: Float!
+    totalcarbonfootprint: Float!
+   
+  }
+  input carbonInput{
+    dieselFuelConsumption: Float!
+    gasolineFuelConsumption: Float!
+    usageInKwh: Float!
+    typeofcarbon: String!
+    fertilizerConsumption: Float!
+    fertilizerType: String!
+    numBeefCattle: Int!
+    numDairyCattle: Int!
+    numPigs: Int!
+    numPoultry: Int!
+    numSheep: Int!
+    numGoats: Int!
+    cropTransportDistance: Float!
+    cropProduction: Float!
+    typeofcrop: String!
+    fuelused: Float!
+    typeoffuel: String!
+    landsize: Float!
+  }
+  type carbonResponse{
+    carbon: carbon!
+    message: String!
+  } 
 
   type Query {
-    
     getcord(address: String!): getcordResponse
     getUser(id: ID!): User!
     getUsers: [User!]!
@@ -602,6 +636,9 @@ type Event {
   }
 
   type Mutation {
+
+    createCarbon(input: carbonInput!): carbonResponse!
+
     signup(input: UserInput): SignupResponse!
     signin(input: signinInput!): LoginResponse!
     sendmail(input: ForgetpwdInput!): ForgetpwdResponse!

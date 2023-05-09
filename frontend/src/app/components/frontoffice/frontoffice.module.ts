@@ -49,6 +49,7 @@ import { HomeComponent } from './shared/home/home.component';
 import { CalendarViewComponent } from './Calendar/calendar-view/calendar-view.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AddEventComponent } from './Calendar/add-event/add-event.component';
+import { CarbonfootprintComponent } from './carbonfootprint/carbonfootprint.component';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import { AddEventComponent } from './Calendar/add-event/add-event.component';
     CalendarViewComponent,
     AddEventComponent,
     MapComponent,
-    FacialLoginComponent
+    FacialLoginComponent,
+    CarbonfootprintComponent
   ],
   imports: [
     CommonModule,
