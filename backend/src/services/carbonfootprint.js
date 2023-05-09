@@ -205,12 +205,12 @@ function energy_related_emissions(
 ) {
   const dieselFuelEmissions = dieselFuelConsumption * 2.68;
   const gasolineFuelEmissions = gasolineFuelConsumption * 2.32;
-  console.log("energy", dieselFuelConsumption);
+
   return dieselFuelEmissions + gasolineFuelEmissions;
 }
 
 async function createCarbon(input) {
-  console.log("input: " + input.gasolineFuelConsumption);
+
   const energy_emissions = energy_related_emissions(
     input.dieselFuelConsumption,
     input.gasolineFuelConsumption
@@ -236,13 +236,6 @@ async function createCarbon(input) {
   
   const total = totalcarbonfootprint(Electricity_Emissions, energy_emissions, fertilizer_emissions, livestock_emissions, crop_emissions)
 
-  console.log("crop_emissions: ",crop_emissions)
-  console.log("Electricity_Emissions: ", Electricity_Emissions);
-  console.log("fertilizer_emissions: ", fertilizer_emissions);
-  console.log("livestock_emissions: ",livestock_emissions)
-  console.log("energy_emissions: ", energy_emissions);
-  console.log("total: ", total);
-
   const carbon = new Carbon({
       energy_emissions: energy_emissions,
       Electricity_Emissions: Electricity_Emissions,
@@ -251,7 +244,7 @@ async function createCarbon(input) {
       crop_emissions: crop_emissions,
       totalcarbonfootprint: total,
   });
-  console.log("carbon: ", carbon);
+
   await carbon.save();
 
   return {

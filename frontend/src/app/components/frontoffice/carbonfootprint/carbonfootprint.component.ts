@@ -21,7 +21,7 @@ export class CarbonfootprintComponent implements OnInit {
   category_step = false;
   content_step = false;
   step = 1;
-  carbon : any;
+  carbon : Carbon;
 
   constructor(private formBuilder: FormBuilder,
     private crbonService: CarbonService,) { }
@@ -194,7 +194,7 @@ export class CarbonfootprintComponent implements OnInit {
           cropTransportDistanc, cropProductio, typeofcro, fueluse, typeoffue, landsiz).subscribe({
             next: (res:any) => {
               //createCarbon
-             this.carbon =  res.data.createCarbon.carbon ;
+             this.carbon =  res.data.createCarbon.carbon as Carbon ;
               console.log(this.carbon);
             },
             error: (err) => {

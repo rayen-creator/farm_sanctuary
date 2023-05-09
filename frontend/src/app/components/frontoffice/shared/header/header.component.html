@@ -170,6 +170,9 @@
                     cartItemCount
                   }}</span>
                 </a>
+                <a *ngIf="role === 'FARMER'" routerLink="carbon">
+                  <i class='bx bx-calculator'></i>
+                </a>
                 <a *ngIf="role === 'FARMER'" routerLink="croprecommendation">
                   <span class="icon-agriculture"></span>
                 </a>
