@@ -164,12 +164,17 @@
                   }}</span>
                 </a>
                 <a *ngIf="role === 'FARMER'" routerLink="calendar">
-                  <span class="icon-agriculture"></span>
+                  <i class="fas fa-calendar-alt"></i>
 
                   <span class="badge" *ngIf="cartItemCount > 0">{{
                     cartItemCount
                   }}</span>
                 </a>
+                <a *ngIf="role === 'FARMER'" routerLink="croprecommendation">
+                  <span class="icon-agriculture"></span>
+                </a>
+               
+
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link"
