@@ -18,8 +18,6 @@ export class ScenarioService {
     private appolo: Apollo,
     private router: Router,
     private toastr: ToastrService,
-    private scenarioService: ScenarioService
-
   ) { }
 
   createEventsFromScenario(label: string){
@@ -30,7 +28,7 @@ export class ScenarioService {
       }).subscribe({
         next: (res) => {
           //get the response
-          const events = res.data as Event[];
+          return res.data as Event[];
         },
         error: (err) => {
           console.log(err);

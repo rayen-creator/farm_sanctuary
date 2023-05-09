@@ -3,127 +3,290 @@
     <div class="row justify-content-center">
       <div class="col-xl-10">
         <div class="card border-1 mt-4">
-            <div class="row no-gutters">
-              <div class="col-lg-6 d-none d-lg-inline-block">
-                  <div class="account-block rounded-right">
-                    <div class="overlay rounded-right"></div>
-                    <div class="account-testimonial">
-                      <h4 class="text-white mb-4">
-                        This crop recommendation model
-                        <button class="text-danger"(click)="downloadPdfFile()">Download Our guide for more</button>
+          <div class="row no-gutters">
+            <div class="col-lg-6 d-none d-lg-inline-block">
+              <div class="account-block rounded-right">
+                <div class="overlay rounded-right"></div>
+                <div class="account-testimonial">
+                  <h4 class="text-white mb-4">
+                    This crop recommendation model
+                    <button class="text-danger" (click)="downloadPdfFile()">
+                      Download Our guide for more
+                    </button>
+                  </h4>
 
-                      </h4>
-
-
-                      <p class="lead text-white">
-                        helps you choose the best seed to Grow in your farm.
-                      </p>
-                    </div>
-                  </div>
+                  <p class="lead text-white">
+                    helps you choose the best seed to Grow in your farm.
+                  </p>
                 </div>
-
-              <div class="col-lg-6">
-                <div class="p-5">
-                  <div class="mb-5">
-                    <h3 class="h4 font-weight-bold text-theme">Crop Recommendation Model</h3>
-                  </div>
-
-
-                        <!-- app.component.html -->
-                        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-                          <div class="form-group">
-                            <label for="N">N:</label>
-                            <input type="number" formControlName="N" name="N" class="form-control" step="1" required>
-                            <span
-                            class="text-danger error-msg error-msg" *ngIf="myForm.controls.N.invalid && (myForm.controls.N.dirty || myForm.controls.N.touched)">
-                              <span class="error" *ngIf="myForm.controls.N.errors?.required">N is required.</span>
-                              <span class="error" *ngIf="myForm.controls.N.errors?.pattern">N must be an Integer.</span>
-                              </span>
-                          </div>
-
-
-
-                          <div class="form-group">
-                            <label for="P">P:</label>
-                            <input type="number" formControlName="P" name="P" class="form-control" step="1" required>
-                            <span class="text-danger error-msg" *ngIf="myForm.controls.P.invalid && (myForm.controls.P.dirty || myForm.controls.P.touched)">
-                              <span class="error" *ngIf="myForm.controls.P.errors?.required">P is required.</span>
-                              <span class="error" *ngIf="myForm.controls.P.errors?.pattern">P must be an Integer.</span>
-                            </span>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="K">K:</label>
-                            <input type="number" formControlName="K" name="K" class="form-control" step="1" required>
-                            <span class="text-danger error-msg" *ngIf="myForm.controls.K.invalid && (myForm.controls.K.dirty || myForm.controls.K.touched)">
-                              <span class="error" *ngIf="myForm.controls.K.errors?.required">K is required.</span>
-                              <span class="error" *ngIf="myForm.controls.K.errors?.pattern">K must be a number.</span>
-                            </span>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="temperature">Temperature:</label>
-                            <input type="number" formControlName="temperature" name="temperature" class="form-control" step="0.1" required>
-                            <span class="text-danger error-msg" *ngIf="myForm.controls.temperature.invalid && (myForm.controls.temperature.dirty || myForm.controls.temperature.touched)">
-                              <span class="error" *ngIf="myForm.controls.temperature.errors?.required">Temperature is required.</span>
-                              <span class="error" *ngIf="myForm.controls.temperature.errors?.pattern">Temperature must be a number.</span>
-                            </span>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="humidity">Humidity:</label>
-                            <input type="number" formControlName="humidity" name="humidity" class="form-control" step="0.1" required>
-                            <span class="text-danger error-msg" *ngIf="myForm.controls.humidity.invalid && (myForm.controls.humidity.dirty || myForm.controls.humidity.touched)">
-                              <span class="error" *ngIf="myForm.controls.humidity.errors?.required">Humidity is required.</span>
-                              <span class="error" *ngIf="myForm.controls.humidity.errors?.pattern">Humidity must be a number.</span>
-                            </span>
-                          </div>
-                          <div class="form-group">
-                            <label for="ph">pH:</label>
-                            <input type="number" formControlName="ph" name="ph" class="form-control" step="0.1" required>
-                            <span class="text-danger error-msg" *ngIf="myForm.controls.ph.invalid && (myForm.controls.ph.dirty || myForm.controls.ph.touched)">
-                              <span class="error" *ngIf="myForm.controls.ph.errors?.required">pH is required.</span>
-                              <span class="error" *ngIf="myForm.controls.ph.errors?.pattern">pH must be a number.</span>
-                            </span>
-                          </div>
-
-
-                          <div class="form-group">
-                            <label for="rainfall">Rainfall:</label>
-                            <input type="number" formControlName="rainfall" name="rainfall" class="form-control" step="0.1" required>
-                            <span class="text-danger error-msg" *ngIf="myForm.controls.rainfall.invalid && (myForm.controls.rainfall.dirty || myForm.controls.rainfall.touched)">
-                              <span class="error" *ngIf="myForm.controls.rainfall.errors?.required">Rainfall is required.</span>
-                              <span class="error" *ngIf="myForm.controls.rainfall.errors?.pattern">Rainfall must be a number.</span>
-                            </span>
-                          </div>
-
-                          <br>
-                          <button class="btn btn-success forgot-link d-flex justify-content-start"
-                          type="submit"
-                          [disabled]="!myForm.valid">
-                    Submit
-                  </button>
-                                          </form>
-                        <br>
-
-
-                         <div *ngIf="showResult">
-                         <h3>Prediction result:</h3>
-                         <p>{{ predictionResult }}</p>
-                         </div>
-
-
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end card-body -->
-                </div>
-                <!-- end card -->
               </div>
-              <!-- end col -->
+            </div>
 
-            <!-- Row -->
+            <div class="col-lg-6">
+              <div class="p-5">
+                <div class="mb-5">
+                  <h3 class="h4 font-weight-bold text-theme">
+                    Crop Recommendation Model
+                  </h3>
+                </div>
+
+                <!-- app.component.html -->
+                <form [formGroup]="myForm" >
+                  <div class="form-group">
+                    <label for="N">N:</label>
+                    <input
+                      type="number"
+                      formControlName="N"
+                      name="N"
+                      class="form-control"
+                      step="1"
+                      required
+                    />
+                    <span
+                      class="text-danger error-msg error-msg"
+                      *ngIf="
+                        myForm.controls.N.invalid &&
+                        (myForm.controls.N.dirty || myForm.controls.N.touched)
+                      "
+                    >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.N.errors?.required"
+                        >N is required.</span
+                      >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.N.errors?.pattern"
+                        >N must be an Integer.</span
+                      >
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="P">P:</label>
+                    <input
+                      type="number"
+                      formControlName="P"
+                      name="P"
+                      class="form-control"
+                      step="1"
+                      required
+                    />
+                    <span
+                      class="text-danger error-msg"
+                      *ngIf="
+                        myForm.controls.P.invalid &&
+                        (myForm.controls.P.dirty || myForm.controls.P.touched)
+                      "
+                    >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.P.errors?.required"
+                        >P is required.</span
+                      >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.P.errors?.pattern"
+                        >P must be an Integer.</span
+                      >
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="K">K:</label>
+                    <input
+                      type="number"
+                      formControlName="K"
+                      name="K"
+                      class="form-control"
+                      step="1"
+                      required
+                    />
+                    <span
+                      class="text-danger error-msg"
+                      *ngIf="
+                        myForm.controls.K.invalid &&
+                        (myForm.controls.K.dirty || myForm.controls.K.touched)
+                      "
+                    >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.K.errors?.required"
+                        >K is required.</span
+                      >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.K.errors?.pattern"
+                        >K must be a number.</span
+                      >
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="temperature">Temperature:</label>
+                    <input
+                      type="number"
+                      formControlName="temperature"
+                      name="temperature"
+                      class="form-control"
+                      step="0.1"
+                      required
+                    />
+                    <span
+                      class="text-danger error-msg"
+                      *ngIf="
+                        myForm.controls.temperature.invalid &&
+                        (myForm.controls.temperature.dirty ||
+                          myForm.controls.temperature.touched)
+                      "
+                    >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.temperature.errors?.required"
+                        >Temperature is required.</span
+                      >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.temperature.errors?.pattern"
+                        >Temperature must be a number.</span
+                      >
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="humidity">Humidity:</label>
+                    <input
+                      type="number"
+                      formControlName="humidity"
+                      name="humidity"
+                      class="form-control"
+                      step="0.1"
+                      required
+                    />
+                    <span
+                      class="text-danger error-msg"
+                      *ngIf="
+                        myForm.controls.humidity.invalid &&
+                        (myForm.controls.humidity.dirty ||
+                          myForm.controls.humidity.touched)
+                      "
+                    >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.humidity.errors?.required"
+                        >Humidity is required.</span
+                      >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.humidity.errors?.pattern"
+                        >Humidity must be a number.</span
+                      >
+                    </span>
+                  </div>
+                  <div class="form-group">
+                    <label for="ph">pH:</label>
+                    <input
+                      type="number"
+                      formControlName="ph"
+                      name="ph"
+                      class="form-control"
+                      step="0.1"
+                      required
+                    />
+                    <span
+                      class="text-danger error-msg"
+                      *ngIf="
+                        myForm.controls.ph.invalid &&
+                        (myForm.controls.ph.dirty || myForm.controls.ph.touched)
+                      "
+                    >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.ph.errors?.required"
+                        >pH is required.</span
+                      >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.ph.errors?.pattern"
+                        >pH must be a number.</span
+                      >
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="rainfall">Rainfall:</label>
+                    <input
+                      type="number"
+                      formControlName="rainfall"
+                      name="rainfall"
+                      class="form-control"
+                      step="0.1"
+                      required
+                    />
+                    <span
+                      class="text-danger error-msg"
+                      *ngIf="
+                        myForm.controls.rainfall.invalid &&
+                        (myForm.controls.rainfall.dirty ||
+                          myForm.controls.rainfall.touched)
+                      "
+                    >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.rainfall.errors?.required"
+                        >Rainfall is required.</span
+                      >
+                      <span
+                        class="error"
+                        *ngIf="myForm.controls.rainfall.errors?.pattern"
+                        >Rainfall must be a number.</span
+                      >
+                    </span>
+                  </div>
+
+                  <br />
+                  <div class="row">
+                    <div class="col">
+                      <button
+                      class="btn btn-success forgot-link d-flex justify-content-start"
+                      type="submit"
+                      [disabled]="!myForm.valid"
+                      (click)="submit()"
+                    >
+                      Submit
+                    </button>
+                    </div>
+                    <div class="col">
+                      <button
+                      class="btn btn-success forgot-link d-flex justify-content-start"
+                      type="submit"
+                      [disabled]="!myForm.valid"
+                      *ngIf="showResult"
+                      (click)="generateScenario(predictionResult)"
+                    >
+                      Generate scenario
+                    </button>
+                    </div>
+                  </div>
+                
+              
+                </form>
+                <br />
+
+                <div *ngIf="showResult">
+                  <h3>Prediction result:</h3>
+                  <p>{{ predictionResult }}</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </body>
+        </div>
+        <!-- end card-body -->
+      </div>
+      <!-- end card -->
+    </div>
+    <!-- end col -->
+
+    <!-- Row -->
+  </div>
+</body>

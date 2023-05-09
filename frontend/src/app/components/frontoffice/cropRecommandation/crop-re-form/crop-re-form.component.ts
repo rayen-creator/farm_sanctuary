@@ -1,8 +1,9 @@
+import { ScenarioService } from './../../../../core/services/scenario.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { PredictionService } from 'src/app/core/services/prediction.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-crop-re-form',
@@ -17,7 +18,12 @@ export class CropReFormComponent implements OnInit {
 
 
   
-    constructor(private predictionService: PredictionService, private fb : FormBuilder, private http: HttpClient) {}
+    constructor(
+      private predictionService: PredictionService, 
+      private fb : FormBuilder, 
+      private http: HttpClient,
+      private scenarioService:ScenarioService
+      ) {}
     ngOnInit(): void {
       this.myForm = this.fb.group({
       N: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]+$/)]),
@@ -31,7 +37,7 @@ export class CropReFormComponent implements OnInit {
     }
     
 
-    onSubmit() {  
+    submit() {  
       //To test my form with constant values
       let values = [104,18, 30, 23.603016, 60.3, 6.7, 140.91]; 
 
@@ -76,6 +82,22 @@ export class CropReFormComponent implements OnInit {
       });
     }
     
-    
+    generateScenario(label:any){
+      Swal.fire({
+        title: 'Are you sure you want to generate event in your calendar?',
+        text: 'This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, update',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.scenarioService.createEventsFromScenario(label);
+
+        }
+
+      })
+    }
   }
   
