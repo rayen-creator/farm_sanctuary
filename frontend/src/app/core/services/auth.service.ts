@@ -47,10 +47,10 @@ export class AuthService {
     private http: HttpClient,
   ) { }
 
-  
 
-  googleLogin(user:any) {
-    const role=roles.CLIENT;
+
+  googleLogin(user: any) {
+    const role = roles.CLIENT;
     const input = {
       username: user.name,
       email: user.email,
@@ -68,25 +68,25 @@ export class AuthService {
         input: input,
       },
     }).subscribe({
-      next:(res)=>{
+      next: (res) => {
         const now = new Date();
         const expirationDate = new Date(
           now.getTime() + 8600 * 1000
         );
         this.saveAuthData(
-          user.idToken, 
+          user.idToken,
           user.name,
           expirationDate,
           role,
           user.photoUrl);
-          this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
 
-      },error:(err)=>{
-        console.log("err",err)
+      }, error: (err) => {
+        console.log("err", err)
         throw err;
       }
     });
-    }
+  }
   loginFaceID(faceLogin: any) {
     return this.http.post(`${environment.flask}/recognize_face`, faceLogin).subscribe({
 
@@ -296,11 +296,13 @@ export class AuthService {
   }
   updateUserData(
     username: string,
+    img: string
   ) {
     localStorage.setItem('username', username);
+    localStorage.setItem('img', img);
+
     this.usernameSubject.next(username);
-    // this.imgUser.next(img);
-    // localStorage.setItem('img', img);
+    this.imgUser.next(img);
   }
   //check if the link is valid
   isresettokenValid(email: string, resettoken: string) {

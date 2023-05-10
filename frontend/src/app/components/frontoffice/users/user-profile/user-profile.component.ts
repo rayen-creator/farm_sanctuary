@@ -116,7 +116,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       if (result.isConfirmed) {
         let newUser = this.userForm.value;
 
-        if (newUser.newpassword == '') {
+        if (newUser.newpassword == null) {
           newUser.newpassword = this.user.password
         }
         const input = {
@@ -155,14 +155,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
               this.usernameExist = userUpdateReponse.updateUser.usernameExists;
               console.log(this.usernameExist)
               if (!this.usernameExist) {
-                this.authService.updateUserData(input.username)
-                Swal.fire('Updated', 'User has been updated successfully.', 'success');
+                this.authService.updateUserData(input.username,this.user.image)
+          Swal.fire('Updated', 'User has been updated successfully.', 'success');
               }
             },
             error: (err) => {
               console.log('err :' + err);
             },
           });
+        
       }
     });
   }
