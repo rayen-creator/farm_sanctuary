@@ -4,8 +4,10 @@
 
   
  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/rayen-creator/farm_sanctuary?style=plastic">
-  <img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/rayen-creator/farm_sanctuary">
+ <img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/rayen-creator/farm_sanctuary">
 <img alt="GitHub forks" src="https://img.shields.io/github/forks/rayen-creator/farm_sanctuary?style=plastic">
+<img alt="GitHub contributors" src="https://img.shields.io/github/contributors/rayen-creator/farm_sanctuary">
+
 <br/>
   <p align="center">
   <img src="https://user-images.githubusercontent.com/57809239/221207130-48888987-0e17-4e94-9000-cc62cbf0fd9c.png" alt="logo" width="40%" height="330px" />
